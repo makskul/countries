@@ -4,7 +4,7 @@ export default {
   },
   newsletter: {
     label: 'Підпишись на дайджест',
-    placeholder: 'твій@email.com',
+    placeholder: "твій{'@'}email.com",
     button: 'Підписатися',
   },
   columns: {
