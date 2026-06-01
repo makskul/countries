@@ -98,6 +98,17 @@
 <script setup lang="ts">
 import { useCountriesList, type CountryStat } from '~/composables/useCountriesList'
 
+useSeoMeta({
+  title: 'Все страны',
+  description: 'Полный список стран с отзывами эмигрантов. Фильтруй по национальности, региону и категории.',
+  ogTitle: 'Все страны — NationView',
+  ogDescription: 'Полный список стран с реальными отзывами эмигрантов. 90+ стран, 48 национальностей.',
+  ogImage: 'https://nationview.app/og/countries.png',
+  ogUrl: 'https://nationview.app/countries',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+})
+
 const store = useUserStore()
 const router = useRouter()
 const route = useRoute()

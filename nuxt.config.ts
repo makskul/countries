@@ -3,7 +3,7 @@ import Aura from '@primevue/themes/aura'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@primevue/nuxt-module', '@nuxtjs/supabase', '@pinia/nuxt'],
+  modules: ['@primevue/nuxt-module', '@nuxtjs/supabase', '@pinia/nuxt', '@nuxtjs/sitemap'],
   css: [
     '@fontsource/inter/400.css',
     '@fontsource/inter/500.css',
@@ -35,6 +35,16 @@ export default defineNuxtConfig({
         }
       }
     }
+  },
+  sitemap: {
+    hostname: 'https://nationview.app',
+    urls: [
+      '/',
+      '/countries',
+      '/about',
+      '/rules',
+      '/privacy',
+    ],
   },
   supabase: {
     redirect: false

@@ -144,6 +144,7 @@
 import { getFlagEmoji, getCountryName, timeAgo } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCountryPage } from '~/composables/useCountryPage'
+import { getNationalityName } from '~/utils/nationalities'
 
 const route = useRoute()
 const router = useRouter()
@@ -166,6 +167,32 @@ const nationality = computed(() => store.nationality)
 const countryName = computed(() => getCountryName(slug.value))
 const flag = computed(() => getFlagEmoji(slug.value))
 const region = computed(() => getRegion(slug.value))
+
+const countryFlag = computed(() => getFlagEmoji(slug.value))
+
+useSeoMeta({
+  title: () => `${countryFlag.value} ${countryName.value} — отзывы ${getNationalityName(nationality.value)}`,
+  description: () => `Реальные отзывы ${getNationalityName(nationality.value)} о жизни в ${countryName.value}. Легализация, цены, безопасность, отношение и бюрократия.`,
+  ogTitle: () => `${countryName.value} глазами ${getNationalityName(nationality.value)}`,
+  ogDescription: () => `Отзывы о визах, ценах, безопасности и жизни в ${countryName.value} от ${getNationalityName(nationality.value)}.`,
+  ogImage: () => `https://nationview.app/og/home.png`,
+  ogUrl: () => `https://nationview.app/country/${slug.value.toLowerCase()}`,
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+})
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: computed(() => JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: `${countryName.value} — отзывы эмигрантов`,
+      description: `Реальные отзывы о жизни в ${countryName.value}`,
+      url: `https://nationview.app/country/${slug.value.toLowerCase()}`,
+    })).value,
+  }],
+})
 
 const {
   rows,

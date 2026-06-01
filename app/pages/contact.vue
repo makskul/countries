@@ -4,3 +4,11 @@
     <p style="color: var(--color-text-secondary)">Напишите нам: <a href="mailto:hello@nationview.app">hello@nationview.app</a></p>
   </div>
 </template>
+
+<script setup lang="ts">
+useSeoMeta({
+  title: 'Связаться с нами',
+  description: 'Есть вопросы или предложения? Напишите команде NationView.',
+  robots: 'noindex, nofollow',
+})
+</script>

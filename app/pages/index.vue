@@ -140,6 +140,20 @@
 <script setup lang="ts">
 import { countryToSlug } from '~/utils/countries'
 
+useSeoMeta({
+  title: 'NationView — Отзывы эмигрантов о странах по национальности',
+  description: 'Узнай страну глазами своей национальности. Реальные отзывы о визах, ценах, отношении и бюрократии от людей как ты.',
+  ogTitle: 'NationView — Отзывы эмигрантов о странах',
+  ogDescription: 'Реальные отзывы о странах отфильтрованные по твоей национальности. Легализация, цены, безопасность, погода.',
+  ogImage: 'https://nationview.app/og/home.png',
+  ogUrl: 'https://nationview.app',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'NationView — Отзывы эмигрантов',
+  twitterDescription: 'Узнай страну глазами своей национальности.',
+  twitterImage: 'https://nationview.app/og/home.png',
+})
+
 const store = useUserStore()
 const router = useRouter()
 

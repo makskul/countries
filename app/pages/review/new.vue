@@ -192,6 +192,18 @@ import { useToast } from 'primevue/usetoast'
 import { getFlagEmoji, getCountryName } from '~/utils/countries'
 import { useReviewForm } from '~/composables/useReviewForm'
 
+useSeoMeta({
+  title: 'Написать отзыв',
+  description: 'Поделись своим опытом жизни в другой стране. Анонимно. Помоги другим эмигрантам принять правильное решение.',
+  ogTitle: 'Написать отзыв о стране — NationView',
+  ogDescription: 'Расскажи о визах, ценах, отношении и бюрократии. Анонимно.',
+  ogImage: 'https://nationview.app/og/home.png',
+  ogUrl: 'https://nationview.app/review/new',
+  ogType: 'website',
+  twitterCard: 'summary',
+  robots: 'noindex, nofollow',
+})
+
 const router = useRouter()
 
 const {

@@ -4,3 +4,11 @@
     <p style="color: var(--color-text-secondary)">Правила публикации отзывов на NationView.</p>
   </div>
 </template>
+
+<script setup lang="ts">
+useSeoMeta({
+  title: 'Правила сайта',
+  description: 'Правила публикации отзывов на NationView.',
+  robots: 'index, follow',
+})
+</script>
