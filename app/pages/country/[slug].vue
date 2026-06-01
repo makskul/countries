@@ -149,6 +149,8 @@ import { getNationalityName } from '~/utils/nationalities'
 const route = useRoute()
 const router = useRouter()
 const store = useUserStore()
+const { t } = useI18n()
+const { getCountryNameLocalized } = useLocalizedCountries()
 
 onMounted(() => {
   store.loadFromStorage()
@@ -206,9 +208,6 @@ const {
   similarCountries,
   markHelpful,
 } = useCountryPage(slug, nationality)
-
-const { t } = useI18n()
-const { getCountryNameLocalized } = useLocalizedCountries()
 
 // Tabs
 const TABS = computed(() => [

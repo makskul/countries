@@ -4,7 +4,7 @@
     <div class="cgc-top">
       <span class="cgc-flag">{{ flag }}</span>
       <div class="cgc-info">
-        <span class="cgc-name">{{ country.name }}</span>
+        <span class="cgc-name">{{ getCountryNameLocalized(country.code) }}</span>
         <span class="cgc-region">{{ country.region }}</span>
       </div>
     </div>
@@ -43,6 +43,7 @@ const props = defineProps<{ country: CountryStat }>()
 defineEmits<{ click: [] }>()
 
 const flag = computed(() => getFlagEmoji(props.country.code))
+const { getCountryNameLocalized } = useLocalizedCountries()
 </script>
 
 <style scoped>

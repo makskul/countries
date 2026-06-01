@@ -136,6 +136,7 @@ function resetFilters() {
 }
 
 const { countries, pending } = useCountriesList()
+const { getCountryNameLocalized } = useLocalizedCountries()
 
 // Sync filters back to URL so links are shareable
 watch([search, region, category, sort], () => {
@@ -153,7 +154,11 @@ const filteredCountries = computed<CountryStat[]>(() => {
 
   if (search.value.trim()) {
     const q = search.value.trim().toLowerCase()
-    list = list.filter(c => c.name.toLowerCase().includes(q) || c.code.toLowerCase().includes(q))
+    list = list.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      c.code.toLowerCase().includes(q) ||
+      getCountryNameLocalized(c.code).toLowerCase().includes(q)
+    )
   }
 
   if (region.value) {

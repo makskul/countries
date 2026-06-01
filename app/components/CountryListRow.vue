@@ -3,7 +3,7 @@
     <div class="clr-left">
       <span class="clr-flag">{{ flag }}</span>
       <div>
-        <span class="clr-name">{{ country.name }}</span>
+        <span class="clr-name">{{ getCountryNameLocalized(country.code) }}</span>
         <span class="clr-region">{{ country.region }}</span>
       </div>
     </div>
@@ -26,6 +26,7 @@ import { getFlagEmoji } from '~/utils/countries'
 const props = defineProps<{ country: CountryStat }>()
 defineEmits<{ click: [] }>()
 const flag = computed(() => getFlagEmoji(props.country.code))
+const { getCountryNameLocalized } = useLocalizedCountries()
 </script>
 
 <style scoped>
