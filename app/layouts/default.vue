@@ -9,9 +9,9 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n()
+const { locale } = useI18n()
 useHead({
-  htmlAttrs: { lang: () => useI18n().locale.value },
+  htmlAttrs: { lang: locale },
   titleTemplate: (title) => title ? `${title} — NationView` : 'NationView',
   meta: [
     { name: 'theme-color', content: '#534AB7' },
