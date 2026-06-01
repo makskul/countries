@@ -1,0 +1,204 @@
+/* ── Cards ─────────────────────────────────────────────── */
+.p-card {
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-card) !important;
+  transition: box-shadow 0.2s ease;
+  background: var(--color-bg) !important;
+}
+.p-card:hover {
+  box-shadow: var(--shadow-hover) !important;
+}
+.p-card .p-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.p-card .p-card-subtitle {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.p-card .p-card-body {
+  padding: var(--space-lg);
+}
+
+/* ── Rating stars ───────────────────────────────────────── */
+.p-rating .p-rating-icon {
+  color: var(--color-border);
+}
+.p-rating .p-rating-icon.p-rating-icon-active {
+  color: var(--color-star) !important;
+}
+.p-rating .p-rating-icon:hover {
+  color: var(--color-star) !important;
+}
+
+/* ── Buttons ────────────────────────────────────────────── */
+.p-button {
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-family: inherit;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+.p-button:not(.p-button-outlined):not(.p-button-text):not(.p-button-link) {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.p-button:not(.p-button-outlined):not(.p-button-text):not(.p-button-link):hover {
+  background: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
+}
+.p-button.p-button-secondary {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
+.p-button.p-button-secondary:hover {
+  background: var(--color-bg-tertiary) !important;
+}
+.p-button.p-button-lg {
+  padding: 12px 28px;
+  font-size: 15px;
+}
+
+/* ── Chips ──────────────────────────────────────────────── */
+.p-chip {
+  background: var(--color-primary-light) !important;
+  color: var(--color-primary-dark) !important;
+  border-radius: var(--radius-pill) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 3px 10px !important;
+  border: none !important;
+}
+
+/* ── Select ─────────────────────────────────────────────── */
+.p-select {
+  border-radius: var(--radius-md) !important;
+  border-color: var(--color-border) !important;
+  font-family: inherit;
+}
+.p-select:focus-within,
+.p-select.p-focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(83, 74, 183, 0.15) !important;
+}
+.p-select-overlay {
+  border-radius: var(--radius-md) !important;
+  border-color: var(--color-border) !important;
+  box-shadow: var(--shadow-hover) !important;
+}
+
+/* ── ProgressBar ────────────────────────────────────────── */
+.p-progressbar {
+  background: var(--color-border-subtle) !important;
+  border-radius: var(--radius-pill) !important;
+  height: 6px !important;
+  overflow: hidden;
+}
+.p-progressbar-value {
+  background: var(--color-primary) !important;
+  border-radius: var(--radius-pill) !important;
+}
+.p-progressbar-label {
+  display: none !important;
+}
+
+/* ── Tabs ───────────────────────────────────────────────── */
+.p-tabs .p-tablist {
+  border-bottom: 2px solid var(--color-border);
+  background: transparent;
+}
+.p-tabs .p-tab {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  padding: 10px 16px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.p-tabs .p-tab:hover {
+  color: var(--color-primary);
+}
+.p-tabs .p-tab.p-tab-active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+.p-tabs .p-tabpanels {
+  padding: var(--space-lg) 0;
+  background: transparent;
+}
+
+/* ── Badge ──────────────────────────────────────────────── */
+.p-badge {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-weight: 600;
+  font-size: 11px;
+  border-radius: var(--radius-pill);
+  padding: 2px 7px;
+  min-width: auto;
+}
+
+/* ── Dialog ─────────────────────────────────────────────── */
+.p-dialog {
+  border-radius: var(--radius-xl) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-hover) !important;
+}
+.p-dialog .p-dialog-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-md) var(--space-lg);
+}
+.p-dialog .p-dialog-content {
+  padding: var(--space-lg);
+}
+
+/* ── Textarea / InputText ───────────────────────────────── */
+.p-textarea,
+.p-inputtext {
+  border-radius: var(--radius-md) !important;
+  border-color: var(--color-border) !important;
+  font-family: inherit;
+  font-size: 15px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.p-textarea:focus,
+.p-inputtext:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(83, 74, 183, 0.15) !important;
+}
+
+/* ── Toast ──────────────────────────────────────────────── */
+.p-toast .p-toast-message {
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-hover) !important;
+}
+
+/* ── Message ────────────────────────────────────────────── */
+.p-message {
+  border-radius: var(--radius-md) !important;
+}
+
+/* ── Skeleton ───────────────────────────────────────────── */
+.p-skeleton {
+  border-radius: var(--radius-md) !important;
+  background: var(--color-bg-secondary) !important;
+}
+
+/* ── Divider ────────────────────────────────────────────── */
+.p-divider::before {
+  border-color: var(--color-border) !important;
+}
+
+/* ── DataView ───────────────────────────────────────────── */
+.p-dataview .p-dataview-header {
+  background: transparent;
+  border: none;
+  padding: 0 0 var(--space-md);
+}

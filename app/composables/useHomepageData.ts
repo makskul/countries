@@ -1,0 +1,126 @@
+import { CATEGORIES, CATEGORY_LABELS } from '~/utils/categories'
+
+export function useHomepageData() {
+  const supabase = useSupabaseClient()
+
+  // Hero stats
+  const { data: stats, pending: statsPending } = useLazyAsyncData('heroStats', async () => {
+    const { data, error } = await supabase
+      .from('reviews')
+      .select('target_country, author_nationality')
+      .eq('is_approved', true)
+    if (error) { console.error('[heroStats]', error.message); return { total: 0, countries: 0, nationalities: 0 } }
+    if (!data?.length) return { total: 0, countries: 0, nationalities: 0 }
+    return {
+      total: data.length,
+      countries: new Set(data.map((r: any) => r.target_country)).size,
+      nationalities: new Set(data.map((r: any) => r.author_nationality)).size,
+    }
+  }, { server: false, dedupe: 'defer' })
+
+  // Trending: last 30 days, fallback to all-time top 100 if empty
+  const { data: trending, pending: trendingPending } = useLazyAsyncData('trending', async () => {
+    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+    let { data, error } = await supabase
+      .from('reviews')
+      .select('target_country, ratings')
+      .eq('is_approved', true)
+      .gte('created_at', since)
+    if (error) { console.error('[trending]', error.message); return [] }
+
+    // Fallback: if nothing in last 30 days, load all-time top
+    if (!data?.length) {
+      const fb = await supabase
+        .from('reviews')
+        .select('target_country, ratings')
+        .eq('is_approved', true)
+        .order('created_at', { ascending: false })
+        .limit(200)
+      if (fb.error) { console.error('[trending fallback]', fb.error.message); return [] }
+      data = fb.data
+    }
+    if (!data?.length) return []
+
+    const grouped: Record<string, { ratingVals: number[]; cats: string[] }> = {}
+    for (const row of data as { target_country: string; ratings: Record<string, number> }[]) {
+      const code = row.target_country
+      if (!grouped[code]) grouped[code] = { ratingVals: [], cats: [] }
+      for (const [cat, val] of Object.entries(row.ratings ?? {})) {
+        if (typeof val === 'number') {
+          grouped[code].ratingVals.push(val)
+          if (!grouped[code].cats.includes(cat)) grouped[code].cats.push(cat)
+        }
+      }
+    }
+
+    return Object.entries(grouped)
+      .map(([code, { ratingVals, cats }]) => ({
+        code,
+        total: ratingVals.length,
+        avgRating: Math.round((ratingVals.reduce((a, b) => a + b, 0) / ratingVals.length) * 10) / 10,
+        topCategories: cats.slice(0, 2),
+      }))
+      .sort((a, b) => b.total - a.total)
+      .slice(0, 6)
+  }, { server: false, dedupe: 'defer' })
+
+  // Latest 3 reviews (show first category with a comment)
+  const { data: latest, pending: latestPending } = useLazyAsyncData('latest', async () => {
+    const { data, error } = await supabase
+      .from('reviews')
+      .select('id, target_country, author_nationality, ratings, comments, created_at')
+      .eq('is_approved', true)
+      .order('created_at', { ascending: false })
+      .limit(3)
+    if (error) { console.error('[latest]', error.message); return [] }
+    return (data ?? []).map((row: any) => {
+      const comments = row.comments as Record<string, string>
+      const ratings = row.ratings as Record<string, number>
+      const catWithComment = CATEGORIES.find(c => comments?.[c]?.trim())
+      return {
+        id: row.id,
+        target_country: row.target_country,
+        author_nationality: row.author_nationality,
+        created_at: row.created_at,
+        category: catWithComment ?? CATEGORIES[0],
+        rating: catWithComment ? (ratings?.[catWithComment] ?? 0) : 0,
+        comment: catWithComment ? (comments?.[catWithComment] ?? null) : null,
+      }
+    })
+  }, { server: false, dedupe: 'defer' })
+
+  // Category highlights (4 selected categories — keys match JSONB in DB)
+  const HIGHLIGHT_CATS = ['legalization', 'cost_of_living', 'safety', 'attitude']
+  const { data: catStats, pending: catPending } = useLazyAsyncData('catStats', async () => {
+    const { data, error } = await supabase
+      .from('reviews')
+      .select('ratings, target_country')
+      .eq('is_approved', true)
+    if (error) { console.error('[catStats]', error.message); return [] }
+    if (!data?.length) return []
+
+    const grouped: Record<string, { vals: number[]; countries: Record<string, number[]> }> = {}
+    for (const row of data as { ratings: Record<string, number>; target_country: string }[]) {
+      for (const cat of HIGHLIGHT_CATS) {
+        const val = row.ratings?.[cat]
+        if (typeof val !== 'number') continue
+        if (!grouped[cat]) grouped[cat] = { vals: [], countries: {} }
+        grouped[cat].vals.push(val)
+        if (!grouped[cat].countries[row.target_country]) grouped[cat].countries[row.target_country] = []
+        grouped[cat].countries[row.target_country].push(val)
+      }
+    }
+
+    return HIGHLIGHT_CATS.map(cat => {
+      const g = grouped[cat]
+      if (!g) return { category: cat, total: 0, avgRating: 0, topCountry: '' }
+      const avgRating = Math.round((g.vals.reduce((a, b) => a + b, 0) / g.vals.length) * 10) / 10
+      const topCountry = Object.entries(g.countries)
+        .map(([code, vals]) => ({ code, avg: vals.reduce((a, b) => a + b, 0) / vals.length }))
+        .sort((a, b) => b.avg - a.avg)[0]?.code ?? ''
+      return { category: cat, total: g.vals.length, avgRating, topCountry }
+    })
+  }, { server: false, dedupe: 'defer' })
+
+  return { stats, statsPending, trending, trendingPending, latest, latestPending, catStats, catPending }
+}

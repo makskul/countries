@@ -1,0 +1,28 @@
+{
+  "name": "countries",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@nuxtjs/supabase": "^2.0.9",
+    "@pinia/nuxt": "^0.11.3",
+    "@primevue/nuxt-module": "^4.5.5",
+    "@primevue/themes": "^4.5.4",
+    "nuxt": "^4.4.6",
+    "pinia": "^3.0.4",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.5.5",
+    "vue": "^3.5.34",
+    "vue-router": "^5.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1"
+  }
+}

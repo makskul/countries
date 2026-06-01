@@ -1,0 +1,256 @@
+/* ── Base ───────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* ── Typography ─────────────────────────────────────────── */
+h1 {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text);
+  margin: 0 0 var(--space-md);
+}
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  margin: 0 0 var(--space-md);
+}
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0 0 var(--space-sm);
+}
+h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0;
+}
+p {
+  margin: 0 0 var(--space-md);
+  color: var(--color-text);
+}
+small,
+.text-sm {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.label-uppercase {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ── Links ──────────────────────────────────────────────── */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ── Layout ─────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* ── Section headings (label + title) ──────────────────── */
+.section-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+.section-header h2 {
+  margin: 0;
+}
+.section-header a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+/* ── Review feed item — left border accent ──────────────── */
+.review-feed-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-md);
+  transition: box-shadow 0.2s ease;
+}
+.review-feed-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* ── Navbar ─────────────────────────────────────────────── */
+.app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+.app-navbar .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  gap: var(--space-lg);
+}
+.app-navbar .nav-logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  white-space: nowrap;
+}
+.app-navbar .nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+.app-navbar .nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.app-navbar .nav-links a:hover {
+  color: var(--color-primary);
+}
+.app-navbar .nav-cta {
+  background: var(--color-primary);
+  color: #fff !important;
+  border-radius: var(--radius-pill);
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.app-navbar .nav-cta:hover {
+  background: var(--color-primary-hover) !important;
+  color: #fff !important;
+}
+
+/* ── Hero section ───────────────────────────────────────── */
+.hero-section {
+  background: var(--color-bg);
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+}
+.hero-section h1 {
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+}
+.hero-section .hero-sub {
+  font-size: 17px;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-stat {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: var(--space-md);
+}
+
+/* ── Trending horizontal scroll ─────────────────────────── */
+.trending-scroll {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  padding-bottom: var(--space-sm);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+.trending-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.trending-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.trending-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+/* ── CTA banner ─────────────────────────────────────────── */
+.cta-banner {
+  background: var(--color-primary-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl) var(--space-lg);
+  text-align: center;
+  margin: var(--space-xl) 0;
+}
+.cta-banner h2 {
+  color: var(--color-primary-dark);
+}
+.cta-banner p {
+  color: var(--color-text-secondary);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  h1 { font-size: 26px; }
+  h2 { font-size: 20px; }
+  .hero-section { padding: var(--space-xl) var(--space-md); }
+  .hero-section h1 { font-size: 28px; }
+  .trending-scroll { flex-direction: column; overflow-x: unset; }
+  .container { padding: 0 var(--space-md); }
+  .app-navbar .nav-links { display: none; }
+}

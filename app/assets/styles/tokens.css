@@ -1,0 +1,50 @@
+:root {
+  /* Brand / accent — purple */
+  --color-primary:        #534AB7;
+  --color-primary-light:  #EEEDFE;
+  --color-primary-mid:    #7F77DD;
+  --color-primary-dark:   #3C3489;
+  --color-primary-hover:  #4840A0;
+
+  /* Neutrals */
+  --color-bg:             #FFFFFF;
+  --color-bg-secondary:   #F7F7F9;
+  --color-bg-tertiary:    #EFEFEF;
+  --color-border:         #E0DFF5;
+  --color-border-subtle:  #F0EFF9;
+
+  /* Text */
+  --color-text:           #1A1A2E;
+  --color-text-secondary: #5C5C7A;
+  --color-text-muted:     #9898B0;
+
+  /* Semantic */
+  --color-success:        #1D9E75;
+  --color-success-light:  #E1F5EE;
+  --color-warning:        #BA7517;
+  --color-warning-light:  #FAEEDA;
+  --color-danger:         #A32D2D;
+  --color-danger-light:   #FCEBEB;
+
+  /* Rating stars */
+  --color-star:           #EF9F27;
+
+  /* Spacing scale */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   40px;
+  --space-2xl:  64px;
+
+  /* Border radius */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-card:  0 1px 4px rgba(83, 74, 183, 0.06);
+  --shadow-hover: 0 4px 16px rgba(83, 74, 183, 0.12);
+}
