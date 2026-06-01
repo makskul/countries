@@ -54,4 +54,9 @@ export default {
     title: 'Latest reviews',
     lead: 'Fresh reviews from expats around the world',
   },
+  categories: {
+    title: 'Rating categories',
+    lead: 'Each review rates a country across 10 categories. Here\'s what they mean.',
+    seeCountries: 'Browse countries →',
+  },
 }

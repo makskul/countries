@@ -2,8 +2,8 @@
   <div class="cat-page">
     <div class="cat-container">
       <div class="cat-header">
-        <h1>Категорії оцінювання</h1>
-        <p class="cat-lead">Кожен відгук оцінює країну за 10 категоріями. Ось що вони означають.</p>
+        <h1>{{ $t('pages.categories.title') }}</h1>
+        <p class="cat-lead">{{ $t('pages.categories.lead') }}</p>
       </div>
 
       <div class="cat-grid">
@@ -32,9 +32,11 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
 useSeoMeta({
-  title: 'Категорії',
-  description: 'Всі категорії оцінювання країн на NationView: легалізація, вартість життя, безпека, відношення і більше.',
+  title: () => t('pages.categories.title'),
+  description: () => t('seo.about.description'),
   robots: 'index, follow',
 })
 
