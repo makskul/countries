@@ -8,7 +8,7 @@ export default {
     description: 'Повний список країн з відгуками емігрантів. Фільтруй за національністю, регіоном і категорією.',
   },
   country: {
-    title: '{flag} {country} — відгуки {nationality}',
+    reviewsOf: 'відгуки',
     description: 'Реальні відгуки {nationality} про життя в {country}. Легалізація, ціни, безпека, ставлення і бюрократія.',
   },
   review: {
@@ -18,5 +18,17 @@ export default {
   about: {
     title: 'Про проект',
     description: 'NationView — платформа реальних відгуків емігрантів про країни, відфільтрованих за національністю.',
+  },
+  rules: {
+    title: 'Правила сайту',
+    description: 'Правила публікації відгуків на NationView.',
+  },
+  privacy: {
+    title: 'Політика конфіденційності',
+    description: 'Як NationView збирає та обробляє дані користувачів.',
+  },
+  contact: {
+    title: 'Зв\'язатися з нами',
+    description: 'Є питання або пропозиції? Напишіть команді NationView.',
   },
 }

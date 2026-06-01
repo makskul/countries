@@ -171,11 +171,11 @@ const region = computed(() => getRegion(slug.value))
 const countryFlag = computed(() => getFlagEmoji(slug.value))
 
 useSeoMeta({
-  title: () => `${countryFlag.value} ${countryName.value} — отзывы ${getNationalityName(nationality.value)}`,
-  description: () => `Реальные отзывы ${getNationalityName(nationality.value)} о жизни в ${countryName.value}. Легализация, цены, безопасность, отношение и бюрократия.`,
-  ogTitle: () => `${countryName.value} глазами ${getNationalityName(nationality.value)}`,
-  ogDescription: () => `Отзывы о визах, ценах, безопасности и жизни в ${countryName.value} от ${getNationalityName(nationality.value)}.`,
-  ogImage: () => `https://nationview.app/og/home.png`,
+  title: () => `${countryFlag.value} ${countryName.value} — ${t('seo.country.reviewsOf')} ${getNationalityName(nationality.value)}`,
+  description: () => t('seo.country.description', { nationality: getNationalityName(nationality.value), country: countryName.value }),
+  ogTitle: () => `${countryName.value} — ${getNationalityName(nationality.value)}`,
+  ogDescription: () => t('seo.country.description', { nationality: getNationalityName(nationality.value), country: countryName.value }),
+  ogImage: 'https://nationview.app/og/home.png',
   ogUrl: () => `https://nationview.app/country/${slug.value.toLowerCase()}`,
   ogType: 'website',
   twitterCard: 'summary_large_image',

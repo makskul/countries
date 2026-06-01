@@ -6,9 +6,6 @@
 </template>
 
 <script setup lang="ts">
-useSeoMeta({
-  title: 'Правила сайта',
-  description: 'Правила публикации отзывов на NationView.',
-  robots: 'index, follow',
-})
+const { t } = useI18n()
+useSeoMeta({ title: () => t('seo.rules.title'), description: () => t('seo.rules.description'), robots: 'index, follow' })
 </script>

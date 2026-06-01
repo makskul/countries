@@ -98,11 +98,13 @@
 <script setup lang="ts">
 import { useCountriesList, type CountryStat } from '~/composables/useCountriesList'
 
+const { t } = useI18n()
+
 useSeoMeta({
-  title: 'Все страны',
-  description: 'Полный список стран с отзывами эмигрантов. Фильтруй по национальности, региону и категории.',
-  ogTitle: 'Все страны — NationView',
-  ogDescription: 'Полный список стран с реальными отзывами эмигрантов. 90+ стран, 48 национальностей.',
+  title: () => t('seo.countries.title'),
+  description: () => t('seo.countries.description'),
+  ogTitle: () => t('seo.countries.title'),
+  ogDescription: () => t('seo.countries.description'),
   ogImage: 'https://nationview.app/og/countries.png',
   ogUrl: 'https://nationview.app/countries',
   ogType: 'website',

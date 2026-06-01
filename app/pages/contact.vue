@@ -6,9 +6,6 @@
 </template>
 
 <script setup lang="ts">
-useSeoMeta({
-  title: 'Связаться с нами',
-  description: 'Есть вопросы или предложения? Напишите команде NationView.',
-  robots: 'noindex, nofollow',
-})
+const { t } = useI18n()
+useSeoMeta({ title: () => t('seo.contact.title'), description: () => t('seo.contact.description'), robots: 'noindex, nofollow' })
 </script>

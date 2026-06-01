@@ -16,8 +16,8 @@
       <!-- Center nav links -->
       <div class="nav-links">
         <NuxtLink to="/countries">{{ $t('nav.links.countries') }}</NuxtLink>
-        <NuxtLink to="/">{{ $t('nav.links.categories') }}</NuxtLink>
-        <NuxtLink to="/">{{ $t('nav.links.about') }}</NuxtLink>
+        <NuxtLink to="/categories">{{ $t('nav.links.categories') }}</NuxtLink>
+        <NuxtLink to="/about">{{ $t('nav.links.about') }}</NuxtLink>
       </div>
 
       <!-- Lang switcher + Right CTA -->

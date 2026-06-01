@@ -9,11 +9,11 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 useHead({
-  htmlAttrs: { lang: 'ru' },
-  titleTemplate: '%s — NationView',
+  htmlAttrs: { lang: () => useI18n().locale.value },
+  titleTemplate: (title) => title ? `${title} — NationView` : 'NationView',
   meta: [
-    { name: 'description', content: 'Реальные отзывы эмигрантов о странах — отфильтрованные по твоей национальности.' },
     { name: 'theme-color', content: '#534AB7' },
   ],
   link: [

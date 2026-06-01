@@ -6,9 +6,6 @@
 </template>
 
 <script setup lang="ts">
-useSeoMeta({
-  title: 'Политика конфиденциальности',
-  description: 'Как NationView собирает и обрабатывает данные пользователей.',
-  robots: 'index, follow',
-})
+const { t } = useI18n()
+useSeoMeta({ title: () => t('seo.privacy.title'), description: () => t('seo.privacy.description'), robots: 'index, follow' })
 </script>

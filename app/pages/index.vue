@@ -69,7 +69,7 @@
             <span class="section-label">{{ $t('homepage.latest.sectionLabel') }}</span>
             <h2 class="section-title">{{ $t('homepage.latest.title') }}</h2>
           </div>
-          <NuxtLink to="/" class="section-link">{{ $t('homepage.latest.seeAll') }}</NuxtLink>
+          <NuxtLink to="/reviews" class="section-link">{{ $t('homepage.latest.seeAll') }}</NuxtLink>
         </div>
 
         <div v-if="latestPending" class="reviews-list">
@@ -135,17 +135,19 @@
 <script setup lang="ts">
 import { countryToSlug } from '~/utils/countries'
 
+const { t } = useI18n()
+
 useSeoMeta({
-  title: 'NationView — Отзывы эмигрантов о странах по национальности',
-  description: 'Узнай страну глазами своей национальности. Реальные отзывы о визах, ценах, отношении и бюрократии от людей как ты.',
-  ogTitle: 'NationView — Отзывы эмигрантов о странах',
-  ogDescription: 'Реальные отзывы о странах отфильтрованные по твоей национальности. Легализация, цены, безопасность, погода.',
+  title: () => t('seo.home.title'),
+  description: () => t('seo.home.description'),
+  ogTitle: () => t('seo.home.title'),
+  ogDescription: () => t('seo.home.description'),
   ogImage: 'https://nationview.app/og/home.png',
   ogUrl: 'https://nationview.app',
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'NationView — Отзывы эмигрантов',
-  twitterDescription: 'Узнай страну глазами своей национальности.',
+  twitterTitle: () => t('seo.home.title'),
+  twitterDescription: () => t('seo.home.description'),
   twitterImage: 'https://nationview.app/og/home.png',
 })
 

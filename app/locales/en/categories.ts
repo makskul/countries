@@ -9,4 +9,6 @@ export default {
   cleanliness:      { name: 'Cleanliness',         hint: 'Infrastructure, order'              },
   healthcare:       { name: 'Healthcare',          hint: 'Quality, accessibility'             },
   overall:          { name: 'Overall rating',      hint: 'Overall impression of the country'  },
+  cost:             { name: 'Cost of living',     hint: 'Rent, food, transport'              },
+  documents:        { name: 'Documents',           hint: 'Speed, bureaucracy'                 },
 }

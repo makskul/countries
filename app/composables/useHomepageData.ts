@@ -73,20 +73,7 @@ export function useHomepageData() {
       .order('created_at', { ascending: false })
       .limit(3)
     if (error) { console.error('[latest]', error.message); return [] }
-    return (data ?? []).map((row: any) => {
-      const comments = row.comments as Record<string, string>
-      const ratings = row.ratings as Record<string, number>
-      const catWithComment = CATEGORIES.find(c => comments?.[c]?.trim())
-      return {
-        id: row.id,
-        target_country: row.target_country,
-        author_nationality: row.author_nationality,
-        created_at: row.created_at,
-        category: catWithComment ?? CATEGORIES[0],
-        rating: catWithComment ? (ratings?.[catWithComment] ?? 0) : 0,
-        comment: catWithComment ? (comments?.[catWithComment] ?? null) : null,
-      }
-    })
+    return (data ?? []) as any[]
   }, { server: false, dedupe: 'defer' })
 
   // Category highlights (4 selected categories — keys match JSONB in DB)

@@ -9,4 +9,7 @@ export default {
   cleanliness:      { name: 'Чистота',            hint: 'Інфраструктура, порядок'      },
   healthcare:       { name: 'Медицина',           hint: 'Якість, доступність'          },
   overall:          { name: 'Загальна оцінка',    hint: 'Загальне враження про країну' },
+  // Legacy key aliases (old DB data)
+  cost:             { name: 'Вартість життя',    hint: 'Оренда, їжа, транспорт'      },
+  documents:        { name: 'Документи',          hint: 'Швидкість, бюрократія'        },
 }

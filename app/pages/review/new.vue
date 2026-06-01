@@ -191,10 +191,10 @@ import { getFlagEmoji } from '~/utils/countries'
 import { useReviewForm } from '~/composables/useReviewForm'
 
 useSeoMeta({
-  title: 'Написать отзыв',
-  description: 'Поделись своим опытом жизни в другой стране. Анонимно. Помоги другим эмигрантам принять правильное решение.',
-  ogTitle: 'Написать отзыв о стране — NationView',
-  ogDescription: 'Расскажи о визах, ценах, отношении и бюрократии. Анонимно.',
+  title: () => t('seo.review.title'),
+  description: () => t('seo.review.description'),
+  ogTitle: () => t('seo.review.title'),
+  ogDescription: () => t('seo.review.description'),
   ogImage: 'https://nationview.app/og/home.png',
   ogUrl: 'https://nationview.app/review/new',
   ogType: 'website',
