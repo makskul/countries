@@ -8,6 +8,7 @@ import review from './review'
 import nationalities from './nationalities'
 import categories from './categories'
 import seo from './seo'
+import pages from './pages'
 
 export default {
   common,
@@ -20,4 +21,5 @@ export default {
   nationalities,
   categories,
   seo,
+  pages,
 }

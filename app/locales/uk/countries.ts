@@ -21,6 +21,7 @@ export default {
       americas: 'Америка',
       africa: 'Африка',
       oceania: 'Океанія',
+      other: 'Інше',
     },
   },
   card: {

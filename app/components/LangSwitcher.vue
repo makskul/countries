@@ -1,19 +1,20 @@
 <template>
   <div class="lang-switcher">
-    <span
+    <NuxtLink
       v-for="loc in availableLocales"
       :key="loc.code"
+      :to="switchLocalePath(loc.code)"
       class="lang-option"
       :class="{ active: locale === loc.code }"
-      @click="setLocale(loc.code)"
     >
       {{ loc.code.toUpperCase() }}
-    </span>
+    </NuxtLink>
   </div>
 </template>
 
 <script setup lang="ts">
-const { locale, locales, setLocale } = useI18n()
+const { locale, locales } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 const availableLocales = computed(() => locales.value)
 </script>
 

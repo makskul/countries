@@ -3,7 +3,7 @@
     <div v-for="cat in filledCategories" :key="cat" class="rc-entry">
       <!-- Row 1 -->
       <div class="rc-row1">
-        <span class="rc-chip">{{ CATEGORY_LABELS[cat] }}</span>
+        <span class="rc-chip">{{ $t(`categories.${cat}.name`) }}</span>
         <Rating :modelValue="review.ratings[cat]" readonly :cancel="false" :stars="5" />
       </div>
       <!-- Comment -->
@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { getFlagEmoji, timeAgo } from '~/utils/countries'
-import { CATEGORIES, CATEGORY_LABELS } from '~/utils/categories'
+import { CATEGORIES } from '~/utils/categories'
 import type { RawReview } from '~/composables/useCountryPage'
 
 const { getCountryNameLocalized } = useLocalizedCountries()

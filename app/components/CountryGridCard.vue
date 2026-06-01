@@ -5,7 +5,7 @@
       <span class="cgc-flag">{{ flag }}</span>
       <div class="cgc-info">
         <span class="cgc-name">{{ getCountryNameLocalized(country.code) }}</span>
-        <span class="cgc-region">{{ country.region }}</span>
+        <span class="cgc-region">{{ $t(`countries.filters.regions.${country.region}`) }}</span>
       </div>
     </div>
 

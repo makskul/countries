@@ -41,7 +41,7 @@
             <span class="section-label">{{ $t('homepage.trending.sectionLabel') }}</span>
             <h2 class="section-title">{{ $t('homepage.trending.title') }}</h2>
           </div>
-          <NuxtLink to="/countries" class="section-link">{{ $t('common.buttons.seeAll') }}</NuxtLink>
+          <NuxtLinkLocale to="/countries" class="section-link">{{ $t('common.buttons.seeAll') }}</NuxtLinkLocale>
         </div>
 
         <div v-if="trendingPending" class="grid-3">
@@ -69,7 +69,7 @@
             <span class="section-label">{{ $t('homepage.latest.sectionLabel') }}</span>
             <h2 class="section-title">{{ $t('homepage.latest.title') }}</h2>
           </div>
-          <NuxtLink to="/reviews" class="section-link">{{ $t('homepage.latest.seeAll') }}</NuxtLink>
+          <NuxtLinkLocale to="/reviews" class="section-link">{{ $t('homepage.latest.seeAll') }}</NuxtLinkLocale>
         </div>
 
         <div v-if="latestPending" class="reviews-list">
@@ -113,9 +113,9 @@
           <h3 class="cta-title">{{ $t('homepage.cta.title') }}</h3>
           <p class="cta-sub">{{ $t('homepage.cta.subtitle') }}</p>
         </div>
-        <NuxtLink to="/review/new">
+        <NuxtLinkLocale to="/review/new">
           <button class="cta-btn">{{ $t('common.buttons.writeReview') }}</button>
-        </NuxtLink>
+        </NuxtLinkLocale>
       </div>
     </section>
 
@@ -153,6 +153,7 @@ useSeoMeta({
 
 const store = useUserStore()
 const router = useRouter()
+const localePath = useLocalePath()
 
 onMounted(() => store.loadFromStorage())
 
@@ -164,7 +165,7 @@ const { stats, statsPending, trending, trendingPending, latest, latestPending, c
 function handleSubmit() {
   if (!nationality.value || !targetCountry.value) return
   store.setNationality(nationality.value)
-  router.push(`/country/${countryToSlug(targetCountry.value)}`)
+  router.push(localePath(`/country/${countryToSlug(targetCountry.value)}`))
 }
 
 const showNationalityDialog = ref(false)
@@ -178,14 +179,14 @@ function handleTrendingClick(code: string) {
     showNationalityDialog.value = true
     return
   }
-  router.push(`/country/${code.toLowerCase()}`)
+  router.push(localePath(`/country/${code.toLowerCase()}`))
 }
 
 function confirmNationalityAndRedirect() {
   if (!dialogNationality.value) return
   store.setNationality(dialogNationality.value)
   showNationalityDialog.value = false
-  router.push(`/country/${pendingRedirectCode.value.toLowerCase()}`)
+  router.push(localePath(`/country/${pendingRedirectCode.value.toLowerCase()}`))
 }
 </script>
 

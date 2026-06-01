@@ -21,6 +21,7 @@ export function useReviewForm() {
   const router = useRouter()
   const route = useRoute()
   const toast = useToast()
+  const localePath = useLocalePath()
 
   const form = reactive({
     country: (route.query.country as string) || '',
@@ -92,7 +93,7 @@ export function useReviewForm() {
       submitSuccess.value = true
       toast.add({ severity: 'success', summary: 'Спасибо! 🎉', detail: 'Отзыв успешно отправлен', life: 3000 })
       setTimeout(() => {
-        router.push(`/country/${form.country.toLowerCase()}`)
+        router.push(localePath(`/country/${form.country.toLowerCase()}`))
       }, 2000)
     } catch (err: any) {
       toast.add({ severity: 'error', summary: 'Ошибка', detail: err.message ?? 'Не удалось отправить', life: 4000 })

@@ -3,7 +3,7 @@
 
     <!-- BREADCRUMB -->
     <div class="breadcrumb">
-      <NuxtLink to="/" class="bc-link">{{ $t('nav.breadcrumbs.home') }}</NuxtLink>
+      <NuxtLinkLocale to="/" class="bc-link">{{ $t('nav.breadcrumbs.home') }}</NuxtLinkLocale>
       <span class="bc-sep">→</span>
       <span class="bc-current">{{ $t('review.breadcrumb') }}</span>
     </div>

@@ -4,7 +4,7 @@
       <span class="clr-flag">{{ flag }}</span>
       <div>
         <span class="clr-name">{{ getCountryNameLocalized(country.code) }}</span>
-        <span class="clr-region">{{ country.region }}</span>
+        <span class="clr-region">{{ $t(`countries.filters.regions.${country.region}`) }}</span>
       </div>
     </div>
     <div class="clr-center">

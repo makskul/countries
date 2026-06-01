@@ -76,7 +76,7 @@
               &nbsp;
             </span>
           </template>
-          <NuxtLink to="/countries" class="fcol-link fcol-link--dim">{{ $t('footer.links.allCountries') }}</NuxtLink>
+          <NuxtLinkLocale to="/countries" class="fcol-link fcol-link--dim">{{ $t('footer.links.allCountries') }}</NuxtLinkLocale>
         </div>
       </div>
 
@@ -84,15 +84,15 @@
       <div class="fcol">
         <span class="fcol-title">{{ $t('footer.columns.categories') }}</span>
         <div class="fcol-links">
-          <NuxtLink to="/countries?category=legalization" class="fcol-link">{{ $t('categories.legalization.name') }}</NuxtLink>
-          <NuxtLink to="/countries?category=cost" class="fcol-link">{{ $t('categories.cost_of_living.name') }}</NuxtLink>
-          <NuxtLink to="/countries?category=safety" class="fcol-link">{{ $t('categories.safety.name') }}</NuxtLink>
-          <NuxtLink to="/countries?category=attitude" class="fcol-link">{{ $t('categories.attitude.name') }}</NuxtLink>
-          <NuxtLink to="/countries?category=documents" class="fcol-link">
+          <NuxtLinkLocale to="/countries?category=legalization" class="fcol-link">{{ $t('categories.legalization.name') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/countries?category=cost" class="fcol-link">{{ $t('categories.cost_of_living.name') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/countries?category=safety" class="fcol-link">{{ $t('categories.safety.name') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/countries?category=attitude" class="fcol-link">{{ $t('categories.attitude.name') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/countries?category=documents" class="fcol-link">
             {{ $t('categories.bureaucracy.name') }}
             <span class="fnew-badge">new</span>
-          </NuxtLink>
-          <NuxtLink to="/countries?category=weather" class="fcol-link">{{ $t('categories.weather.name') }}</NuxtLink>
+          </NuxtLinkLocale>
+          <NuxtLinkLocale to="/countries?category=weather" class="fcol-link">{{ $t('categories.weather.name') }}</NuxtLinkLocale>
         </div>
       </div>
 
@@ -100,11 +100,11 @@
       <div class="fcol">
         <span class="fcol-title">{{ $t('footer.columns.about') }}</span>
         <div class="fcol-links">
-          <NuxtLink to="/about" class="fcol-link">{{ $t('footer.links.howItWorks') }}</NuxtLink>
-          <NuxtLink to="/review/new" class="fcol-link">{{ $t('footer.links.writeReview') }}</NuxtLink>
-          <NuxtLink to="/rules" class="fcol-link">{{ $t('footer.links.rules') }}</NuxtLink>
-          <NuxtLink to="/contact" class="fcol-link">{{ $t('footer.links.contact') }}</NuxtLink>
-          <NuxtLink to="/privacy" class="fcol-link">{{ $t('footer.links.privacy') }}</NuxtLink>
+          <NuxtLinkLocale to="/about" class="fcol-link">{{ $t('footer.links.howItWorks') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/review/new" class="fcol-link">{{ $t('footer.links.writeReview') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/rules" class="fcol-link">{{ $t('footer.links.rules') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/contact" class="fcol-link">{{ $t('footer.links.contact') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/privacy" class="fcol-link">{{ $t('footer.links.privacy') }}</NuxtLinkLocale>
         </div>
       </div>
 
@@ -117,9 +117,9 @@
       </span>
 
       <div class="fbar-legal">
-        <NuxtLink to="/terms" class="fbar-link">{{ $t('footer.links.terms') }}</NuxtLink>
-        <NuxtLink to="/privacy" class="fbar-link">{{ $t('footer.links.privacy') }}</NuxtLink>
-        <NuxtLink to="/privacy" class="fbar-link">{{ $t('footer.links.cookies') }}</NuxtLink>
+        <NuxtLinkLocale to="/terms" class="fbar-link">{{ $t('footer.links.terms') }}</NuxtLinkLocale>
+        <NuxtLinkLocale to="/privacy" class="fbar-link">{{ $t('footer.links.privacy') }}</NuxtLinkLocale>
+        <NuxtLinkLocale to="/privacy" class="fbar-link">{{ $t('footer.links.cookies') }}</NuxtLinkLocale>
       </div>
 
       <div class="fbar-social">

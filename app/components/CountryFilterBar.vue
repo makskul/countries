@@ -17,7 +17,7 @@
       :options="REGION_OPTIONS"
       optionLabel="label"
       optionValue="value"
-      placeholder="Все регионы"
+      :placeholder="$t('countries.filters.regions.all')"
       class="cfb-select"
     />
 
@@ -27,7 +27,7 @@
       :options="CATEGORY_OPTIONS"
       optionLabel="label"
       optionValue="value"
-      placeholder="Любая категория"
+      :placeholder="$t('countries.filters.allCategories')"
       class="cfb-select"
     />
 
@@ -49,8 +49,6 @@
 </template>
 
 <script setup lang="ts">
-import { REGION_OPTIONS as RAW_REGION_OPTIONS } from '~/utils/regions'
-
 const { t } = useI18n()
 
 const props = defineProps<{
@@ -99,16 +97,14 @@ const CATEGORY_OPTIONS = computed(() => [
   { label: t('categories.weather.name'), value: 'weather' },
 ])
 
-const REGION_OPTIONS = computed(() => RAW_REGION_OPTIONS.map((opt: { label: string; value: string }) => {
-  const key = opt.value === '' ? 'all'
-    : opt.value === 'Европа' ? 'europe'
-    : opt.value === 'Азия' ? 'asia'
-    : opt.value === 'Америка' ? 'americas'
-    : opt.value === 'Африка' ? 'africa'
-    : opt.value === 'Океания' ? 'oceania'
-    : null
-  return { ...opt, label: key ? t(`countries.filters.regions.${key}`) : opt.label }
-}))
+const REGION_OPTIONS = computed(() => [
+  { label: t('countries.filters.regions.all'),      value: '' },
+  { label: t('countries.filters.regions.europe'),   value: 'europe' },
+  { label: t('countries.filters.regions.asia'),     value: 'asia' },
+  { label: t('countries.filters.regions.americas'), value: 'americas' },
+  { label: t('countries.filters.regions.africa'),   value: 'africa' },
+  { label: t('countries.filters.regions.oceania'),  value: 'oceania' },
+])
 
 const SORT_OPTIONS = computed(() => [
   { label: t('countries.filters.sort.popular'), value: 'popular' },

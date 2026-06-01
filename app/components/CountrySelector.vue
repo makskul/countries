@@ -1,5 +1,6 @@
 <template>
   <Select
+    :key="locale"
     v-model="selected"
     :options="countryList"
     optionLabel="name"
@@ -34,5 +35,6 @@ const emit = defineEmits<{ 'update:modelValue': [value: string] }>()
 const selected = ref(props.modelValue)
 watch(() => props.modelValue, v => { selected.value = v })
 
+const { locale } = useI18n()
 const { countryList, getCountryNameLocalized } = useLocalizedCountries()
 </script>

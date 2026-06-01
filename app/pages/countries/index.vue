@@ -114,6 +114,7 @@ useSeoMeta({
 const store = useUserStore()
 const router = useRouter()
 const route = useRoute()
+const localePath = useLocalePath()
 
 onMounted(() => store.loadFromStorage())
 
@@ -212,7 +213,7 @@ function navigateTo(code: string) {
     showNatDialog.value = true
     return
   }
-  router.push(`/country/${code.toLowerCase()}`)
+  router.push(localePath(`/country/${code.toLowerCase()}`))
 }
 
 function confirmNat() {
@@ -220,7 +221,7 @@ function confirmNat() {
   store.setNationality(dialogNationality.value)
   nationality.value = dialogNationality.value
   showNatDialog.value = false
-  router.push(`/country/${pendingCode.value.toLowerCase()}`)
+  router.push(localePath(`/country/${pendingCode.value.toLowerCase()}`))
 }
 </script>
 

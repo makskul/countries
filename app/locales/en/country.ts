@@ -1,6 +1,6 @@
 export default {
   tabs: { overview: 'Overview', legalization: 'Legalization', cost: 'Prices', safety: 'Safety', attitude: 'Attitude', documents: 'Documents', weather: 'Weather', allReviews: 'All reviews' },
-  header: { overallRating: 'Overall rating', totalReviews: '{count} reviews', ratedBy: '{count} users rated', lastReview: 'Latest: {time}' },
+  header: { overallRating: 'Overall rating', totalReviews: '{count} reviews', ratedBy: '{count} users rated', lastReview: 'Latest: {time}', reviewsBy: 'Reviews' },
   natFilter: { showing: 'Showing reviews for', change: 'Change →' },
   scores: { title: 'Ratings by category' },
   reviews: { sectionLabel: 'Recent reviews', title: 'Latest reviews', helpful: 'Helpful ({count})', sortNew: 'Newest first', sortHelpful: 'Most helpful', sortHigh: 'High rating', sortLow: 'Low rating', loadMore: 'Load more reviews →', noComment: 'No comment' },

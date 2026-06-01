@@ -2,9 +2,9 @@
   <div class="sidebar">
     <!-- Card 1: Actions -->
     <div class="s-card">
-      <NuxtLink :to="`/review/new?country=${countryCode}`">
+      <NuxtLinkLocale :to="`/review/new?country=${countryCode}`">
         <button class="s-btn-primary">+ Написать отзыв о {{ countryName }}</button>
-      </NuxtLink>
+      </NuxtLinkLocale>
       <button class="s-btn-secondary" @click="handleShare">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
         Поделиться страницей
@@ -50,7 +50,7 @@
           v-for="c in similar"
           :key="c.code"
           class="s-similar-row"
-          @click="router.push(`/country/${c.code.toLowerCase()}`)"
+          @click="router.push(localePath(`/country/${c.code.toLowerCase()}`))"
         >
           <span class="s-similar-left">
             {{ getFlagEmoji(c.code) }}
@@ -69,14 +69,14 @@ import { getCountryMeta } from '~/utils/countryMeta'
 import { getVisaInfo } from '~/utils/visaInfo'
 
 const { getCountryNameLocalized } = useLocalizedCountries()
+const router = useRouter()
+const localePath = useLocalePath()
 
 const props = defineProps<{
   countryCode: string
   nationality: string
   similar: { code: string; avgRating: number }[] | null
 }>()
-
-const router = useRouter()
 const countryName = computed(() => getCountryNameLocalized(props.countryCode))
 const meta = computed(() => getCountryMeta(props.countryCode))
 const visaInfo = computed(() => props.nationality ? getVisaInfo(props.nationality, props.countryCode) : null)

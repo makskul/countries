@@ -8,7 +8,7 @@ export default {
     allCategories: 'Любая категория',
     found: 'Найдено {count} стран',
     sort: { popular: 'Популярные', ratingDesc: 'Лучший рейтинг', ratingAsc: 'Худший рейтинг', reviewsDesc: 'Больше отзывов', recent: 'Недавно добавленные' },
-    regions: { all: 'Все регионы', europe: 'Европа', asia: 'Азия', americas: 'Америка', africa: 'Африка', oceania: 'Океания' },
+    regions: { all: 'Все регионы', europe: 'Европа', asia: 'Азия', americas: 'Америка', africa: 'Африка', oceania: 'Океания', other: 'Другое' },
   },
   card: { reviews: '{count} отзывов', hasReviews: 'Есть отзывы для вас', noReviews: 'Нет отзывов для вашей нац.' },
   empty: { message: 'Нет стран по вашему запросу — попробуй изменить фильтры', reset: 'Сбросить фильтры' },

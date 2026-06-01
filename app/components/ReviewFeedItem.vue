@@ -15,7 +15,7 @@
         <span class="rfi-nat-label">{{ authorNatLabel }}</span>
       </span>
       <span class="rfi-time">{{ time }}</span>
-      <NuxtLink :to="`/country/${review.target_country.toLowerCase()}`" class="rfi-read">{{ $t('common.buttons.readMore') }}</NuxtLink>
+      <NuxtLinkLocale :to="`/country/${review.target_country.toLowerCase()}`" class="rfi-read">{{ $t('common.buttons.readMore') }}</NuxtLinkLocale>
     </div>
   </div>
 </template>

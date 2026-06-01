@@ -4,17 +4,17 @@
 
       <!-- Header -->
       <div class="rv-header">
-        <NuxtLink to="/" class="rv-back">← На головну</NuxtLink>
-        <h1>Останні відгуки</h1>
-        <p class="rv-lead">Свіжі відгуки від емігрантів з усього світу</p>
+        <NuxtLinkLocale to="/" class="rv-back">{{ $t('pages.reviews.backHome') }}</NuxtLinkLocale>
+        <h1>{{ $t('pages.reviews.title') }}</h1>
+        <p class="rv-lead">{{ $t('pages.reviews.lead') }}</p>
       </div>
 
       <!-- Today's reviews -->
       <template v-if="!pending">
         <div v-if="todayReviews.length" class="rv-section">
           <div class="rv-section-label">
-            <span class="rv-badge rv-badge--today">Сьогодні</span>
-            <span class="rv-count">{{ todayReviews.length }} відгуків</span>
+            <span class="rv-badge rv-badge--today">{{ $t('pages.reviews.today') }}</span>
+            <span class="rv-count">{{ $t('pages.reviews.reviewsCount', { count: todayReviews.length }) }}</span>
           </div>
           <div :class="gridClass(todayReviews.length)">
             <ReviewFeedItem v-for="r in todayReviews" :key="r.id" :review="r" />
@@ -23,7 +23,7 @@
 
         <div v-if="olderReviews.length" class="rv-section">
           <div class="rv-section-label" v-if="todayReviews.length">
-            <span class="rv-badge">Раніше</span>
+            <span class="rv-badge">{{ $t('pages.reviews.earlier') }}</span>
           </div>
           <div :class="gridClass(olderReviews.length)">
             <ReviewFeedItem v-for="r in olderReviews" :key="r.id" :review="r" />
@@ -31,13 +31,13 @@
         </div>
 
         <div v-if="!reviews?.length" class="rv-empty">
-          <p>Відгуків поки немає</p>
+          <p>{{ $t('pages.reviews.empty') }}</p>
         </div>
 
         <!-- Load more -->
         <div v-if="hasMore" class="rv-loadmore">
           <button class="rv-loadmore-btn" @click="loadMore" :disabled="loadingMore">
-            {{ loadingMore ? 'Завантаження...' : 'Завантажити ще →' }}
+            {{ loadingMore ? $t('pages.reviews.loading') : $t('pages.reviews.loadMore') }}
           </button>
         </div>
       </template>

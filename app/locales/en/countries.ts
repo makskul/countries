@@ -8,7 +8,7 @@ export default {
     allCategories: 'Any category',
     found: 'Found {count} countries',
     sort: { popular: 'Popular', ratingDesc: 'Best rating', ratingAsc: 'Worst rating', reviewsDesc: 'Most reviews', recent: 'Recently added' },
-    regions: { all: 'All regions', europe: 'Europe', asia: 'Asia', americas: 'Americas', africa: 'Africa', oceania: 'Oceania' },
+    regions: { all: 'All regions', europe: 'Europe', asia: 'Asia', americas: 'Americas', africa: 'Africa', oceania: 'Oceania', other: 'Other' },
   },
   card: { reviews: '{count} reviews', hasReviews: 'Has reviews for you', noReviews: 'No reviews for your nationality' },
   empty: { message: 'No countries found — try changing filters', reset: 'Reset filters' },

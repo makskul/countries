@@ -22,9 +22,9 @@
           </div>
           <h3 class="cat-name">{{ $t(`categories.${cat.key}.name`) }}</h3>
           <p class="cat-hint">{{ $t(`categories.${cat.key}.hint`) }}</p>
-          <NuxtLink :to="`/countries?category=${cat.key}`" class="cat-link">
+          <NuxtLinkLocale :to="`/countries?category=${cat.key}`" class="cat-link">
             Переглянути країни →
-          </NuxtLink>
+          </NuxtLinkLocale>
         </div>
       </div>
     </div>

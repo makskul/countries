@@ -14,6 +14,7 @@ export default {
     totalReviews: '{count} відгуків',
     ratedBy: '{count} користувачів оцінили',
     lastReview: 'Останній: {time}',
+    reviewsBy: 'Відгуки',
   },
   natFilter: {
     showing: 'Показані відгуки для',

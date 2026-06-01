@@ -2,54 +2,33 @@
   <div class="about-page">
     <div class="about-container">
       <div class="about-header">
-        <span class="about-pill">Про проект</span>
-        <h1>Як це працює</h1>
-        <p class="about-lead">NationView — платформа відгуків емігрантів, відфільтрованих за національністю. Дізнайся країну очима людей як ти.</p>
+        <span class="about-pill">{{ $t('pages.about.pill') }}</span>
+        <h1>{{ $t('pages.about.title') }}</h1>
+        <p class="about-lead">{{ $t('pages.about.lead') }}</p>
       </div>
 
       <div class="about-steps">
-        <div class="about-step">
-          <div class="step-num">1</div>
+        <div v-for="(step, i) in ($tm('pages.about.steps') as any[])" :key="i" class="about-step">
+          <div class="step-num">{{ i + 1 }}</div>
           <div>
-            <h3>Обери свою національність</h3>
-            <p>Всі відгуки фільтруються за твоєю національністю. Ти бачиш досвід людей з тієї самої країни що й ти.</p>
-          </div>
-        </div>
-        <div class="about-step">
-          <div class="step-num">2</div>
-          <div>
-            <h3>Знайди цікаву країну</h3>
-            <p>Переглянь рейтинги по легалізації, цінах, безпеці, відношенню до іноземців та інших категоріях.</p>
-          </div>
-        </div>
-        <div class="about-step">
-          <div class="step-num">3</div>
-          <div>
-            <h3>Читай реальні відгуки</h3>
-            <p>Тільки перевірені відгуки від реальних людей. Без реклами, без замовних матеріалів.</p>
-          </div>
-        </div>
-        <div class="about-step">
-          <div class="step-num">4</div>
-          <div>
-            <h3>Поділись своїм досвідом</h3>
-            <p>Якщо ти жив або подорожував — залиш відгук. Анонімно. Допоможи іншим прийняти правильне рішення.</p>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.text }}</p>
           </div>
         </div>
       </div>
 
       <div class="about-mission">
-        <h2>Наша місія</h2>
-        <p>Ми віримо, що найкоріснішою інформацією про життя в іншій країні є досвід людей, які вже там жили. І цей досвід дуже відрізняється залежно від того, звідки ти родом.</p>
-        <p>Українець і індієць матимуть зовсім різний досвід в Португалії: різні вимоги до візи, різне ставлення місцевих, різні можливості для роботи. NationView дозволяє це побачити.</p>
+        <h2>{{ $t('pages.about.missionTitle') }}</h2>
+        <p>{{ $t('pages.about.mission1') }}</p>
+        <p>{{ $t('pages.about.mission2') }}</p>
       </div>
 
       <div class="about-cta">
-        <h2>Готовий поділитися?</h2>
-        <p>Твій відгук допоможе сотням людей прийняти зважене рішення.</p>
-        <NuxtLink to="/review/new">
-          <button class="about-btn">+ Написати відгук</button>
-        </NuxtLink>
+        <h2>{{ $t('pages.about.ctaTitle') }}</h2>
+        <p>{{ $t('pages.about.ctaText') }}</p>
+        <NuxtLinkLocale to="/review/new">
+          <button class="about-btn">{{ $t('pages.about.ctaBtn') }}</button>
+        </NuxtLinkLocale>
       </div>
     </div>
   </div>
@@ -65,6 +44,7 @@ useSeoMeta({
 </script>
 
 <style scoped>
+/* keep the existing styles unchanged */
 .about-page { background: var(--color-bg-secondary); min-height: 100vh; padding: 40px 24px; }
 .about-container { max-width: 760px; margin: 0 auto; }
 .about-header { text-align: center; margin-bottom: 48px; }
