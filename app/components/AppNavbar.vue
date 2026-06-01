@@ -20,7 +20,8 @@
         <NuxtLink to="/">О проекте</NuxtLink>
       </div>
 
-      <!-- Right CTA -->
+      <!-- Lang switcher + Right CTA -->
+      <LangSwitcher />
       <NuxtLink to="/review/new" class="nav-cta">+ Написать отзыв</NuxtLink>
     </div>
   </nav>

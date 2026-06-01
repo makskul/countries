@@ -3,7 +3,25 @@ import Aura from '@primevue/themes/aura'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@primevue/nuxt-module', '@nuxtjs/supabase', '@pinia/nuxt', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/i18n', '@primevue/nuxt-module', '@nuxtjs/supabase', '@pinia/nuxt', '@nuxtjs/sitemap'],
+  i18n: {
+    locales: [
+      { code: 'uk', name: 'Українська', language: 'uk-UA', file: 'uk/index.ts' },
+      { code: 'en', name: 'English',    language: 'en-US', file: 'en/index.ts' },
+      { code: 'ru', name: 'Русский',    language: 'ru-RU', file: 'ru/index.ts' },
+    ],
+    defaultLocale: 'uk',
+    restructureDir: 'app',
+    langDir: 'locales/',
+    strategy: 'prefix_except_default',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'nv_locale',
+      redirectOn: 'root',
+      fallbackLocale: 'uk',
+    },
+    lazy: true,
+  },
   css: [
     '@fontsource/inter/400.css',
     '@fontsource/inter/500.css',
