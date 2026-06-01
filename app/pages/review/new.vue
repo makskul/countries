@@ -3,9 +3,9 @@
 
     <!-- BREADCRUMB -->
     <div class="breadcrumb">
-      <NuxtLink to="/" class="bc-link">Главная</NuxtLink>
+      <NuxtLink to="/" class="bc-link">{{ $t('nav.breadcrumbs.home') }}</NuxtLink>
       <span class="bc-sep">→</span>
-      <span class="bc-current">Написать отзыв</span>
+      <span class="bc-current">{{ $t('review.breadcrumb') }}</span>
     </div>
 
     <div class="rn-body">
@@ -22,7 +22,7 @@
                 <span v-if="step > 1 || submitSuccess">✓</span>
                 <span v-else>1</span>
               </div>
-              <span class="step-label">О себе</span>
+              <span class="step-label">{{ $t('review.steps.about') }}</span>
             </div>
             <div class="step-line" :class="step > 1 ? 'done' : ''" />
             <div class="step-item">
@@ -30,7 +30,7 @@
                 <span v-if="submitSuccess">✓</span>
                 <span v-else>2</span>
               </div>
-              <span class="step-label">Оценки</span>
+              <span class="step-label">{{ $t('review.steps.ratings') }}</span>
             </div>
             <div class="step-line" :class="submitSuccess ? 'done' : ''" />
             <div class="step-item">
@@ -38,18 +38,18 @@
                 <span v-if="submitSuccess">✓</span>
                 <span v-else>3</span>
               </div>
-              <span class="step-label">Готово</span>
+              <span class="step-label">{{ $t('review.steps.done') }}</span>
             </div>
           </div>
 
           <!-- Country + Nationality selectors -->
           <div class="selectors-grid">
             <div>
-              <label class="field-label">Страна о которой пишешь *</label>
+              <label class="field-label">{{ $t('review.fields.country') }}</label>
               <CountrySelector v-model="form.country" />
             </div>
             <div>
-              <label class="field-label">Твоя национальность *</label>
+              <label class="field-label">{{ $t('review.fields.nationality') }}</label>
               <NationalitySelector v-model="form.nationality" />
             </div>
           </div>
@@ -58,15 +58,15 @@
         <!-- SUCCESS STATE -->
         <div v-if="submitSuccess" class="success-card">
           <div class="success-icon">🎉</div>
-          <h2 class="success-title">Отзыв отправлен!</h2>
-          <p class="success-sub">Перенаправляем на страницу страны...</p>
+          <h2 class="success-title">{{ $t('review.success.title') }}</h2>
+          <p class="success-sub">{{ $t('review.success.subtitle') }}</p>
         </div>
 
         <!-- RATINGS CARD -->
         <div v-else class="ratings-card">
           <div class="ratings-header">
-            <span class="ratings-title">Оцени по категориям</span>
-            <span class="ratings-sub">Хотя бы одна категория обязательна. Остальные — по желанию.</span>
+            <span class="ratings-title">{{ $t('review.ratings.title') }}</span>
+            <span class="ratings-sub">{{ $t('review.ratings.subtitle') }}</span>
           </div>
 
           <CategoryRatingRow
@@ -110,17 +110,17 @@
           <div class="actions-row">
             <div class="anon-notice">
               <span class="anon-check">✓</span>
-              <span class="anon-text">Отзыв анонимный — имя не публикуется</span>
+              <span class="anon-text">{{ $t('review.actions.anonymous') }}</span>
             </div>
             <div class="actions-btns">
-              <button class="btn-secondary" @click="router.back()">Отмена</button>
+              <button class="btn-secondary" @click="router.back()">{{ $t('common.buttons.cancel') }}</button>
               <button
                 class="btn-primary"
                 :class="{ 'btn-disabled': !isValid }"
                 :disabled="!isValid || submitting"
                 @click="submit"
               >
-                {{ submitting ? 'Отправка...' : 'Отправить отзыв →' }}
+                {{ submitting ? $t('review.actions.submitting') : $t('review.actions.submit') }}
               </button>
             </div>
           </div>
@@ -132,13 +132,13 @@
 
         <!-- Live preview -->
         <div class="preview-card">
-          <div class="preview-title">👁 Предпросмотр</div>
+          <div class="preview-title">{{ $t('review.preview.title') }}</div>
 
           <div v-if="form.country" class="preview-country">
             <span class="preview-flag">{{ getFlagEmoji(form.country) }}</span>
             <span class="preview-name">{{ getCountryName(form.country) }}</span>
           </div>
-          <div v-else class="preview-empty-row">Страна не выбрана</div>
+          <div v-else class="preview-empty-row">{{ $t('review.preview.noCountry') }}</div>
 
           <div v-if="form.nationality" class="preview-nat">
             {{ getFlagEmoji(form.nationality) }}
@@ -149,20 +149,20 @@
             <template v-if="hasAnyRating">
               <div v-for="cat in FORM_CATEGORIES" :key="cat.key" class="preview-cat-row">
                 <template v-if="(form.ratings as any)[cat.key] > 0">
-                  <span class="preview-cat-name">{{ cat.name }}</span>
+                  <span class="preview-cat-name">{{ $t(`categories.${cat.key}.name`) }}</span>
                   <span class="preview-stars">{{ '★'.repeat((form.ratings as any)[cat.key]) }}{{ '☆'.repeat(5 - (form.ratings as any)[cat.key]) }}</span>
                 </template>
               </div>
             </template>
-            <span v-else class="preview-hint">Начни оценивать →</span>
+            <span v-else class="preview-hint">{{ $t('review.preview.empty') }}</span>
           </div>
         </div>
 
         <!-- Tips -->
         <div class="tips-card">
-          <span class="tips-title">Советы</span>
+          <span class="tips-title">{{ $t('review.tips.title') }}</span>
           <div class="tips-list">
-            <div v-for="(tip, i) in TIPS" :key="i" class="tip-row">
+            <div v-for="(tip, i) in ($tm('review.tips.list') as string[])" :key="i" class="tip-row">
               <span class="tip-num">{{ i + 1 }}</span>
               <span class="tip-text">{{ tip }}</span>
             </div>
@@ -172,12 +172,10 @@
         <!-- Country stats -->
         <div v-if="form.country && countryStats" class="stats-card">
           <div class="stats-title">
-            {{ getFlagEmoji(form.country) }} {{ countryStats.total }} отзывов о {{ getCountryName(form.country) }}
+            {{ getFlagEmoji(form.country) }} {{ $t('review.stats.title', { count: countryStats.total, country: getCountryName(form.country) }) }}
           </div>
           <p class="stats-text">
-            Уже есть {{ countryStats.natCount }} отзывов от
-            {{ form.nationality ? getCountryName(form.nationality) : 'твоей нации' }}.
-            Твой опыт будет ценным дополнением.
+            {{ $t('review.stats.subtitle', { natCount: countryStats.natCount, nationality: form.nationality ? getCountryName(form.nationality) : '' }) }}
           </p>
         </div>
       </div>
@@ -204,6 +202,7 @@ useSeoMeta({
   robots: 'noindex, nofollow',
 })
 
+const { t } = useI18n()
 const router = useRouter()
 
 const {
@@ -220,13 +219,6 @@ const {
 } = useReviewForm()
 
 const hasAnyRating = computed(() => Object.values(form.ratings).some(r => r > 0))
-
-const TIPS = [
-  "Пиши конкретно — «4 месяца» лучше чем «долго»",
-  "Не обязательно заполнять все категории",
-  "Отзыв анонимный — имя нигде не появится",
-  "Отзыв появится сразу после отправки",
-]
 </script>
 
 <style scoped>

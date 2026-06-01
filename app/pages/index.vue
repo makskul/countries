@@ -3,15 +3,12 @@
     <!-- ═══════════ HERO ═══════════ -->
     <section class="hero">
       <div class="hero-inner">
-        <span class="hero-pill">Отзывы от людей как ты</span>
+        <span class="hero-pill">{{ $t('homepage.hero.pill') }}</span>
         <h1 class="hero-h1">
-          Узнай страну глазами
-          <span style="color: var(--color-primary)">своей национальности</span>
+          {{ $t('homepage.hero.title') }}
+          <span style="color: var(--color-primary)">{{ $t('homepage.hero.titleAccent') }}</span>
         </h1>
-        <p class="hero-sub">
-          Реальный опыт эмигрантов — виза, цены, отношение, бюрократия.<br>
-          Фильтрация по твоей национальности.
-        </p>
+        <p class="hero-sub">{{ $t('homepage.hero.subtitle') }}</p>
 
         <!-- Selectors -->
         <div class="hero-selectors">
@@ -20,7 +17,7 @@
         </div>
 
         <Button
-          label="Показать отзывы →"
+          :label="$t('homepage.hero.cta')"
           :disabled="!nationality || !targetCountry"
           @click="handleSubmit"
           class="hero-btn"
@@ -31,9 +28,7 @@
           <Skeleton width="260px" height="14px" style="display: inline-block" />
         </p>
         <p class="hero-stat" v-else-if="stats">
-          <strong>{{ stats.total }}</strong> отзывов по
-          <strong>{{ stats.countries }}</strong> странам от
-          <strong>{{ stats.nationalities }}</strong> национальностей
+          {{ $t('homepage.hero.stat', { reviews: stats.total, countries: stats.countries, nationalities: stats.nationalities }) }}
         </p>
       </div>
     </section>
@@ -43,17 +38,17 @@
       <div class="section-wrap">
         <div class="section-header">
           <div>
-            <span class="section-label">Популярное на этой неделе</span>
-            <h2 class="section-title">Топ стран по отзывам</h2>
+            <span class="section-label">{{ $t('homepage.trending.sectionLabel') }}</span>
+            <h2 class="section-title">{{ $t('homepage.trending.title') }}</h2>
           </div>
-          <NuxtLink to="/countries" class="section-link">Все страны →</NuxtLink>
+          <NuxtLink to="/countries" class="section-link">{{ $t('common.buttons.seeAll') }}</NuxtLink>
         </div>
 
         <div v-if="trendingPending" class="grid-3">
           <Skeleton v-for="i in 6" :key="i" height="120px" style="border-radius: var(--radius-lg)" />
         </div>
         <Message v-else-if="!trending || trending.length === 0" severity="info" :closable="false">
-          Пока нет трендовых стран. Будь первым!
+          {{ $t('homepage.trending.empty') }}
         </Message>
         <div v-else class="grid-3">
           <TrendingCard
@@ -71,17 +66,17 @@
       <div class="section-wrap">
         <div class="section-header">
           <div>
-            <span class="section-label">Свежие записи</span>
-            <h2 class="section-title">Последние отзывы</h2>
+            <span class="section-label">{{ $t('homepage.latest.sectionLabel') }}</span>
+            <h2 class="section-title">{{ $t('homepage.latest.title') }}</h2>
           </div>
-          <NuxtLink to="/" class="section-link">Смотреть все →</NuxtLink>
+          <NuxtLink to="/" class="section-link">{{ $t('homepage.latest.seeAll') }}</NuxtLink>
         </div>
 
         <div v-if="latestPending" class="reviews-list">
           <Skeleton v-for="i in 3" :key="i" height="110px" style="border-radius: var(--radius-lg)" />
         </div>
         <Message v-else-if="!latest || latest.length === 0" severity="info" :closable="false">
-          Отзывов пока нет.
+          {{ $t('homepage.latest.empty') }}
         </Message>
         <div v-else class="reviews-list">
           <ReviewFeedItem v-for="r in latest" :key="r.id" :review="r" />
@@ -94,8 +89,8 @@
       <div class="section-wrap">
         <div class="section-header">
           <div>
-            <span class="section-label">Глобальная статистика</span>
-            <h2 class="section-title">О чём пишут чаще всего</h2>
+            <span class="section-label">{{ $t('homepage.categories.sectionLabel') }}</span>
+            <h2 class="section-title">{{ $t('homepage.categories.title') }}</h2>
           </div>
         </div>
 
@@ -103,7 +98,7 @@
           <Skeleton v-for="i in 4" :key="i" height="140px" style="border-radius: var(--radius-lg)" />
         </div>
         <Message v-else-if="!catStats || catStats.length === 0" severity="info" :closable="false">
-          Нет данных по категориям.
+          {{ $t('homepage.categories.empty') }}
         </Message>
         <div v-else class="grid-4">
           <CategoryHighlight v-for="item in catStats" :key="item.category" :item="item" />
@@ -115,23 +110,23 @@
     <section class="cta-section">
       <div class="section-wrap cta-inner">
         <div class="cta-text">
-          <h3 class="cta-title">Был за границей? Поделись опытом.</h3>
-          <p class="cta-sub">Твой отзыв поможет другим принять правильное решение.</p>
+          <h3 class="cta-title">{{ $t('homepage.cta.title') }}</h3>
+          <p class="cta-sub">{{ $t('homepage.cta.subtitle') }}</p>
         </div>
         <NuxtLink to="/review/new">
-          <button class="cta-btn">+ Написать отзыв</button>
+          <button class="cta-btn">{{ $t('common.buttons.writeReview') }}</button>
         </NuxtLink>
       </div>
     </section>
 
     <!-- Nationality guard dialog -->
-    <Dialog v-model:visible="showNationalityDialog" header="Сначала выбери национальность" modal style="width: 360px">
+    <Dialog v-model:visible="showNationalityDialog" :header="$t('countries.dialog.title')" modal style="width: 360px">
       <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 4px">
         <p style="margin: 0; font-size: 14px; color: var(--color-text-secondary)">
-          Чтобы видеть отзывы отфильтрованные по тебе, укажи свою национальность.
+          {{ $t('countries.dialog.subtitle') }}
         </p>
         <NationalitySelector v-model="dialogNationality" />
-        <Button label="Продолжить" :disabled="!dialogNationality" @click="confirmNationalityAndRedirect" style="width: 100%" />
+        <Button :label="$t('common.buttons.continue')" :disabled="!dialogNationality" @click="confirmNationalityAndRedirect" style="width: 100%" />
       </div>
     </Dialog>
   </div>

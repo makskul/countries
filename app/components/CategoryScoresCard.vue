@@ -1,6 +1,6 @@
 <template>
   <div class="csc-card">
-    <span class="csc-title">Рейтинг по категориям</span>
+    <span class="csc-title">{{ $t('country.scores.title') }}</span>
 
     <div v-if="pending" class="csc-list">
       <div v-for="i in 4" :key="i" class="csc-row">
@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div v-else-if="!stats || stats.length === 0" class="csc-empty">Нет данных</div>
+    <div v-else-if="!stats || stats.length === 0" class="csc-empty">{{ $t('common.labels.noData') }}</div>
 
     <div v-else class="csc-list">
       <div v-for="row in stats" :key="row.category" class="csc-row">
@@ -25,12 +25,12 @@
           <svg v-else-if="row.category === 'weather' || row.category === 'cleanliness'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
           <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <span class="csc-cat-name">{{ row.label }}</span>
+        <span class="csc-cat-name">{{ $t(`categories.${row.category}.name`) }}</span>
         <div class="csc-bar-wrap">
           <div class="csc-bar-fill" :style="{ width: row.barWidth + '%', background: barCss(row.color) }" />
         </div>
         <span class="csc-score">{{ row.avg }}</span>
-        <span class="csc-count">{{ row.count }} отз.</span>
+        <span class="csc-count">{{ row.count }} {{ $t('common.labels.reviews') }}</span>
       </div>
     </div>
   </div>

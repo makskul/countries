@@ -3,11 +3,11 @@
     <!-- Page header -->
     <div class="cp-header">
       <div class="cp-header-left">
-        <h1 class="cp-h1">Все страны</h1>
-        <p class="cp-sub">Выбери страну и узнай отзывы людей твоей национальности</p>
+        <h1 class="cp-h1">{{ $t('countries.title') }}</h1>
+        <p class="cp-sub">{{ $t('countries.subtitle') }}</p>
       </div>
       <div class="cp-header-right">
-        <span class="section-label" style="display: block; margin-bottom: 4px">Смотрю как:</span>
+        <span class="section-label" style="display: block; margin-bottom: 4px">{{ $t('countries.viewingAs') }}</span>
         <NationalitySelector v-model="nationality" style="width: 220px; font-size: 13px" @update:modelValue="onNationalityChange" />
       </div>
     </div>
@@ -29,17 +29,17 @@
 
     <div v-else-if="filteredCountries.length === 0">
       <Message severity="info" :closable="false">
-        Нет стран по вашему запросу — попробуй изменить фильтры
+        {{ $t('countries.empty.message') }}
       </Message>
       <div style="margin-top: 12px">
-        <Button label="Сбросить фильтры" severity="secondary" @click="resetFilters" />
+        <Button :label="$t('countries.empty.reset')" severity="secondary" @click="resetFilters" />
       </div>
     </div>
 
     <template v-else>
       <!-- View toggle -->
       <div class="cp-toolbar">
-        <span class="cp-toolbar-count">{{ filteredCountries.length }} стран</span>
+        <span class="cp-toolbar-count">{{ $t('countries.filters.found', { count: filteredCountries.length }) }}</span>
         <div class="cp-view-toggle">
           <button class="cp-view-btn" :class="{ active: viewMode === 'grid' }" @click="viewMode = 'grid'" title="Сетка">
             <i class="pi pi-th-large" />
@@ -83,13 +83,13 @@
     </template>
 
     <!-- Nationality guard dialog -->
-    <Dialog v-model:visible="showNatDialog" header="Сначала выбери национальность" modal style="width: 360px">
+    <Dialog v-model:visible="showNatDialog" :header="$t('countries.dialog.title')" modal style="width: 360px">
       <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 4px">
         <p style="margin: 0; font-size: 14px; color: var(--color-text-secondary)">
-          Укажи национальность, чтобы видеть релевантные отзывы.
+          {{ $t('countries.dialog.subtitle') }}
         </p>
         <NationalitySelector v-model="dialogNationality" />
-        <Button label="Продолжить" :disabled="!dialogNationality" @click="confirmNat" style="width: 100%" />
+        <Button :label="$t('common.buttons.continue')" :disabled="!dialogNationality" @click="confirmNat" style="width: 100%" />
       </div>
     </Dialog>
   </div>

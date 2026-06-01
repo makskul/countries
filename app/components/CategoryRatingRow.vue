@@ -7,15 +7,15 @@
           <slot name="icon" />
         </div>
         <div>
-          <span class="crr-name">{{ category.name }}</span>
-          <span class="crr-hint">{{ category.hint }}</span>
+          <span class="crr-name">{{ $t(`categories.${category.key}.name`) }}</span>
+          <span class="crr-hint">{{ $t(`categories.${category.key}.hint`) }}</span>
         </div>
       </div>
       <div class="crr-right">
         <div class="crr-stars-preview">
           <span v-for="i in 5" :key="i" class="crr-star-empty">☆</span>
         </div>
-        <button class="crr-add-btn" @click.stop="$emit('toggle')">+ Оценить</button>
+        <button class="crr-add-btn" @click.stop="$emit('toggle')">{{ $t('review.ratings.expand') }}</button>
       </div>
     </div>
 
@@ -27,8 +27,8 @@
             <slot name="icon" />
           </div>
           <div>
-            <span class="crr-name">{{ category.name }}</span>
-            <span class="crr-hint">{{ category.hint }}</span>
+            <span class="crr-name">{{ $t(`categories.${category.key}.name`) }}</span>
+            <span class="crr-hint">{{ $t(`categories.${category.key}.hint`) }}</span>
           </div>
         </div>
         <div class="crr-right">
@@ -44,7 +44,7 @@
             >{{ (hovered > 0 ? i <= hovered : i <= modelValue) ? '★' : '☆' }}</span>
           </div>
           <span class="crr-star-label" :class="{ 'crr-star-label--max': modelValue === 5 }">
-            {{ STAR_LABELS[hovered || modelValue] }}
+            {{ (hovered || modelValue) > 0 ? $t(`review.ratings.stars.${hovered || modelValue}`) : '' }}
           </span>
         </div>
       </div>
@@ -54,7 +54,7 @@
           :value="comment"
           @input="$emit('update:comment', ($event.target as HTMLTextAreaElement).value)"
           class="crr-textarea"
-          placeholder="Расскажи подробнее — необязательно..."
+          :placeholder="$t('review.ratings.placeholder')"
           rows="2"
           maxlength="500"
         />
@@ -62,17 +62,17 @@
       </div>
 
       <button v-if="modelValue === 0" class="crr-collapse-btn" @click="$emit('toggle')">
-        Свернуть
+        {{ $t('review.ratings.collapse') }}
       </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { STAR_LABELS } from '~/composables/useReviewForm'
+const { t } = useI18n()
 
 defineProps<{
-  category: { key: string; name: string; hint: string }
+  category: { key: string; icon?: string }
   modelValue: number
   comment: string
   expanded: boolean

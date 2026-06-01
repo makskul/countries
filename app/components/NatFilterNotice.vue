@@ -1,11 +1,11 @@
 <template>
   <div class="nfn">
     <span class="nfn-text">
-      Показаны отзывы для
+      {{ $t('country.natFilter.showing') }}
       <span class="nfn-flag">{{ getFlagEmoji(nationality) }}</span>
       <strong>{{ getCountryName(nationality) }}</strong>
     </span>
-    <button class="nfn-change" @click="$emit('change')">Изменить →</button>
+    <button class="nfn-change" @click="$emit('change')">{{ $t('country.natFilter.change') }}</button>
   </div>
 </template>
 

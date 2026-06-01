@@ -15,14 +15,14 @@
 
       <!-- Center nav links -->
       <div class="nav-links">
-        <NuxtLink to="/countries">Страны</NuxtLink>
-        <NuxtLink to="/">Категории</NuxtLink>
-        <NuxtLink to="/">О проекте</NuxtLink>
+        <NuxtLink to="/countries">{{ $t('nav.links.countries') }}</NuxtLink>
+        <NuxtLink to="/">{{ $t('nav.links.categories') }}</NuxtLink>
+        <NuxtLink to="/">{{ $t('nav.links.about') }}</NuxtLink>
       </div>
 
       <!-- Lang switcher + Right CTA -->
       <LangSwitcher />
-      <NuxtLink to="/review/new" class="nav-cta">+ Написать отзыв</NuxtLink>
+      <NuxtLink to="/review/new" class="nav-cta">{{ $t('nav.cta') }}</NuxtLink>
     </div>
   </nav>
 </template>

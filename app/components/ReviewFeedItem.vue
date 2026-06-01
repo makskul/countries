@@ -15,7 +15,7 @@
         <span class="rfi-nat-label">{{ authorNatLabel }}</span>
       </span>
       <span class="rfi-time">{{ time }}</span>
-      <NuxtLink :to="`/country/${review.target_country.toLowerCase()}`" class="rfi-read">читать →</NuxtLink>
+      <NuxtLink :to="`/country/${review.target_country.toLowerCase()}`" class="rfi-read">{{ $t('common.buttons.readMore') }}</NuxtLink>
     </div>
   </div>
 </template>
@@ -24,6 +24,8 @@
 import type { Review } from '~/types/review'
 import { CATEGORIES } from '~/types/review'
 import { getCountryName, getFlagEmoji, timeAgo } from '~/utils/countries'
+
+const { t } = useI18n()
 
 const props = defineProps<{ review: Review }>()
 
@@ -51,7 +53,7 @@ const chosenEntry = computed(() => {
   return { key: 'overall', rating: 0, comment: '' }
 })
 
-const categoryLabel = computed(() => CATEGORIES.find(c => c.key === chosenEntry.value.key)?.label ?? chosenEntry.value.key)
+const categoryLabel = computed(() => t(`categories.${chosenEntry.value.key}.name`))
 const displayRating = computed(() => chosenEntry.value.rating)
 const displayComment = computed(() => {
   const c = chosenEntry.value.comment

@@ -1,28 +1,19 @@
 import { useSupabaseClient } from '#imports'
 
 export const FORM_CATEGORIES = [
-  { key: 'legalization',     name: 'Легализация',        hint: 'Виза, ВНЖ, резидентство',      icon: 'shield'    },
-  { key: 'attitude',         name: 'Отношение',           hint: 'К твоей национальности',       icon: 'users'     },
-  { key: 'cost_of_living',   name: 'Стоимость жизни',    hint: 'Аренда, еда, транспорт',       icon: 'dollar'    },
-  { key: 'safety',           name: 'Безопасность',        hint: 'Уровень криминала, комфорт',   icon: 'shield2'   },
-  { key: 'bureaucracy',      name: 'Документы',           hint: 'Скорость, бюрократия',         icon: 'clipboard' },
-  { key: 'weather',          name: 'Погода',              hint: 'Климат, комфорт',              icon: 'cloud'     },
-  { key: 'language_barrier', name: 'Языковой барьер',    hint: 'Общение, знание языка',        icon: 'chat'      },
-  { key: 'cleanliness',      name: 'Чистота',             hint: 'Инфраструктура, порядок',      icon: 'sparkle'   },
-  { key: 'healthcare',       name: 'Медицина',            hint: 'Качество, доступность',        icon: 'heart'     },
-  { key: 'overall',          name: 'Общая оценка',        hint: 'Общее впечатление о стране',   icon: 'star'      },
+  { key: 'legalization',     icon: 'shield'    },
+  { key: 'attitude',         icon: 'users'     },
+  { key: 'cost_of_living',   icon: 'dollar'    },
+  { key: 'safety',           icon: 'shield2'   },
+  { key: 'bureaucracy',      icon: 'clipboard' },
+  { key: 'weather',          icon: 'cloud'     },
+  { key: 'language_barrier', icon: 'chat'      },
+  { key: 'cleanliness',      icon: 'sparkle'   },
+  { key: 'healthcare',       icon: 'heart'     },
+  { key: 'overall',          icon: 'star'      },
 ] as const
 
 export type FormCategoryKey = typeof FORM_CATEGORIES[number]['key']
-
-export const STAR_LABELS: Record<number, string> = {
-  0: '',
-  1: 'Ужасно',
-  2: 'Плохо',
-  3: 'Средне',
-  4: 'Хорошо',
-  5: 'Отлично',
-}
 
 export function useReviewForm() {
   const supabase = useSupabaseClient()

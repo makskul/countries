@@ -3,7 +3,7 @@
     <div class="tc-row1">
       <span class="tc-flag">{{ flag }}</span>
       <span class="tc-name">{{ countryName }}</span>
-      <span class="tc-count">{{ item.total }} отзывов</span>
+      <span class="tc-count">{{ item.total }} {{ $t('common.labels.reviews') }}</span>
     </div>
     <div class="tc-row2">
       <Rating :modelValue="item.avgRating" readonly :cancel="false" :stars="5" />
@@ -23,6 +23,8 @@
 <script setup lang="ts">
 import { getCountryName, getFlagEmoji } from '~/utils/countries'
 
+const { t } = useI18n()
+
 const props = defineProps<{
   item: { code: string; total: number; avgRating: number; topCategories: string[] }
 }>()
@@ -32,19 +34,7 @@ const flag = computed(() => getFlagEmoji(props.item.code))
 const countryName = computed(() => getCountryName(props.item.code))
 
 function getCategoryLabel(key: string) {
-  const map: Record<string, string> = {
-    legalization: 'Легализация',
-    attitude: 'Отношение',
-    cost_of_living: 'Стоимость жизни',
-    bureaucracy: 'Бюрократия',
-    cleanliness: 'Чистота',
-    weather: 'Климат',
-    safety: 'Безопасность',
-    healthcare: 'Медицина',
-    language_barrier: 'Языковой барьер',
-    overall: 'Общая оценка',
-  }
-  return map[key] ?? key
+  return t(`categories.${key}.name`)
 }
 </script>
 

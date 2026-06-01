@@ -5,22 +5,22 @@
     <div class="fstats">
       <div class="fstat">
         <span class="fstat-num">{{ fmt(stats?.totalReviews) }}</span>
-        <span class="fstat-label">отзывов на сайте</span>
+        <span class="fstat-label">{{ $t('footer.stats.reviews') }}</span>
       </div>
       <div class="fstat-divider" />
       <div class="fstat">
         <span class="fstat-num">{{ fmt(stats?.totalCountries) }}</span>
-        <span class="fstat-label">стран охвачено</span>
+        <span class="fstat-label">{{ $t('footer.stats.countries') }}</span>
       </div>
       <div class="fstat-divider" />
       <div class="fstat">
         <span class="fstat-num">{{ fmt(stats?.totalNationalities) }}</span>
-        <span class="fstat-label">национальностей</span>
+        <span class="fstat-label">{{ $t('footer.stats.nationalities') }}</span>
       </div>
       <div class="fstat-divider" />
       <div class="fstat">
         <span class="fstat-num">{{ fmt(stats?.totalReviews ? Math.round(stats.totalReviews * 0.72) : undefined) }}</span>
-        <span class="fstat-label">авторов отзывов</span>
+        <span class="fstat-label">{{ $t('footer.stats.authors') }}</span>
       </div>
     </div>
 
@@ -39,23 +39,19 @@
           </div>
           <span class="fbrand-name">Nation<span class="fbrand-accent">View</span></span>
         </div>
-        <p class="fbrand-desc">
-          Реальные отзывы эмигрантов о жизни в разных странах —
-          отфильтрованные по твоей национальности. Узнай страну
-          глазами людей как ты.
-        </p>
+        <p class="fbrand-desc">{{ $t('footer.brand.description') }}</p>
         <div class="fnl">
-          <span class="fnl-label">Подпишись на дайджест</span>
+          <span class="fnl-label">{{ $t('footer.newsletter.label') }}</span>
           <div class="fnl-row">
             <input
               v-model="email"
               class="fnl-input"
               type="email"
-              placeholder="твой@email.com"
+              :placeholder="$t('footer.newsletter.placeholder')"
               @keydown.enter="handleSubscribe"
             />
             <button class="fnl-btn" @click="handleSubscribe" :disabled="subscribing">
-              {{ subscribing ? '...' : 'Подписаться' }}
+              {{ subscribing ? '...' : $t('footer.newsletter.button') }}
             </button>
           </div>
         </div>
@@ -63,7 +59,7 @@
 
       <!-- Col 2 — Popular countries -->
       <div class="fcol">
-        <span class="fcol-title">Популярные страны</span>
+        <span class="fcol-title">{{ $t('footer.columns.popularCountries') }}</span>
         <div class="fcol-links">
           <template v-if="topCountries && topCountries.length">
             <NuxtLink
@@ -80,35 +76,35 @@
               &nbsp;
             </span>
           </template>
-          <NuxtLink to="/countries" class="fcol-link fcol-link--dim">Все страны →</NuxtLink>
+          <NuxtLink to="/countries" class="fcol-link fcol-link--dim">{{ $t('footer.links.allCountries') }}</NuxtLink>
         </div>
       </div>
 
       <!-- Col 3 — Categories -->
       <div class="fcol">
-        <span class="fcol-title">Категории</span>
+        <span class="fcol-title">{{ $t('footer.columns.categories') }}</span>
         <div class="fcol-links">
-          <NuxtLink to="/countries?category=legalization" class="fcol-link">Легализация и визы</NuxtLink>
-          <NuxtLink to="/countries?category=cost" class="fcol-link">Стоимость жизни</NuxtLink>
-          <NuxtLink to="/countries?category=safety" class="fcol-link">Безопасность</NuxtLink>
-          <NuxtLink to="/countries?category=attitude" class="fcol-link">Отношение к нации</NuxtLink>
+          <NuxtLink to="/countries?category=legalization" class="fcol-link">{{ $t('categories.legalization.name') }}</NuxtLink>
+          <NuxtLink to="/countries?category=cost" class="fcol-link">{{ $t('categories.cost_of_living.name') }}</NuxtLink>
+          <NuxtLink to="/countries?category=safety" class="fcol-link">{{ $t('categories.safety.name') }}</NuxtLink>
+          <NuxtLink to="/countries?category=attitude" class="fcol-link">{{ $t('categories.attitude.name') }}</NuxtLink>
           <NuxtLink to="/countries?category=documents" class="fcol-link">
-            Документы
+            {{ $t('categories.bureaucracy.name') }}
             <span class="fnew-badge">new</span>
           </NuxtLink>
-          <NuxtLink to="/countries?category=weather" class="fcol-link">Погода и климат</NuxtLink>
+          <NuxtLink to="/countries?category=weather" class="fcol-link">{{ $t('categories.weather.name') }}</NuxtLink>
         </div>
       </div>
 
       <!-- Col 4 — About -->
       <div class="fcol">
-        <span class="fcol-title">О проекте</span>
+        <span class="fcol-title">{{ $t('footer.columns.about') }}</span>
         <div class="fcol-links">
-          <NuxtLink to="/about" class="fcol-link">Как это работает</NuxtLink>
-          <NuxtLink to="/review/new" class="fcol-link">Написать отзыв</NuxtLink>
-          <NuxtLink to="/rules" class="fcol-link">Правила сайта</NuxtLink>
-          <NuxtLink to="/contact" class="fcol-link">Связаться с нами</NuxtLink>
-          <NuxtLink to="/privacy" class="fcol-link">Политика конф.</NuxtLink>
+          <NuxtLink to="/about" class="fcol-link">{{ $t('footer.links.howItWorks') }}</NuxtLink>
+          <NuxtLink to="/review/new" class="fcol-link">{{ $t('footer.links.writeReview') }}</NuxtLink>
+          <NuxtLink to="/rules" class="fcol-link">{{ $t('footer.links.rules') }}</NuxtLink>
+          <NuxtLink to="/contact" class="fcol-link">{{ $t('footer.links.contact') }}</NuxtLink>
+          <NuxtLink to="/privacy" class="fcol-link">{{ $t('footer.links.privacy') }}</NuxtLink>
         </div>
       </div>
 
@@ -117,13 +113,13 @@
     <!-- ── 3. BOTTOM BAR ─────────────────────────────────── -->
     <div class="fbar">
       <span class="fbar-copy">
-        © {{ year }} <span class="fbar-brand">NationView</span> — все права защищены
+        © {{ year }} <span class="fbar-brand">NationView</span> — {{ $t('footer.copyright') }}
       </span>
 
       <div class="fbar-legal">
-        <NuxtLink to="/terms" class="fbar-link">Условия</NuxtLink>
-        <NuxtLink to="/privacy" class="fbar-link">Конфиденциальность</NuxtLink>
-        <NuxtLink to="/privacy" class="fbar-link">Cookies</NuxtLink>
+        <NuxtLink to="/terms" class="fbar-link">{{ $t('footer.links.terms') }}</NuxtLink>
+        <NuxtLink to="/privacy" class="fbar-link">{{ $t('footer.links.privacy') }}</NuxtLink>
+        <NuxtLink to="/privacy" class="fbar-link">{{ $t('footer.links.cookies') }}</NuxtLink>
       </div>
 
       <div class="fbar-social">
@@ -149,11 +145,7 @@
     </div>
 
     <!-- ── 4. DISCLAIMER ──────────────────────────────────── -->
-    <div class="fdisclaimer">
-      Все отзывы на сайте написаны реальными пользователями и отражают их личный опыт.
-      NationView не несёт ответственности за актуальность информации.
-      Перед переездом консультируйтесь с официальными источниками.
-    </div>
+    <div class="fdisclaimer">{{ $t('footer.disclaimer') }}</div>
 
     <Toast />
   </footer>
@@ -164,6 +156,7 @@ import { useToast } from 'primevue/usetoast'
 import { getFlagEmoji, getCountryName } from '~/utils/countries'
 import { useFooterData } from '~/composables/useFooterData'
 
+const { t } = useI18n()
 const toast = useToast()
 const supabase = useSupabaseClient()
 const { stats, topCountries, subscribeNewsletter } = useFooterData()
@@ -180,19 +173,19 @@ function fmt(n: number | undefined): string {
 async function handleSubscribe() {
   const val = email.value.trim()
   if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-    toast.add({ severity: 'warn', summary: 'Некорректный email', life: 3000 })
+    toast.add({ severity: 'warn', summary: t('common.errors.invalidEmail'), life: 3000 })
     return
   }
   subscribing.value = true
   try {
     await subscribeNewsletter(val, supabase)
     email.value = ''
-    toast.add({ severity: 'success', summary: 'Подписка оформлена!', detail: 'Ждите наш дайджест 📬', life: 4000 })
+    toast.add({ severity: 'success', summary: t('common.success.subscribed'), life: 4000 })
   } catch (err: any) {
     if (err.message === 'already_subscribed') {
-      toast.add({ severity: 'info', summary: 'Вы уже подписаны', life: 3000 })
+      toast.add({ severity: 'info', summary: t('common.success.alreadySubscribed'), life: 3000 })
     } else {
-      toast.add({ severity: 'error', summary: 'Ошибка', detail: 'Попробуйте позже', life: 3000 })
+      toast.add({ severity: 'error', summary: t('common.errors.submitFailed'), life: 3000 })
     }
   } finally {
     subscribing.value = false

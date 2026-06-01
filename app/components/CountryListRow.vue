@@ -11,11 +11,11 @@
       <Rating :modelValue="country.avgRating" readonly :cancel="false" :stars="5" />
       <span class="clr-score">{{ country.avgRating }}</span>
     </div>
-    <div class="clr-count">{{ country.totalReviews }} отзывов</div>
+    <div class="clr-count">{{ country.totalReviews }} {{ $t('common.labels.reviews') }}</div>
     <div class="clr-cat" v-if="country.categoryStats.length">
-      <span class="clr-chip">{{ CAT_LABELS[country.categoryStats[0].category] ?? country.categoryStats[0].category }}</span>
+      <span class="clr-chip">{{ $t(`categories.${country.categoryStats[0].category}.name`) }}</span>
     </div>
-    <span class="clr-link">Смотреть →</span>
+    <span class="clr-link">{{ $t('common.buttons.readMore') }}</span>
   </div>
 </template>
 
@@ -26,13 +26,6 @@ import { getFlagEmoji } from '~/utils/countries'
 const props = defineProps<{ country: CountryStat }>()
 defineEmits<{ click: [] }>()
 const flag = computed(() => getFlagEmoji(props.country.code))
-
-const CAT_LABELS: Record<string, string> = {
-  legalization: 'Легализация', attitude: 'Отношение',
-  cost_of_living: 'Стоимость жизни', bureaucracy: 'Документы',
-  cleanliness: 'Чистота', weather: 'Погода', safety: 'Безопасность',
-  healthcare: 'Медицина', language_barrier: 'Язык', overall: 'Общая',
-}
 </script>
 
 <style scoped>

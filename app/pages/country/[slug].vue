@@ -3,9 +3,9 @@
 
     <!-- BREADCRUMB -->
     <div class="breadcrumb">
-      <NuxtLink to="/" class="bc-link">Главная</NuxtLink>
+      <NuxtLink to="/" class="bc-link">{{ $t('nav.breadcrumbs.home') }}</NuxtLink>
       <span class="bc-sep">→</span>
-      <NuxtLink to="/countries" class="bc-link">Страны</NuxtLink>
+      <NuxtLink to="/countries" class="bc-link">{{ $t('nav.breadcrumbs.countries') }}</NuxtLink>
       <span class="bc-sep">→</span>
       <span class="bc-current">{{ countryName }}</span>
     </div>
@@ -28,7 +28,7 @@
         <div class="ch-right" v-if="headerStats">
           <span class="ch-avg-score">{{ headerStats.overallAvg }}</span>
           <Rating :modelValue="headerStats.overallAvg" readonly :cancel="false" :stars="5" />
-          <span class="ch-avg-label">Общий рейтинг</span>
+          <span class="ch-avg-label">{{ $t('country.header.overallRating') }}</span>
         </div>
       </div>
 
@@ -36,15 +36,15 @@
       <div class="ch-pills" v-if="headerStats">
         <div class="ch-pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          {{ headerStats.total }} отзывов
+          {{ $t('country.header.totalReviews', { count: headerStats.total }) }}
         </div>
         <div class="ch-pill">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          {{ headerStats.total }} пользователей оценили
+          {{ $t('country.header.ratedBy', { count: headerStats.total }) }}
         </div>
         <div class="ch-pill" v-if="headerStats.lastReviewAt">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          Последний: {{ timeAgo(headerStats.lastReviewAt) }}
+          {{ $t('country.header.lastReview', { time: timeAgo(headerStats.lastReviewAt) }) }}
         </div>
       </div>
       <div v-else-if="pending" class="ch-pills">
@@ -72,10 +72,10 @@
         <!-- Empty state -->
         <div v-if="!pending && headerStats && headerStats.total === 0" class="empty-state">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          <h3 class="empty-h3">Нет отзывов для вашей национальности</h3>
-          <p class="empty-p">Будьте первым — поделитесь своим опытом о {{ countryName }}</p>
+          <h3 class="empty-h3">{{ $t('country.empty.title') }}</h3>
+          <p class="empty-p">{{ $t('country.empty.subtitle', { country: countryName }) }}</p>
           <NuxtLink :to="`/review/new?country=${slug.toUpperCase()}`">
-            <button class="empty-btn">Написать первый отзыв →</button>
+            <button class="empty-btn">{{ $t('country.empty.cta') }}</button>
           </NuxtLink>
         </div>
 
@@ -90,8 +90,8 @@
           <div class="reviews-section">
             <div class="rs-header">
               <div>
-                <span class="section-label">Свежие отзывы</span>
-                <h2 class="rs-title">Последние отзывы {{ getCountryName(nationality) }}</h2>
+                <span class="section-label">{{ $t('country.reviews.sectionLabel') }}</span>
+                <h2 class="rs-title">{{ $t('country.reviews.title') }}</h2>
               </div>
             </div>
 
@@ -107,15 +107,15 @@
 
             <div v-if="hasMore" class="load-more">
               <button class="load-more-btn" @click="loadMore" :disabled="pending">
-                {{ pending ? 'Загрузка...' : 'Загрузить ещё отзывы →' }}
+                {{ pending ? $t('common.labels.loading') : $t('country.reviews.loadMore') }}
               </button>
             </div>
           </div>
         </template>
 
         <div v-else class="no-nat-state">
-          <p>Выберите вашу национальность, чтобы увидеть отзывы.</p>
-          <button class="empty-btn" @click="showNatDialog = true">Выбрать национальность</button>
+          <p>{{ $t('country.noNat.message') }}</p>
+          <button class="empty-btn" @click="showNatDialog = true">{{ $t('country.noNat.cta') }}</button>
         </div>
       </div>
 
@@ -128,13 +128,13 @@
     </div>
 
     <!-- Nationality dialog -->
-    <Dialog v-model:visible="showNatDialog" header="Выбери национальность" modal style="width: 360px">
+    <Dialog v-model:visible="showNatDialog" :header="$t('country.dialog.title')" modal style="width: 360px">
       <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 4px">
         <p style="margin: 0; font-size: 14px; color: var(--color-text-secondary)">
-          Отзывы на странице будут пересчитаны под твою национальность.
+          {{ $t('country.dialog.subtitle') }}
         </p>
         <NationalitySelector v-model="dialogNationality" />
-        <Button label="Применить" :disabled="!dialogNationality" @click="applyNationality" style="width: 100%" />
+        <Button :label="$t('country.dialog.apply')" :disabled="!dialogNationality" @click="applyNationality" style="width: 100%" />
       </div>
     </Dialog>
   </div>
@@ -207,17 +207,19 @@ const {
   markHelpful,
 } = useCountryPage(slug, nationality)
 
+const { t } = useI18n()
+
 // Tabs
-const TABS = [
-  { key: 'overview', label: 'Обзор' },
-  { key: 'legalization', label: 'Легализация' },
-  { key: 'cost_of_living', label: 'Цены' },
-  { key: 'safety', label: 'Безопасность' },
-  { key: 'attitude', label: 'Отношение' },
-  { key: 'bureaucracy', label: 'Документы' },
-  { key: 'weather', label: 'Погода' },
-  { key: 'all', label: 'Все отзывы' },
-]
+const TABS = computed(() => [
+  { key: 'overview', label: t('country.tabs.overview') },
+  { key: 'legalization', label: t('country.tabs.legalization') },
+  { key: 'cost_of_living', label: t('country.tabs.cost') },
+  { key: 'safety', label: t('country.tabs.safety') },
+  { key: 'attitude', label: t('country.tabs.attitude') },
+  { key: 'bureaucracy', label: t('country.tabs.documents') },
+  { key: 'weather', label: t('country.tabs.weather') },
+  { key: 'all', label: t('country.tabs.allReviews') },
+])
 const activeTab = ref('overview')
 
 // Nationality dialog

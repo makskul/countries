@@ -6,7 +6,7 @@
       <input
         v-model="localSearch"
         class="cfb-input"
-        placeholder="Поиск страны..."
+        :placeholder="$t('countries.filters.search')"
         type="text"
       />
     </div>
@@ -44,12 +44,14 @@
     />
 
     <!-- Count -->
-    <span class="cfb-count">Найдено {{ count }} стран</span>
+    <span class="cfb-count">{{ $t('countries.filters.found', { count }) }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { REGION_OPTIONS } from '~/utils/regions'
+import { REGION_OPTIONS as RAW_REGION_OPTIONS } from '~/utils/regions'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   search: string
@@ -87,23 +89,34 @@ const localSort = computed({
   set: (v) => emit('update:sort', v),
 })
 
-const CATEGORY_OPTIONS = [
-  { label: 'Любая категория', value: '' },
-  { label: 'Легализация', value: 'legalization' },
-  { label: 'Стоимость жизни', value: 'cost_of_living' },
-  { label: 'Безопасность', value: 'safety' },
-  { label: 'Отношение', value: 'attitude' },
-  { label: 'Документы', value: 'bureaucracy' },
-  { label: 'Погода', value: 'weather' },
-]
+const CATEGORY_OPTIONS = computed(() => [
+  { label: t('countries.filters.allCategories'), value: '' },
+  { label: t('categories.legalization.name'), value: 'legalization' },
+  { label: t('categories.cost_of_living.name'), value: 'cost_of_living' },
+  { label: t('categories.safety.name'), value: 'safety' },
+  { label: t('categories.attitude.name'), value: 'attitude' },
+  { label: t('categories.bureaucracy.name'), value: 'bureaucracy' },
+  { label: t('categories.weather.name'), value: 'weather' },
+])
 
-const SORT_OPTIONS = [
-  { label: 'Популярные', value: 'popular' },
-  { label: 'Лучший рейтинг', value: 'rating_desc' },
-  { label: 'Худший рейтинг', value: 'rating_asc' },
-  { label: 'Больше отзывов', value: 'reviews_desc' },
-  { label: 'Недавно добавлены', value: 'recent' },
-]
+const REGION_OPTIONS = computed(() => RAW_REGION_OPTIONS.map((opt: { label: string; value: string }) => {
+  const key = opt.value === '' ? 'all'
+    : opt.value === 'Европа' ? 'europe'
+    : opt.value === 'Азия' ? 'asia'
+    : opt.value === 'Америка' ? 'americas'
+    : opt.value === 'Африка' ? 'africa'
+    : opt.value === 'Океания' ? 'oceania'
+    : null
+  return { ...opt, label: key ? t(`countries.filters.regions.${key}`) : opt.label }
+}))
+
+const SORT_OPTIONS = computed(() => [
+  { label: t('countries.filters.sort.popular'), value: 'popular' },
+  { label: t('countries.filters.sort.ratingDesc'), value: 'rating_desc' },
+  { label: t('countries.filters.sort.ratingAsc'), value: 'rating_asc' },
+  { label: t('countries.filters.sort.reviewsDesc'), value: 'reviews_desc' },
+  { label: t('countries.filters.sort.recent'), value: 'recent' },
+])
 </script>
 
 <style scoped>

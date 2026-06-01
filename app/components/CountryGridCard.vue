@@ -13,13 +13,13 @@
     <div class="cgc-rating">
       <Rating :modelValue="country.avgRating" readonly :cancel="false" :stars="5" />
       <span class="cgc-score">{{ country.avgRating }}</span>
-      <span class="cgc-count">({{ country.totalReviews }} отзывов)</span>
+      <span class="cgc-count">({{ country.totalReviews }} {{ $t('common.labels.reviews') }})</span>
     </div>
 
     <!-- Top 3 category mini-bars -->
     <div class="cgc-bars">
       <div v-for="cat in country.categoryStats.slice(0, 3)" :key="cat.category" class="cgc-bar-row">
-        <span class="cgc-bar-label">{{ CAT_LABELS[cat.category] ?? cat.category }}</span>
+        <span class="cgc-bar-label">{{ $t(`categories.${cat.category}.name`) }}</span>
         <div class="cgc-bar-track">
           <div class="cgc-bar-fill" :style="{ width: (cat.avg / 5 * 100) + '%' }" />
         </div>
@@ -29,8 +29,8 @@
 
     <!-- Bottom nationality pill -->
     <div class="cgc-nat">
-      <span v-if="country.hasNatReviews" class="nat-pill nat-pill--green">Есть отзывы для вас</span>
-      <span v-else class="nat-pill nat-pill--gray">Нет отзывов для вашей нац.</span>
+      <span v-if="country.hasNatReviews" class="nat-pill nat-pill--green">{{ $t('countries.card.hasReviews') }}</span>
+      <span v-else class="nat-pill nat-pill--gray">{{ $t('countries.card.noReviews') }}</span>
     </div>
   </div>
 </template>
@@ -43,13 +43,6 @@ const props = defineProps<{ country: CountryStat }>()
 defineEmits<{ click: [] }>()
 
 const flag = computed(() => getFlagEmoji(props.country.code))
-
-const CAT_LABELS: Record<string, string> = {
-  legalization: 'Легализация', attitude: 'Отношение',
-  cost_of_living: 'Стоимость жизни', bureaucracy: 'Документы',
-  cleanliness: 'Чистота', weather: 'Погода', safety: 'Безопасность',
-  healthcare: 'Медицина', language_barrier: 'Язык', overall: 'Общая',
-}
 </script>
 
 <style scoped>

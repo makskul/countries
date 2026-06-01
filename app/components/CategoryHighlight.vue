@@ -24,21 +24,14 @@
       </svg>
       <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
     </div>
-    <div class="cat-name">{{ CAT_LABELS[item.category] ?? item.category }}</div>
+    <div class="cat-name">{{ $t(`categories.${item.category}.name`) }}</div>
     <div class="cat-score">{{ item.avgRating || '—' }}</div>
-    <div class="cat-count">{{ item.total }} отзывов</div>
+    <div class="cat-count">{{ item.total }} {{ $t('common.labels.reviews') }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
 defineProps<{ item: { category: string; total: number; avgRating: number } }>()
-
-const CAT_LABELS: Record<string, string> = {
-  legalization: 'Легализация',
-  cost_of_living: 'Стоимость жизни',
-  safety: 'Безопасность',
-  attitude: 'Отношение',
-}
 </script>
 
 <style scoped>
