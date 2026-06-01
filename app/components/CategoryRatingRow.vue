@@ -142,16 +142,17 @@ const hovered = ref(0)
 .crr-star {
   font-size: 20px;
   cursor: pointer;
-  color: var(--color-bg-tertiary);
-  transition: transform 0.1s, color 0.1s;
+  color: var(--color-primary-mid);
+  opacity: 0.35;
+  transition: transform 0.1s, color 0.1s, opacity 0.1s;
   line-height: 1;
   user-select: none;
 }
-.crr-star--filled { color: var(--color-star); }
-.crr-star:hover { transform: scale(1.2); }
+.crr-star--filled { color: var(--color-star); opacity: 1; }
+.crr-star:hover { transform: scale(1.2); opacity: 0.8; }
 
 .crr-stars-preview { display: flex; gap: 2px; }
-.crr-star-empty { font-size: 16px; color: var(--color-bg-tertiary); }
+.crr-star-empty { font-size: 16px; color: var(--color-primary-mid); opacity: 0.3; }
 
 .crr-star-label {
   font-size: 12px;

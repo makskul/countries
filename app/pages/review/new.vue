@@ -190,6 +190,10 @@ import { useToast } from 'primevue/usetoast'
 import { getFlagEmoji } from '~/utils/countries'
 import { useReviewForm } from '~/composables/useReviewForm'
 
+const { t } = useI18n()
+const router = useRouter()
+const { getCountryNameLocalized } = useLocalizedCountries()
+
 useSeoMeta({
   title: () => t('seo.review.title'),
   description: () => t('seo.review.description'),
@@ -201,10 +205,6 @@ useSeoMeta({
   twitterCard: 'summary',
   robots: 'noindex, nofollow',
 })
-
-const { t } = useI18n()
-const router = useRouter()
-const { getCountryNameLocalized } = useLocalizedCountries()
 
 const {
   form,

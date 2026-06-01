@@ -2,9 +2,7 @@
   <div class="sidebar">
     <!-- Card 1: Actions -->
     <div class="s-card">
-      <NuxtLinkLocale :to="`/review/new?country=${countryCode}`">
-        <button class="s-btn-primary">+ Написать отзыв о {{ countryName }}</button>
-      </NuxtLinkLocale>
+      <NuxtLinkLocale :to="`/review/new?country=${countryCode}`" class="s-btn-primary">+ {{ $t('common.buttons.writeReview').replace('+ ', '') }} {{ countryName }}</NuxtLinkLocale>
       <button class="s-btn-secondary" @click="handleShare">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
         Поделиться страницей
@@ -110,11 +108,12 @@ async function handleShare() {
   gap: 8px;
 }
 .s-btn-primary {
-  width: 100%; background: var(--color-primary); color: #fff;
+  display: block; width: 100%; text-decoration: none;
+  background: var(--color-primary); color: #fff;
   border: none; border-radius: var(--radius-md);
   padding: 11px; font-size: 13px; font-weight: 600;
   cursor: pointer; font-family: inherit; transition: background 0.15s;
-  text-align: center;
+  text-align: center; box-sizing: border-box;
 }
 .s-btn-primary:hover { background: var(--color-primary-hover); }
 .s-btn-secondary {

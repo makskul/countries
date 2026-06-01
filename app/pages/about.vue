@@ -26,9 +26,7 @@
       <div class="about-cta">
         <h2>{{ $t('pages.about.ctaTitle') }}</h2>
         <p>{{ $t('pages.about.ctaText') }}</p>
-        <NuxtLinkLocale to="/review/new">
-          <button class="about-btn">{{ $t('pages.about.ctaBtn') }}</button>
-        </NuxtLinkLocale>
+        <NuxtLinkLocale to="/review/new" class="about-btn">{{ $t('pages.about.ctaBtn') }}</NuxtLinkLocale>
       </div>
     </div>
   </div>
@@ -83,6 +81,7 @@ useSeoMeta({
 .about-cta h2 { font-size: 20px; font-weight: 600; margin: 0 0 8px; color: var(--color-primary-dark); }
 .about-cta p { font-size: 14px; color: var(--color-text-secondary); margin: 0 0 20px; }
 .about-btn {
+  display: inline-block; text-decoration: none;
   background: var(--color-primary); color: #fff; border: none;
   border-radius: var(--radius-pill); padding: 11px 24px;
   font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;

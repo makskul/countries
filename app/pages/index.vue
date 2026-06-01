@@ -113,9 +113,7 @@
           <h3 class="cta-title">{{ $t('homepage.cta.title') }}</h3>
           <p class="cta-sub">{{ $t('homepage.cta.subtitle') }}</p>
         </div>
-        <NuxtLinkLocale to="/review/new">
-          <button class="cta-btn">{{ $t('common.buttons.writeReview') }}</button>
-        </NuxtLinkLocale>
+        <NuxtLinkLocale to="/review/new" class="cta-btn">{{ $t('common.buttons.writeReview') }}</NuxtLinkLocale>
       </div>
     </section>
 
@@ -340,8 +338,10 @@ function confirmNationalityAndRedirect() {
   margin: 0;
 }
 .cta-btn {
+  display: inline-block;
   background: var(--color-primary);
   color: #fff;
+  text-decoration: none;
   border: none;
   border-radius: var(--radius-pill);
   padding: 10px 22px;

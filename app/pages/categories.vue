@@ -23,7 +23,7 @@
           <h3 class="cat-name">{{ $t(`categories.${cat.key}.name`) }}</h3>
           <p class="cat-hint">{{ $t(`categories.${cat.key}.hint`) }}</p>
           <NuxtLinkLocale :to="`/countries?category=${cat.key}`" class="cat-link">
-            Переглянути країни →
+            {{ $t('common.buttons.seeAll') }}
           </NuxtLinkLocale>
         </div>
       </div>

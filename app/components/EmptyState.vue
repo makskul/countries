@@ -5,8 +5,8 @@
     <p class="text-color-secondary m-0 text-center">
       Be the first to review {{ countryName }} from a {{ nationalityName }} perspective.
     </p>
-    <NuxtLinkLocale :to="`/review/new?country=${countryCode}`">
-      <Button label="Write a Review" icon="pi pi-pencil" />
+    <NuxtLinkLocale :to="`/review/new?country=${countryCode}`" style="text-decoration:none">
+      <Button label="Write a Review" icon="pi pi-pencil" tag="span" />
     </NuxtLinkLocale>
   </div>
 </template>
