@@ -21,9 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { getCountryName, getFlagEmoji } from '~/utils/countries'
+import { getFlagEmoji } from '~/utils/countries'
 
 const { t } = useI18n()
+const { getCountryNameLocalized } = useLocalizedCountries()
 
 const props = defineProps<{
   item: { code: string; total: number; avgRating: number; topCategories: string[] }
@@ -31,7 +32,7 @@ const props = defineProps<{
 defineEmits<{ click: [] }>()
 
 const flag = computed(() => getFlagEmoji(props.item.code))
-const countryName = computed(() => getCountryName(props.item.code))
+const countryName = computed(() => getCountryNameLocalized(props.item.code))
 
 function getCategoryLabel(key: string) {
   return t(`categories.${key}.name`)

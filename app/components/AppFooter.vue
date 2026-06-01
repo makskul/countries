@@ -68,7 +68,7 @@
               :to="`/country/${code.toLowerCase()}`"
               class="fcol-link"
             >
-              {{ getFlagEmoji(code) }} {{ getCountryName(code) }}
+              {{ getFlagEmoji(code) }} {{ getCountryNameLocalized(code) }}
             </NuxtLink>
           </template>
           <template v-else>
@@ -153,10 +153,11 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import { getFlagEmoji, getCountryName } from '~/utils/countries'
+import { getFlagEmoji } from '~/utils/countries'
 import { useFooterData } from '~/composables/useFooterData'
 
 const { t } = useI18n()
+const { getCountryNameLocalized } = useLocalizedCountries()
 const toast = useToast()
 const supabase = useSupabaseClient()
 const { stats, topCountries, subscribeNewsletter } = useFooterData()

@@ -3,14 +3,15 @@
     <span class="nfn-text">
       {{ $t('country.natFilter.showing') }}
       <span class="nfn-flag">{{ getFlagEmoji(nationality) }}</span>
-      <strong>{{ getCountryName(nationality) }}</strong>
+      <strong>{{ getCountryNameLocalized(nationality) }}</strong>
     </span>
     <button class="nfn-change" @click="$emit('change')">{{ $t('country.natFilter.change') }}</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { getFlagEmoji, getCountryName } from '~/utils/countries'
+import { getFlagEmoji } from '~/utils/countries'
+const { getCountryNameLocalized } = useLocalizedCountries()
 defineProps<{ nationality: string }>()
 defineEmits<{ change: [] }>()
 </script>

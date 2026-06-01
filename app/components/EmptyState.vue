@@ -12,8 +12,8 @@
 </template>
 
 <script setup lang="ts">
-import { getCountryName } from '~/utils/countries'
+const { getCountryNameLocalized } = useLocalizedCountries()
 const props = defineProps<{ countryCode: string; nationalityCode: string }>()
-const countryName = computed(() => getCountryName(props.countryCode))
-const nationalityName = computed(() => getCountryName(props.nationalityCode))
+const countryName = computed(() => getCountryNameLocalized(props.countryCode))
+const nationalityName = computed(() => getCountryNameLocalized(props.nationalityCode))
 </script>

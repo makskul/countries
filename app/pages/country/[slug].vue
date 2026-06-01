@@ -20,7 +20,7 @@
             <div class="ch-meta">
               <span class="ch-region-pill">{{ region }}</span>
               <span class="ch-nat-badge" v-if="nationality">
-                {{ getFlagEmoji(nationality) }} Отзывы {{ getCountryName(nationality) }}
+                {{ getFlagEmoji(nationality) }} Отзывы {{ getCountryNameLocalized(nationality) }}
               </span>
             </div>
           </div>
@@ -141,7 +141,7 @@
 </template>
 
 <script setup lang="ts">
-import { getFlagEmoji, getCountryName, timeAgo } from '~/utils/countries'
+import { getFlagEmoji, timeAgo } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCountryPage } from '~/composables/useCountryPage'
 import { getNationalityName } from '~/utils/nationalities'
@@ -164,7 +164,7 @@ onMounted(() => {
 
 const slug = computed(() => (route.params.slug as string).toUpperCase())
 const nationality = computed(() => store.nationality)
-const countryName = computed(() => getCountryName(slug.value))
+const countryName = computed(() => getCountryNameLocalized(slug.value))
 const flag = computed(() => getFlagEmoji(slug.value))
 const region = computed(() => getRegion(slug.value))
 
@@ -208,6 +208,7 @@ const {
 } = useCountryPage(slug, nationality)
 
 const { t } = useI18n()
+const { getCountryNameLocalized } = useLocalizedCountries()
 
 // Tabs
 const TABS = computed(() => [

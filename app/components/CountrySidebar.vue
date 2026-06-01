@@ -54,7 +54,7 @@
         >
           <span class="s-similar-left">
             {{ getFlagEmoji(c.code) }}
-            <span class="s-similar-name">{{ getCountryName(c.code) }}</span>
+            <span class="s-similar-name">{{ getCountryNameLocalized(c.code) }}</span>
           </span>
           <span class="s-similar-right">{{ c.avgRating }} ★ →</span>
         </div>
@@ -64,9 +64,11 @@
 </template>
 
 <script setup lang="ts">
-import { getFlagEmoji, getCountryName } from '~/utils/countries'
+import { getFlagEmoji } from '~/utils/countries'
 import { getCountryMeta } from '~/utils/countryMeta'
 import { getVisaInfo } from '~/utils/visaInfo'
+
+const { getCountryNameLocalized } = useLocalizedCountries()
 
 const props = defineProps<{
   countryCode: string
@@ -75,7 +77,7 @@ const props = defineProps<{
 }>()
 
 const router = useRouter()
-const countryName = computed(() => getCountryName(props.countryCode))
+const countryName = computed(() => getCountryNameLocalized(props.countryCode))
 const meta = computed(() => getCountryMeta(props.countryCode))
 const visaInfo = computed(() => props.nationality ? getVisaInfo(props.nationality, props.countryCode) : null)
 const costClass = computed(() => {

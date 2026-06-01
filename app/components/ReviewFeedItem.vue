@@ -23,16 +23,17 @@
 <script setup lang="ts">
 import type { Review } from '~/types/review'
 import { CATEGORIES } from '~/types/review'
-import { getCountryName, getFlagEmoji, timeAgo } from '~/utils/countries'
+import { getFlagEmoji, timeAgo } from '~/utils/countries'
 
 const { t } = useI18n()
+const { getCountryNameLocalized } = useLocalizedCountries()
 
 const props = defineProps<{ review: Review }>()
 
 const targetFlag = computed(() => getFlagEmoji(props.review.target_country))
-const targetName = computed(() => getCountryName(props.review.target_country))
+const targetName = computed(() => getCountryNameLocalized(props.review.target_country))
 const authorFlag = computed(() => getFlagEmoji(props.review.author_nationality))
-const authorNatLabel = computed(() => getCountryName(props.review.author_nationality))
+const authorNatLabel = computed(() => getCountryNameLocalized(props.review.author_nationality))
 const time = computed(() => timeAgo(props.review.created_at))
 
 // Pick the best category to display: prefer one with a comment, fallback to highest rated

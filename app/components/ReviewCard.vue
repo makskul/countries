@@ -12,17 +12,18 @@
 
     <!-- Footer -->
     <div class="rc-row3">
-      <span class="rc-author">{{ getFlagEmoji(review.author_nationality) }} {{ getCountryName(review.author_nationality) }}</span>
+      <span class="rc-author">{{ getFlagEmoji(review.author_nationality) }} {{ getCountryNameLocalized(review.author_nationality) }}</span>
       <span class="rc-time">{{ time }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { getFlagEmoji, getCountryName, timeAgo } from '~/utils/countries'
+import { getFlagEmoji, timeAgo } from '~/utils/countries'
 import { CATEGORIES, CATEGORY_LABELS } from '~/utils/categories'
 import type { RawReview } from '~/composables/useCountryPage'
 
+const { getCountryNameLocalized } = useLocalizedCountries()
 const props = defineProps<{ review: RawReview }>()
 const time = computed(() => timeAgo(props.review.created_at))
 

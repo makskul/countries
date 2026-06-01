@@ -136,13 +136,13 @@
 
           <div v-if="form.country" class="preview-country">
             <span class="preview-flag">{{ getFlagEmoji(form.country) }}</span>
-            <span class="preview-name">{{ getCountryName(form.country) }}</span>
+            <span class="preview-name">{{ getCountryNameLocalized(form.country) }}</span>
           </div>
           <div v-else class="preview-empty-row">{{ $t('review.preview.noCountry') }}</div>
 
           <div v-if="form.nationality" class="preview-nat">
             {{ getFlagEmoji(form.nationality) }}
-            <span class="preview-nat-pill">{{ getCountryName(form.nationality) }}</span>
+            <span class="preview-nat-pill">{{ getCountryNameLocalized(form.nationality) }}</span>
           </div>
 
           <div class="preview-cats">
@@ -172,10 +172,10 @@
         <!-- Country stats -->
         <div v-if="form.country && countryStats" class="stats-card">
           <div class="stats-title">
-            {{ getFlagEmoji(form.country) }} {{ $t('review.stats.title', { count: countryStats.total, country: getCountryName(form.country) }) }}
+            {{ getFlagEmoji(form.country) }} {{ $t('review.stats.title', { count: countryStats.total, country: getCountryNameLocalized(form.country) }) }}
           </div>
           <p class="stats-text">
-            {{ $t('review.stats.subtitle', { natCount: countryStats.natCount, nationality: form.nationality ? getCountryName(form.nationality) : '' }) }}
+            {{ $t('review.stats.subtitle', { natCount: countryStats.natCount, nationality: form.nationality ? getCountryNameLocalized(form.nationality) : '' }) }}
           </p>
         </div>
       </div>
@@ -187,7 +187,7 @@
 
 <script setup lang="ts">
 import { useToast } from 'primevue/usetoast'
-import { getFlagEmoji, getCountryName } from '~/utils/countries'
+import { getFlagEmoji } from '~/utils/countries'
 import { useReviewForm } from '~/composables/useReviewForm'
 
 useSeoMeta({
@@ -204,6 +204,7 @@ useSeoMeta({
 
 const { t } = useI18n()
 const router = useRouter()
+const { getCountryNameLocalized } = useLocalizedCountries()
 
 const {
   form,
