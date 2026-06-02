@@ -55,12 +55,31 @@
     <!-- TABS BAR -->
     <div class="tabs-bar">
       <button
-        v-for="tab in TABS"
-        :key="tab.key"
         class="tab-btn"
-        :class="{ active: activeTab === tab.key }"
-        @click="activeTab = tab.key"
-      >{{ tab.label }}</button>
+        :class="{ active: isCountryView }"
+        @click="selectedCityId = null; selectedCityName = null"
+      >{{ $t('country.tabs.countryOverview') }}</button>
+
+      <button
+        v-for="city in (citiesWithReviews ?? []).slice(0, 4)"
+        :key="city.city_id"
+        class="tab-btn"
+        :class="{ active: selectedCityId === city.city_id }"
+        @click="selectedCityId = city.city_id; selectedCityName = city.city_name"
+      >
+        {{ city.city_name }}
+        <span
+          v-if="selectedCityId === city.city_id"
+          @click.stop="selectedCityId = null; selectedCityName = null"
+          style="margin-left:4px; opacity:0.6; cursor:pointer"
+        >×</span>
+      </button>
+
+      <button
+        v-if="(citiesWithReviews ?? []).length > 4"
+        class="tab-btn tab-btn--more"
+        @click="showAllCitiesDialog = true"
+      >+ {{ $t('country.tabs.allCities') }}</button>
     </div>
 
     <!-- PAGE BODY -->
@@ -81,8 +100,43 @@
           <!-- Nat filter notice -->
           <NatFilterNotice :nationality="nationality" @change="showNatDialog = true" />
 
+          <!-- City view back link -->
+          <div v-if="isCityView" class="city-back" @click="selectedCityId = null; selectedCityName = null">
+            {{ $t('country.cityView.backToCountry') }}
+          </div>
+
+          <!-- City header -->
+          <div v-if="isCityView && selectedCityName" class="city-view-header">
+            <span class="ch-flag">{{ flag }}</span>
+            <div>
+              <h2 style="margin: 0; font-size: 18px; font-weight: 600;">{{ selectedCityName }}</h2>
+              <span style="font-size: 13px; color: var(--color-text-muted)">{{ countryName }}</span>
+            </div>
+          </div>
+
           <!-- Category scores -->
           <CategoryScoresCard :stats="catStats" :pending="pending" />
+
+          <!-- Cities with reviews block (country view only) -->
+          <div v-if="isCountryView && citiesWithReviews && citiesWithReviews.length" class="cities-block">
+            <div class="cities-block-header">
+              <span class="section-label">{{ $t('country.cityView.citiesWithReviews') }}</span>
+            </div>
+            <div class="cities-grid">
+              <div
+                v-for="city in citiesWithReviews"
+                :key="city.city_id"
+                class="city-stat-card"
+                @click="selectedCityId = city.city_id; selectedCityName = city.city_name"
+              >
+                <div class="city-stat-name">{{ city.city_name }}</div>
+                <div class="city-stat-meta">
+                  <Rating :modelValue="Number(city.avg_overall)" readonly :cancel="false" :stars="5" />
+                  <span class="city-stat-count">{{ city.total_reviews }} {{ $t('common.labels.reviews') }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Reviews section -->
           <div class="reviews-section">
@@ -125,6 +179,21 @@
       />
     </div>
 
+    <!-- All cities dialog -->
+    <Dialog v-model:visible="showAllCitiesDialog" :header="$t('country.cityView.citiesWithReviews')" modal style="width: 400px">
+      <div
+        v-for="city in citiesWithReviews"
+        :key="city.city_id"
+        @click="selectedCityId = city.city_id; selectedCityName = city.city_name; showAllCitiesDialog = false"
+        style="padding: 10px 0; border-bottom: 1px solid var(--color-border); cursor: pointer; display: flex; justify-content: space-between; align-items: center;"
+      >
+        <span style="font-size: 13px; font-weight: 600;">{{ city.city_name }}</span>
+        <span style="font-size: 12px; color: var(--color-text-muted)">
+          {{ city.total_reviews }} {{ $t('common.labels.reviews') }} · ★ {{ city.avg_overall }}
+        </span>
+      </div>
+    </Dialog>
+
     <!-- Nationality dialog -->
     <Dialog v-model:visible="showNatDialog" :header="$t('country.dialog.title')" modal style="width: 360px">
       <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 4px">
@@ -159,6 +228,11 @@ onMounted(() => {
   }
   if (!store.nationality) {
     showNatDialog.value = true
+  }
+  // Read city from store (set by homepage city card)
+  if (store.selectedCityId) {
+    selectedCityId.value = store.selectedCityId
+    store.setSelectedCity(null)
   }
 })
 
@@ -205,20 +279,15 @@ const {
   loadMore,
   similarCountries,
   markHelpful,
+  selectedCityId,
+  citiesWithReviews,
+  cityStats,
 } = useCountryPage(slug, nationality)
 
-// Tabs
-const TABS = computed(() => [
-  { key: 'overview', label: t('country.tabs.overview') },
-  { key: 'legalization', label: t('country.tabs.legalization') },
-  { key: 'cost_of_living', label: t('country.tabs.cost') },
-  { key: 'safety', label: t('country.tabs.safety') },
-  { key: 'attitude', label: t('country.tabs.attitude') },
-  { key: 'bureaucracy', label: t('country.tabs.documents') },
-  { key: 'weather', label: t('country.tabs.weather') },
-  { key: 'all', label: t('country.tabs.allReviews') },
-])
-const activeTab = ref('overview')
+const selectedCityName = ref<string | null>(null)
+const showAllCitiesDialog = ref(false)
+const isCountryView = computed(() => selectedCityId.value === null)
+const isCityView = computed(() => selectedCityId.value !== null)
 
 // Nationality dialog
 const showNatDialog = ref(false)
@@ -335,6 +404,31 @@ function applyNationality() {
 .empty-btn:hover { background: var(--color-primary-hover); }
 .no-nat-state { text-align: center; padding: 32px 24px; background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
 
+/* City view */
+.city-back {
+  font-size: 13px; color: var(--color-primary);
+  cursor: pointer; margin-bottom: 12px; display: inline-block;
+}
+.city-back:hover { text-decoration: underline; }
+.city-view-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 14px; padding: 14px 16px;
+  background: #fff; border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.cities-block { margin-bottom: 14px; }
+.cities-block-header { margin-bottom: 8px; }
+.cities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.city-stat-card {
+  background: #fff; border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); padding: 10px 12px;
+  cursor: pointer; transition: box-shadow 0.15s;
+}
+.city-stat-card:hover { box-shadow: var(--shadow-card); }
+.city-stat-name { font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 4px; }
+.city-stat-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.city-stat-count { font-size: 11px; color: var(--color-text-muted); }
+
 /* Responsive */
 @media (max-width: 768px) {
   .page-body { grid-template-columns: 1fr; }
@@ -342,4 +436,5 @@ function applyNationality() {
   .ch-flag { font-size: 32px; }
   .ch-avg-score { font-size: 24px; }
 }
+@media (max-width: 600px) { .cities-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>

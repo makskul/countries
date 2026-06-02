@@ -8,6 +8,8 @@ export default {
     documents: 'Документи',
     weather: 'Погода',
     allReviews: 'Всі відгуки',
+    countryOverview: 'Країна загалом',
+    allCities: 'Всі міста',
   },
   header: {
     overallRating: 'Загальний рейтинг',
@@ -20,7 +22,12 @@ export default {
     showing: 'Показані відгуки для',
     change: 'Змінити →',
   },
-  scores: { title: 'Рейтинг за категоріями' },
+  scores: { title: 'Рейтинг за категоріями', countryTitle: 'Середні оцінки по країні', cityTitle: 'Середні оцінки по місту' },
+  cityView: {
+    backToCountry:     '← Країна загалом',
+    citiesWithReviews: 'Міста з відгуками',
+    noCityReviews:     'Немає відгуків для цього міста від вашої національності',
+  },
   reviews: {
     sectionLabel: 'Свіжі відгуки',
     title: 'Останні відгуки',

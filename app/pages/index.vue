@@ -61,6 +61,30 @@
       </div>
     </section>
 
+    <!-- ═══════════ LATEST CITIES ═══════════ -->
+    <section v-if="latestCities.length" class="page-section">
+      <div class="section-wrap">
+        <div class="section-header">
+          <div>
+            <span class="section-label">{{ $t('homepage.cities.sectionLabel') }}</span>
+            <h2 class="section-title">{{ $t('homepage.cities.title') }}</h2>
+          </div>
+        </div>
+        <div class="cities-scroll">
+          <div
+            v-for="city in latestCities"
+            :key="city.city_id"
+            class="city-card"
+            @click="goToCity(city)"
+          >
+            <div class="city-flag">{{ getFlagEmoji(city.target_country) }}</div>
+            <div class="city-name">{{ city.city_name }}</div>
+            <div class="city-country">{{ getCountryNameLocalized(city.target_country) }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════ LATEST REVIEWS ═══════════ -->
     <section class="page-section">
       <div class="section-wrap">
@@ -131,7 +155,7 @@
 </template>
 
 <script setup lang="ts">
-import { countryToSlug } from '~/utils/countries'
+import { countryToSlug, getFlagEmoji } from '~/utils/countries'
 
 const { t } = useI18n()
 
@@ -152,6 +176,8 @@ useSeoMeta({
 const store = useUserStore()
 const router = useRouter()
 const localePath = useLocalePath()
+const supabase = useSupabaseClient()
+const { getCountryNameLocalized } = useLocalizedCountries()
 
 onMounted(() => store.loadFromStorage())
 
@@ -159,6 +185,32 @@ const nationality = ref(store.nationality)
 const targetCountry = ref('')
 
 const { stats, statsPending, trending, trendingPending, latest, latestPending, catStats, catPending } = useHomepageData()
+
+const { data: latestCitiesRaw } = useLazyAsyncData('latestCities', async () => {
+  const { data } = await supabase
+    .from('reviews')
+    .select('city_id, city_name, target_country, created_at')
+    .not('city_id', 'is', null)
+    .order('created_at', { ascending: false })
+    .limit(50)
+  return (data ?? []) as any[]
+}, { server: false, dedupe: 'defer' })
+
+const latestCities = computed(() => {
+  const seen = new Set<number>()
+  return (latestCitiesRaw.value ?? [])
+    .filter((r: any) => {
+      if (seen.has(r.city_id)) return false
+      seen.add(r.city_id)
+      return true
+    })
+    .slice(0, 6)
+})
+
+function goToCity(city: { city_id: number; target_country: string; city_name: string }) {
+  store.setSelectedCity(city.city_id)
+  router.push(localePath(`/country/${city.target_country.toLowerCase()}`))
+}
 
 function handleSubmit() {
   if (!nationality.value || !targetCountry.value) return
@@ -353,6 +405,30 @@ function confirmNationalityAndRedirect() {
   white-space: nowrap;
 }
 .cta-btn:hover { background: var(--color-primary-hover); }
+
+/* CITIES */
+.cities-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+.city-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  cursor: pointer;
+  min-width: 150px;
+  flex-shrink: 0;
+  transition: box-shadow 0.2s;
+}
+.city-card:hover { box-shadow: var(--shadow-hover); }
+.city-flag { font-size: 22px; margin-bottom: 6px; }
+.city-name { font-size: 13px; font-weight: 600; color: var(--color-text); }
+.city-country { font-size: 11px; color: var(--color-text-muted); margin-top: 2px; }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {

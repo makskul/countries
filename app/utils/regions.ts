@@ -9,6 +9,7 @@ export const REGIONS: Record<string, string> = {
   NO: 'europe', PL: 'europe', PT: 'europe', RO: 'europe', RU: 'europe',
   SM: 'europe', RS: 'europe', SK: 'europe', SI: 'europe', ES: 'europe',
   SE: 'europe', CH: 'europe', UA: 'europe', GB: 'europe', VA: 'europe',
+  IM: 'europe', JE: 'europe', GG: 'europe',
   // Asia
   AF: 'asia', AM: 'asia', AZ: 'asia', BH: 'asia', BD: 'asia',
   BT: 'asia', BN: 'asia', KH: 'asia', CN: 'asia', GE: 'asia',

@@ -26,6 +26,7 @@ export function useReviewForm() {
   const form = reactive({
     country: (route.query.country as string) || '',
     nationality: store.nationality || '',
+    profile: '',
     ratings: Object.fromEntries(FORM_CATEGORIES.map(c => [c.key, 0])) as Record<FormCategoryKey, number>,
     comments: Object.fromEntries(FORM_CATEGORIES.map(c => [c.key, ''])) as Record<FormCategoryKey, string>,
   })
@@ -38,6 +39,7 @@ export function useReviewForm() {
   const isValid = computed(() =>
     form.country !== '' &&
     form.nationality !== '' &&
+    form.profile !== '' &&
     Object.values(form.ratings).some(r => r > 0)
   )
 
@@ -60,7 +62,7 @@ export function useReviewForm() {
   const submitting = ref(false)
   const submitSuccess = ref(false)
 
-  async function submit() {
+  async function submit(cityName?: string, cityId?: number) {
     if (!isValid.value) {
       toast.add({ severity: 'warn', summary: 'Заполни форму', detail: 'Выбери страну, национальность и хотя бы одну оценку', life: 4000 })
       return
@@ -83,6 +85,8 @@ export function useReviewForm() {
       const { error } = await supabase.from('reviews').insert({
         author_nationality: form.nationality,
         target_country: form.country,
+        author_profile: form.profile,
+        ...(cityName ? { city_name: cityName, city_id: cityId } : {}),
         ratings,
         comments,
         is_approved: true,

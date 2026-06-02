@@ -8,6 +8,12 @@ export default {
   fields: {
     country: 'Країна про яку пишеш *',
     nationality: 'Твоя національність *',
+    city:                 'Місто',
+    cityPlaceholder:      'Почни вводити назву міста...',
+    cityDisabledHint:     'Спочатку обери країну',
+    citySelectFromList:   'Обери місто зі списку',
+    profile:              'Хто ти в цій країні',
+    profilePlaceholder:   'Обери свій статус...',
   },
   ratings: {
     title: 'Оціни за категоріями',

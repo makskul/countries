@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useUserStore = defineStore('user', {
   state: () => ({
     nationality: '' as string,
+    selectedCityId: null as number | null,
   }),
   actions: {
     setNationality(code: string) {
@@ -10,6 +11,9 @@ export const useUserStore = defineStore('user', {
       if (import.meta.client) {
         localStorage.setItem('nationality', code)
       }
+    },
+    setSelectedCity(id: number | null) {
+      this.selectedCityId = id
     },
     loadFromStorage() {
       if (import.meta.client) {

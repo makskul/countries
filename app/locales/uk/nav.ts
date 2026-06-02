@@ -9,5 +9,6 @@ export default {
     countries: 'Країни',
     writeReview: 'Написати відгук',
   },
-  cta: '+ Написати відгук',
+  cta: "+ Написати відгук",
+  language: "Мова",
 }

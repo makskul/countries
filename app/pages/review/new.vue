@@ -53,6 +53,56 @@
               <NationalitySelector v-model="form.nationality" />
             </div>
           </div>
+
+          <!-- City + Profile selectors -->
+          <div class="selectors-grid" style="margin-top: 10px">
+            <div>
+              <label class="field-label">{{ $t('review.fields.city') }} *</label>
+              <AutoComplete
+                v-model="cityQuery"
+                :suggestions="citySuggestions"
+                optionLabel="name"
+                :placeholder="$t('review.fields.cityPlaceholder')"
+                :disabled="!form.country"
+                forceSelection
+                @complete="searchCities"
+                @item-select="onCitySelect"
+                @clear="selectedCity = null"
+                :delay="300"
+                class="w-full"
+              />
+              <small v-if="!form.country" style="color:var(--color-text-muted); font-size:11px">
+                {{ $t('review.fields.cityDisabledHint') }}
+              </small>
+              <small
+                v-else-if="cityQuery && !selectedCity"
+                style="color:var(--color-danger); font-size:11px"
+              >
+                {{ $t('review.fields.citySelectFromList') }}
+              </small>
+            </div>
+            <div>
+              <label class="field-label">{{ $t('review.fields.profile') }} *</label>
+              <Select
+                v-model="form.profile"
+                :options="profileOptions"
+                optionLabel="label"
+                optionValue="key"
+                :placeholder="$t('review.fields.profilePlaceholder')"
+                class="w-full"
+              >
+                <template #option="{ option }">
+                  <span>{{ option.icon }} {{ option.label }}</span>
+                </template>
+                <template #value="{ value }">
+                  <span v-if="value">
+                    {{ profileOptions.find(p => p.key === value)?.icon }}
+                    {{ profileOptions.find(p => p.key === value)?.label }}
+                  </span>
+                </template>
+              </Select>
+            </div>
+          </div>
         </div>
 
         <!-- SUCCESS STATE -->
@@ -208,18 +258,76 @@ useSeoMeta({
 
 const {
   form,
-  isValid,
+  isValid: isValidBase,
   step,
   expanded,
   toggleExpand,
   submitting,
   submitSuccess,
-  submit,
+  submit: submitForm,
   countryStats,
   FORM_CATEGORIES,
 } = useReviewForm()
 
+// isValid also requires city to be selected from list
+const isValid = computed(() =>
+  isValidBase.value &&
+  selectedCity.value !== null
+)
+
 const hasAnyRating = computed(() => Object.values(form.ratings).some(r => r > 0))
+
+const { tm, locale } = useI18n()
+const supabase = useSupabaseClient()
+
+const cityQuery = ref('')
+const citySuggestions = ref<{ id: number; name: string }[]>([])
+const selectedCity = ref<{ id: number; name: string } | null>(null)
+
+const searchCities = async (event: { query: string }) => {
+  if (!form.country || event.query.length < 1) {
+    citySuggestions.value = []
+    return
+  }
+  const col = locale.value === 'uk' ? 'name_uk'
+            : locale.value === 'ru' ? 'name_ru'
+            : 'name_en'
+  const { data } = await supabase
+    .from('cities')
+    .select('id, name_en, name_uk, name_ru')
+    .eq('country', form.country)
+    .ilike(col, `${event.query}%`)
+    .order('population', { ascending: false })
+    .limit(10)
+  citySuggestions.value = (data ?? []).map((c: any) => ({
+    id: c.id,
+    name: (c[col] ?? c.name_en) as string,
+  }))
+}
+
+const onCitySelect = (e: { value: { id: number; name: string } }) => {
+  selectedCity.value = e.value
+}
+
+watch(() => form.country, () => {
+  cityQuery.value = ''
+  selectedCity.value = null
+  citySuggestions.value = []
+})
+
+// Profile options from i18n
+const profileOptions = computed(() =>
+  Object.entries(tm('common.authorProfiles') as Record<string, any>).map(([key, val]) => ({
+    key,
+    label: val.label as string,
+    icon:  val.icon as string,
+  }))
+)
+
+function submit() {
+  if (!selectedCity.value) return
+  submitForm(selectedCity.value.name, selectedCity.value.id)
+}
 </script>
 
 <style scoped>

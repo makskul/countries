@@ -3,12 +3,12 @@ export interface Country {
   name: string
 }
 
-// 4 nationalities requested
 export const NATIONALITIES: Country[] = [
   { code: 'UA', name: 'Ukraine' },
   { code: 'DE', name: 'Germany' },
   { code: 'PL', name: 'Poland' },
   { code: 'DK', name: 'Denmark' },
+  { code: 'GB', name: 'United Kingdom' },
 ]
 
 // EU, Scandinavia, Vietnam, Thailand, and Bali (Indonesia)
@@ -43,6 +43,10 @@ export const TARGET_COUNTRIES: Country[] = [
   { code: 'ES', name: 'Spain' },
   { code: 'SE', name: 'Sweden' },
   { code: 'CH', name: 'Switzerland' },
+  { code: 'GB', name: 'United Kingdom' },
+  { code: 'IM', name: 'Isle of Man' },
+  { code: 'JE', name: 'Jersey' },
+  { code: 'GG', name: 'Guernsey' },
   { code: 'TH', name: 'Thailand' },
   { code: 'VN', name: 'Vietnam' },
   { code: 'ID', name: 'Bali (Indonesia)' },

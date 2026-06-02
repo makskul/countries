@@ -1,8 +1,9 @@
 export default {
-  tabs: { overview: 'Overview', legalization: 'Legalization', cost: 'Prices', safety: 'Safety', attitude: 'Attitude', documents: 'Documents', weather: 'Weather', allReviews: 'All reviews' },
+  tabs: { overview: 'Overview', legalization: 'Legalization', cost: 'Prices', safety: 'Safety', attitude: 'Attitude', documents: 'Documents', weather: 'Weather', allReviews: 'All reviews', countryOverview: 'Whole country', allCities: 'All cities' },
   header: { overallRating: 'Overall rating', totalReviews: '{count} reviews', ratedBy: '{count} users rated', lastReview: 'Latest: {time}', reviewsBy: 'Reviews' },
   natFilter: { showing: 'Showing reviews for', change: 'Change →' },
-  scores: { title: 'Ratings by category' },
+  scores: { title: 'Ratings by category', countryTitle: 'Average scores for the country', cityTitle: 'Average scores for the city' },
+  cityView: { backToCountry: '← Back to country', citiesWithReviews: 'Cities with reviews', noCityReviews: 'No reviews for this city from your nationality' },
   reviews: { sectionLabel: 'Recent reviews', title: 'Latest reviews', helpful: 'Helpful ({count})', sortNew: 'Newest first', sortHelpful: 'Most helpful', sortHigh: 'High rating', sortLow: 'Low rating', loadMore: 'Load more reviews →', noComment: 'No comment' },
   sidebar: { quickFacts: 'Quick facts', similarCountries: 'Similar countries', visa: 'Visa', costOfLiving: 'Cost of living', language: 'Language', currency: 'Currency', residencyTime: 'Residency', climate: 'Climate', writeReview: '+ Write a review about {country}', share: 'Share page' },
   empty: { title: 'No reviews for your nationality', subtitle: 'Be the first — share your experience about {country}', cta: 'Write the first review →' },

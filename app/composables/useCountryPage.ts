@@ -7,31 +7,120 @@ export interface RawReview {
   author_nationality: string
   ratings: Record<string, number>
   comments: Record<string, string>
+  city_id?: number | null
+  city_name?: string | null
+  author_profile?: string | null
 }
 
 export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
   const supabase = useSupabaseClient()
 
-  // Primary fetch: all reviews for this country+nationality
+  const selectedCityId = ref<number | null>(null)
+
+  // Primary fetch: all reviews for this country+nationality (filtered by city when selected)
   const { data: rows, pending, refresh } = useLazyAsyncData(
-    () => `country-${slug.value}-${nationality.value}`,
+    () => `country-${slug.value}-${nationality.value}-${selectedCityId.value ?? 'all'}`,
     async () => {
       if (!slug.value || !nationality.value) return [] as RawReview[]
-      const { data, error } = await supabase
+      let query = supabase
         .from('reviews')
-        .select('id, ratings, comments, created_at, author_nationality')
+        .select('id, ratings, comments, created_at, author_nationality, city_id, city_name, author_profile')
         .eq('target_country', slug.value)
         .eq('author_nationality', nationality.value)
         .eq('is_approved', true)
         .order('created_at', { ascending: false })
+      if (selectedCityId.value) {
+        query = query.eq('city_id', selectedCityId.value)
+      }
+      const { data, error } = await query
       if (error) throw error
       return (data ?? []) as RawReview[]
+    },
+    { server: false, watch: [slug, nationality, selectedCityId] }
+  )
+
+  // Fetch aggregated stats from country_stats table
+  const { data: statsRow } = useLazyAsyncData(
+    () => `country-stats-${slug.value}-${nationality.value}`,
+    async () => {
+      if (!slug.value || !nationality.value) return null
+      const { data } = await supabase
+        .from('country_stats')
+        .select('*')
+        .eq('target_country', slug.value)
+        .eq('author_nationality', nationality.value)
+        .maybeSingle()
+      return data
     },
     { server: false, watch: [slug, nationality] }
   )
 
-  // Category stats computed client-side
+  // Cities with reviews for this country+nationality (for tabs)
+  const { data: citiesWithReviews } = useLazyAsyncData(
+    () => `cities-${slug.value}-${nationality.value}`,
+    async () => {
+      if (!slug.value || !nationality.value) return []
+      const { data } = await supabase
+        .from('city_stats')
+        .select('city_id, city_name, total_reviews, avg_overall')
+        .eq('target_country', slug.value)
+        .eq('author_nationality', nationality.value)
+        .order('total_reviews', { ascending: false })
+      return (data ?? []) as any[]
+    },
+    { server: false, watch: [slug, nationality] }
+  )
+
+  // City stats (when a city tab is selected)
+  const { data: cityStats } = useLazyAsyncData(
+    () => `cityStats-${slug.value}-${nationality.value}-${selectedCityId.value}`,
+    async () => {
+      if (!selectedCityId.value || !slug.value || !nationality.value) return null
+      const { data } = await supabase
+        .from('city_stats')
+        .select('*')
+        .eq('city_id', selectedCityId.value)
+        .eq('target_country', slug.value)
+        .eq('author_nationality', nationality.value)
+        .maybeSingle()
+      return data
+    },
+    { server: false, watch: [selectedCityId, slug, nationality] }
+  )
+
+  // Category stats — uses cityStats when in city view, otherwise statsRow
   const catStats = computed(() => {
+    const source = selectedCityId.value ? cityStats.value : statsRow.value
+    if (source) {
+      const s = source as any
+      const cats = [
+        { category: 'legalization',     avg: s.avg_legalization     },
+        { category: 'attitude',         avg: s.avg_attitude         },
+        { category: 'cost_of_living',   avg: s.avg_cost_of_living   },
+        { category: 'safety',           avg: s.avg_safety           },
+        { category: 'bureaucracy',      avg: s.avg_bureaucracy      },
+        { category: 'weather',          avg: s.avg_weather          },
+        { category: 'language_barrier', avg: s.avg_language_barrier },
+        { category: 'cleanliness',      avg: s.avg_cleanliness      },
+        { category: 'healthcare',       avg: s.avg_healthcare       },
+        { category: 'overall',          avg: s.avg_overall          },
+      ]
+      return cats
+        .filter(c => c.avg !== null && c.avg !== undefined)
+        .map(c => {
+          const avg = Math.round(Number(c.avg) * 10) / 10
+          return {
+            category: c.category,
+            label: c.category,
+            avg,
+            count: (source as any).total_reviews ?? 0,
+            barWidth: Math.round((avg / 5) * 100),
+            color: avg >= 4 ? 'success' : avg >= 3 ? 'warning' : 'danger',
+          }
+        })
+        .sort((a, b) => b.avg - a.avg)
+    }
+    // Fallback: compute from raw rows
     return CATEGORIES.map(cat => {
       const withRating = (rows.value ?? []).filter(r => r.ratings?.[cat] != null)
       const avg = withRating.length
@@ -39,7 +128,7 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
         : null
       return {
         category: cat,
-        label: CATEGORY_LABELS[cat],
+        label: cat,
         avg: avg !== null ? Math.round(avg * 10) / 10 : null,
         count: withRating.length,
         barWidth: avg !== null ? Math.round((avg / 5) * 100) : 0,
@@ -50,8 +139,9 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       .sort((a, b) => b.count - a.count)
   })
 
-  // Overall average across all categories and all rows
+  // Overall avg from country_stats or computed from rows
   const overallAvg = computed(() => {
+    if ((statsRow.value as any)?.avg_overall) return Math.round(Number((statsRow.value as any).avg_overall) * 10) / 10
     const r = rows.value
     if (!r?.length) return null
     const allVals: number[] = []
@@ -134,5 +224,8 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     loadMore,
     similarCountries,
     markHelpful,
+    selectedCityId,
+    citiesWithReviews,
+    cityStats,
   }
 }

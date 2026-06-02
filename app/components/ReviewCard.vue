@@ -15,6 +15,12 @@
       <span class="rc-author">{{ getFlagEmoji(review.author_nationality) }} {{ getCountryNameLocalized(review.author_nationality) }}</span>
       <span class="rc-time">{{ time }}</span>
     </div>
+    <div v-if="review.city_name || review.author_profile" class="rc-meta">
+      <span v-if="review.city_name" class="rc-city">📍 {{ review.city_name }}</span>
+      <span v-if="review.author_profile" class="rc-profile">
+        {{ getProfileLabel(review.author_profile) }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -24,7 +30,14 @@ import { CATEGORIES } from '~/utils/categories'
 import type { RawReview } from '~/composables/useCountryPage'
 
 const { getCountryNameLocalized } = useLocalizedCountries()
+const { tm } = useI18n()
 const props = defineProps<{ review: RawReview }>()
+
+function getProfileLabel(key: string): string {
+  const profiles = tm('common.authorProfiles') as Record<string, any>
+  const p = profiles[key]
+  return p ? `${p.icon} ${p.label}` : key
+}
 const time = computed(() => timeAgo(props.review.created_at))
 
 const filledCategories = computed(() =>
@@ -63,4 +76,7 @@ const filledCategories = computed(() =>
 }
 .rc-author { font-size: 12px; color: var(--color-text-muted); }
 .rc-time { font-size: 12px; color: var(--color-text-muted); }
+.rc-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding-top: 4px; }
+.rc-city { font-size: 12px; color: var(--color-text-muted); }
+.rc-profile { font-size: 11px; background: var(--color-bg-secondary); border-radius: var(--radius-pill); padding: 2px 8px; color: var(--color-text-secondary); }
 </style>
