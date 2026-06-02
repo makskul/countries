@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     lazy: true,
   },
   css: [
+    'primeicons/primeicons.css',
     '@fontsource/inter/400.css',
     '@fontsource/inter/500.css',
     '@fontsource/inter/600.css',
