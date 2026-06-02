@@ -41,12 +41,18 @@
       <div class="cp-toolbar">
         <span class="cp-toolbar-count">{{ $t('countries.filters.found', { count: filteredCountries.length }) }}</span>
         <div class="cp-view-toggle">
-          <button class="cp-view-btn" :class="{ active: viewMode === 'grid' }" @click="viewMode = 'grid'" title="Сетка">
-            <i class="pi pi-th-large" />
-          </button>
-          <button class="cp-view-btn" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'" title="Список">
-            <i class="pi pi-list" />
-          </button>
+          <Button
+            icon="pi pi-th-large"
+            :severity="viewMode === 'grid' ? 'primary' : 'secondary'"
+            text
+            @click="viewMode = 'grid'"
+          />
+          <Button
+            icon="pi pi-list"
+            :severity="viewMode === 'list' ? 'primary' : 'secondary'"
+            text
+            @click="viewMode = 'list'"
+          />
         </div>
       </div>
 
