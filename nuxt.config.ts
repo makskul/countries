@@ -49,6 +49,16 @@ export default defineNuxtConfig({
               700: '#3C3489',
               800: '#2E2870',
               900: '#26215C',
+            },
+            colorScheme: {
+              light: {
+                rating: {
+                  icon: {
+                    active: { color: '#EF9F27' },
+                    hover:  { color: '#EF9F27' },
+                  }
+                }
+              }
             }
           }
         }

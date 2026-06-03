@@ -98,12 +98,10 @@ const CATEGORY_OPTIONS = computed(() => [
 ])
 
 const REGION_OPTIONS = computed(() => [
-  { label: t('countries.filters.regions.all'),      value: '' },
-  { label: t('countries.filters.regions.europe'),   value: 'europe' },
-  { label: t('countries.filters.regions.asia'),     value: 'asia' },
-  { label: t('countries.filters.regions.americas'), value: 'americas' },
-  { label: t('countries.filters.regions.africa'),   value: 'africa' },
-  { label: t('countries.filters.regions.oceania'),  value: 'oceania' },
+  { label: t('countries.filters.regions.all'),     value: '' },
+  { label: t('countries.filters.regions.europe'),  value: 'europe' },
+  { label: t('countries.filters.regions.asia'),    value: 'asia' },
+  { label: t('countries.filters.regions.africa'),  value: 'africa' },
 ])
 
 const SORT_OPTIONS = computed(() => [

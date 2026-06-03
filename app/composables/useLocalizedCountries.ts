@@ -2,6 +2,7 @@ import { NATIONALITIES, TARGET_COUNTRIES } from '~/utils/countries'
 import { getFlagEmoji } from '~/utils/countries'
 
 // Map our locale codes to BCP 47 tags that Intl.DisplayNames understands
+// Intl.DisplayNames works on both Node.js (SSR) and browser — no client guard needed
 const LOCALE_MAP: Record<string, string> = {
   uk: 'uk-UA',
   en: 'en-US',
@@ -17,7 +18,6 @@ export function useLocalizedCountries() {
   }
 
   const countryList = computed(() => {
-    if (!import.meta.client) return TARGET_COUNTRIES
     const dn = getDisplayNames(locale.value)
     return TARGET_COUNTRIES.map(c => ({
       code: c.code,
@@ -27,7 +27,6 @@ export function useLocalizedCountries() {
   })
 
   const nationalityList = computed(() => {
-    if (!import.meta.client) return NATIONALITIES
     const dn = getDisplayNames(locale.value)
     return NATIONALITIES.map(c => ({
       code: c.code,
@@ -37,7 +36,7 @@ export function useLocalizedCountries() {
   })
 
   function getCountryNameLocalized(code: string): string {
-    if (!import.meta.client || !code) return code
+    if (!code) return code
     try {
       const dn = getDisplayNames(locale.value)
       return dn.of(code.toUpperCase()) ?? code

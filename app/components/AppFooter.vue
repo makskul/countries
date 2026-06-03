@@ -85,13 +85,10 @@
         <span class="fcol-title">{{ $t('footer.columns.categories') }}</span>
         <div class="fcol-links">
           <NuxtLinkLocale to="/countries?category=legalization" class="fcol-link">{{ $t('categories.legalization.name') }}</NuxtLinkLocale>
-          <NuxtLinkLocale to="/countries?category=cost" class="fcol-link">{{ $t('categories.cost_of_living.name') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/countries?category=cost_of_living" class="fcol-link">{{ $t('categories.cost_of_living.name') }}</NuxtLinkLocale>
           <NuxtLinkLocale to="/countries?category=safety" class="fcol-link">{{ $t('categories.safety.name') }}</NuxtLinkLocale>
           <NuxtLinkLocale to="/countries?category=attitude" class="fcol-link">{{ $t('categories.attitude.name') }}</NuxtLinkLocale>
-          <NuxtLinkLocale to="/countries?category=documents" class="fcol-link">
-            {{ $t('categories.bureaucracy.name') }}
-            <span class="fnew-badge">new</span>
-          </NuxtLinkLocale>
+          <NuxtLinkLocale to="/countries?category=bureaucracy" class="fcol-link">{{ $t('categories.bureaucracy.name') }}</NuxtLinkLocale>
           <NuxtLinkLocale to="/countries?category=weather" class="fcol-link">{{ $t('categories.weather.name') }}</NuxtLinkLocale>
         </div>
       </div>

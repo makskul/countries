@@ -1,3 +1,36 @@
+/* ── Font override: swap → optional to prevent layout shift ─ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: local('Inter');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: optional;
+  src: local('Inter');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: optional;
+  src: local('Inter');
+}
+
+/* Fallback font adjusted to match Inter metrics — reduces CLS */
+@font-face {
+  font-family: 'Inter-fallback';
+  src: local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'), local('Helvetica Neue');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
 /* ── Base ───────────────────────────────────────────────── */
 *,
 *::before,
@@ -13,7 +46,7 @@ html {
 
 body {
   margin: 0;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: Inter, Inter-fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.6;

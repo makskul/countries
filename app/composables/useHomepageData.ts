@@ -4,7 +4,7 @@ export function useHomepageData() {
   const supabase = useSupabaseClient()
 
   // Hero stats
-  const { data: stats, pending: statsPending } = useLazyAsyncData('heroStats', async () => {
+  const { data: stats, pending: statsPending } = useAsyncData('heroStats', async () => {
     const { data, error } = await supabase
       .from('reviews')
       .select('target_country, author_nationality')
@@ -16,10 +16,10 @@ export function useHomepageData() {
       countries: new Set(data.map((r: any) => r.target_country)).size,
       nationalities: new Set(data.map((r: any) => r.author_nationality)).size,
     }
-  }, { server: false, dedupe: 'defer' })
+  })
 
   // Trending: last 30 days, fallback to all-time top 100 if empty
-  const { data: trending, pending: trendingPending } = useLazyAsyncData('trending', async () => {
+  const { data: trending, pending: trendingPending } = useAsyncData('trending', async () => {
     const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
     let { data, error } = await supabase
       .from('reviews')
@@ -41,10 +41,11 @@ export function useHomepageData() {
     }
     if (!data?.length) return []
 
-    const grouped: Record<string, { ratingVals: number[]; cats: string[] }> = {}
+    const grouped: Record<string, { reviewCount: number; ratingVals: number[]; cats: string[] }> = {}
     for (const row of data as { target_country: string; ratings: Record<string, number> }[]) {
       const code = row.target_country
-      if (!grouped[code]) grouped[code] = { ratingVals: [], cats: [] }
+      if (!grouped[code]) grouped[code] = { reviewCount: 0, ratingVals: [], cats: [] }
+      grouped[code].reviewCount++ // count reviews (rows), not individual category values
       for (const [cat, val] of Object.entries(row.ratings ?? {})) {
         if (typeof val === 'number') {
           grouped[code].ratingVals.push(val)
@@ -54,18 +55,18 @@ export function useHomepageData() {
     }
 
     return Object.entries(grouped)
-      .map(([code, { ratingVals, cats }]) => ({
+      .map(([code, { reviewCount, ratingVals, cats }]) => ({
         code,
-        total: ratingVals.length,
+        total: reviewCount, // correct: number of reviews (not category values)
         avgRating: Math.round((ratingVals.reduce((a, b) => a + b, 0) / ratingVals.length) * 10) / 10,
         topCategories: cats.slice(0, 2),
       }))
       .sort((a, b) => b.total - a.total)
       .slice(0, 6)
-  }, { server: false, dedupe: 'defer' })
+  })
 
   // Latest 3 reviews (show first category with a comment)
-  const { data: latest, pending: latestPending } = useLazyAsyncData('latest', async () => {
+  const { data: latest, pending: latestPending } = useAsyncData('latest', async () => {
     const { data, error } = await supabase
       .from('reviews')
       .select('id, target_country, author_nationality, ratings, comments, created_at')
@@ -74,7 +75,7 @@ export function useHomepageData() {
       .limit(3)
     if (error) { console.error('[latest]', error.message); return [] }
     return (data ?? []) as any[]
-  }, { server: false, dedupe: 'defer' })
+  })
 
   // Category highlights (4 selected categories — keys match JSONB in DB)
   const HIGHLIGHT_CATS = ['legalization', 'cost_of_living', 'safety', 'attitude']
@@ -107,7 +108,7 @@ export function useHomepageData() {
         .sort((a, b) => b.avg - a.avg)[0]?.code ?? ''
       return { category: cat, total: g.vals.length, avgRating, topCountry }
     })
-  }, { server: false, dedupe: 'defer' })
+  })
 
   return { stats, statsPending, trending, trendingPending, latest, latestPending, catStats, catPending }
 }

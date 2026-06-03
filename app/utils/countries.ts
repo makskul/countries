@@ -32,6 +32,7 @@ export const TARGET_COUNTRIES: Country[] = [
   { code: 'LV', name: 'Latvia' },
   { code: 'LT', name: 'Lithuania' },
   { code: 'LU', name: 'Luxembourg' },
+  { code: 'MD', name: 'Moldova' },
   { code: 'MT', name: 'Malta' },
   { code: 'NL', name: 'Netherlands' },
   { code: 'NO', name: 'Norway' },

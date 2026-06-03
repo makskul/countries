@@ -22,15 +22,28 @@
   padding: var(--space-lg);
 }
 
-/* ── Rating stars ───────────────────────────────────────── */
-.p-rating .p-rating-icon {
-  color: var(--color-border);
+/* ── Rating stars ────────────────────────────────────────── */
+:root {
+  --star-color: #52B788;           /* soft green — filled */
+  --star-color-empty: #52B788;     /* same color, low opacity for empty */
+  --p-rating-icon-active-color: #52B788 !important;
+  --p-rating-icon-hover-color:  #52B788 !important;
+  --p-rating-icon-color:        rgba(82, 183, 136, 0.25) !important;
 }
+/* Empty stars — same green, transparent */
+.p-rating-icon {
+  color: rgba(82, 183, 136, 0.28) !important;
+}
+/* PrimeVue 3 */
 .p-rating .p-rating-icon.p-rating-icon-active {
-  color: var(--color-star) !important;
+  color: #52B788 !important;
 }
-.p-rating .p-rating-icon:hover {
-  color: var(--color-star) !important;
+/* PrimeVue 4 */
+.p-rating-option-active .p-rating-icon {
+  color: #52B788 !important;
+}
+.p-rating:not(.p-disabled):not(.p-readonly) .p-rating-option:hover .p-rating-icon {
+  color: #52B788 !important;
 }
 
 /* ── Buttons ────────────────────────────────────────────── */
@@ -201,4 +214,28 @@
   background: transparent;
   border: none;
   padding: 0 0 var(--space-md);
+}
+
+/* ── Hero dark Select overrides ─────────────────── */
+.hero-dark .p-select {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  color: white !important;
+}
+.hero-dark .p-select:hover {
+  border-color: rgba(255,255,255,0.2) !important;
+}
+.hero-dark .p-select.p-focus {
+  border-color: #534AB7 !important;
+  background: rgba(83,74,183,0.15) !important;
+  box-shadow: 0 0 0 3px rgba(83,74,183,0.2) !important;
+}
+.hero-dark .p-select-label {
+  color: white !important;
+}
+.hero-dark .p-select-label.p-placeholder {
+  color: rgba(255,255,255,0.3) !important;
+}
+.hero-dark .p-select-dropdown {
+  color: rgba(255,255,255,0.4) !important;
 }

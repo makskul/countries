@@ -17,7 +17,7 @@ export function useCountriesList() {
   const supabase = useSupabaseClient()
   const store = useUserStore()
 
-  const { data: rows, pending } = useLazyAsyncData('countries-list', async () => {
+  const { data: rows, pending } = useAsyncData('countries-list', async () => {
     const { data, error } = await supabase
       .from('reviews')
       .select('target_country, ratings, author_nationality, created_at')
@@ -35,7 +35,7 @@ export function useCountriesList() {
       author_nationality: string
       created_at: string
     }[]
-  }, { server: false, dedupe: 'defer' })
+  })
 
   // aggregate per-country stats
   const countriesMap = computed(() => {
