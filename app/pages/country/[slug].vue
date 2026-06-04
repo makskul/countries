@@ -88,17 +88,54 @@
       <!-- MAIN COLUMN -->
       <div class="main-col">
 
-        <!-- Empty state -->
-        <div v-if="!pending && headerStats && headerStats.total === 0" class="empty-state">
+        <!-- No reviews at all -->
+        <div v-if="!pending && !countryHasAnyReviews" class="empty-state">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <h3 class="empty-h3">{{ $t('country.empty.title') }}</h3>
           <p class="empty-p">{{ $t('country.empty.subtitle', { country: countryName }) }}</p>
           <NuxtLinkLocale :to="`/review/new?country=${slug.toUpperCase()}`" class="empty-btn">{{ $t('country.empty.cta') }}</NuxtLinkLocale>
         </div>
 
-        <template v-else-if="nationality">
-          <!-- Nat filter notice -->
-          <NatFilterNotice :nationality="nationality" @change="showNatDialog = true" />
+        <template v-else>
+          <!-- Nationality filter notice / selector -->
+          <NatFilterNotice
+            v-if="nationality"
+            :nationality="nationality"
+            @change="showNatDialog = true"
+          />
+          <div v-else class="no-nat-bar">
+            <span style="font-size: 13px; color: var(--color-text-secondary)">{{ $t('country.noNat.message') }}</span>
+            <button class="no-nat-btn" @click="showNatDialog = true">{{ $t('country.noNat.cta') }}</button>
+          </div>
+
+          <!-- No reviews for this nationality: two action buttons + write CTA -->
+          <div v-if="nationality && natReviewsCount === 0 && !pending && !showAllOverride" class="nat-empty-block">
+            <div class="nat-empty-notice">
+              <span>{{ $t('country.empty.title') }}</span>
+              <div class="nat-empty-actions">
+                <button class="nat-action-btn nat-action-btn--secondary" @click="showNatDialog = true">
+                  {{ $t('country.natFilter.change') }}
+                </button>
+                <button class="nat-action-btn nat-action-btn--primary" @click="showAllOverride = true">
+                  🌍 {{ $t('country.dialog.showAll') }}
+                </button>
+              </div>
+            </div>
+            <div class="nat-empty-cta">
+              <p class="nat-empty-cta-text">{{ $t('country.empty.subtitle', { country: countryName }) }}</p>
+              <NuxtLinkLocale :to="`/review/new?country=${slug.toUpperCase()}`" class="empty-btn">
+                {{ $t('country.empty.cta') }}
+              </NuxtLinkLocale>
+            </div>
+          </div>
+
+          <!-- Override active: showing all nationalities -->
+          <div v-if="showAllOverride && nationality" class="nat-override-bar">
+            <span>🌍 {{ $t('country.dialog.showAll') }}</span>
+            <button class="nat-override-close" @click="showAllOverride = false">
+              {{ $t('country.natFilter.change') }} ×
+            </button>
+          </div>
 
           <!-- City view back link -->
           <div v-if="isCityView" class="city-back" @click="selectedCityId = null; selectedCityName = null">
@@ -114,8 +151,12 @@
             </div>
           </div>
 
-          <!-- Category scores -->
-          <CategoryScoresCard :stats="catStats" :pending="pending" />
+          <!-- Category scores — hide when no reviews for this nationality -->
+          <CategoryScoresCard
+            v-if="natReviewsCount > 0 || showAllOverride || !nationality"
+            :stats="catStats"
+            :pending="pending"
+          />
 
           <!-- Cities with reviews block (country view only) -->
           <div v-if="isCountryView && citiesWithReviews && citiesWithReviews.length" class="cities-block">
@@ -138,8 +179,8 @@
             </div>
           </div>
 
-          <!-- Reviews section -->
-          <div class="reviews-section">
+          <!-- Reviews section — hide when no reviews for this nationality -->
+          <div v-if="natReviewsCount > 0 || showAllOverride || !nationality" class="reviews-section">
             <div class="rs-header">
               <div>
                 <span class="section-label">{{ $t('country.reviews.sectionLabel') }}</span>
@@ -164,11 +205,6 @@
             </div>
           </div>
         </template>
-
-        <div v-else class="no-nat-state">
-          <p>{{ $t('country.noNat.message') }}</p>
-          <button class="empty-btn" @click="showNatDialog = true">{{ $t('country.noNat.cta') }}</button>
-        </div>
       </div>
 
       <!-- SIDEBAR -->
@@ -196,12 +232,15 @@
 
     <!-- Nationality dialog -->
     <Dialog v-model:visible="showNatDialog" :header="$t('country.dialog.title')" modal style="width: 360px">
-      <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 4px">
+      <div style="display: flex; flex-direction: column; gap: 12px; padding-top: 4px">
         <p style="margin: 0; font-size: 14px; color: var(--color-text-secondary)">
           {{ $t('country.dialog.subtitle') }}
         </p>
         <NationalitySelector v-model="dialogNationality" />
         <Button :label="$t('country.dialog.apply')" :disabled="!dialogNationality" @click="applyNationality" style="width: 100%" />
+        <button class="show-all-btn" @click="showAllNationalities">
+          🌍 {{ $t('country.dialog.showAll') }}
+        </button>
       </div>
     </Dialog>
   </div>
@@ -282,6 +321,9 @@ const {
   selectedCityId,
   citiesWithReviews,
   cityStats,
+  natReviewsCount,
+  showAllOverride,
+  countryHasAnyReviews,
 } = useCountryPage(slug, nationality)
 
 const selectedCityName = ref<string | null>(null)
@@ -296,6 +338,11 @@ const dialogNationality = ref('')
 function applyNationality() {
   if (!dialogNationality.value) return
   store.setNationality(dialogNationality.value)
+  showNatDialog.value = false
+}
+
+function showAllNationalities() {
+  store.setNationality('')
   showNatDialog.value = false
 }
 </script>
@@ -403,6 +450,65 @@ function applyNationality() {
 }
 .empty-btn:hover { background: var(--color-primary-hover); }
 .no-nat-state { text-align: center; padding: 32px 24px; background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+.no-nat-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--color-bg-secondary); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 14px;
+}
+.no-nat-btn {
+  background: var(--color-primary); color: #fff; border: none;
+  border-radius: var(--radius-pill); padding: 6px 14px;
+  font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit;
+  white-space: nowrap;
+}
+.no-nat-btn:hover { background: var(--color-primary-hover); }
+.nat-empty-block { margin-bottom: 14px; }
+.nat-empty-notice {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--color-warning-light); border: 1px solid #e8c97a;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  padding: 12px 14px;
+  font-size: 13px; color: var(--color-warning); flex-wrap: wrap;
+}
+.nat-empty-cta {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: #fff; border: 1px solid var(--color-border); border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 12px 14px; flex-wrap: wrap;
+}
+.nat-empty-cta-text { font-size: 13px; color: var(--color-text-secondary); margin: 0; }
+.nat-empty-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.nat-action-btn {
+  border-radius: var(--radius-md); padding: 7px 14px;
+  font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit;
+  white-space: nowrap; transition: background 0.15s;
+}
+.nat-action-btn--secondary {
+  background: #fff; border: 1px solid var(--color-border); color: var(--color-text-secondary);
+}
+.nat-action-btn--secondary:hover { background: var(--color-bg-secondary); }
+.nat-action-btn--primary {
+  background: var(--color-primary); border: none; color: #fff;
+}
+.nat-action-btn--primary:hover { background: var(--color-primary-hover); }
+.nat-override-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--color-primary-light); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 14px;
+  font-size: 13px; color: var(--color-primary-dark);
+}
+.nat-override-close {
+  background: none; border: none; cursor: pointer; font-size: 12px;
+  color: var(--color-primary); font-weight: 500; padding: 0; font-family: inherit;
+}
+.nat-override-close:hover { text-decoration: underline; }
+.show-all-btn {
+  background: none; border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); padding: 9px;
+  font-size: 13px; color: var(--color-text-secondary);
+  cursor: pointer; font-family: inherit; transition: background 0.15s;
+}
+.show-all-btn:hover { background: var(--color-bg-secondary); }
 
 /* City view */
 .city-back {

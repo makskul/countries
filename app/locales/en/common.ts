@@ -55,4 +55,11 @@ export default {
     volunteer:            { label: 'Volunteer',                  icon: '🤝' },
     au_pair:              { label: 'Au Pair',                    icon: '👶' },
   },
+  stayPurposes: {
+    tourism:    { label: 'Tourism',            hint: 'up to 1 month'    },
+    short_term: { label: 'Short-term stay',    hint: '1–6 months'       },
+    long_term:  { label: 'Long-term stay',     hint: 'more than a year' },
+    permanent:  { label: 'Permanent resident', hint: ''                 },
+  },
+  stillThere: 'Currently living there',
 }

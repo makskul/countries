@@ -10,25 +10,32 @@ export interface RawReview {
   city_id?: number | null
   city_name?: string | null
   author_profile?: string | null
+  stay_purpose?: string | null
+  still_there?: boolean | null
 }
 
 export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
   const supabase = useSupabaseClient()
 
   const selectedCityId = ref<number | null>(null)
+  // When true — show all reviews ignoring nationality filter (nationality stays in store)
+  const showAllOverride = ref(false)
 
-  // Primary fetch: all reviews for this country+nationality (filtered by city when selected)
+  // Primary fetch: reviews filtered by nationality (empty or override = all nationalities)
   const { data: rows, pending, refresh } = useLazyAsyncData(
-    () => `country-${slug.value}-${nationality.value}-${selectedCityId.value ?? 'all'}`,
+    () => `country-${slug.value}-${nationality.value}-${selectedCityId.value ?? 'all'}-${showAllOverride.value}`,
     async () => {
-      if (!slug.value || !nationality.value) return [] as RawReview[]
+      if (!slug.value) return [] as RawReview[]
       let query = supabase
         .from('reviews')
-        .select('id, ratings, comments, created_at, author_nationality, city_id, city_name, author_profile')
+        .select('id, ratings, comments, created_at, author_nationality, city_id, city_name, author_profile, stay_purpose, still_there')
         .eq('target_country', slug.value)
-        .eq('author_nationality', nationality.value)
         .eq('is_approved', true)
         .order('created_at', { ascending: false })
+      // Filter by nationality unless override is active
+      if (nationality.value && !showAllOverride.value) {
+        query = query.eq('author_nationality', nationality.value)
+      }
       if (selectedCityId.value) {
         query = query.eq('city_id', selectedCityId.value)
       }
@@ -36,8 +43,31 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       if (error) throw error
       return (data ?? []) as RawReview[]
     },
-    { server: false, watch: [slug, nationality, selectedCityId] }
+    { server: false, watch: [slug, nationality, selectedCityId, showAllOverride] }
   )
+
+  // Reset override when nationality changes
+  watch(nationality, () => { showAllOverride.value = false })
+
+  const natReviewsCount = computed(() =>
+    showAllOverride.value ? 0 : (rows.value ?? []).length
+  )
+
+  // Total reviews for the country regardless of nationality (for empty state check)
+  const { data: totalCountData } = useLazyAsyncData(
+    () => `country-total-${slug.value}`,
+    async () => {
+      if (!slug.value) return 0
+      const { count } = await supabase
+        .from('reviews')
+        .select('id', { count: 'exact', head: true })
+        .eq('target_country', slug.value)
+        .eq('is_approved', true)
+      return count ?? 0
+    },
+    { server: false, watch: [slug] }
+  )
+  const countryHasAnyReviews = computed(() => (totalCountData.value ?? 0) > 0)
 
   // Fetch aggregated stats from country_stats table
   const { data: statsRow } = useLazyAsyncData(
@@ -227,5 +257,8 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     selectedCityId,
     citiesWithReviews,
     cityStats,
+    natReviewsCount,
+    showAllOverride,
+    countryHasAnyReviews,
   }
 }

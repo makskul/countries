@@ -71,36 +71,39 @@
                 :delay="300"
                 class="w-full"
               />
-              <small v-if="!form.country" style="color:var(--color-text-muted); font-size:11px">
-                {{ $t('review.fields.cityDisabledHint') }}
-              </small>
               <small
-                v-else-if="cityQuery && !selectedCity"
-                style="color:var(--color-danger); font-size:11px"
+                v-if="cityQuery && !selectedCity && form.country"
+                style="color:var(--color-danger); font-size:11px; display:block; margin-top:4px"
               >
                 {{ $t('review.fields.citySelectFromList') }}
               </small>
+              <small style="color:var(--color-text-muted); font-size:11px; display:block; margin-top:4px">
+                {{ $t('review.fields.cityDisabledHint') }}
+              </small>
             </div>
             <div>
-              <label class="field-label">{{ $t('review.fields.profile') }} *</label>
+              <label class="field-label">{{ $t('review.fields.stayPurpose') }} *</label>
               <Select
-                v-model="form.profile"
-                :options="profileOptions"
+                v-model="form.stay_purpose"
+                :options="stayPurposeOptions"
                 optionLabel="label"
                 optionValue="key"
-                :placeholder="$t('review.fields.profilePlaceholder')"
+                :placeholder="$t('review.fields.stayPurposePlaceholder')"
                 class="w-full"
               >
                 <template #option="{ option }">
-                  <span>{{ option.icon }} {{ option.label }}</span>
-                </template>
-                <template #value="{ value }">
-                  <span v-if="value">
-                    {{ profileOptions.find(p => p.key === value)?.icon }}
-                    {{ profileOptions.find(p => p.key === value)?.label }}
-                  </span>
+                  <div>
+                    <span>{{ option.label }}</span>
+                    <span v-if="option.hint" style="font-size:11px; color:var(--color-text-muted); margin-left:6px">{{ option.hint }}</span>
+                  </div>
                 </template>
               </Select>
+              <div style="display:flex; align-items:center; gap:8px; margin-top:8px">
+                <Checkbox v-model="form.still_there" :binary="true" inputId="still-there" />
+                <label for="still-there" style="font-size:13px; cursor:pointer; color:var(--color-text-secondary)">
+                  {{ $t('review.fields.stillThere') }}
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -315,12 +318,12 @@ watch(() => form.country, () => {
   citySuggestions.value = []
 })
 
-// Profile options from i18n
-const profileOptions = computed(() =>
-  Object.entries(tm('common.authorProfiles') as Record<string, any>).map(([key, val]) => ({
+// Stay purpose options from i18n
+const stayPurposeOptions = computed(() =>
+  Object.entries(tm('common.stayPurposes') as Record<string, any>).map(([key, val]) => ({
     key,
     label: val.label as string,
-    icon:  val.icon as string,
+    hint:  val.hint as string,
   }))
 )
 

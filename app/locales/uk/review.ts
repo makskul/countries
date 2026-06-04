@@ -12,8 +12,9 @@ export default {
     cityPlaceholder:      'Почни вводити назву міста...',
     cityDisabledHint:     'Спочатку обери країну',
     citySelectFromList:   'Обери місто зі списку',
-    profile:              'Хто ти в цій країні',
-    profilePlaceholder:   'Обери свій статус...',
+    stayPurpose:            'Мета перебування',
+    stayPurposePlaceholder: 'Обери мету...',
+    stillThere:             'Зараз ще там',
   },
   ratings: {
     title: 'Оціни за категоріями',

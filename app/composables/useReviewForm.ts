@@ -26,7 +26,8 @@ export function useReviewForm() {
   const form = reactive({
     country: (route.query.country as string) || '',
     nationality: store.nationality || '',
-    profile: '',
+    stay_purpose: '' as string,
+    still_there: false as boolean,
     ratings: Object.fromEntries(FORM_CATEGORIES.map(c => [c.key, 0])) as Record<FormCategoryKey, number>,
     comments: Object.fromEntries(FORM_CATEGORIES.map(c => [c.key, ''])) as Record<FormCategoryKey, string>,
   })
@@ -39,7 +40,7 @@ export function useReviewForm() {
   const isValid = computed(() =>
     form.country !== '' &&
     form.nationality !== '' &&
-    form.profile !== '' &&
+    form.stay_purpose !== '' &&
     Object.values(form.ratings).some(r => r > 0)
   )
 
@@ -85,7 +86,8 @@ export function useReviewForm() {
       const { error } = await supabase.from('reviews').insert({
         author_nationality: form.nationality,
         target_country: form.country,
-        author_profile: form.profile,
+        stay_purpose: form.stay_purpose,
+        still_there: form.still_there,
         ...(cityName ? { city_name: cityName, city_id: cityId } : {}),
         ratings,
         comments,

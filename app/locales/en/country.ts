@@ -8,5 +8,5 @@ export default {
   sidebar: { quickFacts: 'Quick facts', similarCountries: 'Similar countries', visa: 'Visa', costOfLiving: 'Cost of living', language: 'Language', currency: 'Currency', residencyTime: 'Residency', climate: 'Climate', writeReview: '+ Write a review about {country}', share: 'Share page' },
   empty: { title: 'No reviews for your nationality', subtitle: 'Be the first — share your experience about {country}', cta: 'Write the first review →' },
   noNat: { message: 'Select your nationality to see reviews.', cta: 'Select nationality' },
-  dialog: { title: 'Choose nationality', subtitle: 'Page reviews will update for your nationality.', apply: 'Apply' },
+  dialog: { title: 'Choose nationality', subtitle: 'Page reviews will update for your nationality.', apply: 'Apply', showAll: 'Show all reviews' },
 }
