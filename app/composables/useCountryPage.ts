@@ -17,10 +17,14 @@ export interface RawReview {
 
 export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
   const supabase = useSupabaseClient()
+  const store = useUserStore()
 
   const selectedCityId = ref<number | null>(null)
-  // When true — show all reviews ignoring nationality filter (nationality stays in store)
-  const showAllOverride = ref(false)
+  // Persisted in store so city page shares the same state
+  const showAllOverride = computed({
+    get: () => store.showAllReviews,
+    set: (v) => store.setShowAllReviews(v),
+  })
 
   // Primary fetch: reviews filtered by nationality (empty or override = all nationalities)
   const { data: rows, pending, refresh } = useLazyAsyncData(
@@ -86,18 +90,21 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     { server: false, watch: [slug, nationality] }
   )
 
-  // Cities with reviews for this country+nationality (for tabs)
+  // Cities with reviews (filtered by nationality, or all when override active)
   const { data: citiesWithReviews } = useLazyAsyncData(
-    () => `cities-${slug.value}-${nationality.value}`,
+    () => `cities-${slug.value}-${nationality.value}-${showAllOverride.value}`,
     async () => {
-      if (!slug.value || !nationality.value) return []
-      // Step 1: get city stats
-      const { data: stats, error } = await supabase
+      if (!slug.value) return []
+      // Step 1: get city stats — filter by nationality unless override
+      let statsQuery = supabase
         .from('city_stats')
         .select('city_id, city_name, total_reviews, avg_overall')
         .eq('target_country', slug.value)
-        .eq('author_nationality', nationality.value)
         .order('total_reviews', { ascending: false })
+      if (nationality.value && !showAllOverride.value) {
+        statsQuery = statsQuery.eq('author_nationality', nationality.value)
+      }
+      const { data: stats, error } = await statsQuery
       if (error) { console.error('[citiesWithReviews]', error.message); return [] }
       if (!stats?.length) return []
 
@@ -117,7 +124,7 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
         .filter((r: any) => cityMap[r.city_id])
         .map((r: any) => ({ ...r, slug: cityMap[r.city_id].slug, name_en: cityMap[r.city_id].name_en, name_uk: cityMap[r.city_id].name_uk, name_ru: cityMap[r.city_id].name_ru })) as any[]
     },
-    { server: false, watch: [slug, nationality] }
+    { server: false, watch: [slug, nationality, showAllOverride] }
   )
 
   // City stats (when a city tab is selected)

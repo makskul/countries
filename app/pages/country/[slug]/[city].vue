@@ -80,10 +80,8 @@
     <!-- PAGE BODY -->
     <div class="page-body">
       <div class="main-col">
-        <NatFilterNotice v-if="nationality" :nationality="nationality" @change="showNatDialog = true" />
-
-        <!-- No reviews state -->
-        <div v-if="!pending && totalReviews === 0" class="empty-state">
+        <!-- No reviews at all for this city -->
+        <div v-if="!pending && totalReviews === 0 && !nationality" class="empty-state">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <h3 class="empty-h3">{{ $t('country.empty.title') }}</h3>
           <p class="empty-p">{{ $t('country.empty.subtitle', { country: cityName }) }}</p>
@@ -91,8 +89,43 @@
         </div>
 
         <template v-else>
-          <CategoryScoresCard :stats="catStats" :pending="pending" />
-          <div class="reviews-section">
+          <NatFilterNotice v-if="nationality" :nationality="nationality" @change="showNatDialog = true" />
+
+          <!-- No reviews for this nationality in this city -->
+          <div v-if="nationality && natReviewsCount === 0 && !pending && !showAllOverride" class="nat-empty-block">
+            <div class="nat-empty-notice">
+              <span>{{ $t('country.empty.title') }}</span>
+              <div class="nat-empty-actions">
+                <button class="nat-action-btn nat-action-btn--secondary" @click="showNatDialog = true">
+                  {{ $t('country.natFilter.change') }}
+                </button>
+                <button class="nat-action-btn nat-action-btn--primary" @click="showAllOverride = true">
+                  🌍 {{ $t('country.dialog.showAll') }}
+                </button>
+              </div>
+            </div>
+            <div class="nat-empty-cta">
+              <p class="nat-empty-cta-text">{{ $t('country.empty.subtitle', { country: cityName }) }}</p>
+              <NuxtLinkLocale :to="`/review/new?country=${slug.toUpperCase()}`" class="empty-btn">
+                {{ $t('country.empty.cta') }}
+              </NuxtLinkLocale>
+            </div>
+          </div>
+
+          <!-- Override active -->
+          <div v-if="showAllOverride && nationality" class="nat-override-bar">
+            <span>🌍 {{ $t('country.dialog.showAll') }}</span>
+            <button class="nat-override-close" @click="showAllOverride = false">
+              {{ $t('country.natFilter.change') }} ×
+            </button>
+          </div>
+
+          <CategoryScoresCard
+            v-if="natReviewsCount > 0 || showAllOverride || !nationality"
+            :stats="catStats"
+            :pending="pending"
+          />
+          <div v-if="natReviewsCount > 0 || showAllOverride || !nationality" class="reviews-section">
             <div class="rs-header">
               <div>
                 <span class="section-label">{{ $t('country.reviews.sectionLabel') }}</span>
@@ -177,7 +210,11 @@ const {
   hasMore,
   loadMore,
   pending,
+  showAllOverride,
+  natReviewsCount,
 } = useCityPage(slug, citySlug, nationality)
+
+// showAllOverride is now from Pinia store (shared with country page)
 
 const cityName = computed(() => {
   if (!cityData.value) return citySlug.value
@@ -206,17 +243,20 @@ const showAllCitiesDialog = ref(false)
 const localePath = useLocalePath()
 const supabase = useSupabaseClient()
 
-// Cities with reviews for tabs (same logic as country page)
+// Cities with reviews for tabs — respects showAllOverride from store
 const { data: citiesWithReviews } = useLazyAsyncData(
-  () => `cities-${slug.value}-${nationality.value}`,
+  () => `cities-${slug.value}-${nationality.value}-${showAllOverride.value}`,
   async () => {
-    if (!slug.value || !nationality.value) return []
-    const { data: stats } = await supabase
+    if (!slug.value) return []
+    let statsQuery = supabase
       .from('city_stats')
       .select('city_id, city_name, total_reviews, avg_overall')
       .eq('target_country', slug.value)
-      .eq('author_nationality', nationality.value)
       .order('total_reviews', { ascending: false })
+    if (nationality.value && !showAllOverride.value) {
+      statsQuery = statsQuery.eq('author_nationality', nationality.value)
+    }
+    const { data: stats } = await statsQuery
     if (!stats?.length) return []
     const cityIds = stats.map((r: any) => r.city_id).filter(Boolean)
     const { data: cities } = await supabase
@@ -228,7 +268,7 @@ const { data: citiesWithReviews } = useLazyAsyncData(
     return stats.filter((r: any) => cityMap[r.city_id])
       .map((r: any) => ({ ...r, slug: cityMap[r.city_id].slug, name_en: cityMap[r.city_id].name_en, name_uk: cityMap[r.city_id].name_uk, name_ru: cityMap[r.city_id].name_ru })) as any[]
   },
-  { server: false, watch: [slug, nationality] }
+  { server: false, watch: [slug, nationality, showAllOverride] }
 )
 const dialogNationality = ref('')
 
@@ -273,6 +313,17 @@ function applyNationality() {
 .empty-p { font-size: 14px; color: var(--color-text-secondary); margin: 0 0 20px; }
 .empty-btn { background: var(--color-primary); color: #fff; border: none; border-radius: var(--radius-md); padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; }
 .show-all-btn { background: none; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 9px; font-size: 13px; color: var(--color-text-secondary); cursor: pointer; font-family: inherit; }
+.nat-empty-block { margin-bottom: 14px; }
+.nat-empty-notice { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--color-warning-light); border: 1px solid #e8c97a; border-radius: var(--radius-md) var(--radius-md) 0 0; padding: 12px 14px; font-size: 13px; color: var(--color-warning); flex-wrap: wrap; }
+.nat-empty-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.nat-action-btn { border-radius: var(--radius-md); padding: 7px 14px; font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit; white-space: nowrap; transition: background 0.15s; }
+.nat-action-btn--secondary { background: #fff; border: 1px solid var(--color-border); color: var(--color-text-secondary); }
+.nat-action-btn--primary { background: var(--color-primary); border: none; color: #fff; }
+.nat-action-btn--primary:hover { background: var(--color-primary-hover); }
+.nat-empty-cta { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fff; border: 1px solid var(--color-border); border-top: none; border-radius: 0 0 var(--radius-md) var(--radius-md); padding: 12px 14px; flex-wrap: wrap; }
+.nat-empty-cta-text { font-size: 13px; color: var(--color-text-secondary); margin: 0; }
+.nat-override-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--color-primary-light); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 14px; font-size: 13px; color: var(--color-primary-dark); }
+.nat-override-close { background: none; border: none; cursor: pointer; font-size: 12px; color: var(--color-primary); font-weight: 500; padding: 0; font-family: inherit; }
 /* Tabs — identical to country page */
 .tabs-bar {
   background: #fff;
