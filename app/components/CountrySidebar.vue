@@ -2,47 +2,60 @@
   <div class="sidebar">
     <!-- Card 1: Actions -->
     <div class="s-card">
-      <NuxtLinkLocale :to="`/review/new?country=${countryCode}`" class="s-btn-primary">+ {{ $t('common.buttons.writeReview').replace('+ ', '') }} {{ countryName }}</NuxtLinkLocale>
+      <NuxtLinkLocale :to="`/review/new?country=${countryCode}`" class="s-btn-primary">
+        + {{ $t('common.buttons.writeReview').replace('+ ', '') }} {{ countryName }}
+      </NuxtLinkLocale>
       <button class="s-btn-secondary" @click="handleShare">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Поделиться страницей
+        {{ $t('country.sidebar.share') }}
       </button>
     </div>
 
     <!-- Card 2: Quick facts -->
     <div class="s-card" v-if="meta">
-      <span class="s-card-title">Быстрая справка</span>
-      <div class="s-facts">
-        <div class="s-fact-row" v-if="visaInfo">
-          <span class="s-fact-label">Виза</span>
-          <span class="s-fact-val" :class="`s-fact--${visaInfo.severity}`">{{ visaInfo.label }}</span>
-        </div>
-        <div class="s-fact-row">
-          <span class="s-fact-label">Стоимость жизни</span>
-          <span class="s-fact-val" :class="costClass">{{ meta.costLevel }}</span>
-        </div>
-        <div class="s-fact-row">
-          <span class="s-fact-label">Язык</span>
-          <span class="s-fact-val">{{ meta.language }}</span>
-        </div>
-        <div class="s-fact-row">
-          <span class="s-fact-label">Валюта</span>
-          <span class="s-fact-val">{{ meta.currency }}</span>
-        </div>
-        <div class="s-fact-row">
-          <span class="s-fact-label">Срок ВНЖ</span>
-          <span class="s-fact-val">{{ meta.residencyMonths }}</span>
-        </div>
-        <div class="s-fact-row" style="border: none">
-          <span class="s-fact-label">Климат</span>
-          <span class="s-fact-val">{{ meta.climate }}</span>
-        </div>
+      <div class="s-card-title">{{ $t('country.sidebar.quickFacts') }}</div>
+
+      <div class="sb-stat-row">
+        <span class="sb-stat-label">{{ $t('country.sidebar.costOfLiving') }}</span>
+        <span class="sb-stat-val" :class="costLevelClass">
+          {{ $t(`country.costLevels.${meta.costLevel}`) }}
+        </span>
+      </div>
+
+      <div class="sb-stat-row">
+        <span class="sb-stat-label">{{ $t('country.sidebar.language') }}</span>
+        <span class="sb-stat-val">{{ $t(`country.languages.${meta.languageKey}`) }}</span>
+      </div>
+
+      <div class="sb-stat-row">
+        <span class="sb-stat-label">{{ $t('country.sidebar.currency') }}</span>
+        <span class="sb-stat-val">{{ meta.currency }}</span>
+      </div>
+
+      <div class="sb-stat-row">
+        <span class="sb-stat-label">{{ $t('country.sidebar.residencyTime') }}</span>
+        <span class="sb-stat-val">{{ meta.residencyMonths }} {{ $t('country.sidebar.months') }}</span>
+      </div>
+
+      <div class="sb-stat-row">
+        <span class="sb-stat-label">{{ $t('country.sidebar.climate') }}</span>
+        <span class="sb-stat-val">{{ $t(`country.climates.${meta.climateKey}`) }}</span>
+      </div>
+
+      <div class="sb-stat-row">
+        <span class="sb-stat-label">{{ $t('country.sidebar.taxEmployee') }}</span>
+        <span class="sb-stat-val">{{ meta.tax_employee }}</span>
+      </div>
+
+      <div class="sb-stat-row" style="border-bottom: none">
+        <span class="sb-stat-label">{{ $t('country.sidebar.taxCorporate') }}</span>
+        <span class="sb-stat-val">{{ meta.tax_corporate }}</span>
       </div>
     </div>
 
     <!-- Card 3: Similar countries -->
     <div class="s-card" v-if="similar && similar.length">
-      <span class="s-card-title">Похожие страны</span>
+      <span class="s-card-title">{{ $t('country.sidebar.similarCountries') }}</span>
       <div class="s-similar">
         <div
           v-for="c in similar"
@@ -64,7 +77,6 @@
 <script setup lang="ts">
 import { getFlagEmoji } from '~/utils/countries'
 import { getCountryMeta } from '~/utils/countryMeta'
-import { getVisaInfo } from '~/utils/visaInfo'
 
 const { getCountryNameLocalized } = useLocalizedCountries()
 const router = useRouter()
@@ -75,15 +87,18 @@ const props = defineProps<{
   nationality: string
   similar: { code: string; avgRating: number }[] | null
 }>()
+
 const countryName = computed(() => getCountryNameLocalized(props.countryCode))
 const meta = computed(() => getCountryMeta(props.countryCode))
-const visaInfo = computed(() => props.nationality ? getVisaInfo(props.nationality, props.countryCode) : null)
-const costClass = computed(() => {
-  const m = meta.value
-  if (!m) return ''
-  if (m.costLevel === 'Низкая') return 's-fact--success'
-  if (m.costLevel === 'Средняя') return 's-fact--warning'
-  return 's-fact--danger'
+
+const costLevelClass = computed(() => {
+  switch (meta.value?.costLevel) {
+    case 'low':      return 'good'
+    case 'medium':   return ''
+    case 'high':     return 'warn'
+    case 'very_high': return 'bad'
+    default:         return ''
+  }
 })
 
 async function handleShare() {
@@ -124,26 +139,31 @@ async function handleShare() {
   transition: background 0.15s;
 }
 .s-btn-secondary:hover { background: var(--color-bg-secondary); }
-.s-card-title { font-size: 13px; font-weight: 600; color: var(--color-text); }
-.s-facts { display: flex; flex-direction: column; }
-.s-fact-row {
+.s-card-title { font-size: 13px; font-weight: 600; color: var(--color-text); margin-bottom: 2px; }
+
+/* Quick facts rows */
+.sb-stat-row {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 8px 0;
+  padding: 7px 0;
   border-bottom: 1px solid var(--color-border-subtle);
   gap: 8px;
 }
-.s-fact-label { font-size: 12px; color: var(--color-text-secondary); flex-shrink: 0; }
-.s-fact-val { font-size: 12px; font-weight: 600; color: var(--color-text); text-align: right; }
-.s-fact--success { color: var(--color-success) !important; }
-.s-fact--warning { color: var(--color-warning) !important; }
-.s-fact--danger { color: var(--color-danger) !important; }
-.s-fact--neutral { color: var(--color-text-muted) !important; }
+.sb-stat-label {
+  font-size: 12px; color: var(--color-text-secondary); flex-shrink: 0;
+}
+.sb-stat-val {
+  font-size: 12px; font-weight: 500; color: var(--color-text); text-align: right;
+}
+.sb-stat-val.good { color: var(--color-success); }
+.sb-stat-val.warn { color: var(--color-warning); }
+.sb-stat-val.bad  { color: var(--color-danger); }
+
+/* Similar countries */
 .s-similar { display: flex; flex-direction: column; }
 .s-similar-row {
   display: flex; justify-content: space-between; align-items: center;
   padding: 8px 6px; border-radius: var(--radius-sm);
-  cursor: pointer; transition: background 0.15s;
-  gap: 8px;
+  cursor: pointer; transition: background 0.15s; gap: 8px;
 }
 .s-similar-row:hover { background: var(--color-bg-secondary); }
 .s-similar-left { display: flex; align-items: center; gap: 6px; }
