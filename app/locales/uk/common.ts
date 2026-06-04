@@ -62,4 +62,21 @@ export default {
     permanent:  { label: 'Постійне проживання', hint: ''              },
   },
   stillThere: 'Зараз ще там',
+  costOptions: [
+    { value: 5, icon: '🤑', label: 'Дуже дешево'  },
+    { value: 4, icon: '😊', label: 'Дешево'        },
+    { value: 3, icon: '😐', label: 'Комфортно'     },
+    { value: 2, icon: '😬', label: 'Дороговато'    },
+    { value: 1, icon: '😰', label: 'Дуже дорого'   },
+  ],
+  weatherOptions: {
+    sunny:  { label: 'Спекотно',  icon: '☀️' },
+    warm:   { label: 'Тепло',     icon: '🌤️' },
+    rainy:  { label: 'Дощово',    icon: '🌧️' },
+    cloudy: { label: 'Хмарно',    icon: '🌥️' },
+    cold:   { label: 'Холодно',   icon: '❄️' },
+    snow:   { label: 'Сніг',      icon: '🌨️' },
+    windy:  { label: 'Вітряно',   icon: '💨' },
+    humid:  { label: 'Волого',    icon: '💧' },
+  },
 }

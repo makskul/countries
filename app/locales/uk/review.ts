@@ -15,6 +15,9 @@ export default {
     stayPurpose:            'Мета перебування',
     stayPurposePlaceholder: 'Обери мету...',
     stillThere:             'Зараз ще там',
+    climate:                'Клімат і погода',
+    climateHint:            'Обери що характерно — можна кілька',
+    climateSelected:        'Обрано: {count}',
   },
   ratings: {
     title: 'Оціни за категоріями',

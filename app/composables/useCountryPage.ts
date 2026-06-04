@@ -12,6 +12,7 @@ export interface RawReview {
   author_profile?: string | null
   stay_purpose?: string | null
   still_there?: boolean | null
+  climate?: string[] | null
 }
 
 export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
@@ -28,7 +29,7 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       if (!slug.value) return [] as RawReview[]
       let query = supabase
         .from('reviews')
-        .select('id, ratings, comments, created_at, author_nationality, city_id, city_name, author_profile, stay_purpose, still_there')
+        .select('id, ratings, comments, created_at, author_nationality, city_id, city_name, author_profile, stay_purpose, still_there, climate')
         .eq('target_country', slug.value)
         .eq('is_approved', true)
         .order('created_at', { ascending: false })

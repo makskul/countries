@@ -31,23 +31,29 @@
             <span class="crr-hint">{{ $t(`categories.${category.key}.hint`) }}</span>
           </div>
         </div>
-        <div class="crr-right">
-          <div class="crr-stars">
-            <span
-              v-for="i in 5"
-              :key="i"
-              class="crr-star"
-              :class="{ 'crr-star--filled': i <= modelValue }"
-              @click="$emit('update:modelValue', i)"
-              @mouseenter="hovered = i"
-              @mouseleave="hovered = 0"
-            >{{ (hovered > 0 ? i <= hovered : i <= modelValue) ? '★' : '☆' }}</span>
+        <!-- Custom rating slot (replaces stars when provided) -->
+        <slot name="rating">
+          <div class="crr-right">
+            <div class="crr-stars">
+              <span
+                v-for="i in 5"
+                :key="i"
+                class="crr-star"
+                :class="{ 'crr-star--filled': i <= modelValue }"
+                @click="$emit('update:modelValue', i)"
+                @mouseenter="hovered = i"
+                @mouseleave="hovered = 0"
+              >{{ (hovered > 0 ? i <= hovered : i <= modelValue) ? '★' : '☆' }}</span>
+            </div>
+            <span class="crr-star-label" :class="{ 'crr-star-label--max': modelValue === 5 }">
+              {{ (hovered || modelValue) > 0 ? $t(`review.ratings.stars.${hovered || modelValue}`) : '' }}
+            </span>
           </div>
-          <span class="crr-star-label" :class="{ 'crr-star-label--max': modelValue === 5 }">
-            {{ (hovered || modelValue) > 0 ? $t(`review.ratings.stars.${hovered || modelValue}`) : '' }}
-          </span>
-        </div>
+        </slot>
       </div>
+
+      <!-- Optional extra slot (e.g. weather icons for weather category) -->
+      <slot name="extra" />
 
       <div class="crr-textarea-wrap">
         <textarea

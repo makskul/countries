@@ -3,8 +3,22 @@
     <div v-for="cat in filledCategories" :key="cat" class="rc-entry">
       <!-- Row 1 -->
       <div class="rc-row1">
-        <span class="rc-chip">{{ $t(`categories.${cat}.name`) }}</span>
+        <div style="display:flex; align-items:center; gap:6px; min-width:0">
+          <span class="rc-chip">{{ $t(`categories.${cat}.name`) }}</span>
+          <span v-if="cat === 'cost_of_living'" class="rc-cost-label" :class="`rc-cost-${review.ratings[cat]}`">
+            {{ getCostLabel(review.ratings[cat]) }}
+          </span>
+        </div>
         <Rating :modelValue="review.ratings[cat]" readonly :cancel="false" :stars="5" />
+      </div>
+      <!-- Weather icons for weather category -->
+      <div v-if="cat === 'weather' && review.climate && review.climate.length" class="rc-weather-icons">
+        <span
+          v-for="key in review.climate"
+          :key="key"
+          class="rc-weather-icon"
+          :title="getWeatherLabel(key)"
+        >{{ getWeatherIcon(key) }}</span>
       </div>
       <!-- Comment -->
       <p v-if="review.comments[cat]" class="rc-comment">{{ review.comments[cat] }}</p>
@@ -35,8 +49,24 @@ import { CATEGORIES } from '~/utils/categories'
 import type { RawReview } from '~/composables/useCountryPage'
 
 const { getCountryNameLocalized } = useLocalizedCountries()
+const { tm } = useI18n()
 const props = defineProps<{ review: RawReview }>()
 const time = computed(() => timeAgo(props.review.created_at))
+
+function getCostLabel(value: number): string {
+  const opts = tm('common.costOptions') as Array<{ value: number; icon: string; label: string }>
+  const opt = opts.find(o => o.value === value)
+  return opt ? `${opt.icon} ${opt.label}` : ''
+}
+
+function getWeatherIcon(key: string): string {
+  const opts = tm('common.weatherOptions') as Record<string, { icon: string; label: string }>
+  return opts[key]?.icon ?? '🌡️'
+}
+function getWeatherLabel(key: string): string {
+  const opts = tm('common.weatherOptions') as Record<string, { icon: string; label: string }>
+  return opts[key]?.label ?? key
+}
 
 const filledCategories = computed(() =>
   CATEGORIES.filter(cat =>
@@ -77,4 +107,12 @@ const filledCategories = computed(() =>
 .rc-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding-top: 4px; }
 .rc-city { font-size: 12px; color: var(--color-text-muted); }
 .rc-profile { font-size: 11px; background: var(--color-bg-secondary); border-radius: var(--radius-pill); padding: 2px 8px; color: var(--color-text-secondary); }
+.rc-cost-label { font-size: 12px; font-weight: 500; }
+.rc-cost-5 { color: #0F6E56; }
+.rc-cost-4 { color: #2A7A52; }
+.rc-cost-3 { color: #854F0B; }
+.rc-cost-2 { color: #7A3A0A; }
+.rc-cost-1 { color: #7A1010; }
+.rc-weather-icons { display: flex; gap: 4px; flex-wrap: wrap; }
+.rc-weather-icon { font-size: 16px; line-height: 1; cursor: default; }
 </style>

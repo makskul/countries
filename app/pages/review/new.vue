@@ -106,6 +106,7 @@
               </div>
             </div>
           </div>
+
         </div>
 
         <!-- SUCCESS STATE -->
@@ -156,6 +157,44 @@
               <svg v-else-if="cat.icon === 'star'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <!-- fallback -->
               <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
+            </template>
+
+            <!-- Cost buttons — only for 'cost_of_living' category -->
+            <template v-if="cat.key === 'cost_of_living'" #rating>
+              <div class="cost-grid">
+                <div
+                  v-for="opt in costOptions"
+                  :key="opt.value"
+                  class="cost-btn"
+                  :class="{
+                    active: (form.ratings as any)['cost_of_living'] === opt.value,
+                    [`cost-${opt.value}`]: true
+                  }"
+                  @click="(form.ratings as any)['cost_of_living'] = opt.value"
+                >
+                  <span class="cost-icon">{{ opt.icon }}</span>
+                  <span class="cost-label">{{ opt.label }}</span>
+                </div>
+              </div>
+            </template>
+
+            <!-- Weather icons — only for 'weather' category -->
+            <template v-if="cat.key === 'weather'" #extra>
+              <div class="weather-section">
+                <div class="weather-hint">{{ $t('review.fields.climateHint') }}</div>
+                <div class="weather-grid">
+                  <div
+                    v-for="(opt, key) in weatherOptions"
+                    :key="key"
+                    class="w-btn"
+                    :class="{ active: form.climate.includes(String(key)) }"
+                    @click="toggleWeather(String(key))"
+                  >
+                    <span class="w-icon">{{ (opt as any).icon }}</span>
+                    <span class="w-label">{{ (opt as any).label }}</span>
+                  </div>
+                </div>
+              </div>
             </template>
           </CategoryRatingRow>
 
@@ -326,6 +365,22 @@ const stayPurposeOptions = computed(() =>
     hint:  val.hint as string,
   }))
 )
+
+// Weather multi-select
+const weatherOptions = computed(() =>
+  tm('common.weatherOptions') as Record<string, { label: string; icon: string }>
+)
+
+// Cost of living buttons
+const costOptions = computed(() =>
+  tm('common.costOptions') as Array<{ value: number; icon: string; label: string }>
+)
+
+function toggleWeather(key: string) {
+  const idx = form.climate.indexOf(key)
+  if (idx === -1) form.climate.push(key)
+  else form.climate.splice(idx, 1)
+}
 
 function submit() {
   if (!selectedCity.value) return

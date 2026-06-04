@@ -28,6 +28,7 @@ export function useReviewForm() {
     nationality: store.nationality || '',
     stay_purpose: '' as string,
     still_there: false as boolean,
+    climate: [] as string[],
     ratings: Object.fromEntries(FORM_CATEGORIES.map(c => [c.key, 0])) as Record<FormCategoryKey, number>,
     comments: Object.fromEntries(FORM_CATEGORIES.map(c => [c.key, ''])) as Record<FormCategoryKey, string>,
   })
@@ -88,6 +89,7 @@ export function useReviewForm() {
         target_country: form.country,
         stay_purpose: form.stay_purpose,
         still_there: form.still_there,
+        climate: form.climate.length ? form.climate : null,
         ...(cityName ? { city_name: cityName, city_id: cityId } : {}),
         ratings,
         comments,

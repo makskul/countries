@@ -62,4 +62,21 @@ export default {
     permanent:  { label: 'Permanent resident', hint: ''                 },
   },
   stillThere: 'Currently living there',
+  costOptions: [
+    { value: 5, icon: '🤑', label: 'Very cheap'     },
+    { value: 4, icon: '😊', label: 'Cheap'          },
+    { value: 3, icon: '😐', label: 'Comfortable'    },
+    { value: 2, icon: '😬', label: 'Pricey'         },
+    { value: 1, icon: '😰', label: 'Very expensive' },
+  ],
+  weatherOptions: {
+    sunny:  { label: 'Hot',     icon: '☀️' },
+    warm:   { label: 'Warm',    icon: '🌤️' },
+    rainy:  { label: 'Rainy',   icon: '🌧️' },
+    cloudy: { label: 'Cloudy',  icon: '🌥️' },
+    cold:   { label: 'Cold',    icon: '❄️' },
+    snow:   { label: 'Snowy',   icon: '🌨️' },
+    windy:  { label: 'Windy',   icon: '💨' },
+    humid:  { label: 'Humid',   icon: '💧' },
+  },
 }
