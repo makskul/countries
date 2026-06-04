@@ -57,7 +57,7 @@
           <!-- City + Profile selectors -->
           <div class="selectors-grid" style="margin-top: 10px">
             <div>
-              <label class="field-label">{{ $t('review.fields.city') }} *</label>
+              <label class="field-label">{{ $t('review.fields.city') }}</label>
               <AutoComplete
                 v-model="cityQuery"
                 :suggestions="citySuggestions"
@@ -311,10 +311,9 @@ const {
   FORM_CATEGORIES,
 } = useReviewForm()
 
-// isValid also requires city to be selected from list
+// city is optional
 const isValid = computed(() =>
-  isValidBase.value &&
-  selectedCity.value !== null
+  isValidBase.value
 )
 
 const hasAnyRating = computed(() => Object.values(form.ratings).some(r => r > 0))
@@ -383,8 +382,8 @@ function toggleWeather(key: string) {
 }
 
 function submit() {
-  if (!selectedCity.value) return
-  submitForm(selectedCity.value.name, selectedCity.value.id)
+  // city is optional — pass undefined if not selected
+  submitForm(selectedCity.value?.name, selectedCity.value?.id)
 }
 </script>
 
