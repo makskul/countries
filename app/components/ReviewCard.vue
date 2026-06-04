@@ -29,8 +29,8 @@
       <span class="rc-author">{{ getFlagEmoji(review.author_nationality) }} {{ getCountryNameLocalized(review.author_nationality) }}</span>
       <span class="rc-time">{{ time }}</span>
     </div>
-    <div v-if="review.city_name || review.stay_purpose || review.still_there" class="rc-meta">
-      <span v-if="review.city_name" class="rc-city">📍 {{ review.city_name }}</span>
+    <div v-if="cityName || review.stay_purpose || review.still_there" class="rc-meta">
+      <span v-if="cityName" class="rc-city">📍 {{ cityName }}</span>
       <template v-if="review.stay_purpose">
         <span class="rc-dot">·</span>
         <span class="rc-profile">{{ $t(`common.stayPurposes.${review.stay_purpose}.label`) }}</span>
@@ -49,9 +49,17 @@ import { CATEGORIES } from '~/utils/categories'
 import type { RawReview } from '~/composables/useCountryPage'
 
 const { getCountryNameLocalized } = useLocalizedCountries()
-const { tm } = useI18n()
+const { tm, locale } = useI18n()
 const props = defineProps<{ review: RawReview }>()
 const time = computed(() => timeAgo(props.review.created_at))
+
+const cityName = computed(() => {
+  const c = props.review.cities
+  if (!c) return null
+  if (locale.value === 'uk' && c.name_uk) return c.name_uk
+  if (locale.value === 'ru' && c.name_ru) return c.name_ru
+  return c.name_en
+})
 
 function getCostLabel(value: number): string {
   const opts = tm('common.costOptions') as Array<{ value: number; icon: string; label: string }>

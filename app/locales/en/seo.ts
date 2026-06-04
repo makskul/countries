@@ -11,6 +11,10 @@ export default {
     reviewsOf: 'reviews by',
     description: 'Real reviews by {nationality} about living in {country}. Legalization, prices, safety, attitude.',
   },
+  city: {
+    reviewsOf:   'reviews by',
+    description: 'Real reviews from {nationality} about {city}, {country}. Visa, cost of living, safety, attitude.',
+  },
   review: {
     title: 'Write a review',
     description: 'Share your experience living in another country. Anonymously.',

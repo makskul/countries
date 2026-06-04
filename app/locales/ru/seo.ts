@@ -11,6 +11,10 @@ export default {
     reviewsOf: 'отзывы',
     description: 'Реальные отзывы {nationality} о жизни в {country}. Легализация, цены, безопасность, отношение.',
   },
+  city: {
+    reviewsOf:   'отзывы',
+    description: 'Реальные отзывы {nationality} о {city} ({country}). Легализация, цены, безопасность.',
+  },
   review: {
     title: 'Написать отзыв',
     description: 'Поделись своим опытом жизни в другой стране. Анонимно.',

@@ -117,16 +117,16 @@
           </div>
         </div>
         <div class="cities-scroll">
-          <div
+          <NuxtLinkLocale
             v-for="city in latestCities"
             :key="city.city_id"
+            :to="`/country/${city.target_country.toLowerCase()}/${city.city_slug}`"
             class="city-card"
-            @click="goToCity(city)"
           >
             <div class="city-flag">{{ getFlagEmoji(city.target_country) }}</div>
-            <div class="city-name">{{ city.city_name }}</div>
+            <div class="city-name">{{ getCityName(city) }}</div>
             <div class="city-country">{{ getCountryNameLocalized(city.target_country) }}</div>
-          </div>
+          </NuxtLinkLocale>
         </div>
       </div>
     </section>
@@ -203,7 +203,14 @@
 <script setup lang="ts">
 import { countryToSlug, getFlagEmoji } from '~/utils/countries'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+function getCityName(city: any): string {
+  if (!city.cityMeta) return city.city_name
+  if (locale.value === 'uk' && city.cityMeta.name_uk) return city.cityMeta.name_uk
+  if (locale.value === 'ru' && city.cityMeta.name_ru) return city.cityMeta.name_ru
+  return city.cityMeta.name_en ?? city.city_name
+}
 
 useSeoMeta({
   title: () => t('seo.home.title'),
@@ -233,13 +240,34 @@ const targetCountry = ref('')
 const { stats, statsPending, trending, trendingPending, latest, latestPending, catStats, catPending } = useHomepageData()
 
 const { data: latestCitiesRaw } = useAsyncData('latestCities', async () => {
-  const { data } = await supabase
+  // Step 1: get latest reviews with city_id
+  const { data: reviews, error } = await supabase
     .from('reviews')
     .select('city_id, city_name, target_country, created_at')
     .not('city_id', 'is', null)
+    .not('city_name', 'is', null)
     .order('created_at', { ascending: false })
     .limit(50)
-  return (data ?? []) as any[]
+  if (error) { console.error('[latestCities]', error.message); return [] }
+
+  // Step 2: collect unique city_ids
+  const cityIds = [...new Set((reviews ?? []).map((r: any) => r.city_id).filter(Boolean))]
+  if (!cityIds.length) return []
+
+  // Step 3: fetch slug + localized names from cities table
+  const { data: cities } = await supabase
+    .from('cities')
+    .select('id, slug, name_en, name_uk, name_ru')
+    .in('id', cityIds)
+  const cityMap: Record<number, { slug: string; name_en: string; name_uk: string; name_ru: string }> = {}
+  for (const c of (cities ?? []) as any[]) {
+    if (c.slug) cityMap[c.id] = c
+  }
+
+  // Step 4: merge — only include cities that have a slug
+  return (reviews ?? [])
+    .filter((r: any) => cityMap[r.city_id])
+    .map((r: any) => ({ ...r, city_slug: cityMap[r.city_id].slug, cityMeta: cityMap[r.city_id] })) as any[]
 })
 
 const latestCities = computed(() => {
@@ -253,10 +281,6 @@ const latestCities = computed(() => {
     .slice(0, 6)
 })
 
-function goToCity(city: { city_id: number; target_country: string; city_name: string }) {
-  store.setSelectedCity(city.city_id)
-  router.push(localePath(`/country/${city.target_country.toLowerCase()}`))
-}
 
 function handleSubmit() {
   if (!nationality.value || !targetCountry.value) return
@@ -666,6 +690,8 @@ const floatPos = [
   scrollbar-color: var(--color-border) transparent;
 }
 .city-card {
+  display: block;
+  text-decoration: none;
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -688,7 +714,7 @@ const floatPos = [
 @media (max-width: 768px) {
   .hero-dark-inner { grid-template-columns: 1fr; padding: 0; }
   .hero-canvas-wrap { display: none; }
-  .hero-form { padding: 36px 0; }
+  .hero-form { padding: 36px 28px; }
   .hero-h1-dark { font-size: 24px; }
 }
 @media (max-width: 600px) {
@@ -696,5 +722,6 @@ const floatPos = [
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .cta-inner { flex-direction: column; align-items: flex-start; }
   .section-wrap { padding: 0 16px; }
+  .hero-form { padding: 36px 16px; }
 }
 </style>

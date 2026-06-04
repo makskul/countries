@@ -55,25 +55,15 @@
     <!-- TABS BAR -->
     <div class="tabs-bar">
       <button
-        class="tab-btn"
-        :class="{ active: isCountryView }"
-        @click="selectedCityId = null; selectedCityName = null"
+        class="tab-btn active"
       >{{ $t('country.tabs.countryOverview') }}</button>
 
       <button
         v-for="city in (citiesWithReviews ?? []).slice(0, 4)"
         :key="city.city_id"
         class="tab-btn"
-        :class="{ active: selectedCityId === city.city_id }"
-        @click="selectedCityId = city.city_id; selectedCityName = city.city_name"
-      >
-        {{ city.city_name }}
-        <span
-          v-if="selectedCityId === city.city_id"
-          @click.stop="selectedCityId = null; selectedCityName = null"
-          style="margin-left:4px; opacity:0.6; cursor:pointer"
-        >×</span>
-      </button>
+        @click="navigateTo(localePath(`/country/${slug.toLowerCase()}/${city.slug}`))"
+      >{{ getCityDisplayName(city) }}</button>
 
       <button
         v-if="(citiesWithReviews ?? []).length > 4"
@@ -137,20 +127,6 @@
             </button>
           </div>
 
-          <!-- City view back link -->
-          <div v-if="isCityView" class="city-back" @click="selectedCityId = null; selectedCityName = null">
-            {{ $t('country.cityView.backToCountry') }}
-          </div>
-
-          <!-- City header -->
-          <div v-if="isCityView && selectedCityName" class="city-view-header">
-            <span class="ch-flag">{{ flag }}</span>
-            <div>
-              <h2 style="margin: 0; font-size: 18px; font-weight: 600;">{{ selectedCityName }}</h2>
-              <span style="font-size: 13px; color: var(--color-text-muted)">{{ countryName }}</span>
-            </div>
-          </div>
-
           <!-- Category scores — hide when no reviews for this nationality -->
           <CategoryScoresCard
             v-if="natReviewsCount > 0 || showAllOverride || !nationality"
@@ -158,8 +134,8 @@
             :pending="pending"
           />
 
-          <!-- Cities with reviews block (country view only) -->
-          <div v-if="isCountryView && citiesWithReviews && citiesWithReviews.length" class="cities-block">
+          <!-- Cities with reviews block -->
+          <div v-if="citiesWithReviews && citiesWithReviews.length" class="cities-block">
             <div class="cities-block-header">
               <span class="section-label">{{ $t('country.cityView.citiesWithReviews') }}</span>
             </div>
@@ -168,9 +144,9 @@
                 v-for="city in citiesWithReviews"
                 :key="city.city_id"
                 class="city-stat-card"
-                @click="selectedCityId = city.city_id; selectedCityName = city.city_name"
+                @click="navigateTo(localePath(`/country/${slug.toLowerCase()}/${city.slug}`))"
               >
-                <div class="city-stat-name">{{ city.city_name }}</div>
+                <div class="city-stat-name">{{ getCityDisplayName(city) }}</div>
                 <div class="city-stat-meta">
                   <Rating :modelValue="Number(city.avg_overall)" readonly :cancel="false" :stars="5" />
                   <span class="city-stat-count">{{ city.total_reviews }} {{ $t('common.labels.reviews') }}</span>
@@ -220,10 +196,10 @@
       <div
         v-for="city in citiesWithReviews"
         :key="city.city_id"
-        @click="selectedCityId = city.city_id; selectedCityName = city.city_name; showAllCitiesDialog = false"
+        @click="navigateTo(localePath(`/country/${slug.toLowerCase()}/${city.slug}`)); showAllCitiesDialog = false"
         style="padding: 10px 0; border-bottom: 1px solid var(--color-border); cursor: pointer; display: flex; justify-content: space-between; align-items: center;"
       >
-        <span style="font-size: 13px; font-weight: 600;">{{ city.city_name }}</span>
+        <span style="font-size: 13px; font-weight: 600;">{{ getCityDisplayName(city) }}</span>
         <span style="font-size: 12px; color: var(--color-text-muted)">
           {{ city.total_reviews }} {{ $t('common.labels.reviews') }} · ★ {{ city.avg_overall }}
         </span>
@@ -250,13 +226,18 @@
 import { getFlagEmoji, timeAgo } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCountryPage } from '~/composables/useCountryPage'
-import { getNationalityName } from '~/utils/nationalities'
 
 const route = useRoute()
 const router = useRouter()
 const store = useUserStore()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
+
+function getCityDisplayName(city: any): string {
+  if (locale.value === 'uk' && city.name_uk) return city.name_uk
+  if (locale.value === 'ru' && city.name_ru) return city.name_ru
+  return city.name_en ?? city.city_name
+}
 
 onMounted(() => {
   store.loadFromStorage()
@@ -283,11 +264,15 @@ const region = computed(() => getRegion(slug.value))
 
 const countryFlag = computed(() => getFlagEmoji(slug.value))
 
+const natGenitive = computed(() =>
+  nationality.value ? t(`nationalities.${nationality.value}.genitive`) : ''
+)
+
 useSeoMeta({
-  title: () => `${countryFlag.value} ${countryName.value} — ${t('seo.country.reviewsOf')} ${getNationalityName(nationality.value)}`,
-  description: () => t('seo.country.description', { nationality: getNationalityName(nationality.value), country: countryName.value }),
-  ogTitle: () => `${countryName.value} — ${getNationalityName(nationality.value)}`,
-  ogDescription: () => t('seo.country.description', { nationality: getNationalityName(nationality.value), country: countryName.value }),
+  title: () => `${countryFlag.value} ${countryName.value} — ${t('seo.country.reviewsOf')} ${natGenitive.value}`,
+  description: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
+  ogTitle: () => `${countryName.value} — ${natGenitive.value}`,
+  ogDescription: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
   ogImage: 'https://nationview.app/og/home.png',
   ogUrl: () => `https://nationview.app/country/${slug.value.toLowerCase()}`,
   ogType: 'website',
@@ -318,18 +303,14 @@ const {
   loadMore,
   similarCountries,
   markHelpful,
-  selectedCityId,
   citiesWithReviews,
-  cityStats,
   natReviewsCount,
   showAllOverride,
   countryHasAnyReviews,
 } = useCountryPage(slug, nationality)
 
-const selectedCityName = ref<string | null>(null)
 const showAllCitiesDialog = ref(false)
-const isCountryView = computed(() => selectedCityId.value === null)
-const isCityView = computed(() => selectedCityId.value !== null)
+const localePath = useLocalePath()
 
 // Nationality dialog
 const showNatDialog = ref(false)

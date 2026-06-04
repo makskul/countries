@@ -8,11 +8,11 @@ export interface RawReview {
   ratings: Record<string, number>
   comments: Record<string, string>
   city_id?: number | null
-  city_name?: string | null
   author_profile?: string | null
   stay_purpose?: string | null
   still_there?: boolean | null
   climate?: string[] | null
+  cities?: { id: number; name_en: string; name_uk?: string | null; name_ru?: string | null; slug?: string } | null
 }
 
 export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
@@ -29,7 +29,7 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       if (!slug.value) return [] as RawReview[]
       let query = supabase
         .from('reviews')
-        .select('id, ratings, comments, created_at, author_nationality, city_id, city_name, author_profile, stay_purpose, still_there, climate')
+        .select('id, ratings, comments, created_at, author_nationality, city_id, author_profile, stay_purpose, still_there, climate, cities(id, name_en, name_uk, name_ru, slug)')
         .eq('target_country', slug.value)
         .eq('is_approved', true)
         .order('created_at', { ascending: false })
@@ -91,13 +91,31 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     () => `cities-${slug.value}-${nationality.value}`,
     async () => {
       if (!slug.value || !nationality.value) return []
-      const { data } = await supabase
+      // Step 1: get city stats
+      const { data: stats, error } = await supabase
         .from('city_stats')
         .select('city_id, city_name, total_reviews, avg_overall')
         .eq('target_country', slug.value)
         .eq('author_nationality', nationality.value)
         .order('total_reviews', { ascending: false })
-      return (data ?? []) as any[]
+      if (error) { console.error('[citiesWithReviews]', error.message); return [] }
+      if (!stats?.length) return []
+
+      // Step 2: fetch slug + localized names from cities table
+      const cityIds = stats.map((r: any) => r.city_id).filter(Boolean)
+      const { data: cities } = await supabase
+        .from('cities')
+        .select('id, slug, name_en, name_uk, name_ru')
+        .in('id', cityIds)
+      const cityMap: Record<number, any> = {}
+      for (const c of (cities ?? []) as any[]) {
+        if (c.slug) cityMap[c.id] = c
+      }
+
+      // Step 3: merge — only include cities that have a slug
+      return stats
+        .filter((r: any) => cityMap[r.city_id])
+        .map((r: any) => ({ ...r, slug: cityMap[r.city_id].slug, name_en: cityMap[r.city_id].name_en, name_uk: cityMap[r.city_id].name_uk, name_ru: cityMap[r.city_id].name_ru })) as any[]
     },
     { server: false, watch: [slug, nationality] }
   )
@@ -257,7 +275,6 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     markHelpful,
     selectedCityId,
     citiesWithReviews,
-    cityStats,
     natReviewsCount,
     showAllOverride,
     countryHasAnyReviews,
