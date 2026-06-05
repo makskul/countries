@@ -1,6 +1,5 @@
 export default {
   legalization:     { name: 'Legalization',       hint: 'Visa, residence permit, residency'  },
-  attitude:         { name: 'Attitude',            hint: 'Toward your nationality'            },
   cost_of_living:   { name: 'Cost of living',     hint: 'Rent, food, transport'              },
   safety:           { name: 'Safety',              hint: 'Crime level, comfort'               },
   bureaucracy:      { name: 'Documents',           hint: 'Speed, bureaucracy'                 },

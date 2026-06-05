@@ -2,7 +2,6 @@ import { useSupabaseClient } from '#imports'
 
 export const FORM_CATEGORIES = [
   { key: 'legalization',     icon: 'shield'    },
-  { key: 'attitude',         icon: 'users'     },
   { key: 'cost_of_living',   icon: 'dollar'    },
   { key: 'safety',           icon: 'shield2'   },
   { key: 'bureaucracy',      icon: 'clipboard' },

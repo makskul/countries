@@ -7,7 +7,7 @@
       class="lang-option"
       :class="{ active: locale === loc.code }"
     >
-      {{ loc.code.toUpperCase() }}
+      {{ { uk: 'UA', en: 'EN', ru: 'RU' }[loc.code] ?? loc.code.toUpperCase() }}
     </NuxtLink>
   </div>
 </template>

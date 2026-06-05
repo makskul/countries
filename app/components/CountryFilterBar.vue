@@ -92,7 +92,6 @@ const CATEGORY_OPTIONS = computed(() => [
   { label: t('categories.legalization.name'), value: 'legalization' },
   { label: t('categories.cost_of_living.name'), value: 'cost_of_living' },
   { label: t('categories.safety.name'), value: 'safety' },
-  { label: t('categories.attitude.name'), value: 'attitude' },
   { label: t('categories.bureaucracy.name'), value: 'bureaucracy' },
   { label: t('categories.weather.name'), value: 'weather' },
 ])

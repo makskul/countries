@@ -78,7 +78,7 @@ export function useHomepageData() {
   })
 
   // Category highlights (4 selected categories — keys match JSONB in DB)
-  const HIGHLIGHT_CATS = ['legalization', 'cost_of_living', 'safety', 'attitude']
+  const HIGHLIGHT_CATS = ['legalization', 'cost_of_living', 'safety']
   const { data: catStats, pending: catPending } = useLazyAsyncData('catStats', async () => {
     const { data, error } = await supabase
       .from('reviews')

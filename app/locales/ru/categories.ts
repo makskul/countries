@@ -1,6 +1,5 @@
 export default {
   legalization:     { name: 'Легализация',       hint: 'Виза, ВНЖ, резидентство'    },
-  attitude:         { name: 'Отношение',           hint: 'К твоей национальности'     },
   cost_of_living:   { name: 'Стоимость жизни',    hint: 'Аренда, еда, транспорт'     },
   safety:           { name: 'Безопасность',        hint: 'Уровень криминала, комфорт' },
   bureaucracy:      { name: 'Документы',           hint: 'Скорость, бюрократия'       },

@@ -42,7 +42,6 @@ useSeoMeta({
 
 const categories = [
   { key: 'legalization',     icon: 'shield'    },
-  { key: 'attitude',         icon: 'users'     },
   { key: 'cost_of_living',   icon: 'dollar'    },
   { key: 'safety',           icon: 'badge'     },
   { key: 'bureaucracy',      icon: 'clipboard' },

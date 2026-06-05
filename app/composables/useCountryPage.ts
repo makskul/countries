@@ -151,7 +151,6 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       const s = source as any
       const cats = [
         { category: 'legalization',     avg: s.avg_legalization     },
-        { category: 'attitude',         avg: s.avg_attitude         },
         { category: 'cost_of_living',   avg: s.avg_cost_of_living   },
         { category: 'safety',           avg: s.avg_safety           },
         { category: 'bureaucracy',      avg: s.avg_bureaucracy      },

@@ -10,7 +10,6 @@ export interface Review {
 
 export const CATEGORIES = [
   { key: 'legalization', label: 'Legalization / Visa / Residency' },
-  { key: 'attitude', label: 'Attitude toward your nationality' },
   { key: 'cost_of_living', label: 'Cost of Living' },
   { key: 'bureaucracy', label: 'Government Document Speed' },
   { key: 'cleanliness', label: 'Cleanliness / Infrastructure' },
