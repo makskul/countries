@@ -5,12 +5,6 @@
       <div class="hero-dark-inner">
       <!-- LEFT — form -->
       <div class="hero-form">
-        <!-- Pill -->
-        <div class="hero-pill-dark">
-          <span class="hero-pill-dot" />
-          {{ $t('homepage.hero.pill') }}
-        </div>
-
         <!-- Headline -->
         <h1 class="hero-h1-dark">
           {{ $t('homepage.hero.title') }}<br>
@@ -217,13 +211,13 @@ useSeoMeta({
   description: () => t('seo.home.description'),
   ogTitle: () => t('seo.home.title'),
   ogDescription: () => t('seo.home.description'),
-  ogImage: 'https://nationview.app/og/home.png',
-  ogUrl: 'https://nationview.app',
+  ogImage: 'https://zeemler.app/og/home.png',
+  ogUrl: 'https://zeemler.app',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: () => t('seo.home.title'),
   twitterDescription: () => t('seo.home.description'),
-  twitterImage: 'https://nationview.app/og/home.png',
+  twitterImage: 'https://zeemler.app/og/home.png',
 })
 
 const store = useUserStore()

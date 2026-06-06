@@ -273,8 +273,8 @@ useSeoMeta({
   description: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
   ogTitle: () => `${countryName.value} — ${natGenitive.value}`,
   ogDescription: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
-  ogImage: 'https://nationview.app/og/home.png',
-  ogUrl: () => `https://nationview.app/country/${slug.value.toLowerCase()}`,
+  ogImage: 'https://zeemler.app/og/home.png',
+  ogUrl: () => `https://zeemler.app/country/${slug.value.toLowerCase()}`,
   ogType: 'website',
   twitterCard: 'summary_large_image',
 })
@@ -287,7 +287,7 @@ useHead({
       '@type': 'WebPage',
       name: `${countryName.value} — отзывы эмигрантов`,
       description: `Реальные отзывы о жизни в ${countryName.value}`,
-      url: `https://nationview.app/country/${slug.value.toLowerCase()}`,
+      url: `https://zeemler.app/country/${slug.value.toLowerCase()}`,
     })).value,
   }],
 })

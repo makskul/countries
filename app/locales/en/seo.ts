@@ -1,6 +1,6 @@
 export default {
   home: {
-    title: 'NationView — Expat reviews by nationality',
+    title: 'Zeemler — Expat reviews by nationality',
     description: 'See the world through your nationality. Real reviews about visas, prices, attitude and bureaucracy from people like you.',
   },
   countries: {
@@ -21,18 +21,18 @@ export default {
   },
   about: {
     title: 'About',
-    description: 'NationView — a platform for real expat reviews filtered by nationality.',
+    description: 'Zeemler — a platform for real expat reviews filtered by nationality.',
   },
   rules: {
     title: 'Site rules',
-    description: 'Rules for publishing reviews on NationView.',
+    description: 'Rules for publishing reviews on Zeemler.',
   },
   privacy: {
     title: 'Privacy policy',
-    description: 'How NationView collects and processes user data.',
+    description: 'How Zeemler collects and processes user data.',
   },
   contact: {
     title: 'Contact us',
-    description: 'Have questions or suggestions? Write to the NationView team.',
+    description: 'Have questions or suggestions? Write to the Zeemler team.',
   },
 }

@@ -104,7 +104,7 @@ const costLevelClass = computed(() => {
 async function handleShare() {
   const url = window.location.href
   if (navigator.share) {
-    await navigator.share({ title: `NationView — ${countryName.value}`, url })
+    await navigator.share({ title: `Zeemler — ${countryName.value}`, url })
   } else {
     await navigator.clipboard.writeText(url)
   }

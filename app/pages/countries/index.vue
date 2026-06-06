@@ -105,8 +105,8 @@ useSeoMeta({
   description: () => t('seo.countries.description'),
   ogTitle: () => t('seo.countries.title'),
   ogDescription: () => t('seo.countries.description'),
-  ogImage: 'https://nationview.app/og/countries.png',
-  ogUrl: 'https://nationview.app/countries',
+  ogImage: 'https://zeemler.app/og/countries.png',
+  ogUrl: 'https://zeemler.app/countries',
   ogType: 'website',
   twitterCard: 'summary_large_image',
 })

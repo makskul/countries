@@ -232,8 +232,8 @@ useSeoMeta({
   title: () => `${cityName.value} · ${countryName.value} — ${t('seo.city.reviewsOf')} ${natGenitive.value}`,
   description: () => t('seo.city.description', { city: cityName.value, country: countryName.value, nationality: natGenitive.value }),
   ogTitle: () => `${cityName.value} · ${countryName.value}`,
-  ogImage: 'https://nationview.app/og/home.png',
-  ogUrl: () => `https://nationview.app/country/${slug.value.toLowerCase()}/${citySlug.value}`,
+  ogImage: 'https://zeemler.app/og/home.png',
+  ogUrl: () => `https://zeemler.app/country/${slug.value.toLowerCase()}/${citySlug.value}`,
   ogType: 'website',
   twitterCard: 'summary_large_image',
 })

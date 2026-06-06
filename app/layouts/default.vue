@@ -12,7 +12,7 @@
 const { locale } = useI18n()
 useHead({
   htmlAttrs: { lang: computed(() => locale.value) },
-  titleTemplate: (title) => title ? `${title} — NationView` : 'NationView',
+  titleTemplate: (title) => title ? `${title} — Zeemler` : 'Zeemler',
   meta: [
     { name: 'theme-color', content: '#534AB7' },
   ],
