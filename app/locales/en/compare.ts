@@ -1,0 +1,18 @@
+export default {
+  sectionLabel:     'Tool',
+  title:            'Country comparison',
+  subtitle:         'Compare up to 3 countries by real expat reviews',
+  selectCountry:    'Select country...',
+  addCountry:       '+ Add country',
+  removeCountry:    'Remove',
+  filterBy:         'Filter:',
+  allNationalities: 'All nationalities',
+  staticInfo:       'Reference information',
+  selectHint:       'Select two countries to see comparison',
+  noNatHint:        'Showing global averages. Select nationality for personalised results.',
+  winner:           '🏆 Best',
+  overallLabel:     'overall',
+  goToReviews:      'Reviews',
+  seoTitle:         'comparison for expats',
+  seoDescription:   'Compare {a} and {b} by legalization, cost of living, safety. Real expat reviews.',
+}

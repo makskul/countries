@@ -1,5 +1,6 @@
 import common from './common'
 import nav from './nav'
+import compare from './compare'
 import footer from './footer'
 import homepage from './homepage'
 import countries from './countries'
@@ -22,4 +23,5 @@ export default {
   categories,
   seo,
   pages,
+  compare,
 }

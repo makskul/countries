@@ -11,7 +11,7 @@ export interface CountryMeta {
 export const COUNTRY_META: Record<string, CountryMeta> = {
   AT: { languageKey: 'german',          currency: 'EUR', climateKey: 'temperate',    costLevel: 'very_high', residencyMonths: '60',  tax_employee: '0–55%',    tax_corporate: '23%' },
   BE: { languageKey: 'dutch_french',    currency: 'EUR', climateKey: 'temperate',    costLevel: 'high',      residencyMonths: '60',  tax_employee: '25–50%',   tax_corporate: '25%' },
-  BG: { languageKey: 'bulgarian',       currency: 'BGN', climateKey: 'temperate',    costLevel: 'low',       residencyMonths: '60',  tax_employee: '10%',      tax_corporate: '10%' },
+  BG: { languageKey: 'bulgarian',       currency: 'EUR', climateKey: 'temperate',    costLevel: 'low',       residencyMonths: '60',  tax_employee: '10%',      tax_corporate: '10%' },
   HR: { languageKey: 'croatian',        currency: 'EUR', climateKey: 'mediterranean',costLevel: 'medium',    residencyMonths: '60',  tax_employee: '20–30%',   tax_corporate: '18%' },
   CY: { languageKey: 'greek_english',   currency: 'EUR', climateKey: 'mediterranean',costLevel: 'medium',    residencyMonths: '60',  tax_employee: '0–35%',    tax_corporate: '12.5%' },
   CZ: { languageKey: 'czech',           currency: 'CZK', climateKey: 'temperate',    costLevel: 'medium',    residencyMonths: '60',  tax_employee: '15–23%',   tax_corporate: '21%' },

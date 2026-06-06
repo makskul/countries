@@ -3,6 +3,7 @@ export default {
     countries: 'Країни',
     categories: 'Категорії',
     about: 'Про проект',
+    compare: 'Порівняння',
   },
   breadcrumbs: {
     home: 'Головна',
