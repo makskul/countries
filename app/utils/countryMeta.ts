@@ -24,6 +24,7 @@ export const COUNTRY_META: Record<string, CountryMeta> = {
   HU: { languageKey: 'hungarian',       currency: 'HUF', climateKey: 'temperate',    costLevel: 'low',       residencyMonths: '60',  tax_employee: '15%',      tax_corporate: '9%' },
   IS: { languageKey: 'icelandic',       currency: 'ISK', climateKey: 'subarctic',    costLevel: 'very_high', residencyMonths: '48',  tax_employee: '31–46%',   tax_corporate: '20%' },
   IE: { languageKey: 'english',         currency: 'EUR', climateKey: 'temperate',    costLevel: 'very_high', residencyMonths: '60',  tax_employee: '20–40%',   tax_corporate: '12.5%' },
+  IL: { languageKey: 'hebrew_arabic',   currency: 'ILS', climateKey: 'mediterranean',costLevel: 'high',      residencyMonths: '84',  tax_employee: '10–50%',   tax_corporate: '23%' },
   IT: { languageKey: 'italian',         currency: 'EUR', climateKey: 'mediterranean',costLevel: 'medium',    residencyMonths: '60',  tax_employee: '23–43%',   tax_corporate: '24%' },
   LV: { languageKey: 'latvian',         currency: 'EUR', climateKey: 'temperate',    costLevel: 'medium',    residencyMonths: '60',  tax_employee: '20–31%',   tax_corporate: '20%' },
   LT: { languageKey: 'lithuanian',      currency: 'EUR', climateKey: 'temperate',    costLevel: 'medium',    residencyMonths: '60',  tax_employee: '15–32%',   tax_corporate: '15%' },

@@ -93,6 +93,7 @@ export default {
     thai:            'Тайська',
     vietnamese:      'В\'єтнамська',
     indonesian:      'Індонезійська',
+    hebrew_arabic:   'Іврит / Арабська',
   },
   climates: {
     mediterranean: 'Середземноморський',
