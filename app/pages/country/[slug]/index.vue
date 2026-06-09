@@ -223,6 +223,7 @@
 </template>
 
 <script setup lang="ts">
+import { APP_NAME, APP_URL } from '~/utils/appConfig'
 import { getFlagEmoji, timeAgo } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCountryPage } from '~/composables/useCountryPage'
@@ -273,8 +274,8 @@ useSeoMeta({
   description: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
   ogTitle: () => `${countryName.value} — ${natGenitive.value}`,
   ogDescription: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
-  ogImage: 'https://zeemler.app/og/home.png',
-  ogUrl: () => `https://zeemler.app/country/${slug.value.toLowerCase()}`,
+  ogImage: APP_URL + '/og/home.png',
+  ogUrl: () => `${APP_URL}/country/${slug.value.toLowerCase()}`,
   ogType: 'website',
   twitterCard: 'summary_large_image',
 })
@@ -287,7 +288,7 @@ useHead({
       '@type': 'WebPage',
       name: `${countryName.value} — отзывы эмигрантов`,
       description: `Реальные отзывы о жизни в ${countryName.value}`,
-      url: `https://zeemler.app/country/${slug.value.toLowerCase()}`,
+      url: `${APP_URL}/country/${slug.value.toLowerCase()}`,
     })).value,
   }],
 })

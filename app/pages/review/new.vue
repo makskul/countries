@@ -276,6 +276,7 @@
 </template>
 
 <script setup lang="ts">
+import { APP_NAME, APP_URL } from '~/utils/appConfig'
 import { useToast } from 'primevue/usetoast'
 import { getFlagEmoji } from '~/utils/countries'
 import { useReviewForm } from '~/composables/useReviewForm'
@@ -289,8 +290,8 @@ useSeoMeta({
   description: () => t('seo.review.description'),
   ogTitle: () => t('seo.review.title'),
   ogDescription: () => t('seo.review.description'),
-  ogImage: 'https://zeemler.app/og/home.png',
-  ogUrl: 'https://zeemler.app/review/new',
+  ogImage: APP_URL + '/og/home.png',
+  ogUrl: APP_URL + '/review/new',
   ogType: 'website',
   twitterCard: 'summary',
   robots: 'noindex, nofollow',

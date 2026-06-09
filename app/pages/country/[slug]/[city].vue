@@ -167,6 +167,7 @@
 </template>
 
 <script setup lang="ts">
+import { APP_NAME, APP_URL } from '~/utils/appConfig'
 import { getFlagEmoji } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCityPage } from '~/composables/useCityPage'
@@ -232,8 +233,8 @@ useSeoMeta({
   title: () => `${cityName.value} · ${countryName.value} — ${t('seo.city.reviewsOf')} ${natGenitive.value}`,
   description: () => t('seo.city.description', { city: cityName.value, country: countryName.value, nationality: natGenitive.value }),
   ogTitle: () => `${cityName.value} · ${countryName.value}`,
-  ogImage: 'https://zeemler.app/og/home.png',
-  ogUrl: () => `https://zeemler.app/country/${slug.value.toLowerCase()}/${citySlug.value}`,
+  ogImage: APP_URL + '/og/home.png',
+  ogUrl: () => `${APP_URL}/country/${slug.value.toLowerCase()}/${citySlug.value}`,
   ogType: 'website',
   twitterCard: 'summary_large_image',
 })

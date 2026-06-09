@@ -2,7 +2,7 @@ export default {
   about: {
     pill: 'About',
     title: 'How it works',
-    lead: 'Zeemler — an expat review platform filtered by nationality. See any country through the eyes of people like you.',
+    lead: 'Triplandr — an expat review platform filtered by nationality. See any country through the eyes of people like you.',
     steps: [
       { title: 'Choose your nationality', text: 'All reviews are filtered by your nationality. You see the experience of people from the same country as you.' },
       { title: 'Find an interesting country', text: 'Browse ratings on legalization, prices, safety, attitude toward foreigners, and other categories.' },
@@ -11,36 +11,36 @@ export default {
     ],
     missionTitle: 'Our mission',
     mission1: 'We believe the most useful information about life in another country is the experience of people who already lived there. And that experience varies greatly depending on where you come from.',
-    mission2: 'A Ukrainian and an Indian will have completely different experiences in Portugal: different visa requirements, different attitudes from locals, different work opportunities. Zeemler lets you see that.',
+    mission2: 'A Ukrainian and an Indian will have completely different experiences in Portugal: different visa requirements, different attitudes from locals, different work opportunities. Triplandr lets you see that.',
     ctaTitle: 'Ready to share?',
     ctaText: 'Your review will help hundreds of people make an informed decision.',
     ctaBtn: '+ Write a review',
   },
   rules: {
     title: 'Site rules',
-    lead: 'Rules for publishing reviews on Zeemler.',
+    lead: 'Rules for publishing reviews on Triplandr.',
     sections: [
       { title: 'What you can publish', text: 'Personal experience living in or traveling to a country. Specific facts, numbers, observations.' },
       { title: 'What is prohibited', text: 'Hate speech, discrimination, insults. Fake reviews or advertising. Personal data of third parties.' },
       { title: 'Anonymity', text: 'All reviews are published anonymously. The author\'s name or contact details are never displayed.' },
-      { title: 'Moderation', text: 'The Zeemler team reviews each submission before publication. We reserve the right to remove violations.' },
+      { title: 'Moderation', text: 'The Triplandr team reviews each submission before publication. We reserve the right to remove violations.' },
     ],
   },
   privacy: {
     title: 'Privacy policy',
-    lead: 'How Zeemler collects and processes data.',
+    lead: 'How Triplandr collects and processes data.',
     sections: [
       { title: 'What data we collect', text: 'We do not require registration. When submitting a review, we only store the nationality you provide and the review content.' },
       { title: 'Cookies', text: 'We use cookies to save language settings (nv_locale) and nationality selection.' },
       { title: 'Third parties', text: 'We use Supabase for data storage and Vercel for hosting. Your data is never sold to third parties.' },
-      { title: 'Contact', text: 'Privacy questions: privacy@zeemler.app' },
+      { title: 'Contact', text: 'Privacy questions: privacy@triplandr.com' },
     ],
   },
   contact: {
     title: 'Contact us',
     lead: 'Have questions or suggestions? We\'d love to hear from you.',
     email: 'Write to us:',
-    address: 'hello@zeemler.app',
+    address: 'hello@triplandr.com',
     social: 'Or find us on social media:',
   },
   reviews: {

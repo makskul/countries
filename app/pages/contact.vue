@@ -10,9 +10,9 @@
       <div class="static-section">
         <h3>{{ $t('pages.contact.social') }}</h3>
         <p>
-          <a href="https://t.me/zeemler" target="_blank" style="color: var(--color-primary); margin-right: 16px">Telegram</a>
-          <a href="https://twitter.com/zeemler" target="_blank" style="color: var(--color-primary); margin-right: 16px">X / Twitter</a>
-          <a href="https://instagram.com/zeemler" target="_blank" style="color: var(--color-primary)">Instagram</a>
+          <a href="https://t.me/triplandr" target="_blank" style="color: var(--color-primary); margin-right: 16px">Telegram</a>
+          <a href="https://twitter.com/triplandr" target="_blank" style="color: var(--color-primary); margin-right: 16px">X / Twitter</a>
+          <a href="https://instagram.com/triplandr" target="_blank" style="color: var(--color-primary)">Instagram</a>
         </p>
       </div>
     </div>

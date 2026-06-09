@@ -53,7 +53,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Останні відгуки',
-  description: 'Найновіші відгуки емігрантів про країни світу на Zeemler.',
+  description: 'Найновіші відгуки емігрантів про країни світу на Triplandr.',
   robots: 'index, follow',
 })
 

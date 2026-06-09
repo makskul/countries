@@ -3,7 +3,7 @@ export default {
   newsletter: { label: 'Подпишись на дайджест', placeholder: "твой{'@'}email.com", button: 'Подписаться' },
   columns: { popularCountries: 'Популярные страны', categories: 'Категории', about: 'О проекте' },
   links: { howItWorks: 'Как это работает', writeReview: 'Написать отзыв', rules: 'Правила сайта', contact: 'Связаться с нами', privacy: 'Политика конф.', terms: 'Условия', cookies: 'Cookies', allCountries: 'Все страны →' },
-  disclaimer: 'Все отзывы написаны реальными пользователями и отражают их личный опыт. Zeemler не несёт ответственности за актуальность информации.',
+  disclaimer: 'Все отзывы написаны реальными пользователями и отражают их личный опыт. Triplandr не несёт ответственности за актуальность информации.',
   copyright: 'Все права защищены',
   stats: { reviews: 'отзывов на сайте', countries: 'стран охвачено', nationalities: 'национальностей', authors: 'авторов отзывов' },
 }

@@ -1,6 +1,6 @@
 export default {
   home: {
-    title: 'Zeemler — Expat reviews by nationality',
+    title: 'Triplandr — Expat reviews by nationality',
     description: 'See the world through your nationality. Real reviews about visas, prices, attitude and bureaucracy from people like you.',
   },
   countries: {
@@ -21,18 +21,18 @@ export default {
   },
   about: {
     title: 'About',
-    description: 'Zeemler — a platform for real expat reviews filtered by nationality.',
+    description: 'Triplandr — a platform for real expat reviews filtered by nationality.',
   },
   rules: {
     title: 'Site rules',
-    description: 'Rules for publishing reviews on Zeemler.',
+    description: 'Rules for publishing reviews on Triplandr.',
   },
   privacy: {
     title: 'Privacy policy',
-    description: 'How Zeemler collects and processes user data.',
+    description: 'How Triplandr collects and processes user data.',
   },
   contact: {
     title: 'Contact us',
-    description: 'Have questions or suggestions? Write to the Zeemler team.',
+    description: 'Have questions or suggestions? Write to the Triplandr team.',
   },
 }

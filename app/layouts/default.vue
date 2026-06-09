@@ -9,10 +9,11 @@
 </template>
 
 <script setup lang="ts">
+import { APP_NAME } from '~/utils/appConfig'
 const { locale } = useI18n()
 useHead({
   htmlAttrs: { lang: computed(() => locale.value) },
-  titleTemplate: (title) => title ? `${title} — Zeemler` : 'Zeemler',
+  titleTemplate: (title) => title ? `${title} — ${APP_NAME}` : APP_NAME,
   meta: [
     { name: 'theme-color', content: '#534AB7' },
   ],

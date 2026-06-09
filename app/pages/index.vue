@@ -195,6 +195,7 @@
 </template>
 
 <script setup lang="ts">
+import { APP_NAME, APP_URL } from '~/utils/appConfig'
 import { countryToSlug, getFlagEmoji } from '~/utils/countries'
 
 const { t, locale } = useI18n()
@@ -211,13 +212,13 @@ useSeoMeta({
   description: () => t('seo.home.description'),
   ogTitle: () => t('seo.home.title'),
   ogDescription: () => t('seo.home.description'),
-  ogImage: 'https://zeemler.app/og/home.png',
-  ogUrl: 'https://zeemler.app',
+  ogImage: APP_URL + '/og/home.png',
+  ogUrl: APP_URL,
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: () => t('seo.home.title'),
   twitterDescription: () => t('seo.home.description'),
-  twitterImage: 'https://zeemler.app/og/home.png',
+  twitterImage: APP_URL + '/og/home.png',
 })
 
 const store = useUserStore()

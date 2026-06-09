@@ -76,6 +76,7 @@
 
 <script setup lang="ts">
 import { getFlagEmoji } from '~/utils/countries'
+import { APP_NAME } from '~/utils/appConfig'
 import { getCountryMeta } from '~/utils/countryMeta'
 
 const { getCountryNameLocalized } = useLocalizedCountries()
@@ -104,7 +105,7 @@ const costLevelClass = computed(() => {
 async function handleShare() {
   const url = window.location.href
   if (navigator.share) {
-    await navigator.share({ title: `Zeemler — ${countryName.value}`, url })
+    await navigator.share({ title: `${APP_NAME} — ${countryName.value}`, url })
   } else {
     await navigator.clipboard.writeText(url)
   }

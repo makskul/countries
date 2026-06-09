@@ -96,6 +96,7 @@
 </template>
 
 <script setup lang="ts">
+import { APP_NAME, APP_URL } from '~/utils/appConfig'
 import { useCountriesList, type CountryStat } from '~/composables/useCountriesList'
 
 const { t } = useI18n()
@@ -105,8 +106,8 @@ useSeoMeta({
   description: () => t('seo.countries.description'),
   ogTitle: () => t('seo.countries.title'),
   ogDescription: () => t('seo.countries.description'),
-  ogImage: 'https://zeemler.app/og/countries.png',
-  ogUrl: 'https://zeemler.app/countries',
+  ogImage: APP_URL + '/og/countries.png',
+  ogUrl: APP_URL + '/countries',
   ogType: 'website',
   twitterCard: 'summary_large_image',
 })
