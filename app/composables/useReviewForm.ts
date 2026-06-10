@@ -92,7 +92,7 @@ export function useReviewForm() {
         ...(cityName ? { city_name: cityName, city_id: cityId } : {}),
         ratings,
         comments,
-        is_approved: true,
+        is_approved: false,
       })
 
       if (error) throw error
