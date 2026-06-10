@@ -509,6 +509,9 @@ const floatPos = [
   color: rgba(255, 255, 255, 0.4);
   pointer-events: none;
   transition: color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .hero-inset-field.is-filled .hero-field-label {
   color: #9088E5;
@@ -757,6 +760,6 @@ const floatPos = [
   .cta-inner { flex-direction: column; align-items: flex-start; }
   .section-wrap { padding: 0 16px; }
   .hero-form { padding: 36px 16px; }
-  .selectors-stack .p-select { flex: none; width: 50%; }
+  .selectors-stack .hero-inset-field { flex: none; }
 }
 </style>
