@@ -26,18 +26,29 @@ export default defineEventHandler(async () => {
     urls.push({ loc: `/ru/country/${slug}`,  changefreq: 'daily', priority: 0.8 })
   }
 
-  // ── 2. City pages ────────────────────────────────────────────────────────
-  const { data: cities } = await supabase
-    .from('cities')
-    .select('slug, country')
-    .not('slug', 'is', null)
+  // ── 2. City pages — only cities that have at least one approved review ──
+  const { data: cityReviews } = await supabase
+    .from('reviews')
+    .select('city_id')
+    .eq('is_approved', true)
+    .not('city_id', 'is', null)
 
-  for (const city of (cities ?? []) as { slug: string; country: string }[]) {
-    if (!city.slug) continue
-    const countrySlug = city.country.toLowerCase()
-    urls.push({ loc: `/country/${countrySlug}/${city.slug}`,     changefreq: 'weekly', priority: 0.6 })
-    urls.push({ loc: `/en/country/${countrySlug}/${city.slug}`,  changefreq: 'weekly', priority: 0.6 })
-    urls.push({ loc: `/ru/country/${countrySlug}/${city.slug}`,  changefreq: 'weekly', priority: 0.6 })
+  const uniqueCityIds = [...new Set((cityReviews ?? []).map((r: any) => r.city_id as number))]
+
+  if (uniqueCityIds.length > 0) {
+    const { data: cities } = await supabase
+      .from('cities')
+      .select('slug, country')
+      .in('id', uniqueCityIds)
+      .not('slug', 'is', null)
+
+    for (const city of (cities ?? []) as { slug: string; country: string }[]) {
+      if (!city.slug) continue
+      const countrySlug = city.country.toLowerCase()
+      urls.push({ loc: `/country/${countrySlug}/${city.slug}`,     changefreq: 'weekly', priority: 0.6 })
+      urls.push({ loc: `/en/country/${countrySlug}/${city.slug}`,  changefreq: 'weekly', priority: 0.6 })
+      urls.push({ loc: `/ru/country/${countrySlug}/${city.slug}`,  changefreq: 'weekly', priority: 0.6 })
+    }
   }
 
   return urls
