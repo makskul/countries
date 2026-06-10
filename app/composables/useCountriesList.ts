@@ -57,10 +57,14 @@ export function useCountriesList() {
       entry.nationalities.add(row.author_nationality)
 
       const ratings = row.ratings as Record<string, number>
+      // avgRating uses only the 'overall' field to match country detail page
+      if (typeof ratings.overall === 'number') {
+        entry.ratingSum += ratings.overall
+        entry.ratingCount++
+      }
+      // category breakdown uses all fields
       for (const [cat, val] of Object.entries(ratings)) {
         if (typeof val === 'number') {
-          entry.ratingSum += val
-          entry.ratingCount++
           if (!entry.catRatings[cat]) entry.catRatings[cat] = []
           entry.catRatings[cat].push(val)
         }
