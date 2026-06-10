@@ -760,6 +760,6 @@ const floatPos = [
   .cta-inner { flex-direction: column; align-items: flex-start; }
   .section-wrap { padding: 0 16px; }
   .hero-form { padding: 36px 16px; }
-  .selectors-stack .hero-inset-field { flex: none; }
+  .selectors-stack .hero-inset-field { flex: 1; }
 }
 </style>
