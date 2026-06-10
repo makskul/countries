@@ -6,6 +6,8 @@ export default {
     subtitle: 'Реальный опыт эмигрантов — виза, цены, отношение, бюрократия.\nФильтрация по твоей национальности.',
     selectNationality: 'Твоя национальность',
     selectCountry: 'Выбери страну...',
+    selectNationalityLabel: 'Твоя национальность',
+    selectCountryLabel:     'Страна для изучения',
     cta: 'Показать отзывы →',
     stat: '{reviews} отзывов по {countries} странам от {nationalities} национальностей',
   },

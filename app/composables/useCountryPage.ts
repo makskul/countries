@@ -1,4 +1,4 @@
-import { CATEGORIES, CATEGORY_LABELS } from '~/utils/categories'
+import { CATEGORIES } from '~/utils/categories'
 import { getRegion } from '~/utils/regions'
 
 export interface RawReview {
@@ -19,6 +19,12 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
   const supabase = useSupabaseClient()
   const store = useUserStore()
 
+  // Cookie fallback: on SSR the plugin seeds the store from cookie,
+  // but useCookie here ensures the key is correct even if the plugin
+  // hasn't run yet (e.g. first cold request with no store state).
+  const natCookie = useCookie('nv_nationality')
+  const effectiveNationality = computed(() => nationality.value || natCookie.value || '')
+
   const selectedCityId = ref<number | null>(null)
   // Persisted in store so city page shares the same state
   const showAllOverride = computed({
@@ -26,9 +32,10 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     set: (v) => store.setShowAllReviews(v),
   })
 
-  // Primary fetch: reviews filtered by nationality (empty or override = all nationalities)
-  const { data: rows, pending, refresh } = useLazyAsyncData(
-    () => `country-${slug.value}-${nationality.value}-${selectedCityId.value ?? 'all'}-${showAllOverride.value}`,
+  // Primary fetch: reviews filtered by nationality (empty or override = all)
+  // No server:false — runs on SSR with effectiveNationality already known
+  const { data: rows, pending, refresh } = useAsyncData(
+    () => `country-${slug.value}-${effectiveNationality.value}-${selectedCityId.value ?? 'all'}-${showAllOverride.value}`,
     async () => {
       if (!slug.value) return [] as RawReview[]
       let query = supabase
@@ -37,9 +44,8 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
         .eq('target_country', slug.value)
         .eq('is_approved', true)
         .order('created_at', { ascending: false })
-      // Filter by nationality unless override is active
-      if (nationality.value && !showAllOverride.value) {
-        query = query.eq('author_nationality', nationality.value)
+      if (effectiveNationality.value && !showAllOverride.value) {
+        query = query.eq('author_nationality', effectiveNationality.value)
       }
       if (selectedCityId.value) {
         query = query.eq('city_id', selectedCityId.value)
@@ -48,18 +54,18 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       if (error) throw error
       return (data ?? []) as RawReview[]
     },
-    { server: false, watch: [slug, nationality, selectedCityId, showAllOverride] }
+    { watch: [slug, effectiveNationality, selectedCityId, showAllOverride] }
   )
 
   // Reset override when nationality changes
-  watch(nationality, () => { showAllOverride.value = false })
+  watch(effectiveNationality, () => { showAllOverride.value = false })
 
   const natReviewsCount = computed(() =>
     showAllOverride.value ? 0 : (rows.value ?? []).length
   )
 
   // Total reviews for the country regardless of nationality (for empty state check)
-  const { data: totalCountData } = useLazyAsyncData(
+  const { data: totalCountData } = useAsyncData(
     () => `country-total-${slug.value}`,
     async () => {
       if (!slug.value) return 0
@@ -70,45 +76,43 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
         .eq('is_approved', true)
       return count ?? 0
     },
-    { server: false, watch: [slug] }
+    { watch: [slug] }
   )
   const countryHasAnyReviews = computed(() => (totalCountData.value ?? 0) > 0)
 
-  // Fetch aggregated stats from country_stats table
-  const { data: statsRow } = useLazyAsyncData(
-    () => `country-stats-${slug.value}-${nationality.value}`,
+  // Aggregated stats from country_stats (pre-computed by Supabase trigger)
+  const { data: statsRow } = useAsyncData(
+    () => `country-stats-${slug.value}-${effectiveNationality.value}`,
     async () => {
-      if (!slug.value || !nationality.value) return null
+      if (!slug.value || !effectiveNationality.value) return null
       const { data } = await supabase
         .from('country_stats')
         .select('*')
         .eq('target_country', slug.value)
-        .eq('author_nationality', nationality.value)
+        .eq('author_nationality', effectiveNationality.value)
         .maybeSingle()
       return data
     },
-    { server: false, watch: [slug, nationality] }
+    { watch: [slug, effectiveNationality] }
   )
 
   // Cities with reviews (filtered by nationality, or all when override active)
-  const { data: citiesWithReviews } = useLazyAsyncData(
-    () => `cities-${slug.value}-${nationality.value}-${showAllOverride.value}`,
+  const { data: citiesWithReviews } = useAsyncData(
+    () => `cities-${slug.value}-${effectiveNationality.value}-${showAllOverride.value}`,
     async () => {
       if (!slug.value) return []
-      // Step 1: get city stats — filter by nationality unless override
       let statsQuery = supabase
         .from('city_stats')
-        .select('city_id, city_name, total_reviews, avg_overall')
+        .select('city_id, city_name, total_reviews, avg_overall, avg_legalization, avg_cost_of_living, avg_safety, avg_bureaucracy, avg_weather, avg_language_barrier, avg_cleanliness, avg_healthcare')
         .eq('target_country', slug.value)
         .order('total_reviews', { ascending: false })
-      if (nationality.value && !showAllOverride.value) {
-        statsQuery = statsQuery.eq('author_nationality', nationality.value)
+      if (effectiveNationality.value && !showAllOverride.value) {
+        statsQuery = statsQuery.eq('author_nationality', effectiveNationality.value)
       }
       const { data: stats, error } = await statsQuery
       if (error) { console.error('[citiesWithReviews]', error.message); return [] }
       if (!stats?.length) return []
 
-      // Step 2: fetch slug + localized names from cities table
       const cityIds = stats.map((r: any) => r.city_id).filter(Boolean)
       const { data: cities } = await supabase
         .from('cities')
@@ -119,29 +123,28 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
         if (c.slug) cityMap[c.id] = c
       }
 
-      // Step 3: merge — only include cities that have a slug
       return stats
         .filter((r: any) => cityMap[r.city_id])
         .map((r: any) => ({ ...r, slug: cityMap[r.city_id].slug, name_en: cityMap[r.city_id].name_en, name_uk: cityMap[r.city_id].name_uk, name_ru: cityMap[r.city_id].name_ru })) as any[]
     },
-    { server: false, watch: [slug, nationality, showAllOverride] }
+    { watch: [slug, effectiveNationality, showAllOverride] }
   )
 
   // City stats (when a city tab is selected)
-  const { data: cityStats } = useLazyAsyncData(
-    () => `cityStats-${slug.value}-${nationality.value}-${selectedCityId.value}`,
+  const { data: cityStats } = useAsyncData(
+    () => `cityStats-${slug.value}-${effectiveNationality.value}-${selectedCityId.value}`,
     async () => {
-      if (!selectedCityId.value || !slug.value || !nationality.value) return null
+      if (!selectedCityId.value || !slug.value || !effectiveNationality.value) return null
       const { data } = await supabase
         .from('city_stats')
         .select('*')
         .eq('city_id', selectedCityId.value)
         .eq('target_country', slug.value)
-        .eq('author_nationality', nationality.value)
+        .eq('author_nationality', effectiveNationality.value)
         .maybeSingle()
       return data
     },
-    { server: false, watch: [selectedCityId, slug, nationality] }
+    { watch: [selectedCityId, slug, effectiveNationality] }
   )
 
   // Category stats — uses cityStats when in city view, otherwise statsRow
@@ -194,19 +197,31 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       .sort((a, b) => b.count - a.count)
   })
 
-  // Overall avg from country_stats or computed from rows
+  // Overall avg — average of all category averages (excluding the 'overall' field itself)
+  // This gives a more meaningful score than just statsRow.avg_overall
   const overallAvg = computed(() => {
-    if ((statsRow.value as any)?.avg_overall) return Math.round(Number((statsRow.value as any).avg_overall) * 10) / 10
-    const r = rows.value
-    if (!r?.length) return null
-    const allVals: number[] = []
-    for (const row of r) {
-      for (const val of Object.values(row.ratings ?? {})) {
-        if (typeof val === 'number') allVals.push(val)
+    if (statsRow.value) {
+      const s = statsRow.value as any
+      const catVals = [
+        s.avg_legalization, s.avg_cost_of_living, s.avg_safety,
+        s.avg_bureaucracy, s.avg_weather, s.avg_language_barrier,
+        s.avg_cleanliness, s.avg_healthcare,
+      ].filter(v => v !== null && v !== undefined).map(Number)
+      if (catVals.length) {
+        return Math.round((catVals.reduce((a, b) => a + b, 0) / catVals.length) * 10) / 10
       }
     }
-    if (!allVals.length) return null
-    return Math.round((allVals.reduce((a, b) => a + b, 0) / allVals.length) * 10) / 10
+    // Fallback: compute from raw rows (same logic — exclude 'overall' field)
+    const r = rows.value
+    if (!r?.length) return null
+    const vals = r.flatMap(row =>
+      Object.entries(row.ratings ?? {})
+        .filter(([key]) => key !== 'overall')
+        .map(([, v]) => v)
+        .filter((v): v is number => typeof v === 'number')
+    )
+    if (!vals.length) return null
+    return Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 10) / 10
   })
 
   // Header stats
@@ -220,17 +235,17 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     }
   })
 
-  // Similar countries from same region (fetch separately)
+  // Similar countries from same region
   const { data: similarCountries } = useLazyAsyncData(
-    () => `similar-${slug.value}-${nationality.value}`,
+    () => `similar-${slug.value}-${effectiveNationality.value}`,
     async () => {
-      if (!nationality.value || !slug.value) return []
+      if (!effectiveNationality.value || !slug.value) return []
       const myRegion = getRegion(slug.value)
       const { data, error } = await supabase
         .from('reviews')
         .select('target_country, ratings')
         .neq('target_country', slug.value)
-        .eq('author_nationality', nationality.value)
+        .eq('author_nationality', effectiveNationality.value)
         .eq('is_approved', true)
       if (error) return []
       if (!data?.length) return []
@@ -251,7 +266,7 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
         .sort((a, b) => b.avgRating - a.avgRating)
         .slice(0, 3)
     },
-    { server: false, watch: [slug, nationality] }
+    { server: false, watch: [slug, effectiveNationality] }
   )
 
   // Pagination (client-side slicing)
@@ -260,9 +275,8 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
   const pagedReviews = computed(() => (rows.value ?? []).slice(0, offset.value + PAGE_SIZE))
   const hasMore = computed(() => (rows.value?.length ?? 0) > offset.value + PAGE_SIZE)
   function loadMore() { offset.value += PAGE_SIZE }
-  watch([slug, nationality], () => { offset.value = 0 })
+  watch([slug, effectiveNationality], () => { offset.value = 0 })
 
-  // Helpful counter (optimistic — no RPC needed)
   function markHelpful(_reviewId: string) {
     // no-op until RPC is added to Supabase
   }

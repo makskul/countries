@@ -16,8 +16,14 @@
 
         <!-- Selectors -->
         <div class="hero-dark selectors-stack">
-          <NationalitySelector v-model="nationality" />
-          <CountrySelector v-model="targetCountry" />
+          <div class="hero-inset-field" :class="{ 'is-filled': nationality }">
+            <span class="hero-field-label">{{ $t('homepage.hero.selectNationalityLabel') }}</span>
+            <NationalitySelector v-model="nationality" />
+          </div>
+          <div class="hero-inset-field" :class="{ 'is-filled': targetCountry }">
+            <span class="hero-field-label">{{ $t('homepage.hero.selectCountryLabel') }}</span>
+            <CountrySelector v-model="targetCountry" />
+          </div>
         </div>
 
         <!-- CTA button -->
@@ -95,7 +101,6 @@
             v-for="item in trending"
             :key="item.code"
             :item="item"
-            @click="handleTrendingClick(item.code)"
           />
         </div>
       </div>
@@ -142,7 +147,7 @@
         <Message v-else-if="!latest || latest.length === 0" severity="info" :closable="false">
           {{ $t('homepage.latest.empty') }}
         </Message>
-        <div v-else class="reviews-list">
+        <div v-else class="reviews-grid">
           <ReviewFeedItem v-for="r in latest" :key="r.id" :review="r" />
         </div>
       </div>
@@ -488,8 +493,34 @@ const floatPos = [
   gap: 8px;
   margin-bottom: 14px;
 }
-.selectors-stack .p-select {
+.hero-inset-field {
+  position: relative;
   flex: 1;
+}
+.hero-field-label {
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  z-index: 1;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transition: color 0.15s;
+}
+.hero-inset-field.is-filled .hero-field-label {
+  color: #9088E5;
+}
+.hero-inset-field :deep(.p-select-label) {
+  padding-top: 20px;
+  padding-bottom: 6px;
+}
+.hero-inset-field :deep(.p-select) {
+  min-height: 52px;
+  align-items: center;
+  width: 100%;
 }
 
 .hero-cta-btn {
@@ -627,6 +658,14 @@ const floatPos = [
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 640px) {
+  .reviews-grid { grid-template-columns: 1fr; }
+}
 .reviews-list {
   display: flex;
   flex-direction: column;
@@ -718,5 +757,6 @@ const floatPos = [
   .cta-inner { flex-direction: column; align-items: flex-start; }
   .section-wrap { padding: 0 16px; }
   .hero-form { padding: 36px 16px; }
+  .selectors-stack .p-select { flex: none; width: 50%; }
 }
 </style>

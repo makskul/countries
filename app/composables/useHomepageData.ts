@@ -72,13 +72,13 @@ export function useHomepageData() {
       .select('id, target_country, author_nationality, ratings, comments, created_at')
       .eq('is_approved', true)
       .order('created_at', { ascending: false })
-      .limit(3)
+      .limit(4)
     if (error) { console.error('[latest]', error.message); return [] }
     return (data ?? []) as any[]
   })
 
   // Category highlights (4 selected categories — keys match JSONB in DB)
-  const HIGHLIGHT_CATS = ['legalization', 'cost_of_living', 'safety']
+  const HIGHLIGHT_CATS = ['legalization', 'cost_of_living', 'safety', 'weather']
   const { data: catStats, pending: catPending } = useLazyAsyncData('catStats', async () => {
     const { data, error } = await supabase
       .from('reviews')

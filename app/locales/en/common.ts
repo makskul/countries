@@ -61,7 +61,9 @@ export default {
     long_term:  { label: 'Long-term stay',     hint: 'more than a year' },
     permanent:  { label: 'Permanent resident', hint: ''                 },
   },
-  stillThere: 'Currently living there',
+  stillThere:  'Currently living there',
+  alreadyLeft: 'Already left',
+  from:        'from',
   costOptions: [
     { value: 5, icon: '🤑', label: 'Very cheap'     },
     { value: 4, icon: '😊', label: 'Cheap'          },

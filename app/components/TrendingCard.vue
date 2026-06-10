@@ -1,5 +1,5 @@
 <template>
-  <div class="trending-card" @click="$emit('click')">
+  <NuxtLinkLocale :to="`/country/${item.code.toLowerCase()}`" class="trending-card">
     <div class="tc-row1">
       <span class="tc-flag">{{ flag }}</span>
       <span class="tc-name">{{ countryName }}</span>
@@ -17,7 +17,7 @@
         :class="idx === 1 ? 'tc-chip--green' : ''"
       >{{ getCategoryLabel(cat) }}</span>
     </div>
-  </div>
+  </NuxtLinkLocale>
 </template>
 
 <script setup lang="ts">
@@ -29,7 +29,6 @@ const { getCountryNameLocalized } = useLocalizedCountries()
 const props = defineProps<{
   item: { code: string; total: number; avgRating: number; topCategories: string[] }
 }>()
-defineEmits<{ click: [] }>()
 
 const flag = computed(() => getFlagEmoji(props.item.code))
 const countryName = computed(() => getCountryNameLocalized(props.item.code))
@@ -50,6 +49,8 @@ function getCategoryLabel(key: string) {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  text-decoration: none;
+  color: inherit;
 }
 .trending-card:hover {
   box-shadow: var(--shadow-hover);

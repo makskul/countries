@@ -135,11 +135,13 @@
             <div v-if="pending">
               <Skeleton v-for="i in 3" :key="i" height="110px" style="margin-bottom: 10px; border-radius: var(--radius-lg)" />
             </div>
-            <ReviewCard
-              v-for="review in pagedReviews"
-              :key="review.id"
-              :review="review"
-            />
+            <div class="reviews-list">
+              <ReviewCard
+                v-for="review in pagedReviews"
+                :key="review.id"
+                :review="review"
+              />
+            </div>
             <div v-if="hasMore" class="load-more">
               <button class="load-more-btn" @click="loadMore">
                 {{ $t('country.reviews.loadMore') }}
@@ -306,6 +308,7 @@ function applyNationality() {
 .rs-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
 .section-label { display: block; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted); margin-bottom: 2px; }
 .rs-title { font-size: 15px; font-weight: 600; color: var(--color-text); margin: 0; }
+.reviews-list { display: flex; flex-direction: column; gap: 12px; }
 .load-more { text-align: center; margin-top: 4px; }
 .load-more-btn { background: none; border: none; font-size: 13px; font-weight: 500; color: var(--color-primary); cursor: pointer; font-family: inherit; padding: 8px; }
 .load-more-btn:hover { text-decoration: underline; }

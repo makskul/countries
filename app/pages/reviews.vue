@@ -136,7 +136,7 @@ async function loadMore() {
 
 <style scoped>
 .rv-page { background: var(--color-bg-secondary); min-height: 100vh; padding: 32px 24px; }
-.rv-container { max-width: 1200px; margin: 0 auto; }
+.rv-container { max-width: 1144px; margin: 0 auto; }
 .rv-header { margin-bottom: 28px; }
 .rv-back {
   font-size: 13px; color: var(--color-primary); text-decoration: none;

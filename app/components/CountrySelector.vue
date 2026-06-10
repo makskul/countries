@@ -12,13 +12,13 @@
     @change="emit('update:modelValue', selected)"
   >
     <template #option="{ option }">
-      <div class="flex align-items-center gap-2">
+      <div style="display:flex; align-items:center; gap:8px">
         <span>{{ option.flag }}</span>
         <span>{{ option.name }}</span>
       </div>
     </template>
     <template #value="{ value }">
-      <div v-if="value" class="flex align-items-center gap-2">
+      <div v-if="value" style="display:flex; align-items:center; gap:8px">
         <span>{{ getFlagEmoji(value) }}</span>
         <span>{{ getCountryNameLocalized(value) }}</span>
       </div>

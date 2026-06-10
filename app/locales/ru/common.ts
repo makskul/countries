@@ -61,7 +61,9 @@ export default {
     long_term:  { label: 'Долгосрочное',           hint: 'больше года'   },
     permanent:  { label: 'Постоянное проживание',  hint: ''              },
   },
-  stillThere: 'Сейчас там',
+  stillThere:  'Сейчас там',
+  alreadyLeft: 'Уже уехал',
+  from:        'из',
   costOptions: [
     { value: 5, icon: '🤑', label: 'Очень дёшево'  },
     { value: 4, icon: '😊', label: 'Дёшево'        },

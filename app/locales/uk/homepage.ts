@@ -6,6 +6,8 @@ export default {
     subtitle: 'Реальний досвід емігрантів — віза, ціни, ставлення, бюрократія.\nФільтрація за твоєю національністю.',
     selectNationality: 'Твоя національність',
     selectCountry: 'Обери країну...',
+    selectNationalityLabel: 'Твоя національність',
+    selectCountryLabel:     'Країна для вивчення',
     cta: 'Показати відгуки →',
     stat: '{reviews} відгуків по {countries} країнам від {nationalities} національностей',
   },

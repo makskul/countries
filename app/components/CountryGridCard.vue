@@ -16,14 +16,14 @@
       <span class="cgc-count">({{ country.totalReviews }} {{ $t('common.labels.reviews') }})</span>
     </div>
 
-    <!-- Top 3 category mini-bars -->
+    <!-- Selected category mini-bars -->
     <div class="cgc-bars">
-      <div v-for="cat in country.categoryStats.slice(0, 3)" :key="cat.category" class="cgc-bar-row">
+      <div v-for="cat in pinnedCats" :key="cat.category" class="cgc-bar-row">
         <span class="cgc-bar-label">{{ $t(`categories.${cat.category}.name`) }}</span>
         <div class="cgc-bar-track">
-          <div class="cgc-bar-fill" :style="{ width: (cat.avg / 5 * 100) + '%' }" />
+          <div v-if="cat.avg !== null" class="cgc-bar-fill" :style="{ width: (cat.avg / 5 * 100) + '%' }" />
         </div>
-        <span class="cgc-bar-score">{{ cat.avg }}</span>
+        <span class="cgc-bar-score">{{ cat.avg !== null ? cat.avg : '—' }}</span>
       </div>
     </div>
 
@@ -44,6 +44,14 @@ defineEmits<{ click: [] }>()
 
 const flag = computed(() => getFlagEmoji(props.country.code))
 const { getCountryNameLocalized } = useLocalizedCountries()
+
+const PINNED = ['safety', 'overall', 'cost_of_living']
+const pinnedCats = computed(() =>
+  PINNED.map(key => {
+    const found = props.country.categoryStats.find(c => c.category === key)
+    return { category: key, avg: found?.avg ?? null }
+  })
+)
 </script>
 
 <style scoped>
@@ -78,12 +86,19 @@ const { getCountryNameLocalized } = useLocalizedCountries()
 .cgc-score { font-size: 15px; font-weight: 600; color: var(--color-text); }
 .cgc-count { font-size: 12px; color: var(--color-text-muted); }
 
-.cgc-bars { display: flex; flex-direction: column; gap: 5px; }
+.cgc-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+}
 .cgc-bar-row { display: flex; align-items: center; gap: 6px; }
-.cgc-bar-label { font-size: 11px; color: var(--color-text-muted); width: 90px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cgc-bar-track { flex: 1; height: 4px; background: var(--color-border-subtle); border-radius: 2px; overflow: hidden; }
+.cgc-bar-label { font-size: 11px; color: var(--color-text-secondary); width: 90px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cgc-bar-track { flex: 1; height: 4px; background: #d0d5dd; border-radius: 2px; overflow: hidden; }
 .cgc-bar-fill { height: 100%; background: var(--color-primary); border-radius: 2px; transition: width 0.4s ease; }
-.cgc-bar-score { font-size: 11px; color: var(--color-text-muted); width: 24px; text-align: right; flex-shrink: 0; }
+.cgc-bar-score { font-size: 11px; color: var(--color-text-secondary); font-weight: 600; width: 24px; text-align: right; flex-shrink: 0; }
 
 .cgc-nat { margin-top: 2px; }
 .nat-pill {

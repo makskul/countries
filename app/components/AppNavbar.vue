@@ -17,8 +17,8 @@
       <div class="nav-links">
         <NuxtLinkLocale to="/countries">{{ $t('nav.links.countries') }}</NuxtLinkLocale>
         <NuxtLinkLocale to="/categories">{{ $t('nav.links.categories') }}</NuxtLinkLocale>
-        <NuxtLinkLocale to="/about">{{ $t('nav.links.about') }}</NuxtLinkLocale>
         <NuxtLinkLocale to="/compare">{{ $t('nav.links.compare') }}</NuxtLinkLocale>
+        <NuxtLinkLocale to="/about">{{ $t('nav.links.about') }}</NuxtLinkLocale>
       </div>
 
       <!-- Right side -->
@@ -50,6 +50,9 @@
           </NuxtLinkLocale>
           <NuxtLinkLocale to="/categories" class="nav-mobile-link" @click="closeMenu">
             <i class="pi pi-list" />{{ $t('nav.links.categories') }}
+          </NuxtLinkLocale>
+          <NuxtLinkLocale to="/compare" class="nav-mobile-link" @click="closeMenu">
+            <i class="pi pi-chart-bar" />{{ $t('nav.links.compare') }}
           </NuxtLinkLocale>
           <NuxtLinkLocale to="/about" class="nav-mobile-link" @click="closeMenu">
             <i class="pi pi-info-circle" />{{ $t('nav.links.about') }}

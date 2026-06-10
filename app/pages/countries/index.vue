@@ -40,13 +40,24 @@
       <!-- View toggle -->
       <div class="cp-toolbar">
         <span class="cp-toolbar-count">{{ $t('countries.filters.found', { count: filteredCountries.length }) }}</span>
-        <div class="cp-view-toggle">
-          <button class="cp-view-btn" :class="{ active: viewMode === 'grid' }" @click="viewMode = 'grid'">
-            <i class="pi pi-th-large" />
-          </button>
-          <button class="cp-view-btn" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">
-            <i class="pi pi-list" />
-          </button>
+        <div class="cp-toolbar-right">
+          <Select
+            v-model="pageSize"
+            :options="pageSizeOptions"
+            optionLabel="label"
+            optionValue="value"
+            optionDisabled="disabled"
+            class="cfb-select cp-per-page"
+            :pt="{ root: { style: 'height: 34px; min-height: 34px' }, label: { style: 'padding-top: 0; padding-bottom: 0; padding-right: 0; line-height: 32px; font-size: 13px' } }"
+          />
+          <div class="cp-view-toggle">
+            <button class="cp-view-btn" :class="{ active: viewMode === 'grid' }" @click="viewMode = 'grid'">
+              <i class="pi pi-th-large" />
+            </button>
+            <button class="cp-view-btn" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">
+              <i class="pi pi-list" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -76,7 +87,6 @@
           v-model:first="pageFirst"
           :rows="pageSize"
           :totalRecords="filteredCountries.length"
-          :rowsPerPageOptions="[]"
           @page="onPageChange"
         />
       </div>
@@ -185,14 +195,19 @@ const filteredCountries = computed<CountryStat[]>(() => {
 // Pagination
 const viewMode = ref<'grid' | 'list'>('grid')
 const pageFirst = ref(0)
-const pageSize = computed(() => viewMode.value === 'grid' ? 24 : 30)
+const pageSize = ref(10)
+const pageSizeOptions = computed(() => [
+  { label: '10', value: 10, disabled: false },
+  { label: '20', value: 20, disabled: filteredCountries.value.length < 20 },
+  { label: '40', value: 40, disabled: filteredCountries.value.length < 40 },
+])
 
 const pagedCountries = computed(() =>
   filteredCountries.value.slice(pageFirst.value, pageFirst.value + pageSize.value)
 )
 
-// Reset page when filters change
-watch([search, region, category, sort], () => { pageFirst.value = 0 })
+// Reset page when filters or page size change
+watch([search, region, category, sort, pageSize], () => { pageFirst.value = 0 })
 
 const paginatorEl = ref<HTMLElement | null>(null)
 function onPageChange() {
@@ -257,6 +272,8 @@ function confirmNat() {
   margin-bottom: 12px;
 }
 .cp-toolbar-count { font-size: 13px; color: var(--color-text-muted); }
+.cp-toolbar-right { display: flex; align-items: center; gap: 8px; }
+.cp-per-page { font-size: 13px; width: 70px; }
 .cp-view-toggle { display: flex; gap: 4px; }
 .cp-view-btn {
   width: 32px; height: 32px;

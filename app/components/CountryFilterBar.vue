@@ -126,6 +126,11 @@ const SORT_OPTIONS = computed(() => [
 .cfb-search {
   position: relative;
   flex: 0 0 200px;
+  height: 41px;
+}
+.cfb-search .cfb-input {
+  height: 41px;
+  box-sizing: border-box;
 }
 .cfb-search-icon {
   position: absolute;

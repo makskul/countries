@@ -148,7 +148,7 @@
               >
                 <div class="city-stat-name">{{ getCityDisplayName(city) }}</div>
                 <div class="city-stat-meta">
-                  <Rating :modelValue="Number(city.avg_overall)" readonly :cancel="false" :stars="5" />
+                  <Rating :modelValue="getCityAvgRating(city)" readonly :cancel="false" :stars="5" />
                   <span class="city-stat-count">{{ city.total_reviews }} {{ $t('common.labels.reviews') }}</span>
                 </div>
               </div>
@@ -168,11 +168,13 @@
               <Skeleton v-for="i in 3" :key="i" height="110px" style="margin-bottom: 10px; border-radius: var(--radius-lg)" />
             </div>
 
-            <ReviewCard
-              v-for="review in pagedReviews"
-              :key="review.id"
-              :review="review"
-            />
+            <div class="reviews-list">
+              <ReviewCard
+                v-for="review in pagedReviews"
+                :key="review.id"
+                :review="review"
+              />
+            </div>
 
             <div v-if="hasMore" class="load-more">
               <button class="load-more-btn" @click="loadMore" :disabled="pending">
@@ -201,7 +203,7 @@
       >
         <span style="font-size: 13px; font-weight: 600;">{{ getCityDisplayName(city) }}</span>
         <span style="font-size: 12px; color: var(--color-text-muted)">
-          {{ city.total_reviews }} {{ $t('common.labels.reviews') }} · ★ {{ city.avg_overall }}
+          {{ city.total_reviews }} {{ $t('common.labels.reviews') }} · ★ {{ getCityAvgRating(city) }}
         </span>
       </div>
     </Dialog>
@@ -238,6 +240,17 @@ function getCityDisplayName(city: any): string {
   if (locale.value === 'uk' && city.name_uk) return city.name_uk
   if (locale.value === 'ru' && city.name_ru) return city.name_ru
   return city.name_en ?? city.city_name
+}
+
+// Average of all category fields (excluding 'overall') — same logic as country detail
+function getCityAvgRating(city: any): number {
+  const vals = [
+    city.avg_legalization, city.avg_cost_of_living, city.avg_safety,
+    city.avg_bureaucracy, city.avg_weather, city.avg_language_barrier,
+    city.avg_cleanliness, city.avg_healthcare,
+  ].filter((v: any) => v !== null && v !== undefined).map(Number)
+  if (!vals.length) return Number(city.avg_overall) || 0
+  return Math.round((vals.reduce((a: number, b: number) => a + b, 0) / vals.length) * 10) / 10
 }
 
 onMounted(() => {
@@ -410,6 +423,7 @@ function showAllNationalities() {
 .rs-title { font-size: 15px; font-weight: 600; color: var(--color-text); margin: 0; }
 
 /* Load more */
+.reviews-list { display: flex; flex-direction: column; gap: 12px; }
 .load-more { text-align: center; margin-top: 4px; }
 .load-more-btn { background: none; border: none; font-size: 13px; font-weight: 500; color: var(--color-primary); cursor: pointer; font-family: inherit; padding: 8px; }
 .load-more-btn:hover { text-decoration: underline; }

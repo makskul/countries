@@ -6,6 +6,8 @@ export default {
     subtitle: 'Real expat experience — visas, prices, attitude, bureaucracy.\nFiltered by your nationality.',
     selectNationality: 'Your nationality',
     selectCountry: 'Choose a country...',
+    selectNationalityLabel: 'Your nationality',
+    selectCountryLabel:     'Country to explore',
     cta: 'Show reviews →',
     stat: '{reviews} reviews across {countries} countries from {nationalities} nationalities',
   },
