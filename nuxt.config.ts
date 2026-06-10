@@ -66,13 +66,19 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    hostname: 'https://nationview.app',
+    hostname: 'https://triplandr.com',
+    // Static pages
     urls: [
-      '/',
-      '/countries',
-      '/about',
-      '/rules',
-      '/privacy',
+      { loc: '/',          changefreq: 'weekly',  priority: 1.0 },
+      { loc: '/countries', changefreq: 'weekly',  priority: 0.9 },
+      { loc: '/compare',   changefreq: 'monthly', priority: 0.7 },
+      { loc: '/about',     changefreq: 'monthly', priority: 0.5 },
+      { loc: '/rules',     changefreq: 'monthly', priority: 0.4 },
+      { loc: '/privacy',   changefreq: 'monthly', priority: 0.4 },
+    ],
+    // Dynamic pages from Supabase — fetched at build/runtime
+    sources: [
+      '/api/sitemap-urls',
     ],
   },
   supabase: {
