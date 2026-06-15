@@ -85,6 +85,10 @@ export default defineNuxtConfig({
     redirect: false
   },
   runtimeConfig: {
+    telegramBotToken:      process.env.TELEGRAM_BOT_TOKEN      || '',
+    telegramAdminChatId:   process.env.TELEGRAM_ADMIN_CHAT_ID  || '',
+    supabaseWebhookSecret: process.env.SUPABASE_WEBHOOK_SECRET || '',
+    supabaseServiceKey:    process.env.SUPABASE_SERVICE_KEY    || '',
     public: {
       supabaseUrl: process.env.SUPABASE_URL || '',
       supabaseKey: process.env.SUPABASE_KEY || ''
