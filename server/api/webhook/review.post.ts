@@ -13,25 +13,35 @@ export default defineEventHandler(async (event) => {
 
   if (!review) return { ok: true }
 
+  const escape = (val: unknown): string =>
+    String(val ?? '—')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+
   const text = [
-    `🆕 *Новий відгук*`,
+    `🆕 <b>Новий відгук</b>`,
     ``,
-    `🌍 Країна: *${review.target_country}*`,
-    `🏳️ Національність: *${review.author_nationality}*`,
-    `📍 Зараз там: ${review.still_there ? 'Так' : 'Ні'}`,
+    `🌍 Країна: <b>${escape(review.target_country)}</b>`,
+    `🏳️ Національність: <b>${escape(review.author_nationality)}</b>`,
+    `🎯 Мета: ${escape(review.stay_purpose)}`,
+    `📍 Зараз там: ${review.still_there ? 'Так ✅' : 'Ні'}`,
+    review.city_name ? `🏙️ Місто: ${escape(review.city_name)}` : '',
     ``,
-    `⭐ Оцінки:`,
+    `⭐ <b>Оцінки:</b>`,
     ...Object.entries(review.ratings ?? {}).map(
-      ([key, val]) => `  • ${key}: ${val}/5`
+      ([key, val]) => `  • ${escape(key)}: ${val}/5`
     ),
     ``,
-    `💬 Коментарі:`,
+    `💬 <b>Коментарі:</b>`,
     ...Object.entries(review.comments ?? {})
-      .filter(([, val]) => val)
-      .map(([key, val]) => `  • ${key}: ${String(val).slice(0, 100)}`),
+      .filter(([_, val]) => val)
+      .map(([key, val]) =>
+        `  • <i>${escape(key)}</i>: ${escape(String(val)).slice(0, 150)}`
+      ),
     ``,
-    `🆔 ID: \`${review.id}\``,
-  ].join('\n')
+    `🆔 <code>${review.id}</code>`,
+  ].filter(Boolean).join('\n')
 
   await $fetch(
     `https://api.telegram.org/bot${config.telegramBotToken}/sendMessage`,
@@ -40,7 +50,7 @@ export default defineEventHandler(async (event) => {
       body: {
         chat_id:    config.telegramAdminChatId,
         text,
-        parse_mode: 'Markdown',
+        parse_mode: 'HTML',
         reply_markup: {
           inline_keyboard: [[
             { text: '✅ Апрувити',  callback_data: `approve:${review.id}` },
