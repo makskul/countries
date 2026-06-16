@@ -14,7 +14,7 @@ export default {
     mission2: 'A Ukrainian and an Indian will have completely different experiences in Portugal: different visa requirements, different attitudes from locals, different work opportunities. Triplandr lets you see that.',
     ctaTitle: 'Ready to share?',
     ctaText: 'Your review will help hundreds of people make an informed decision.',
-    ctaBtn: '+ Write a review',
+    ctaBtn: 'Write a review',
   },
   rules: {
     title: 'Site rules',

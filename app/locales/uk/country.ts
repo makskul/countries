@@ -51,7 +51,7 @@ export default {
     taxCorporate:     'Податок на прибуток',
     months:           'міс.',
     similarCountries: 'Схожі країни',
-    writeReview:      '+ Написати відгук про {country}',
+    writeReview:      'Написати відгук про {country}',
     share:            'Поділитися сторінкою',
   },
   costLevels: {

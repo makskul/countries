@@ -5,7 +5,7 @@ export default {
     back: '← Назад',
     seeAll: 'Всі країни',
     loadMore: 'Завантажити ще відгуки',
-    writeReview: '+ Написати відгук',
+    writeReview: 'Написати відгук',
     showReviews: 'Показати відгуки',
     subscribe: 'Підписатися',
     share: 'Поділитися сторінкою',

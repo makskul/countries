@@ -5,7 +5,7 @@ export default {
     back: '← Back',
     seeAll: 'All countries',
     loadMore: 'Load more reviews',
-    writeReview: '+ Write a review',
+    writeReview: 'Write a review',
     showReviews: 'Show reviews',
     subscribe: 'Subscribe',
     share: 'Share page',
