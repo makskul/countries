@@ -49,7 +49,7 @@ export default {
     earlier: 'Earlier',
     reviewsCount: '{count} reviews',
     empty: 'No reviews yet',
-    loadMore: 'Load more →',
+    loadMore: 'Load more',
     loading: 'Loading...',
     title: 'Latest reviews',
     lead: 'Fresh reviews from expats around the world',
@@ -57,6 +57,6 @@ export default {
   categories: {
     title: 'Rating categories',
     lead: 'Each review rates a country across 10 categories. Here\'s what they mean.',
-    seeCountries: 'Browse countries →',
+    seeCountries: 'Browse countries',
   },
 }

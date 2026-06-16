@@ -8,7 +8,7 @@ export default {
     selectCountry: 'Обери країну...',
     selectNationalityLabel: 'Твоя національність',
     selectCountryLabel:     'Країна для вивчення',
-    cta: 'Показати відгуки →',
+    cta: 'Показати відгуки',
     stat: '{reviews} відгуків по {countries} країнам від {nationalities} національностей',
   },
   trending: {
@@ -20,7 +20,7 @@ export default {
     sectionLabel: 'Свіжі записи',
     title: 'Останні відгуки',
     empty: 'Відгуків поки немає.',
-    seeAll: 'Дивитися всі →',
+    seeAll: 'Дивитися всі',
   },
   categories: {
     sectionLabel: 'Глобальна статистика',

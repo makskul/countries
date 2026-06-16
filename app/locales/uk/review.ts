@@ -35,7 +35,7 @@ export default {
     },
   },
   actions: {
-    submit: 'Надіслати відгук →',
+    submit: 'Надіслати відгук',
     submitting: 'Відправка...',
     cancel: 'Скасувати',
     anonymous: 'Відгук анонімний — ім\'я не публікується',
@@ -52,7 +52,7 @@ export default {
   preview: {
     title: '👁 Передперегляд',
     noCountry: 'Країна не обрана',
-    empty: 'Починай оцінювати →',
+    empty: 'Починай оцінювати',
   },
   stats: {
     title: '{count} відгуків про {country}',
