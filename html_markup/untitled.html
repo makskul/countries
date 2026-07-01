@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triplandr — Все страны мира</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple-900:#2A1B6B;
+  --purple-700:#5B3DE0;
+  --purple-600:#6C4CE0;
+  --purple-500:#7C5CF0;
+  --purple-100:#EFEAFD;
+  --purple-50:#F8F6FE;
+  --ink:#1A1730;
+  --ink-soft:#5B5876;
+  --line:#EAE7F5;
+  --green:#1FAA6B;
+  --amber:#F0A947;
+  --red:#E15B5B;
+  --white:#ffffff;
+  --radius-lg:20px;
+  --radius-md:14px;
+  --radius-sm:10px;
+  --shadow-sm: 0 1px 2px rgba(26,23,48,0.04), 0 1px 8px rgba(26,23,48,0.04);
+  --shadow-md: 0 8px 24px rgba(42,27,107,0.08);
+  --shadow-lg: 0 20px 60px rgba(42,27,107,0.16);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{ font-family:'Inter', sans-serif; color:var(--ink); background:var(--white); -webkit-font-smoothing:antialiased; }
+h1,h2,h3,h4{ font-family:'Manrope', sans-serif; font-weight:800; letter-spacing:-0.02em; }
+a{ text-decoration:none; color:inherit; }
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+.container{ max-width:1240px; margin:0 auto; padding:0 32px; }
+
+header.site{ position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom:1px solid var(--line); }
+.header-inner{ max-width:1240px; margin:0 auto; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.logo{ display:flex; align-items:center; gap:9px; font-family:'Manrope'; font-weight:800; font-size:20px; color:var(--ink); }
+.logo-mark{ width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,var(--purple-600),var(--purple-900)); display:flex; align-items:center; justify-content:center; color:white; font-size:16px; box-shadow: 0 4px 10px rgba(108,76,224,0.35); }
+nav.main-nav{ display:flex; align-items:center; gap:30px; }
+nav.main-nav a{ font-size:14.5px; font-weight:600; color:var(--ink-soft); transition:color .15s; }
+nav.main-nav a:hover{ color:var(--ink); }
+nav.main-nav a.active{ color:var(--purple-600); }
+.header-actions{ display:flex; align-items:center; gap:16px; }
+.lang-switch{ display:flex; align-items:center; gap:4px; font-size:14px; font-weight:600; color:var(--ink-soft); padding:8px 10px; border-radius:8px; transition:background .15s; }
+.lang-switch:hover{ background:var(--purple-50); }
+.icon-btn{ position:relative; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; color:var(--ink-soft); transition:background .15s; }
+.icon-btn:hover{ background:var(--purple-50); }
+.badge-count{ position:absolute; top:2px; right:2px; background:var(--red); color:white; font-size:9.5px; font-weight:800; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.btn{ display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:11px; font-weight:700; font-size:14.5px; transition:transform .15s, box-shadow .15s, background .15s; }
+.btn-primary{ background:var(--purple-600); color:white; box-shadow:0 6px 16px rgba(108,76,224,0.32); }
+.btn-primary:hover{ background:var(--purple-700); transform:translateY(-1px); box-shadow:0 10px 22px rgba(108,76,224,0.4); }
+
+/* ---------- Page hero ---------- */
+.page-hero{ padding:44px 0 0; }
+.page-hero-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; margin-bottom:28px; }
+.page-hero h1{ font-size:38px; margin-bottom:10px; }
+.page-hero p.lead{ font-size:15.5px; color:var(--ink-soft); font-weight:500; max-width:420px; line-height:1.5; }
+
+.stat-strip{ display:flex; gap:14px; margin-bottom:0; }
+.stat-box{
+  flex:1; border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:14px 16px; display:flex; align-items:center; gap:10px;
+}
+.stat-box-icon{ width:34px; height:34px; border-radius:9px; background:var(--purple-100); color:var(--purple-600); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.stat-box-num{ font-family:'Manrope'; font-weight:800; font-size:16px; line-height:1.1; }
+.stat-box-lab{ font-size:11px; color:var(--ink-soft); font-weight:500; }
+
+/* mini map + review teaser under hero */
+.hero-side{ position:relative; }
+#mini-map-wrap{ position:relative; height:190px; border-radius:16px; background:#F6F5FC; border:1px solid var(--line); overflow:hidden; }
+#minimap{ width:100%; height:100%; }
+.mini-map-country{ fill:#E4E0F7; stroke:#fff; stroke-width:0.6; }
+.mini-pin circle.ring{ fill:var(--purple-600); opacity:0.18; }
+.mini-pin circle.dot{ fill:var(--purple-600); stroke:white; stroke-width:2; cursor:pointer; }
+.mini-pin text{ font-family:'Manrope'; font-weight:800; font-size:9px; fill:white; pointer-events:none; }
+.mini-tooltip{
+  position:absolute; z-index:20; pointer-events:none;
+  background:white; border-radius:12px; padding:10px 12px; width:170px;
+  box-shadow:0 14px 32px rgba(26,23,48,0.2);
+  opacity:0; transform:translateY(4px); transition:opacity .15s, transform .15s;
+}
+.mini-tooltip.show{ opacity:1; transform:translateY(0); }
+.review-float{
+  position:absolute; top:14px; right:14px; z-index:6;
+  background:white; border-radius:14px; padding:12px 14px; width:220px;
+  box-shadow:0 16px 40px rgba(26,23,48,0.18);
+}
+.review-float .review-top{ display:flex; align-items:center; gap:9px; margin-bottom:7px; }
+.review-float .avatar{ width:32px; height:32px; border-radius:50%; object-fit:cover; }
+.review-float .review-name{ font-weight:700; font-size:12.5px; }
+.review-float .review-time{ font-size:10.5px; color:var(--ink-soft); }
+.review-float .review-text{ font-size:11.5px; line-height:1.45; }
+.review-float .see-link{ font-size:11px; font-weight:700; color:var(--purple-600); margin-top:6px; display:inline-block; }
+
+/* ---------- Controls ---------- */
+.controls-bar{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:16px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  margin-bottom:20px;
+}
+.search-input{
+  flex:1; min-width:200px; position:relative;
+}
+.search-input input{
+  width:100%; border:1.5px solid var(--line); border-radius:11px;
+  padding:11px 14px 11px 40px; font-family:inherit; font-size:14px; font-weight:500;
+  transition:border-color .15s;
+}
+.search-input input:focus{ outline:none; border-color:var(--purple-500); }
+.search-input svg{ position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--ink-soft); }
+select.ctrl, .ctrl-select{
+  border:1.5px solid var(--line); border-radius:11px;
+  padding:11px 34px 11px 14px;
+  font-family:inherit; font-size:13.5px; font-weight:600; color:var(--ink);
+  appearance:none;
+  background:var(--white) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="%235B5876" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat right 13px center;
+  cursor:pointer; white-space:nowrap;
+  transition:border-color .15s;
+}
+select.ctrl:hover{ border-color:var(--purple-500); }
+.view-toggle{ display:flex; border:1.5px solid var(--line); border-radius:11px; overflow:hidden; }
+.view-toggle button{ padding:10px 12px; color:var(--ink-soft); transition:background .15s,color .15s; }
+.view-toggle button.active{ background:var(--purple-600); color:white; }
+.more-filters{ display:flex; align-items:center; gap:6px; border:1.5px solid var(--line); border-radius:11px; padding:10px 14px; font-size:13.5px; font-weight:600; color:var(--ink-soft); }
+
+/* pill filter row */
+.pill-row{ display:flex; gap:10px; overflow-x:auto; padding-bottom:18px; scrollbar-width:none; }
+.pill-row::-webkit-scrollbar{ display:none; }
+.pill{
+  display:flex; align-items:center; gap:7px; white-space:nowrap;
+  padding:9px 16px; border-radius:100px; border:1.5px solid var(--line);
+  font-size:13.5px; font-weight:700; color:var(--ink-soft);
+  transition:all .15s; flex-shrink:0;
+}
+.pill:hover{ border-color:var(--purple-400,#9C87ED); color:var(--ink); }
+.pill.active{ background:var(--purple-600); color:white; border-color:var(--purple-600); }
+
+.results-count{ font-size:13.5px; color:var(--ink-soft); font-weight:600; margin-bottom:16px; }
+.results-count b{ color:var(--ink); }
+
+/* ---------- Country grid ---------- */
+.country-grid{
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;
+  margin-bottom:40px;
+}
+.country-grid.list-view{ grid-template-columns:1fr; }
+.gcard{
+  border:1px solid var(--line); border-radius:var(--radius-md);
+  background:white; overflow:hidden;
+  transition:transform .2s, box-shadow .2s;
+}
+.gcard:hover{ transform:translateY(-4px); box-shadow:var(--shadow-md); }
+.gc-img{ position:relative; height:150px; overflow:hidden; }
+.gc-img img{ width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+.gcard:hover .gc-img img{ transform:scale(1.06); }
+.gc-heart{
+  position:absolute; top:10px; right:10px; z-index:2;
+  width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.92);
+  display:flex; align-items:center; justify-content:center; color:var(--ink-soft);
+  transition:color .15s, transform .15s;
+}
+.gc-heart:hover{ transform:scale(1.1); }
+.gc-heart.liked{ color:var(--red); }
+.gc-badge-match{
+  position:absolute; bottom:10px; right:10px; z-index:2;
+  background:rgba(31,170,107,0.94); color:white;
+  font-size:11px; font-weight:800; padding:4px 10px; border-radius:100px;
+}
+.gc-body{ padding:16px; }
+.gc-top{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:3px; }
+.gc-name{ font-size:17px; font-weight:800; font-family:'Manrope'; display:flex; align-items:center; gap:7px; }
+.gc-rating{ display:flex; align-items:center; gap:4px; font-weight:800; color:var(--ink); font-size:14px; }
+.gc-rating .stars{ color:var(--amber); }
+.gc-region{ font-size:12px; color:var(--ink-soft); font-weight:500; margin-bottom:2px; }
+.gc-reviews{ font-size:11.5px; color:var(--ink-soft); margin-bottom:14px; }
+.gc-metrics{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:14px; }
+.gc-metric{ text-align:center; }
+.gc-metric-val{ font-weight:800; font-size:13px; color:var(--ink); display:flex; align-items:center; justify-content:center; gap:3px;}
+.gc-metric-lab{ font-size:9.5px; color:var(--ink-soft); margin-top:1px; }
+.gc-say{ font-size:11px; font-weight:700; color:var(--ink-soft); margin-bottom:8px; }
+.gc-tags{ display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+.gc-tag{ display:flex; align-items:center; gap:6px; font-size:12px; font-weight:600; }
+.gc-tag.pos{ color:var(--green); }
+.gc-tag.neg{ color:var(--red); }
+.gc-actions{ display:flex; gap:8px; }
+.gc-actions .btn-primary{ flex:1; justify-content:center; padding:10px; font-size:13px; }
+.gc-compare{
+  display:flex; align-items:center; gap:6px; border:1.5px solid var(--line); border-radius:11px;
+  padding:10px 12px; font-size:12.5px; font-weight:700; color:var(--ink-soft);
+  transition:border-color .15s;
+  flex:1; justify-content:center;
+}
+.gc-compare:hover{ border-color:var(--purple-500); color:var(--purple-600); }
+.gc-compare input{ accent-color:var(--purple-600); }
+
+/* list view row */
+.country-grid.list-view .gcard{ display:flex; }
+.country-grid.list-view .gc-img{ width:220px; height:auto; flex-shrink:0; }
+.country-grid.list-view .gc-body{ flex:1; display:grid; grid-template-columns:1.3fr 2fr 1fr; gap:16px; align-items:center; padding:18px 20px; }
+.country-grid.list-view .gc-metrics{ margin-bottom:0; grid-template-columns:repeat(4,1fr); }
+.country-grid.list-view .gc-tags{ display:none; }
+.country-grid.list-view .gc-actions{ flex-direction:column; }
+.country-grid.list-view .gc-say{ display:none; }
+
+.no-results{ display:none; text-align:center; padding:60px 20px; color:var(--ink-soft); }
+.no-results h3{ font-size:19px; margin-bottom:8px; color:var(--ink); }
+
+.load-more-wrap{ text-align:center; margin-bottom:60px; }
+.btn-outline{
+  border:1.5px solid var(--line); border-radius:11px; padding:12px 26px;
+  font-weight:700; font-size:14px; color:var(--ink); transition:border-color .15s, background .15s;
+}
+.btn-outline:hover{ border-color:var(--purple-500); background:var(--purple-50); }
+
+/* ---------- Bottom AI banner ---------- */
+.ai-banner-bottom{
+  background:linear-gradient(120deg, var(--purple-100) 0%, #EFF0FE 100%);
+  border-radius:var(--radius-lg); border:1px solid #E4DEFA;
+  padding:30px 34px; margin-bottom:60px;
+  display:flex; align-items:center; justify-content:space-between; gap:26px; flex-wrap:wrap;
+}
+.ai-banner-bottom .ai-left{ display:flex; gap:16px; align-items:center; flex:1; min-width:280px; }
+.ai-bot{ width:52px; height:52px; border-radius:14px; flex-shrink:0; background:linear-gradient(135deg,var(--purple-600),var(--purple-900)); display:flex; align-items:center; justify-content:center; color:white; box-shadow:0 8px 18px rgba(108,76,224,0.35); }
+.ai-banner-bottom h3{ font-size:17px; margin-bottom:4px; }
+.ai-banner-bottom p{ font-size:13px; color:var(--ink-soft); }
+.how-it-works{ display:flex; gap:22px; }
+.hiw-step{ display:flex; align-items:flex-start; gap:9px; max-width:150px; }
+.hiw-num{ width:22px; height:22px; border-radius:50%; background:var(--purple-600); color:white; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.hiw-text{ font-size:11.5px; color:var(--ink-soft); font-weight:600; line-height:1.4; }
+.how-it-works-title{ font-size:12.5px; font-weight:800; margin-bottom:12px; }
+
+footer{ background:var(--purple-900); color:rgba(255,255,255,0.7); padding:20px 0; text-align:center; font-size:12.5px; }
+
+@media (max-width:1100px){
+  .country-grid{ grid-template-columns:repeat(2,1fr); }
+  .page-hero-grid{ grid-template-columns:1fr; }
+  .country-grid.list-view .gc-body{ grid-template-columns:1fr; gap:10px; }
+}
+@media (max-width:640px){
+  nav.main-nav{ display:none; }
+  .country-grid{ grid-template-columns:1fr; }
+  .page-hero h1{ font-size:28px; }
+  .controls-bar{ flex-direction:column; align-items:stretch; }
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><span class="logo-mark">✈</span>Triplandr</a>
+    <nav class="main-nav">
+      <a href="all-countries.html" class="active">Страны</a>
+      <a href="#">Города</a>
+      <a href="#">Сравнение</a>
+      <a href="#">Категории</a>
+      <a href="#">Блог</a>
+      <a href="#">О проекте</a>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switch">RU
+        <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1.5L5 5.5L9 1.5" stroke="#5B5876" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="icon-btn">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="badge-count">3</span>
+      </div>
+      <div class="icon-btn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg></div>
+      <a href="#" class="btn btn-primary"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg>Написать отзыв</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="page-hero">
+    <div class="page-hero-grid">
+      <div>
+        <h1>Все страны мира</h1>
+        <p class="lead">Выбирайте страну для жизни и узнавайте мнение людей вашей национальности</p>
+      </div>
+      <div class="hero-side">
+        <div id="mini-map-wrap">
+          <svg id="minimap" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="mini-tooltip" id="miniTooltip"></div>
+        </div>
+        <div class="review-float">
+          <div class="review-top">
+            <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="Олена">
+            <div><div class="review-name">Олена, Киев</div><div class="review-time">12 мин назад</div></div>
+          </div>
+          <div class="review-text">Переехала в Лиссабон 6 месяцев назад. Очень нравится климат, люди и атмосфера города! ❤️</div>
+          <a href="#" class="see-link">Смотреть отзыв →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat-box">
+        <div class="stat-box-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg></div>
+        <div><div class="stat-box-num" id="statCountries">98</div><div class="stat-box-lab">стран</div></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div><div class="stat-box-num">12 430</div><div class="stat-box-lab">отзывов</div></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div><div class="stat-box-num">150+</div><div class="stat-box-lab">национальностей</div></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><div class="stat-box-num">12 мин назад</div><div class="stat-box-lab">последний отзыв</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls-bar">
+    <div class="search-input">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="searchBox" placeholder="Поиск страны...">
+    </div>
+    <select class="ctrl" id="regionFilter">
+      <option value="all">Все регионы</option>
+      <option value="Европа">Европа</option>
+      <option value="Азия">Азия</option>
+      <option value="Америка">Америка</option>
+    </select>
+    <select class="ctrl" id="categoryFilter">
+      <option value="all">Любая категория</option>
+      <option value="family">Семья и дети</option>
+      <option value="cost">Стоимость жизни</option>
+      <option value="safety">Безопасность</option>
+      <option value="climate">Климат</option>
+    </select>
+    <select class="ctrl" id="sortFilter">
+      <option value="popular">🔥 Популярные</option>
+      <option value="rating">По рейтингу</option>
+      <option value="cost-asc">Дешевле</option>
+      <option value="cost-desc">Дороже</option>
+    </select>
+    <div class="view-toggle">
+      <button id="gridBtn" class="active" title="Сетка"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
+      <button id="listBtn" title="Список"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+
+  <div class="pill-row" id="pillRow">
+    <div class="pill active" data-filter="all">🌍 Все страны</div>
+    <div class="pill" data-filter="family">👨‍👩‍👧 Семья и дети</div>
+    <div class="pill" data-filter="cost">💰 Стоимость жизни</div>
+    <div class="pill" data-filter="safety">🛡️ Безопасность</div>
+    <div class="pill" data-filter="climate">☀️ Климат</div>
+    <div class="pill" data-filter="work">💼 Работа и бизнес</div>
+    <div class="pill" data-filter="study">🎓 Учёба</div>
+    <div class="pill" data-filter="health">❤️ Медицина</div>
+    <div class="pill" data-filter="visa">🛂 ВНЖ и визы</div>
+    <div class="pill" style="margin-left:auto;">☰ Ещё фильтры</div>
+  </div>
+
+  <div class="results-count">Найдено <b id="resultsCount">98</b> стран</div>
+
+  <div class="country-grid" id="countryGrid"></div>
+
+  <div class="no-results" id="noResults">
+    <h3>Ничего не найдено</h3>
+    <p>Попробуйте изменить критерии поиска или сбросить фильтры</p>
+  </div>
+
+  <div class="load-more-wrap">
+    <button class="btn-outline">Показать ещё страны</button>
+  </div>
+
+  <div class="ai-banner-bottom">
+    <div class="ai-left">
+      <div class="ai-bot">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="4" y="8" width="16" height="12" rx="3"/><circle cx="9" cy="14" r="1.3" fill="white"/><circle cx="15" cy="14" r="1.3" fill="white"/><path d="M12 8V4M9 4h6"/></svg>
+      </div>
+      <div>
+        <h3>Не знаете, какую страну выбрать?</h3>
+        <p>Пройдите короткий тест и получите персональные рекомендации на основе ваших целей и предпочтений.</p>
+      </div>
+      <a href="#" class="btn btn-primary" style="white-space:nowrap;">✨ Подобрать страну</a>
+    </div>
+    <div>
+      <div class="how-it-works-title">Как это работает?</div>
+      <div class="how-it-works">
+        <div class="hiw-step"><div class="hiw-num">1</div><div class="hiw-text">Ответьте на 8 вопросов о ваших целях и предпочтениях</div></div>
+        <div class="hiw-step"><div class="hiw-num">2</div><div class="hiw-text">AI проанализирует данные и подберёт лучшие страны</div></div>
+        <div class="hiw-step"><div class="hiw-num">3</div><div class="hiw-text">Получите список стран и сравните их между собой</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Triplandr. Все права защищены.</footer>
+
+<script>
+const allCountries = [
+  {flag:'🇵🇹', name:'Португалия', region:'Европа', rating:4.7, reviews:210, match:92, cost:1800, costLabel:'€ 1 800', safety:9.2, sun:280, recommend:91, img:'https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=600&auto=format&fit=crop', pos:['Безопасно и спокойно','Приветливые люди'], neg:['Дорогое жильё','Высокие налоги'], cats:['family','safety','climate']},
+  {flag:'🇪🇸', name:'Испания', region:'Европа', rating:4.4, reviews:185, match:88, cost:1600, costLabel:'€ 1 600', safety:8.6, sun:250, recommend:88, img:'https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=600&auto=format&fit=crop', pos:['Отличный климат','Вкусная еда и культура'], neg:['Бюрократия','Сложно найти работу'], cats:['climate','family','cost']},
+  {flag:'🇩🇪', name:'Германия', region:'Европа', rating:3.8, reviews:320, match:76, cost:1900, costLabel:'€ 1 900', safety:8.9, sun:150, recommend:76, img:'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=600&auto=format&fit=crop', pos:['Стабильность и порядок','Хорошие зарплаты'], neg:['Высокие налоги','Сложный язык'], cats:['work','safety','visa']},
+  {flag:'🇵🇱', name:'Польша', region:'Европа', rating:3.6, reviews:275, match:72, cost:1200, costLabel:'€ 1 200', safety:8.2, sun:120, recommend:72, img:'https://images.unsplash.com/photo-1519197924294-4ba991a11128?q=80&w=600&auto=format&fit=crop', pos:['Доступная стоимость жизни','Близко к Украине'], neg:['Сложный язык','Зимой холодно'], cats:['cost','visa','work']},
+  {flag:'🇳🇱', name:'Нидерланды', region:'Европа', rating:4.2, reviews:160, match:84, cost:2300, costLabel:'€ 2 300', safety:9.1, sun:140, recommend:87, img:'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?q=80&w=600&auto=format&fit=crop', pos:['Высокий уровень жизни','Отличная медицина'], neg:['Дорогая аренда','Погода переменчива'], cats:['safety','health','work']},
+  {flag:'🇮🇹', name:'Италия', region:'Европа', rating:4.3, reviews:198, match:81, cost:1500, costLabel:'€ 1 500', safety:8.4, sun:260, recommend:83, img:'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=600&auto=format&fit=crop', pos:['Богатая культура','Отличная кухня'], neg:['Бюрократия','Медленный интернет'], cats:['climate','family']},
+  {flag:'🇨🇭', name:'Швейцария', region:'Европа', rating:4.6, reviews:90, match:79, cost:3400, costLabel:'€ 3 400', safety:9.6, sun:170, recommend:85, img:'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=600&auto=format&fit=crop', pos:['Очень безопасно','Чистая природа'], neg:['Очень дорого','Сложно получить ВНЖ'], cats:['safety','work','health']},
+  {flag:'🇨🇿', name:'Чехия', region:'Европа', rating:4.1, reviews:142, match:80, cost:1100, costLabel:'€ 1 100', safety:8.5, sun:160, recommend:82, img:'https://images.unsplash.com/photo-1541849546-216549ae216d?q=80&w=600&auto=format&fit=crop', pos:['Доступное жильё','Красивая архитектура'], neg:['Сложный язык','Мало солнца'], cats:['cost','safety']},
+  {flag:'🇬🇷', name:'Греция', region:'Европа', rating:4.0, reviews:110, match:78, cost:1300, costLabel:'€ 1 300', safety:8.0, sun:300, recommend:79, img:'https://images.unsplash.com/photo-1503152394-c571994fd383?q=80&w=600&auto=format&fit=crop', pos:['Много солнца','Тёплое море'], neg:['Медленная бюрократия','Низкие зарплаты'], cats:['climate','cost']},
+  {flag:'🇹🇷', name:'Турция', region:'Азия', rating:4.0, reviews:230, match:77, cost:900, costLabel:'€ 900', safety:7.5, sun:290, recommend:75, img:'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=600&auto=format&fit=crop', pos:['Низкая стоимость жизни','Дружелюбные люди'], neg:['Инфляция','Языковой барьер'], cats:['cost','climate']},
+  {flag:'🇦🇪', name:'ОАЭ', region:'Азия', rating:4.3, reviews:88, match:74, cost:2500, costLabel:'€ 2 500', safety:9.3, sun:340, recommend:80, img:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=600&auto=format&fit=crop', pos:['Безопасно','Без налогов на доход'], neg:['Очень жарко летом','Дорогая аренда'], cats:['safety','work']},
+  {flag:'🇨🇦', name:'Канада', region:'Америка', rating:4.5, reviews:175, match:86, cost:2000, costLabel:'€ 2 000', safety:9.0, sun:180, recommend:89, img:'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=600&auto=format&fit=crop', pos:['Дружелюбное общество','Отличная природа'], neg:['Длинные зимы','Долгий процесс ВНЖ'], cats:['safety','family','visa']},
+  {flag:'🇺🇸', name:'США', region:'Америка', rating:3.9, reviews:410, match:70, cost:2600, costLabel:'€ 2 600', safety:7.2, sun:220, recommend:71, img:'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?q=80&w=600&auto=format&fit=crop', pos:['Много возможностей для карьеры','Разнообразие культур'], neg:['Дорогая медицина','Высокая конкуренция'], cats:['work','study']},
+  {flag:'🇲🇽', name:'Мексика', region:'Америка', rating:4.1, reviews:96, match:68, cost:800, costLabel:'€ 800', safety:6.5, sun:300, recommend:74, img:'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?q=80&w=600&auto=format&fit=crop', pos:['Низкая стоимость жизни','Тёплый климат'], neg:['Вопросы безопасности','Языковой барьер'], cats:['cost','climate']},
+  {flag:'🇯🇵', name:'Япония', region:'Азия', rating:4.5, reviews:78, match:73, cost:1700, costLabel:'€ 1 700', safety:9.4, sun:200, recommend:83, img:'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=600&auto=format&fit=crop', pos:['Очень безопасно','Уникальная культура'], neg:['Языковой барьер','Сложно интегрироваться'], cats:['safety','study']},
+  {flag:'🇰🇷', name:'Южная Корея', region:'Азия', rating:4.2, reviews:65, match:71, cost:1400, costLabel:'€ 1 400', safety:8.8, sun:190, recommend:78, img:'https://images.unsplash.com/photo-1517154421773-0529f29ea451?q=80&w=600&auto=format&fit=crop', pos:['Развитая инфраструктура','Быстрый интернет'], neg:['Высокая конкуренция','Долгие рабочие часы'], cats:['work','safety']},
+];
+
+let currentView='grid', currentSearch='', currentRegion='all', currentCategory='all', currentSort='popular';
+
+function metricIcon(name){
+  const icons={cost:'💶',safety:'🛡️',sun:'☀️',rec:'❤️'};
+  return icons[name]||'';
+}
+
+function render(){
+  let list=[...allCountries];
+
+  if(currentSearch.trim()){
+    const q=currentSearch.trim().toLowerCase();
+    list=list.filter(c=>c.name.toLowerCase().includes(q));
+  }
+  if(currentRegion!=='all') list=list.filter(c=>c.region===currentRegion);
+  if(currentCategory!=='all') list=list.filter(c=>c.cats.includes(currentCategory));
+
+  if(currentSort==='rating') list.sort((a,b)=>b.rating-a.rating);
+  else if(currentSort==='cost-asc') list.sort((a,b)=>a.cost-b.cost);
+  else if(currentSort==='cost-desc') list.sort((a,b)=>b.cost-a.cost);
+  else list.sort((a,b)=>b.match-a.match);
+
+  document.getElementById('resultsCount').textContent=list.length;
+  document.getElementById('statCountries').textContent=list.length;
+
+  const grid=document.getElementById('countryGrid');
+  const noRes=document.getElementById('noResults');
+
+  if(list.length===0){
+    grid.style.display='none';
+    noRes.style.display='block';
+    return;
+  }
+  grid.style.display='grid';
+  noRes.style.display='none';
+  grid.className='country-grid'+(currentView==='list'?' list-view':'');
+
+  grid.innerHTML=list.map(c=>`
+    <div class="gcard">
+      <div class="gc-img">
+        <img src="${c.img}" alt="${c.name}">
+        <div class="gc-heart" onclick="this.classList.toggle('liked'); this.innerHTML = this.classList.contains('liked') ? '&#10084;' : '&#9825;'">♡</div>
+        <div class="gc-badge-match">Совпадение: ${c.match}%</div>
+      </div>
+      <div class="gc-body">
+        <div>
+          <div class="gc-top">
+            <div class="gc-name">${c.flag} ${c.name}</div>
+          </div>
+          <div class="gc-region">${c.region}</div>
+          <div class="gc-rating" style="margin-top:6px;"><span class="stars">★</span> ${c.rating}</div>
+          <div class="gc-reviews">${c.reviews} отзывов</div>
+        </div>
+        <div>
+          <div class="gc-metrics">
+            <div class="gc-metric"><div class="gc-metric-val">€ ${c.cost.toLocaleString('ru-RU')}</div><div class="gc-metric-lab">Стоимость жизни</div></div>
+            <div class="gc-metric"><div class="gc-metric-val">${c.safety}</div><div class="gc-metric-lab">Безопасность</div></div>
+            <div class="gc-metric"><div class="gc-metric-val">${c.sun}</div><div class="gc-metric-lab">Дней солнца</div></div>
+            <div class="gc-metric"><div class="gc-metric-val">${c.recommend}%</div><div class="gc-metric-lab">Рекомендуют</div></div>
+          </div>
+          <div class="gc-say">Что говорят люди</div>
+          <div class="gc-tags">
+            <div class="gc-tag pos">✓ ${c.pos[0]}</div>
+            <div class="gc-tag neg">✕ ${c.neg[0]}</div>
+          </div>
+        </div>
+        <div class="gc-actions">
+          <a href="#" class="btn btn-primary">Смотреть отзывы</a>
+          <label class="gc-compare"><input type="checkbox"> Сравнить</label>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('searchBox').addEventListener('input', e=>{ currentSearch=e.target.value; render(); });
+document.getElementById('regionFilter').addEventListener('change', e=>{ currentRegion=e.target.value; render(); });
+document.getElementById('categoryFilter').addEventListener('change', e=>{
+  currentCategory=e.target.value;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  const match=[...document.querySelectorAll('.pill')].find(p=>p.dataset.filter===currentCategory);
+  if(match) match.classList.add('active'); else document.querySelector('.pill[data-filter="all"]').classList.add('active');
+  render();
+});
+document.getElementById('sortFilter').addEventListener('change', e=>{ currentSort=e.target.value; render(); });
+
+document.getElementById('gridBtn').addEventListener('click', ()=>{
+  currentView='grid';
+  document.getElementById('gridBtn').classList.add('active');
+  document.getElementById('listBtn').classList.remove('active');
+  render();
+});
+document.getElementById('listBtn').addEventListener('click', ()=>{
+  currentView='list';
+  document.getElementById('listBtn').classList.add('active');
+  document.getElementById('gridBtn').classList.remove('active');
+  render();
+});
+
+document.querySelectorAll('.pill[data-filter]').forEach(pill=>{
+  pill.addEventListener('click', ()=>{
+    document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+    pill.classList.add('active');
+    currentCategory=pill.dataset.filter;
+    document.getElementById('categoryFilter').value=currentCategory;
+    render();
+  });
+});
+
+render();
+
+/* ---------- Mini interactive map (same style as homepage) ---------- */
+const msvg=document.getElementById('minimap');
+const mtooltip=document.getElementById('miniTooltip');
+const mwrap=document.getElementById('mini-map-wrap');
+
+const landmasses=[
+  "M120,150 Q80,120 60,160 Q40,200 70,240 Q60,280 100,300 Q90,340 130,350 Q170,360 190,320 Q230,330 240,290 Q270,270 250,230 Q270,190 230,160 Q210,120 160,130 Q140,110 120,150Z",
+  "M200,340 Q180,380 200,420 Q190,460 220,480 Q250,470 260,430 Q280,400 260,370 Q270,340 240,330 Q220,310 200,340Z",
+  "M470,140 Q450,120 430,140 Q420,170 440,190 Q430,220 460,230 Q480,210 490,180 Q500,150 470,140Z",
+  "M440,230 Q400,240 380,280 Q370,330 400,370 Q420,410 460,420 Q500,430 520,390 Q540,350 520,310 Q530,270 500,250 Q470,220 440,230Z",
+  "M520,160 Q560,140 620,150 Q690,140 750,170 Q800,180 820,220 Q790,250 740,240 Q700,270 650,260 Q600,280 560,250 Q520,230 500,200 Q500,175 520,160Z",
+  "M780,340 Q810,330 840,350 Q850,380 820,390 Q790,385 780,360 Q775,350 780,340Z"
+];
+landmasses.forEach(d=>{
+  const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+  path.setAttribute('d',d);
+  path.setAttribute('class','mini-map-country');
+  msvg.appendChild(path);
+});
+const minipins=[
+  {x:200,y:130,count:12,flag:'🇺🇸',name:'США',rating:4.1,reviews:410},
+  {x:790,y:180,count:4,flag:'🇯🇵',name:'Япония',rating:4.5,reviews:78},
+  {x:470,y:230,count:54,flag:'🇵🇹',name:'Португалия',rating:4.7,reviews:210},
+  {x:180,y:170,count:18,flag:'🇨🇦',name:'Канада',rating:4.5,reviews:175},
+  {x:500,y:250,count:8,flag:'🇳🇬',name:'Нигерия',rating:3.4,reviews:44},
+  {x:230,y:420,count:6,flag:'🇧🇷',name:'Бразилия',rating:3.9,reviews:96},
+];
+minipins.forEach(p=>{
+  const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.setAttribute('class','mini-pin');
+  g.setAttribute('transform',`translate(${p.x},${p.y})`);
+  const r=Math.max(10,Math.min(18,7+p.count/5));
+  g.innerHTML=`<circle class="ring" r="${r+5}"></circle><circle class="dot" r="${r}"></circle><text x="0" y="3" text-anchor="middle">${p.count}</text>`;
+  g.addEventListener('mouseenter',()=>{
+    mtooltip.innerHTML=`
+      <div style="font-weight:800;font-family:'Manrope';font-size:12.5px;margin-bottom:3px;">${p.flag} ${p.name}</div>
+      <div style="color:var(--amber);font-weight:700;font-size:11.5px;margin-bottom:3px;">★ ${p.rating}</div>
+      <div style="font-size:10.5px;color:var(--ink-soft);">${p.reviews} отзывов</div>
+    `;
+    const svgRect=msvg.getBoundingClientRect();
+    const wrapRect=mwrap.getBoundingClientRect();
+    const scaleX=svgRect.width/1000, scaleY=svgRect.height/500;
+    let left=p.x*scaleX+16, top=p.y*scaleY-10;
+    if(left+170>wrapRect.width) left=p.x*scaleX-186;
+    mtooltip.style.left=left+'px';
+    mtooltip.style.top=top+'px';
+    mtooltip.classList.add('show');
+  });
+  g.addEventListener('mouseleave',()=>mtooltip.classList.remove('show'));
+  msvg.appendChild(g);
+});
+</script>
+</body>
+</html>
