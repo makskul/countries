@@ -110,5 +110,35 @@ export function useHomepageData() {
     })
   })
 
-  return { stats, statsPending, trending, trendingPending, latest, latestPending, catStats, catPending }
+  // All countries with reviews — for interactive world map
+  const { data: mapCountries, pending: mapCountriesPending } = useAsyncData('mapCountries', async () => {
+    const { data, error } = await supabase
+      .from('reviews')
+      .select('target_country, ratings')
+      .eq('is_approved', true)
+    if (error) { console.error('[mapCountries]', error.message); return [] }
+
+    const grouped: Record<string, number[]> = {}
+    for (const row of data as { target_country: string; ratings: Record<string, number> }[]) {
+      const code = row.target_country
+      if (!grouped[code]) grouped[code] = []
+      const vals = Object.values(row.ratings ?? {}).filter(v => typeof v === 'number')
+      const rowAvg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0
+      grouped[code].push(rowAvg)
+    }
+
+    return Object.entries(grouped).map(([code, avgs]) => ({
+      code,
+      total: avgs.length,
+      avgRating: Math.round((avgs.reduce((a, b) => a + b, 0) / avgs.length) * 10) / 10,
+    }))
+  })
+
+  return {
+    stats, statsPending,
+    trending, trendingPending,
+    latest, latestPending,
+    catStats, catPending,
+    mapCountries, mapCountriesPending,
+  }
 }
