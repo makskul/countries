@@ -1,0 +1,648 @@
+<title>Triplandr — PRD</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand:       #534AB7;
+    --brand-light: #EAE8F8;
+    --brand-dark:  #3A338A;
+    --ink:         #1A1830;
+    --ink-2:       #3D3A5C;
+    --ink-3:       #7A778F;
+    --line:        #E4E2EF;
+    --surface:     #F7F6FB;
+    --white:       #FFFFFF;
+    --success:     #0F6E56;
+    --warn:        #854F0B;
+    --r:           6px;
+  }
+
+  body {
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+    background: var(--surface);
+    color: var(--ink-2);
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: var(--white);
+    border-right: 1px solid var(--line);
+    padding: 32px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 20px 24px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  .logo-mark {
+    width: 28px; height: 28px;
+    background: var(--brand);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-mark svg { stroke: white; }
+  .logo-name {
+    font-size: 15px; font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+  .logo-tag {
+    font-size: 10px; font-weight: 600;
+    color: var(--brand);
+    background: var(--brand-light);
+    border-radius: 4px;
+    padding: 1px 5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .nav-section {
+    padding: 0 12px;
+    margin-bottom: 8px;
+  }
+  .nav-label {
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    padding: 0 8px;
+    margin-bottom: 4px;
+  }
+  .nav-link {
+    display: block;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: background 0.1s, color 0.1s;
+    cursor: pointer;
+  }
+  .nav-link:hover { background: var(--surface); color: var(--brand); }
+  .nav-link.active { background: var(--brand-light); color: var(--brand); font-weight: 600; }
+
+  /* ── Main ── */
+  .main {
+    padding: 48px 56px;
+    max-width: 860px;
+  }
+
+  /* ── Header ── */
+  .doc-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid var(--line);
+  }
+  .doc-eyebrow {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand);
+    margin-bottom: 10px;
+  }
+  .doc-title {
+    font-size: 32px; font-weight: 800;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    text-wrap: balance;
+    margin-bottom: 12px;
+  }
+  .doc-subtitle {
+    font-size: 16px;
+    color: var(--ink-3);
+    max-width: 560px;
+    line-height: 1.5;
+  }
+  .doc-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); }
+  .meta-value { font-size: 13px; font-weight: 500; color: var(--ink-2); }
+
+  /* ── Sections ── */
+  .section {
+    margin-bottom: 48px;
+    scroll-margin-top: 32px;
+  }
+  .section-title {
+    font-size: 20px; font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-title .num {
+    font-size: 12px; font-weight: 600;
+    color: var(--brand);
+    background: var(--brand-light);
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-right: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  h3 {
+    font-size: 15px; font-weight: 700;
+    color: var(--ink);
+    margin: 20px 0 8px;
+  }
+
+  p { margin-bottom: 12px; color: var(--ink-2); }
+
+  /* ── Callout ── */
+  .callout {
+    border-left: 3px solid var(--brand);
+    background: var(--brand-light);
+    border-radius: 0 var(--r) var(--r) 0;
+    padding: 14px 16px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .callout strong { color: var(--brand-dark); }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left; padding: 9px 12px;
+    background: var(--surface);
+    color: var(--ink-3);
+    font-weight: 600; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: 2px solid var(--line);
+  }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--line); color: var(--ink-2); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface); }
+
+  /* ── Status chips ── */
+  .chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 600;
+    border-radius: 100px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+  .chip-green  { background: #E1F5EE; color: #0F6E56; }
+  .chip-orange { background: #FAEEDA; color: #854F0B; }
+  .chip-purple { background: var(--brand-light); color: var(--brand-dark); }
+  .chip-gray   { background: #F0EFF5; color: #7A778F; }
+
+  /* ── Feature grid ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .feature-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 16px;
+  }
+  .feature-card .icon {
+    width: 32px; height: 32px;
+    background: var(--brand-light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  .feature-card h4 { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .feature-card p  { font-size: 12px; color: var(--ink-3); margin: 0; line-height: 1.5; }
+
+  /* ── User flow ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 16px 0;
+  }
+  .flow-step {
+    display: flex;
+    gap: 14px;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 14px; top: 30px;
+    width: 2px; height: calc(100% + 0px);
+    background: var(--line);
+  }
+  .flow-dot {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: var(--brand);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: white;
+    margin-top: 2px;
+    position: relative; z-index: 1;
+  }
+  .flow-body { padding-bottom: 20px; }
+  .flow-body strong { display: block; font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .flow-body span { font-size: 12px; color: var(--ink-3); }
+
+  /* ── KPI row ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .kpi-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 16px;
+    text-align: center;
+  }
+  .kpi-value { font-size: 26px; font-weight: 800; color: var(--brand); letter-spacing: -1px; }
+  .kpi-label { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+
+  /* ── Stack row ── */
+  .stack-row {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0;
+  }
+  .stack-badge {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px; font-weight: 500;
+    color: var(--ink-2);
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+  ul li { margin-bottom: 4px; font-size: 13px; color: var(--ink-2); }
+
+  @media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .main { padding: 32px 20px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-name">Triplandr</div>
+      </div>
+      <span class="logo-tag">PRD</span>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Документ</div>
+      <a class="nav-link active" onclick="scrollTo('overview')">Обзор продукта</a>
+      <a class="nav-link" onclick="scrollTo('problem')">Проблема</a>
+      <a class="nav-link" onclick="scrollTo('users')">Пользователи</a>
+      <a class="nav-link" onclick="scrollTo('goals')">Цели и метрики</a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Функции</div>
+      <a class="nav-link" onclick="scrollTo('features')">Ключевые функции</a>
+      <a class="nav-link" onclick="scrollTo('flow')">User flow</a>
+      <a class="nav-link" onclick="scrollTo('moderation')">Модерация</a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Техника</div>
+      <a class="nav-link" onclick="scrollTo('stack')">Стек</a>
+      <a class="nav-link" onclick="scrollTo('pages')">Страницы</a>
+      <a class="nav-link" onclick="scrollTo('i18n')">Локализация</a>
+      <a class="nav-link" onclick="scrollTo('scope')">Вне скоупа</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <div class="doc-header">
+      <div class="doc-eyebrow">Product Requirements Document</div>
+      <h1 class="doc-title">Triplandr — платформа отзывов для эмигрантов</h1>
+      <p class="doc-subtitle">Реальный опыт жизни в других странах, отфильтрованный по национальности автора</p>
+      <div class="doc-meta">
+        <div class="meta-item"><span class="meta-label">Домен</span><span class="meta-value">triplandr.com</span></div>
+        <div class="meta-item"><span class="meta-label">Версия</span><span class="meta-value">1.0</span></div>
+        <div class="meta-item"><span class="meta-label">Статус</span><span class="meta-value"><span class="chip chip-green">В разработке</span></span></div>
+        <div class="meta-item"><span class="meta-label">Дата</span><span class="meta-value">Июнь 2026</span></div>
+      </div>
+    </div>
+
+    <!-- 1. Overview -->
+    <section class="section" id="overview">
+      <h2 class="section-title"><span class="num">01</span>Обзор продукта</h2>
+      <p>Triplandr — это платформа агрегации и фильтрации отзывов эмигрантов о странах и городах мира. Ключевое отличие от аналогов: все отзывы фильтруются по национальности читателя, потому что опыт украинца в Германии и опыт индийца в Германии — принципиально разные истории.</p>
+      <div class="callout">
+        <strong>Ключевая идея:</strong> Украинец и индиец будут иметь совершенно разный опыт в Португалии — разные визовые требования, разное отношение местных, разные возможности для работы. Triplandr позволяет это увидеть.
+      </div>
+      <p>Пользователи оставляют структурированные отзывы по 9 категориям, а система агрегирует их в рейтинги по стране и городу в разрезе национальности автора.</p>
+    </section>
+
+    <!-- 2. Problem -->
+    <section class="section" id="problem">
+      <h2 class="section-title"><span class="num">02</span>Проблема</h2>
+      <p>Существующие платформы (Numbeo, Expatistan, Expat Exchange) публикуют агрегированные данные без учёта национальности. Человек, планирующий переезд, получает усреднённую картину, которая может быть нерелевантна для его конкретной ситуации.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Проблема</th><th>Текущее решение</th><th>Решение Triplandr</th></tr></thead>
+          <tbody>
+            <tr><td>Визовый опыт зависит от гражданства</td><td>Общие статьи и форумы</td><td>Фильтр по национальности автора</td></tr>
+            <tr><td>Отношение местных отличается</td><td>Усреднённые рейтинги</td><td>Отзывы только от "таких как ты"</td></tr>
+            <tr><td>Языковой барьер субъективен</td><td>Нет персонализации</td><td>Категория + личный комментарий</td></tr>
+            <tr><td>Легализация зависит от паспорта</td><td>Сложные официальные источники</td><td>Реальный опыт людей с таким же паспортом</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. Users -->
+    <section class="section" id="users">
+      <h2 class="section-title"><span class="num">03</span>Целевые пользователи</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="icon">🧳</div>
+          <h4>Планирующий переезд</h4>
+          <p>Изучает страны для долгосрочного переезда или эмиграции. Хочет знать реальные условия для людей со своим паспортом.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">💼</div>
+          <h4>Цифровой кочевник</h4>
+          <p>Меняет страны каждые несколько месяцев. Интересует стоимость жизни, визы, интернет, безопасность.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">✍️</div>
+          <h4>Автор отзыва</h4>
+          <p>Уже живёт или жил за рубежом. Хочет поделиться реальным опытом и помочь соотечественникам.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🔍</div>
+          <h4>Исследователь</h4>
+          <p>Сравнивает несколько стран по конкретным категориям перед принятием решения.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Goals -->
+    <section class="section" id="goals">
+      <h2 class="section-title"><span class="num">04</span>Цели и метрики</h2>
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-value">500+</div>
+          <div class="kpi-label">отзывов к концу 2026</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">30+</div>
+          <div class="kpi-label">стран с отзывами</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">20+</div>
+          <div class="kpi-label">национальностей авторов</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Метрика</th><th>Цель</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr><td>Индексация в Google</td><td>Все страницы стран и городов</td><td><span class="chip chip-orange">В процессе</span></td></tr>
+            <tr><td>Sitemap</td><td>Динамический, все локали</td><td><span class="chip chip-green">Готово</span></td></tr>
+            <tr><td>Время модерации отзыва</td><td>&lt; 24 часа</td><td><span class="chip chip-green">Готово (Telegram)</span></td></tr>
+            <tr><td>SSR без flash контента</td><td>Nationality из cookie на сервере</td><td><span class="chip chip-green">Готово</span></td></tr>
+            <tr><td>Мобильная версия</td><td>Полная адаптация</td><td><span class="chip chip-orange">В процессе</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. Features -->
+    <section class="section" id="features">
+      <h2 class="section-title"><span class="num">05</span>Ключевые функции</h2>
+
+      <h3>Система отзывов</h3>
+      <p>Отзыв состоит из структурированных оценок по 9 категориям (1–5 звёзд) и опциональных текстовых комментариев. Общая оценка вычисляется автоматически как среднее категориальных оценок (без поля "overall").</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Категория</th><th>Что оценивается</th></tr></thead>
+          <tbody>
+            <tr><td>🛡️ Легализация</td><td>Визы, ВНЖ, процесс легализации</td></tr>
+            <tr><td>💰 Стоимость жизни</td><td>Аренда, еда, транспорт</td></tr>
+            <tr><td>🔒 Безопасность</td><td>Криминал, ощущение безопасности</td></tr>
+            <tr><td>📋 Бюрократия</td><td>Документы, гос. услуги</td></tr>
+            <tr><td>☁️ Погода</td><td>Климат, сезонность</td></tr>
+            <tr><td>💬 Языковой барьер</td><td>Общение с местными, знание английского</td></tr>
+            <tr><td>✨ Чистота</td><td>Чистота улиц, экология</td></tr>
+            <tr><td>❤️ Здравоохранение</td><td>Медицина, страховка, доступность</td></tr>
+            <tr><td>⭐ Общая оценка</td><td>Субъективная итоговая оценка</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Фильтрация по национальности</h3>
+      <p>Выбранная национальность сохраняется в cookie <code>nv_nationality</code> и применяется на SSR. Пользователь может включить режим "показать все отзывы" без перезагрузки страницы.</p>
+
+      <h3>Агрегация статистики</h3>
+      <p>Таблицы <code>country_stats</code> и <code>city_stats</code> обновляются PostgreSQL-триггером при каждом INSERT или UPDATE отзыва. Хранят средние значения по каждой категории в разрезе национальности.</p>
+    </section>
+
+    <!-- 6. User flow -->
+    <section class="section" id="flow">
+      <h2 class="section-title"><span class="num">06</span>User flow — написание отзыва</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-dot">1</div>
+          <div class="flow-body">
+            <strong>Выбор страны и национальности</strong>
+            <span>Пользователь указывает свою национальность и страну, о которой пишет</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">2</div>
+          <div class="flow-body">
+            <strong>Заполнение категорий</strong>
+            <span>Оценки по звёздам и опциональные текстовые комментарии для каждой категории</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">3</div>
+          <div class="flow-body">
+            <strong>Дополнительные детали</strong>
+            <span>Цель пребывания, город, климат, статус (ещё там / уже уехал)</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">4</div>
+          <div class="flow-body">
+            <strong>Отправка → is_approved: false</strong>
+            <span>Отзыв сохраняется со статусом "на модерации", уведомление идёт в Telegram</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">5</div>
+          <div class="flow-body">
+            <strong>Модерация в Telegram</strong>
+            <span>Администратор апрувит или отклоняет одной кнопкой</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-dot">6</div>
+          <div class="flow-body">
+            <strong>Публикация</strong>
+            <span>is_approved: true → триггер пересчитывает статистику → отзыв появляется на сайте</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Moderation -->
+    <section class="section" id="moderation">
+      <h2 class="section-title"><span class="num">07</span>Система модерации</h2>
+      <p>Все новые отзывы проходят ручную модерацию через Telegram-бота.</p>
+      <div class="callout">
+        <strong>Поток:</strong> Новый отзыв (INSERT) → PostgreSQL-триггер → Nuxt API route <code>/api/webhook/review</code> → Telegram-сообщение с кнопками → Нажатие кнопки → <code>/api/webhook/telegram</code> → UPDATE <code>is_approved</code> в Supabase
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Компонент</th><th>Описание</th></tr></thead>
+          <tbody>
+            <tr><td><code>on_review_insert_telegram</code></td><td>PostgreSQL-триггер на INSERT в таблице reviews</td></tr>
+            <tr><td><code>/api/webhook/review</code></td><td>Получает данные из Supabase, отправляет сообщение в Telegram</td></tr>
+            <tr><td><code>/api/webhook/telegram</code></td><td>Получает callback от кнопок, обновляет is_approved через service_role key</td></tr>
+            <tr><td>SUPABASE_WEBHOOK_SECRET</td><td>Защита endpoint от несанкционированных запросов</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 8. Stack -->
+    <section class="section" id="stack">
+      <h2 class="section-title"><span class="num">08</span>Технический стек</h2>
+      <h3>Frontend</h3>
+      <div class="stack-row">
+        <span class="stack-badge">Nuxt 4</span>
+        <span class="stack-badge">Vue 3</span>
+        <span class="stack-badge">TypeScript</span>
+        <span class="stack-badge">Pinia</span>
+        <span class="stack-badge">PrimeVue 4 (Aura)</span>
+        <span class="stack-badge">@nuxtjs/i18n</span>
+        <span class="stack-badge">@nuxtjs/sitemap v8</span>
+      </div>
+      <h3>Backend / Инфраструктура</h3>
+      <div class="stack-row">
+        <span class="stack-badge">Supabase PostgreSQL</span>
+        <span class="stack-badge">Supabase Auth</span>
+        <span class="stack-badge">pg_net (HTTP из триггеров)</span>
+        <span class="stack-badge">Vercel (деплой)</span>
+        <span class="stack-badge">Telegram Bot API</span>
+      </div>
+      <h3>Ключевые архитектурные решения</h3>
+      <ul>
+        <li>Nationality хранится в cookie <code>nv_nationality</code> — доступна на SSR без клиентского flash</li>
+        <li>Статистика преагрегирована в <code>country_stats</code> / <code>city_stats</code> — нет тяжёлых агрегатных запросов на чтение</li>
+        <li>City page: единый <code>useAsyncData</code> вместо cascade — устраняет race condition city → reviews</li>
+        <li>Рейтинг = среднее категориальных полей, исключая поле "overall" — консистентно во всех местах</li>
+      </ul>
+    </section>
+
+    <!-- 9. Pages -->
+    <section class="section" id="pages">
+      <h2 class="section-title"><span class="num">09</span>Страницы</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>URL</th><th>Описание</th><th>SSR</th></tr></thead>
+          <tbody>
+            <tr><td><code>/</code></td><td>Главная: hero, trending, категории, последние отзывы</td><td><span class="chip chip-green">Да</span></td></tr>
+            <tr><td><code>/countries</code></td><td>Список всех стран с фильтрами, сортировкой и видом</td><td><span class="chip chip-green">Да</span></td></tr>
+            <tr><td><code>/country/[slug]</code></td><td>Детальная страница страны с отзывами по национальности</td><td><span class="chip chip-green">Да</span></td></tr>
+            <tr><td><code>/country/[slug]/[city]</code></td><td>Страница города внутри страны</td><td><span class="chip chip-green">Да</span></td></tr>
+            <tr><td><code>/reviews</code></td><td>Лента всех последних отзывов</td><td><span class="chip chip-gray">Client</span></td></tr>
+            <tr><td><code>/review/new</code></td><td>Форма написания отзыва (3 шага)</td><td><span class="chip chip-gray">Client</span></td></tr>
+            <tr><td><code>/categories</code></td><td>Обзор всех категорий оценки</td><td><span class="chip chip-green">Да</span></td></tr>
+            <tr><td><code>/compare</code></td><td>Сравнение стран</td><td><span class="chip chip-green">Да</span></td></tr>
+            <tr><td><code>/about</code></td><td>О проекте</td><td><span class="chip chip-green">Да</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 10. i18n -->
+    <section class="section" id="i18n">
+      <h2 class="section-title"><span class="num">10</span>Локализация</h2>
+      <p>Три языка с префиксной маршрутизацией через <code>@nuxtjs/i18n</code>:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Язык</th><th>Код</th><th>URL prefix</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr><td>Украинский</td><td>uk</td><td><code>/</code> (default)</td><td><span class="chip chip-green">Основной</span></td></tr>
+            <tr><td>Английский</td><td>en</td><td><code>/en/</code></td><td><span class="chip chip-green">Готово</span></td></tr>
+            <tr><td>Русский</td><td>ru</td><td><code>/ru/</code></td><td><span class="chip chip-green">Готово</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 11. Out of scope -->
+    <section class="section" id="scope">
+      <h2 class="section-title"><span class="num">11</span>Вне скоупа v1</h2>
+      <ul>
+        <li>Авторизация пользователей и личные кабинеты</li>
+        <li>Система лайков / полезных отзывов (заглушка в коде)</li>
+        <li>Уведомления для авторов об апруве отзыва</li>
+        <li>Платная подписка или монетизация</li>
+        <li>Мобильное приложение</li>
+        <li>API для внешних разработчиков</li>
+        <li>Google Analytics (обсуждается)</li>
+        <li>Captcha на форме отзыва</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  function scrollTo(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+</script>

