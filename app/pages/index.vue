@@ -2,7 +2,7 @@
   <div class="home-page">
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-map-overlay" />
+      <HomeHeroMapOverlay class="hero-map-overlay" />
       <div class="hero-visual-bg">
         <img
           class="bg-img"
@@ -42,11 +42,36 @@
 
       <div class="hero-grid">
         <div class="hero-copy">
-          <h1>
-            {{ $t('homepage.hero.title') }}<br>
-            <span class="accent">{{ $t('homepage.hero.titleAccent') }}</span>
-          </h1>
-          <p class="lead">{{ $t('homepage.hero.subtitle') }}</p>
+          <div class="hero-mobile-banner">
+            <div class="hero-mobile-bg" aria-hidden="true">
+              <HomeHeroMapOverlay class="hero-mobile-map" />
+              <img
+                class="hero-mobile-img"
+                src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=1200&auto=format&fit=crop"
+                alt=""
+              >
+            </div>
+
+            <div class="hero-mobile-inner">
+              <h1>
+                {{ $t('homepage.hero.title') }}<br>
+                <span class="accent">{{ $t('homepage.hero.titleAccent') }}</span>
+              </h1>
+              <p class="lead">{{ $t('homepage.hero.subtitle') }}</p>
+            </div>
+
+            <div v-if="heroFloatCountries.length" class="hero-mobile-chips">
+              <div
+                v-for="c in heroFloatCountries.slice(0, 3)"
+                :key="c.code"
+                class="hero-mobile-chip"
+              >
+                <span class="hero-mobile-chip-flag">{{ getFlagEmoji(c.code) }}</span>
+                <span class="hero-mobile-chip-name">{{ getCountryNameLocalized(c.code) }}</span>
+                <span class="hero-mobile-chip-rating">★ {{ c.avgRating }}</span>
+              </div>
+            </div>
+          </div>
 
           <div class="stat-row">
             <div class="stat-pill">
@@ -82,13 +107,15 @@
               </button>
             </div>
             <div v-if="popularCountries.length" class="popular-line">
-              {{ $t('homepage.hero.popularTags') }}
-              <NuxtLinkLocale
-                v-for="c in popularCountries"
-                :key="c.code"
-                class="tag"
-                :to="`/country/${c.code.toLowerCase()}`"
-              >{{ getCountryNameLocalized(c.code) }}</NuxtLinkLocale>
+              <span>{{ $t('homepage.hero.popularTags') }}</span>
+              <div class="popular-tags-row">
+                <NuxtLinkLocale
+                  v-for="c in popularCountries"
+                  :key="c.code"
+                  class="tag"
+                  :to="`/country/${c.code.toLowerCase()}`"
+                >{{ getCountryNameLocalized(c.code) }}</NuxtLinkLocale>
+              </div>
             </div>
           </form>
         </div>
@@ -277,6 +304,7 @@
 <script setup lang="ts">
 import { APP_URL } from '~/utils/appConfig'
 import { countryToSlug, getCountryName, getFlagEmoji, timeAgo } from '~/utils/countries'
+import { getCountryImage } from '~/utils/countryImages'
 import { codeToMapName } from '~/utils/worldMapGeo'
 
 interface MapReviewEntry {
@@ -376,21 +404,6 @@ function reviewSnippet(review: any): string {
   return text.length > 120 ? text.slice(0, 120) + '…' : text
 }
 
-const COUNTRY_IMAGES: Record<string, string> = {
-  PT: 'https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=500&auto=format&fit=crop',
-  ES: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=500&auto=format&fit=crop',
-  DE: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=500&auto=format&fit=crop',
-  PL: 'https://images.unsplash.com/photo-1519197924294-4ba991a11128?q=80&w=500&auto=format&fit=crop',
-  NL: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?q=80&w=500&auto=format&fit=crop',
-  FR: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=500&auto=format&fit=crop',
-  IT: 'https://images.unsplash.com/photo-1523906839108-527294f1a8a7?q=80&w=500&auto=format&fit=crop',
-}
-const DEFAULT_COUNTRY_IMAGE = COUNTRY_IMAGES.PT
-
-function getCountryImage(code: string): string {
-  return COUNTRY_IMAGES[code.toUpperCase()] ?? DEFAULT_COUNTRY_IMAGE
-}
-
 function handleSubmit() {
   if (!nationality.value || !targetCountry.value) return
   store.setNationality(nationality.value)
@@ -471,12 +484,6 @@ function handleSubmit() {
   color: inherit;
 }
 
-.topic-card {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
 .topics-grid :deep(.cat-card) {
   border: 1px solid var(--line, #EAE7F5);
   border-radius: var(--radius-md, 14px);
@@ -488,14 +495,6 @@ function handleSubmit() {
   transform: translateY(-3px);
 }
 
-.topics-grid {
-  grid-template-columns: repeat(4, 1fr);
-}
-
-@media (max-width: 1100px) {
-  .topics-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
 .trust-label {
   font-weight: 700;
   font-size: 13px;
@@ -503,8 +502,24 @@ function handleSubmit() {
   margin-bottom: 12px;
 }
 
-@media (max-width: 640px) {
-  .container { padding: 0 16px; }
-  .finder-fields { grid-template-columns: 1fr; }
+/* Full-bleed horizontal scroll on mobile */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .finder-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .finder-fields .btn.btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cta-banner .btn.btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>
