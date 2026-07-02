@@ -14,6 +14,8 @@ export default {
     resetFilters: 'Reset filters',
     continue: 'Continue',
     apply: 'Apply',
+    scrollLeft: 'Scroll left',
+    scrollRight: 'Scroll right',
   },
   labels: {
     reviews: 'reviews',

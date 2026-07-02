@@ -48,6 +48,11 @@ export default {
     seeAll: 'See all',
     vs: 'VS',
   },
+  promo: {
+    title: 'Find your dream country',
+    subtitle: 'Real expat reviews — no ads, no marketing',
+    cta: 'Write a review',
+  },
   cta: {
     title: 'Your experience can help others!',
     subtitle: 'Share your story and help those who are planning a move.',

@@ -165,7 +165,19 @@
 .flag-pl { top: 22%; right: 4%; animation-delay: .9s; }
 .flag-pt { top: 32%; right: 32%; }
 @keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-9px);} }
-.home-page .fc-flag { display: flex; align-items: center; gap: 7px; font-weight: 800; font-family: 'Manrope'; margin-bottom: 4px; }
+.home-page .fc-flag { display: flex; align-items: center; gap: 7px; font-weight: 800; font-family: 'Manrope', sans-serif; margin-bottom: 4px; }
+.home-page .fc-flag-emoji,
+.home-page .compare-flag-emoji,
+.home-page .cc-title-flag,
+.home-page .hero-mobile-chip-flag {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.home-page .fc-flag-name,
+.home-page .hero-mobile-chip-name {
+  font-family: 'Manrope', sans-serif;
+}
 .home-page .fc-rating { display: flex; align-items: center; gap: 4px; color: var(--amber); font-weight: 700; font-size: 14px; }
 .home-page .fc-rating span { color: var(--ink); font-weight: 800; }
 .home-page .fc-sub { color: var(--ink-soft); font-size: 12px; margin-top: 2px; }
@@ -288,11 +300,9 @@
 
 /* ---------- Country cards ---------- */
 .home-page .card-scroller {
-  display: grid; grid-auto-flow: column; grid-auto-columns: 240px;
-  gap: 20px; overflow-x: auto; padding-bottom: 12px;
-  scrollbar-width: none;
+  display: flex;
+  gap: 20px;
 }
-.home-page .card-scroller::-webkit-scrollbar { display: none; }
 .home-page .country-card {
   border: 1px solid var(--line); border-radius: var(--radius-md);
   overflow: hidden; background: white;
@@ -309,7 +319,8 @@
   display: flex; flex-direction: column; justify-content: flex-end;
   padding: 16px; color: white;
 }
-.home-page .cc-title { font-family: 'Manrope'; font-weight: 800; font-size: 16px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.home-page .cc-title { font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 16px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.home-page .cc-title-name { font-family: 'Manrope', sans-serif; }
 .home-page .cc-rating-row { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8); }
 .home-page .cc-rating { display: flex; align-items: center; gap: 4px; color: white; font-weight: 700; font-size: 13.5px; }
 .home-page .cc-rating .stars { color: var(--amber); }
@@ -319,7 +330,78 @@
 .home-page .cc-metric-lab { color: var(--ink-soft); font-size: 10px; }
 
 /* ---------- Map + compare + reviews grid ---------- */
-.home-page .tri-grid { display:grid; grid-template-columns:1.15fr 1fr 1fr; gap:20px; align-items:start; }
+.home-page .tri-grid { display:grid; grid-template-columns:1.15fr 1fr 1fr; gap:20px; align-items:stretch; }
+.home-page .map-panel-below { margin-top: 20px; }
+.home-page .promo-panel {
+  position: relative;
+  display: block;
+  min-height: 280px;
+  text-decoration: none;
+  color: white;
+  overflow: hidden;
+}
+.home-page .promo-panel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s;
+}
+.home-page .promo-panel:hover .promo-panel-img { transform: scale(1.05); }
+.home-page .promo-panel-overlay {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 22px 20px;
+  background: linear-gradient(180deg, rgba(26, 23, 48, 0.1) 0%, rgba(26, 23, 48, 0.78) 100%);
+}
+.home-page .promo-panel-badge {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+.home-page .promo-panel-overlay h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+.home-page .promo-panel-overlay p {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 12px;
+}
+.home-page .promo-panel-cta {
+  font-size: 13px;
+  font-weight: 800;
+  color: white;
+}
+.home-page .trending-scroller .h-scroll-track { padding: 0 2px 12px; }
+.home-page .hero-chips-scroller .h-scroll-track { padding-bottom: 0; }
+.home-page .trending-scroller .card-scroller {
+  display: flex;
+  gap: 20px;
+  overflow: visible;
+  padding-bottom: 0;
+}
+.home-page .trending-scroller .card-scroller > * {
+  flex: 0 0 240px;
+  width: 240px;
+}
 .home-page .panel {
   border:1px solid var(--line); border-radius:var(--radius-md);
   background:white; overflow:hidden;
@@ -359,7 +441,7 @@
 .home-page .map-hint { padding:10px 18px 16px; font-size:11.5px; color:var(--ink-soft); }
 /* compare panel */
 .home-page .compare-head-row { display:flex; align-items:center; gap:10px; padding:16px 18px 12px; }
-.home-page .compare-flag { display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px; font-family:'Manrope'; }
+.home-page .compare-flag { display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px; font-family:'Manrope', sans-serif; }
 .home-page .compare-vs { font-size:11px; color:var(--ink-soft); font-weight:700; }
 .home-page .compare-rows { padding:0 18px 18px; }
 .home-page .cmp-row { display:flex; align-items:center; justify-content:space-between; padding:9px 0; font-size:13px; border-top:1px solid var(--line); }
@@ -464,7 +546,7 @@
   display: contents;
 }
 .home-page .hero-mobile-bg,
-.home-page .hero-mobile-chips {
+.home-page .hero-mobile-chips-wrap {
   display: none;
 }
 .home-page .hero-mobile-inner {
@@ -540,17 +622,22 @@
     margin-bottom: 0;
     max-width: none;
   }
-  .home-page .hero-mobile-chips {
-    display: flex;
+  .home-page .hero-mobile-chips-wrap {
+    display: block;
     position: relative;
     z-index: 2;
-    gap: 8px;
-    padding: 4px 14px 14px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    padding: 4px 10px 14px;
   }
-  .home-page .hero-mobile-chips::-webkit-scrollbar { display: none; }
+  .home-page .hero-chips-scroller .h-scroll-track {
+    padding-bottom: 0;
+  }
+  .home-page .hero-mobile-chips {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+    padding: 0 4px;
+    overflow: visible;
+  }
   .home-page .hero-mobile-chip {
     flex: 0 0 auto;
     display: flex;
@@ -671,20 +758,19 @@
     line-height: 1.2;
   }
 
-  .home-page .card-scroller {
-    grid-auto-flow: row;
-    grid-auto-columns: unset;
-    grid-template-columns: 1fr;
+  .home-page .trending-scroller .card-scroller {
+    flex-direction: row;
     gap: 14px;
     overflow: visible;
-    padding-bottom: 0;
-    scroll-snap-type: none;
   }
-  .home-page .card-scroller > * {
-    width: 100%;
+  .home-page .trending-scroller .card-scroller > * {
+    flex: 0 0 78vw;
+    width: 78vw;
+    max-width: 280px;
   }
-  .home-page .country-card {
-    scroll-snap-align: unset;
+  .home-page .promo-panel,
+  .home-page .promo-panel-overlay {
+    min-height: 220px;
   }
   .home-page .cc-img {
     height: 140px;

@@ -19,7 +19,10 @@
             class="float-card"
             :class="floatClasses[idx]"
           >
-            <div class="fc-flag">{{ getFlagEmoji(c.code) }} {{ getCountryNameLocalized(c.code) }}</div>
+            <div class="fc-flag">
+              <span class="fc-flag-emoji">{{ getFlagEmoji(c.code) }}</span>
+              <span class="fc-flag-name">{{ getCountryNameLocalized(c.code) }}</span>
+            </div>
             <div class="fc-rating">★ <span>{{ c.avgRating }}</span></div>
             <template v-if="idx === 2">
               <div class="fc-sub">{{ c.total }} {{ $t('common.labels.reviews') }}</div>
@@ -60,16 +63,20 @@
               <p class="lead">{{ $t('homepage.hero.subtitle') }}</p>
             </div>
 
-            <div v-if="heroFloatCountries.length" class="hero-mobile-chips">
-              <div
-                v-for="c in heroFloatCountries.slice(0, 3)"
-                :key="c.code"
-                class="hero-mobile-chip"
-              >
-                <span class="hero-mobile-chip-flag">{{ getFlagEmoji(c.code) }}</span>
-                <span class="hero-mobile-chip-name">{{ getCountryNameLocalized(c.code) }}</span>
-                <span class="hero-mobile-chip-rating">★ {{ c.avgRating }}</span>
-              </div>
+            <div v-if="heroFloatCountries.length" class="hero-mobile-chips-wrap">
+              <HorizontalScroller class="hero-chips-scroller">
+                <div class="hero-mobile-chips">
+                  <div
+                    v-for="c in heroFloatCountries.slice(0, 3)"
+                    :key="c.code"
+                    class="hero-mobile-chip"
+                  >
+                    <span class="hero-mobile-chip-flag">{{ getFlagEmoji(c.code) }}</span>
+                    <span class="hero-mobile-chip-name">{{ getCountryNameLocalized(c.code) }}</span>
+                    <span class="hero-mobile-chip-rating">★ {{ c.avgRating }}</span>
+                  </div>
+                </div>
+              </HorizontalScroller>
             </div>
           </div>
 
@@ -132,13 +139,16 @@
           </div>
         </div>
 
-        <div v-if="trendingPending" class="card-scroller">
-          <Skeleton v-for="i in 5" :key="i" width="240px" height="280px" style="border-radius: 14px; flex-shrink: 0" />
-        </div>
+        <HorizontalScroller v-if="trendingPending" class="trending-scroller">
+          <div class="card-scroller">
+            <Skeleton v-for="i in 5" :key="i" width="240px" height="280px" style="border-radius: 14px; flex-shrink: 0" />
+          </div>
+        </HorizontalScroller>
         <Message v-else-if="!trending?.length" severity="info" :closable="false">
           {{ $t('homepage.trending.empty') }}
         </Message>
-        <div v-else class="card-scroller">
+        <HorizontalScroller v-else class="trending-scroller">
+          <div class="card-scroller">
           <NuxtLinkLocale
             v-for="item in trending"
             :key="item.code"
@@ -148,7 +158,10 @@
             <div class="cc-img">
               <img :src="getCountryImage(item.code)" :alt="getCountryNameLocalized(item.code)">
               <div class="cc-img-overlay">
-                <div class="cc-title">{{ getFlagEmoji(item.code) }} {{ getCountryNameLocalized(item.code) }}</div>
+                <div class="cc-title">
+                  <span class="cc-title-flag">{{ getFlagEmoji(item.code) }}</span>
+                  <span class="cc-title-name">{{ getCountryNameLocalized(item.code) }}</span>
+                </div>
                 <div class="cc-rating-row">
                   <div class="cc-rating"><span class="stars">★</span> {{ item.avgRating }}</div>
                   <div>{{ item.total }} {{ $t('common.labels.reviews') }}</div>
@@ -172,27 +185,26 @@
               </div>
             </div>
           </NuxtLinkLocale>
-        </div>
+          </div>
+        </HorizontalScroller>
       </section>
 
-      <!-- MAP + COMPARE + REVIEWS -->
+      <!-- PROMO + COMPARE + REVIEWS -->
       <section class="section" style="padding-top: 0">
         <div class="tri-grid">
-          <div class="panel">
-            <div class="panel-head"><h3>{{ $t('homepage.map.title') }}</h3></div>
-            <HomeWorldMap :review-data="mapReviewData" />
-            <div class="map-legend">
-              <div class="map-legend-item">
-                <span class="map-legend-swatch" style="background:#B9A8ED" />
-                {{ $t('homepage.map.legendHasData') }}
-              </div>
-              <div class="map-legend-item">
-                <span class="map-legend-swatch" style="background:#E7E4F3" />
-                {{ $t('homepage.map.legendNoData') }}
-              </div>
+          <NuxtLinkLocale to="/review/new" class="panel promo-panel">
+            <img
+              class="promo-panel-img"
+              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=900&auto=format&fit=crop"
+              alt=""
+            >
+            <div class="promo-panel-overlay">
+              <div class="promo-panel-badge">Triplandr</div>
+              <h3>{{ $t('homepage.promo.title') }}</h3>
+              <p>{{ $t('homepage.promo.subtitle') }}</p>
+              <span class="promo-panel-cta">{{ $t('homepage.promo.cta') }} →</span>
             </div>
-            <div class="map-hint">{{ $t('homepage.map.hint') }}</div>
-          </div>
+          </NuxtLinkLocale>
 
           <div class="panel">
             <div class="panel-head">
@@ -201,9 +213,15 @@
             </div>
             <template v-if="comparePair.length === 2">
               <div class="compare-head-row">
-                <div class="compare-flag">{{ getFlagEmoji(comparePair[0].code) }} {{ getCountryNameLocalized(comparePair[0].code) }}</div>
+                <div class="compare-flag">
+                  <span class="compare-flag-emoji">{{ getFlagEmoji(comparePair[0].code) }}</span>
+                  <span>{{ getCountryNameLocalized(comparePair[0].code) }}</span>
+                </div>
                 <div class="compare-vs">{{ $t('homepage.compare.vs') }}</div>
-                <div class="compare-flag">{{ getFlagEmoji(comparePair[1].code) }} {{ getCountryNameLocalized(comparePair[1].code) }}</div>
+                <div class="compare-flag">
+                  <span class="compare-flag-emoji">{{ getFlagEmoji(comparePair[1].code) }}</span>
+                  <span>{{ getCountryNameLocalized(comparePair[1].code) }}</span>
+                </div>
               </div>
               <div class="compare-rows">
                 <div class="cmp-row">
@@ -246,6 +264,22 @@
               {{ $t('homepage.latest.empty') }}
             </Message>
           </div>
+        </div>
+
+        <div class="panel map-panel-below">
+          <div class="panel-head"><h3>{{ $t('homepage.map.title') }}</h3></div>
+          <HomeWorldMap :review-data="mapReviewData" />
+          <div class="map-legend">
+            <div class="map-legend-item">
+              <span class="map-legend-swatch" style="background:#B9A8ED" />
+              {{ $t('homepage.map.legendHasData') }}
+            </div>
+            <div class="map-legend-item">
+              <span class="map-legend-swatch" style="background:#E7E4F3" />
+              {{ $t('homepage.map.legendNoData') }}
+            </div>
+          </div>
+          <div class="map-hint">{{ $t('homepage.map.hint') }}</div>
         </div>
       </section>
 

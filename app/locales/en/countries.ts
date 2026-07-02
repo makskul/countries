@@ -37,6 +37,10 @@ export default {
     viewReviews: 'View reviews',
     whatPeopleSay: 'What people say',
     recommend: 'Recommend',
+    sunnyDays: 'Sunny days',
+    match: 'Match: {percent}%',
+    compare: 'Compare',
+    favorite: 'Add to favorites',
   },
   empty: {
     title: 'Nothing found',

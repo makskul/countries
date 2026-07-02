@@ -37,6 +37,10 @@ export default {
     viewReviews: 'Смотреть отзывы',
     whatPeopleSay: 'Что говорят люди',
     recommend: 'Рекомендуют',
+    sunnyDays: 'Дней солнца',
+    match: 'Совпадение: {percent}%',
+    compare: 'Сравнить',
+    favorite: 'В избранное',
   },
   empty: {
     title: 'Ничего не найдено',

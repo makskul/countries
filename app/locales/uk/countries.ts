@@ -51,6 +51,10 @@ export default {
     viewReviews: 'Дивитися відгуки',
     whatPeopleSay: 'Що кажуть люди',
     recommend: 'Рекомендують',
+    sunnyDays: 'Днів сонця',
+    match: 'Збіг: {percent}%',
+    compare: 'Порівняти',
+    favorite: 'В обране',
   },
   empty: {
     title: 'Нічого не знайдено',

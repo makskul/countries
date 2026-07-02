@@ -1,9 +1,14 @@
 <template>
   <ClientOnly>
-    <div ref="mapWrapRef" class="map-wrap" :style="{ height: mapHeight, marginTop: mapHeight === '190px' ? '0' : '10px' }">
+    <div ref="mapWrapRef" class="map-wrap" :style="wrapStyle">
       <svg ref="svgRef" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" class="worldmap" />
       <div ref="tooltipRef" class="map-tooltip" :class="{ show: tooltipVisible }" v-html="tooltipHtml" />
     </div>
+    <template #fallback>
+      <div class="map-wrap map-wrap--placeholder" :style="wrapStyle">
+        <svg :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" class="worldmap" aria-hidden="true" />
+      </div>
+    </template>
   </ClientOnly>
 </template>
 
@@ -25,6 +30,11 @@ const props = withDefaults(defineProps<{
   viewBox: '0 0 1000 520',
   mapHeight: '390px',
 })
+
+const wrapStyle = computed(() => ({
+  height: props.mapHeight,
+  marginTop: props.mapHeight === '190px' || props.mapHeight === '280px' || props.mapHeight === '240px' ? '0' : '10px',
+}))
 
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
@@ -134,11 +144,8 @@ onMounted(() => buildMap())
   position: relative;
   background: #F8F7FC;
 }
-
-@media (max-width: 768px) {
-  .map-wrap {
-    height: 260px;
-  }
+.map-wrap--placeholder {
+  opacity: 0.65;
 }
 .worldmap {
   width: 100%;
