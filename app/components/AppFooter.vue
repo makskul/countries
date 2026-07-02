@@ -68,7 +68,7 @@
               :to="`/country/${code.toLowerCase()}`"
               class="fcol-link"
             >
-              {{ getFlagEmoji(code) }} {{ getCountryNameLocalized(code) }}
+              {{ getCountryNameLocalized(code) }}
             </NuxtLink>
           </template>
           <template v-else>
@@ -296,7 +296,7 @@ async function handleSubscribe() {
 .fcol-links { display: flex; flex-direction: column; gap: 9px; }
 .fcol-link {
   font-size: 13px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.80);
   text-decoration: none;
   cursor: pointer;
   transition: color 0.15s;
