@@ -1,6 +1,16 @@
 export default {
   title: 'All countries',
   subtitle: 'Choose a country and see reviews from people of your nationality',
+  hero: {
+    lead: 'Choose a country to live in and discover opinions from people of your nationality',
+    seeReview: 'Read review',
+  },
+  stats: {
+    countries: 'countries',
+    reviews: 'reviews',
+    nationalities: 'nationalities',
+    lastReview: 'last review',
+  },
   viewingAs: 'Viewing as:',
   filters: {
     search: 'Search country...',
@@ -10,7 +20,37 @@ export default {
     sort: { popular: 'Popular', ratingDesc: 'Best rating', ratingAsc: 'Worst rating', reviewsDesc: 'Most reviews', recent: 'Recently added' },
     regions: { all: 'All regions', europe: 'Europe', asia: 'Asia', americas: 'Americas', africa: 'Africa', oceania: 'Oceania', other: 'Other' },
   },
-  card: { reviews: '{count} reviews', hasReviews: 'Has reviews for you', noReviews: 'No reviews for your nationality' },
-  empty: { message: 'No countries found — try changing filters', reset: 'Reset filters' },
+  pills: {
+    all: '🌍 All countries',
+    visa: '🛂 Visas & residency',
+    cost: '💰 Cost of living',
+    safety: '🛡️ Safety',
+    climate: '☀️ Climate',
+    health: '❤️ Healthcare',
+    work: '💼 Work & business',
+  },
+  view: { grid: 'Grid', list: 'List' },
+  card: {
+    reviews: '{count} reviews',
+    hasReviews: 'Has reviews for you',
+    noReviews: 'No reviews for your nationality',
+    viewReviews: 'View reviews',
+    whatPeopleSay: 'What people say',
+    recommend: 'Recommend',
+  },
+  empty: {
+    title: 'Nothing found',
+    message: 'No countries found — try changing filters',
+    reset: 'Reset filters',
+  },
+  ai: {
+    title: 'Not sure which country to choose?',
+    subtitle: 'Take a short quiz and get personalized recommendations based on your goals and preferences.',
+    cta: '✨ Find my country',
+    howTitle: 'How it works',
+    step1: 'Answer 8 questions about your goals and preferences',
+    step2: 'AI analyzes the data and picks the best countries',
+    step3: 'Get a list of countries and compare them',
+  },
   dialog: { title: 'Select nationality first', subtitle: 'To see filtered reviews, tell us your nationality.' },
 }

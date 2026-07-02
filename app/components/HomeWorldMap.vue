@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
-    <div ref="mapWrapRef" class="map-wrap">
-      <svg ref="svgRef" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" class="worldmap" />
+    <div ref="mapWrapRef" class="map-wrap" :style="{ height: mapHeight, marginTop: mapHeight === '190px' ? '0' : '10px' }">
+      <svg ref="svgRef" :viewBox="viewBox" preserveAspectRatio="xMidYMid meet" class="worldmap" />
       <div ref="tooltipRef" class="map-tooltip" :class="{ show: tooltipVisible }" v-html="tooltipHtml" />
     </div>
   </ClientOnly>
@@ -17,9 +17,14 @@ export interface MapReviewEntry {
   reviews: number
 }
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   reviewData: Record<string, MapReviewEntry>
-}>()
+  viewBox?: string
+  mapHeight?: string
+}>(), {
+  viewBox: '0 0 1000 520',
+  mapHeight: '390px',
+})
 
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
@@ -127,9 +132,13 @@ onMounted(() => buildMap())
 <style scoped>
 .map-wrap {
   position: relative;
-  height: 390px;
-  margin-top: 10px;
   background: #F8F7FC;
+}
+
+@media (max-width: 768px) {
+  .map-wrap {
+    height: 260px;
+  }
 }
 .worldmap {
   width: 100%;

@@ -1,113 +1,237 @@
 <template>
-  <div class="cgc" @click="$emit('click')">
-    <!-- Top row -->
-    <div class="cgc-top">
-      <span class="cgc-flag">{{ flag }}</span>
-      <div class="cgc-info">
-        <span class="cgc-name">{{ getCountryNameLocalized(country.code) }}</span>
-        <span class="cgc-region">{{ $t(`countries.filters.regions.${country.region}`) }}</span>
+  <div
+    class="gcard"
+    :class="{ 'gcard--list': list }"
+    @click="$emit('click')"
+  >
+    <div class="gc-img">
+      <img :src="image" :alt="name">
+      <div v-if="country.hasNatReviews" class="gc-badge-match">
+        {{ $t('countries.card.hasReviews') }}
       </div>
     </div>
-
-    <!-- Rating row -->
-    <div class="cgc-rating">
-      <Rating :modelValue="country.avgRating" readonly :cancel="false" :stars="5" />
-      <span class="cgc-score">{{ country.avgRating }}</span>
-      <span class="cgc-count">({{ country.totalReviews }} {{ $t('common.labels.reviews') }})</span>
-    </div>
-
-    <!-- Selected category mini-bars -->
-    <div class="cgc-bars">
-      <div v-for="cat in pinnedCats" :key="cat.category" class="cgc-bar-row">
-        <span class="cgc-bar-label">{{ $t(`categories.${cat.category}.name`) }}</span>
-        <div class="cgc-bar-track">
-          <div v-if="cat.avg !== null" class="cgc-bar-fill" :style="{ width: (cat.avg / 5 * 100) + '%' }" />
+    <div class="gc-body">
+      <div class="gc-col-main">
+        <div class="gc-top">
+          <div class="gc-name">
+            <span>{{ flag }}</span>
+            {{ name }}
+          </div>
         </div>
-        <span class="cgc-bar-score">{{ cat.avg !== null ? cat.avg : '—' }}</span>
+        <div class="gc-region">{{ regionLabel }}</div>
+        <div class="gc-rating">
+          <span class="stars">★</span>
+          {{ country.avgRating || '—' }}
+        </div>
+        <div class="gc-reviews">
+          {{ $t('countries.card.reviews', { count: country.totalReviews }) }}
+        </div>
       </div>
-    </div>
 
-    <!-- Bottom nationality pill -->
-    <div class="cgc-nat">
-      <span v-if="country.hasNatReviews" class="nat-pill nat-pill--green">{{ $t('countries.card.hasReviews') }}</span>
-      <span v-else class="nat-pill nat-pill--gray">{{ $t('countries.card.noReviews') }}</span>
+      <div class="gc-col-metrics">
+        <div class="gc-metrics">
+          <div v-for="m in metrics" :key="m.key" class="gc-metric">
+            <div class="gc-metric-val">{{ m.value }}</div>
+            <div class="gc-metric-lab">{{ m.label }}</div>
+          </div>
+        </div>
+        <div v-if="!list && topCategories.length" class="gc-say">{{ $t('countries.card.whatPeopleSay') }}</div>
+        <div v-if="!list && topCategories.length" class="gc-tags">
+          <div v-for="cat in topCategories" :key="cat.category" class="gc-tag pos">
+            ✓ {{ $t(`categories.${cat.category}.name`) }} · {{ cat.avg }}
+          </div>
+        </div>
+      </div>
+
+      <div class="gc-actions">
+        <button type="button" class="gc-btn-primary" @click.stop="$emit('click')">
+          {{ $t('countries.card.viewReviews') }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { CountryStat } from '~/composables/useCountriesList'
+import { getCountryImage } from '~/utils/countryImages'
 import { getFlagEmoji } from '~/utils/countries'
 
-const props = defineProps<{ country: CountryStat }>()
+const props = withDefaults(defineProps<{
+  country: CountryStat
+  list?: boolean
+}>(), {
+  list: false,
+})
+
 defineEmits<{ click: [] }>()
 
-const flag = computed(() => getFlagEmoji(props.country.code))
+const { t } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
 
-const PINNED = ['safety', 'overall', 'cost_of_living']
-const pinnedCats = computed(() =>
-  PINNED.map(key => {
-    const found = props.country.categoryStats.find(c => c.category === key)
-    return { category: key, avg: found?.avg ?? null }
-  })
+const flag = computed(() => getFlagEmoji(props.country.code))
+const name = computed(() => getCountryNameLocalized(props.country.code))
+const image = computed(() => getCountryImage(props.country.code))
+const regionLabel = computed(() => t(`countries.filters.regions.${props.country.region}`))
+
+function catAvg(key: string): number | null {
+  return props.country.categoryStats.find(c => c.category === key)?.avg ?? null
+}
+
+function fmt(val: number | null): string {
+  return val !== null ? String(val) : '—'
+}
+
+const metrics = computed(() => [
+  { key: 'cost_of_living', value: fmt(catAvg('cost_of_living')), label: t('categories.cost_of_living.name') },
+  { key: 'safety', value: fmt(catAvg('safety')), label: t('categories.safety.name') },
+  { key: 'weather', value: fmt(catAvg('weather')), label: t('categories.weather.name') },
+  {
+    key: 'overall',
+    value: catAvg('overall') !== null ? `${Math.round((catAvg('overall')! / 5) * 100)}%` : '—',
+    label: t('countries.card.recommend'),
+  },
+])
+
+const topCategories = computed(() =>
+  [...props.country.categoryStats]
+    .filter(c => c.category !== 'overall')
+    .sort((a, b) => b.avg - a.avg)
+    .slice(0, 2)
 )
 </script>
 
 <style scoped>
-.cgc {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 16px;
+.gcard {
+  border: 1px solid var(--line, #EAE7F5);
+  border-radius: 14px;
+  background: white;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
-  transition: box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
-.cgc:hover { box-shadow: var(--shadow-hover); }
+.gcard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(42, 27, 107, 0.08);
+}
 
-.cgc-top { display: flex; align-items: center; gap: 10px; }
-.cgc-flag { font-size: 28px; line-height: 1; flex-shrink: 0; }
-.cgc-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.cgc-name { font-size: 15px; font-weight: 600; color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cgc-region {
+.gc-img {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+.gc-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.gcard:hover .gc-img img { transform: scale(1.06); }
+
+.gc-badge-match {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  background: rgba(31, 170, 107, 0.94);
+  color: white;
   font-size: 11px;
-  background: var(--color-bg-tertiary);
-  color: var(--color-text-muted);
-  border-radius: var(--radius-pill);
-  padding: 2px 7px;
-  display: inline-block;
-  width: fit-content;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 100px;
 }
 
-.cgc-rating { display: flex; align-items: center; gap: 8px; }
-.cgc-score { font-size: 15px; font-weight: 600; color: var(--color-text); }
-.cgc-count { font-size: 12px; color: var(--color-text-muted); }
-
-.cgc-bars {
+.gc-body { padding: 16px; }
+.gc-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 3px; }
+.gc-name {
+  font-size: 17px;
+  font-weight: 800;
+  font-family: 'Manrope', sans-serif;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-md);
-  padding: 10px 12px;
+  align-items: center;
+  gap: 7px;
 }
-.cgc-bar-row { display: flex; align-items: center; gap: 6px; }
-.cgc-bar-label { font-size: 11px; color: var(--color-text-secondary); width: 90px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cgc-bar-track { flex: 1; height: 4px; background: #d0d5dd; border-radius: 2px; overflow: hidden; }
-.cgc-bar-fill { height: 100%; background: var(--color-primary); border-radius: 2px; transition: width 0.4s ease; }
-.cgc-bar-score { font-size: 11px; color: var(--color-text-secondary); font-weight: 600; width: 24px; text-align: right; flex-shrink: 0; }
+.gc-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 800;
+  color: var(--ink, #1A1730);
+  font-size: 14px;
+  margin-top: 6px;
+}
+.gc-rating .stars { color: #F0A947; }
+.gc-region { font-size: 12px; color: var(--ink-soft, #5B5876); font-weight: 500; margin-bottom: 2px; }
+.gc-reviews { font-size: 11.5px; color: var(--ink-soft, #5B5876); margin-bottom: 14px; }
 
-.cgc-nat { margin-top: 2px; }
-.nat-pill {
-  font-size: 11px;
-  font-weight: 500;
-  border-radius: var(--radius-pill);
-  padding: 3px 9px;
-  display: inline-block;
+.gc-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 14px;
 }
-.nat-pill--green { background: var(--color-success-light); color: var(--color-success); }
-.nat-pill--gray { background: var(--color-bg-tertiary); color: var(--color-text-muted); }
+.gc-metric { text-align: center; }
+.gc-metric-val {
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--ink, #1A1730);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+.gc-metric-lab { font-size: 9.5px; color: var(--ink-soft, #5B5876); margin-top: 1px; }
+
+.gc-say { font-size: 11px; font-weight: 700; color: var(--ink-soft, #5B5876); margin-bottom: 8px; }
+.gc-tags { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.gc-tag { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+.gc-tag.pos { color: #1FAA6B; }
+
+.gc-actions { display: flex; gap: 8px; }
+.gc-btn-primary {
+  flex: 1;
+  justify-content: center;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  border-radius: 11px;
+  background: var(--purple-600, #6C4CE0);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(108, 76, 224, 0.32);
+  transition: background 0.15s, transform 0.15s;
+}
+.gc-btn-primary:hover { background: var(--purple-700, #5B3DE0); transform: translateY(-1px); }
+
+.gcard--list {
+  display: flex;
+  transform: none;
+}
+.gcard--list:hover { transform: none; }
+.gcard--list .gc-img {
+  width: 220px;
+  height: auto;
+  min-height: 160px;
+  flex-shrink: 0;
+}
+.gcard--list .gc-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.3fr 2fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 20px;
+}
+.gcard--list .gc-metrics { margin-bottom: 0; }
+.gcard--list .gc-tags,
+.gcard--list .gc-say { display: none; }
+.gcard--list .gc-reviews { margin-bottom: 0; }
+.gcard--list .gc-actions { flex-direction: column; }
+
+@media (max-width: 900px) {
+  .gcard--list .gc-body { grid-template-columns: 1fr; gap: 10px; }
+  .gcard--list .gc-img { width: 100%; height: 150px; }
+  .gcard--list { flex-direction: column; }
+}
 </style>
