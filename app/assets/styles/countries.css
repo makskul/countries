@@ -250,6 +250,24 @@
   overflow: hidden;
   flex-shrink: 0;
 }
+.countries-page .view-toggle .favorites-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-right: 1.5px solid var(--line);
+  white-space: nowrap;
+}
+.countries-page .view-toggle .favorites-toggle .pi {
+  font-size: 14px;
+}
+.countries-page .view-toggle .favorites-toggle-label {
+  font-size: 12px;
+  font-weight: 700;
+}
+@media (max-width: 640px) {
+  .countries-page .view-toggle .favorites-toggle-label { display: none; }
+}
 .countries-page .view-toggle button {
   padding: 10px 12px;
   color: var(--ink-soft);

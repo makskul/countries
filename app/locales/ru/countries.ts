@@ -17,6 +17,7 @@ export default {
     allRegions: 'Все регионы',
     allCategories: 'Любая категория',
     found: 'Найдено {count} стран',
+    favoritesOnly: 'Только избранное',
     sort: { popular: 'Популярные', ratingDesc: 'Лучший рейтинг', ratingAsc: 'Худший рейтинг', reviewsDesc: 'Больше отзывов', recent: 'Недавно добавленные' },
     regions: { all: 'Все регионы', europe: 'Европа', asia: 'Азия', americas: 'Америка', africa: 'Африка', oceania: 'Океания', other: 'Другое' },
   },
@@ -46,6 +47,11 @@ export default {
     title: 'Ничего не найдено',
     message: 'Нет стран по вашему запросу — попробуй изменить фильтры',
     reset: 'Сбросить фильтры',
+  },
+  emptyFavorites: {
+    title: 'Нет избранных стран',
+    message: 'Нажми на сердечко на карточке страны, чтобы добавить её в избранное',
+    showAll: 'Показать все страны',
   },
   ai: {
     title: 'Не знаете, какую страну выбрать?',

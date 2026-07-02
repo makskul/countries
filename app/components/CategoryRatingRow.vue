@@ -12,7 +12,13 @@
         </div>
       </div>
       <div class="crr-right">
-        <div class="crr-stars-preview">
+        <div v-if="climatePreview?.length" class="crr-climate-preview">
+          <span v-for="key in climatePreview" :key="key" class="crr-climate-icon">{{ climateIcon(key) }}</span>
+        </div>
+        <div v-else-if="filled && modelValue > 0" class="crr-stars-preview">
+          <span v-for="i in 5" :key="i" class="crr-star-filled">{{ i <= modelValue ? '★' : '☆' }}</span>
+        </div>
+        <div v-else-if="showStars" class="crr-stars-preview">
           <span v-for="i in 5" :key="i" class="crr-star-empty">☆</span>
         </div>
         <button class="crr-add-btn" @click.stop="$emit('toggle')">{{ $t('review.ratings.expand') }}</button>
@@ -33,7 +39,7 @@
         </div>
         <!-- Custom rating slot (replaces stars when provided) -->
         <slot name="rating">
-          <div class="crr-right">
+          <div v-if="showStars" class="crr-right">
             <div class="crr-stars">
               <span
                 v-for="i in 5"
@@ -52,7 +58,6 @@
         </slot>
       </div>
 
-      <!-- Optional extra slot (e.g. weather icons for weather category) -->
       <slot name="extra" />
 
       <div class="crr-textarea-wrap">
@@ -67,7 +72,7 @@
         <span class="crr-charcount">{{ comment.length }} / 500</span>
       </div>
 
-      <button v-if="modelValue === 0" class="crr-collapse-btn" @click="$emit('toggle')">
+      <button v-if="!filled" class="crr-collapse-btn" @click="$emit('toggle')">
         {{ $t('review.ratings.collapse') }}
       </button>
     </div>
@@ -75,14 +80,21 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n()
-
-defineProps<{
+const props = withDefaults(defineProps<{
   category: { key: string; icon?: string }
   modelValue: number
   comment: string
   expanded: boolean
-}>()
+  filled?: boolean
+  climatePreview?: string[]
+  showStars?: boolean
+  climateIconMap?: Record<string, string>
+}>(), {
+  filled: false,
+  climatePreview: () => [],
+  showStars: true,
+  climateIconMap: () => ({}),
+})
 
 defineEmits<{
   'update:modelValue': [v: number]
@@ -91,6 +103,10 @@ defineEmits<{
 }>()
 
 const hovered = ref(0)
+
+function climateIcon(key: string): string {
+  return props.climateIconMap[key] ?? '•'
+}
 </script>
 
 <style scoped>
@@ -134,9 +150,14 @@ const hovered = ref(0)
   border-radius: 7px;
   display: flex; align-items: center; justify-content: center;
 }
+.crr-icon :deep(.pi) {
+  font-size: 14px;
+  color: var(--color-primary);
+}
 .crr-name {
   display: block;
   font-size: 13px; font-weight: 500; color: var(--color-text);
+  font-family: var(--font-display);
 }
 .crr-hint {
   display: block;
@@ -159,6 +180,10 @@ const hovered = ref(0)
 
 .crr-stars-preview { display: flex; gap: 2px; }
 .crr-star-empty { font-size: 16px; color: var(--color-primary-mid); opacity: 0.3; }
+.crr-star-filled { font-size: 16px; color: var(--color-star); }
+
+.crr-climate-preview { display: flex; gap: 4px; align-items: center; }
+.crr-climate-icon { font-size: 16px; line-height: 1; }
 
 .crr-star-label {
   font-size: 12px;

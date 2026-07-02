@@ -1,4 +1,8 @@
 :root {
+  /* Typography */
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+
   /* Brand / accent — purple */
   --color-primary:        #534AB7;
   --color-primary-light:  #EEEDFE;

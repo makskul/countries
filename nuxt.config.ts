@@ -27,6 +27,8 @@ export default defineNuxtConfig({
     '@fontsource/inter/400.css',
     '@fontsource/inter/500.css',
     '@fontsource/inter/600.css',
+    '@fontsource/manrope/700.css',
+    '@fontsource/manrope/800.css',
     '~/assets/styles/tokens.css',
     '~/assets/styles/primevue.css',
     '~/assets/styles/global.css',

@@ -47,27 +47,57 @@
   overflow: hidden;
   background: #F8F9FE;
 }
-.home-page .hero-map-overlay {
+.home-page .hero-map-layer {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 70%;
-  height: 100%;
+  inset: 0;
   z-index: 1;
   pointer-events: none;
   opacity: 0.85;
 }
-.home-page .hero-map-overlay svg,
-.home-page .hero-mobile-map svg {
+.home-page .hero-map-layer svg {
   width: 100%;
   height: 100%;
   display: block;
 }
-.home-page .hero-map-overlay .hero-map-country,
-.home-page .hero-mobile-map .hero-map-country {
+.home-page .hero-map-layer .hero-map-country {
   fill: #E4E0F7;
   stroke: #fff;
   stroke-width: 0.5;
+}
+
+@media (min-width: 1101px) {
+  .home-page .hero-grid {
+    position: static;
+  }
+  .home-page .hero-mobile-banner {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    overflow: visible;
+    z-index: 1;
+  }
+  .home-page .hero-mobile-bg {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  .home-page .hero-mobile-img {
+    display: none;
+  }
+  .home-page .hero-mobile-inner,
+  .home-page .hero-mobile-chips-wrap {
+    display: contents;
+  }
 }
 .home-page .hero-visual-bg {
   position: absolute;
@@ -517,7 +547,6 @@
 
 
 @media (max-width:1100px){
-  .home-page .hero-map-overlay { display:none; }
   .home-page .hero-visual-bg { display:none; }
   .home-page .hero-floats { display:none; }
   .home-page .tri-grid { grid-template-columns:1fr; }
@@ -574,7 +603,8 @@
     height: 100%;
     z-index: 0;
   }
-  .home-page .hero-mobile-map {
+  .home-page .hero-mobile-map,
+  .home-page .hero-map-layer {
     position: absolute;
     inset: 0;
     z-index: 1;

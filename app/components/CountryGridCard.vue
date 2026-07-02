@@ -11,11 +11,12 @@
       <button
         type="button"
         class="gc-heart"
-        :class="{ liked: liked }"
+        :class="{ liked: isLiked }"
         :aria-label="$t('countries.card.favorite')"
-        @click.stop="liked = !liked"
+        :aria-pressed="isLiked"
+        @click.stop="store.toggleFavorite(country.code)"
       >
-        {{ liked ? '♥' : '♡' }}
+        <i class="pi" :class="isLiked ? 'pi-heart-fill' : 'pi-heart'" />
       </button>
 
       <div class="gc-img-top">
@@ -110,8 +111,9 @@ defineEmits<{ click: [] }>()
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const { getCountryNameLocalized } = useLocalizedCountries()
+const store = useUserStore()
 
-const liked = ref(false)
+const isLiked = computed(() => store.isFavorite(props.country.code))
 
 const flag = computed(() => getFlagEmoji(props.country.code))
 const name = computed(() => getCountryNameLocalized(props.country.code))
@@ -260,11 +262,12 @@ const cons = computed(() =>
   align-items: center;
   justify-content: center;
   color: var(--ink-soft, #5B5876);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1;
   cursor: pointer;
   transition: color 0.15s, transform 0.15s;
 }
+.gc-heart .pi { font-size: 14px; }
 .gc-heart:hover { transform: scale(1.1); }
 .gc-heart.liked { color: #E15B5B; }
 
@@ -291,7 +294,7 @@ const cons = computed(() =>
 .gc-name {
   font-size: 18px;
   font-weight: 800;
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-display);
   display: flex;
   align-items: center;
   gap: 7px;

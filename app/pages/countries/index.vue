@@ -24,6 +24,16 @@
           :count="filteredCountries.length"
         />
         <div class="view-toggle">
+          <button
+            type="button"
+            class="favorites-toggle"
+            :class="{ active: favoritesOnly }"
+            :title="$t('countries.filters.favoritesOnly')"
+            @click="favoritesOnly = !favoritesOnly"
+          >
+            <i class="pi" :class="favoritesOnly ? 'pi-heart-fill' : 'pi-heart'" />
+            <span class="favorites-toggle-label">{{ $t('countries.filters.favoritesOnly') }}</span>
+          </button>
           <button type="button" :class="{ active: viewMode === 'grid' }" :title="$t('countries.view.grid')" @click="viewMode = 'grid'">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           </button>
@@ -59,9 +69,14 @@
     </div>
 
     <div v-else-if="filteredCountries.length === 0" class="empty-block">
-      <h3>{{ $t('countries.empty.title') }}</h3>
-      <p>{{ $t('countries.empty.message') }}</p>
-      <Button :label="$t('countries.empty.reset')" severity="secondary" style="margin-top: 16px" @click="resetFilters" />
+      <h3>{{ favoritesOnly ? $t('countries.emptyFavorites.title') : $t('countries.empty.title') }}</h3>
+      <p>{{ favoritesOnly ? $t('countries.emptyFavorites.message') : $t('countries.empty.message') }}</p>
+      <Button
+        :label="favoritesOnly ? $t('countries.emptyFavorites.showAll') : $t('countries.empty.reset')"
+        severity="secondary"
+        style="margin-top: 16px"
+        @click="favoritesOnly ? (favoritesOnly = false) : resetFilters()"
+      />
     </div>
 
     <template v-else>
@@ -156,12 +171,14 @@ const search = ref((route.query.search as string) || '')
 const region = ref((route.query.region as string) || '')
 const category = ref((route.query.category as string) || '')
 const sort = ref((route.query.sort as string) || 'popular')
+const favoritesOnly = ref((route.query.favorites as string) === '1')
 
 function resetFilters() {
   search.value = ''
   region.value = ''
   category.value = ''
   sort.value = 'popular'
+  favoritesOnly.value = false
 }
 
 function setCategory(value: string) {
@@ -197,12 +214,13 @@ const lastReviewLabel = computed(() =>
   featuredReview.value ? timeAgo(featuredReview.value.created_at, locale.value) : '—'
 )
 
-watch([search, region, category, sort], () => {
+watch([search, region, category, sort, favoritesOnly], () => {
   const query: Record<string, string> = {}
   if (search.value) query.search = search.value
   if (region.value) query.region = region.value
   if (category.value) query.category = category.value
   if (sort.value !== 'popular') query.sort = sort.value
+  if (favoritesOnly.value) query.favorites = '1'
   router.replace({ query })
 })
 
@@ -226,6 +244,10 @@ const filteredCountries = computed<CountryStat[]>(() => {
     list = list.filter(c => c.categoryStats.some(cs => cs.category === category.value))
   }
 
+  if (favoritesOnly.value) {
+    list = list.filter(c => store.isFavorite(c.code))
+  }
+
   switch (sort.value) {
     case 'rating_desc': list = [...list].sort((a, b) => b.avgRating - a.avgRating); break
     case 'rating_asc': list = [...list].sort((a, b) => a.avgRating - b.avgRating); break
@@ -245,7 +267,7 @@ const pagedCountries = computed(() =>
   filteredCountries.value.slice(pageFirst.value, pageFirst.value + pageSize.value)
 )
 
-watch([search, region, category, sort, pageSize], () => { pageFirst.value = 0 })
+watch([search, region, category, sort, favoritesOnly, pageSize], () => { pageFirst.value = 0 })
 
 const paginatorEl = ref<HTMLElement | null>(null)
 function onPageChange() {

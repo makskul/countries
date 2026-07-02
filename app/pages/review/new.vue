@@ -130,31 +130,16 @@
             :modelValue="(form.ratings as any)[cat.key]"
             :comment="(form.comments as any)[cat.key]"
             :expanded="(expanded as any)[cat.key]"
+            :filled="isCategoryFilled(cat.key)"
+            :climate-preview="cat.key === 'weather' ? form.climate : []"
+            :climate-icon-map="climateIconMap"
+            :show-stars="cat.key !== 'weather'"
             @update:modelValue="(form.ratings as any)[cat.key] = $event"
             @update:comment="(form.comments as any)[cat.key] = $event"
             @toggle="toggleExpand(cat.key)"
           >
             <template #icon>
-              <!-- shield: legalization -->
-              <svg v-if="cat.icon === 'shield'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-              <!-- dollar: cost_of_living -->
-              <svg v-else-if="cat.icon === 'dollar'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <!-- shield2: safety -->
-              <svg v-else-if="cat.icon === 'shield2'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <!-- clipboard: bureaucracy -->
-              <svg v-else-if="cat.icon === 'clipboard'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
-              <!-- cloud: weather -->
-              <svg v-else-if="cat.icon === 'cloud'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-              <!-- chat: language_barrier -->
-              <svg v-else-if="cat.icon === 'chat'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <!-- sparkle: cleanliness -->
-              <svg v-else-if="cat.icon === 'sparkle'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-              <!-- heart: healthcare -->
-              <svg v-else-if="cat.icon === 'heart'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-              <!-- star: overall -->
-              <svg v-else-if="cat.icon === 'star'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <!-- fallback -->
-              <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/></svg>
+              <i class="pi" :class="getCategoryPrimeIcon(cat.icon)" />
             </template>
 
             <!-- Cost buttons — only for 'cost_of_living' category -->
@@ -176,8 +161,8 @@
               </div>
             </template>
 
-            <!-- Weather icons — only for 'weather' category -->
-            <template v-if="cat.key === 'weather'" #extra>
+            <!-- Weather climate buttons — only for 'weather' category -->
+            <template v-if="cat.key === 'weather'" #rating>
               <div class="weather-section">
                 <div class="weather-hint">{{ $t('review.fields.climateHint') }}</div>
                 <div class="weather-grid">
@@ -238,7 +223,13 @@
           <div class="preview-cats">
             <template v-if="hasAnyRating">
               <div v-for="cat in FORM_CATEGORIES" :key="cat.key" class="preview-cat-row">
-                <template v-if="(form.ratings as any)[cat.key] > 0">
+                <template v-if="cat.key === 'weather' && form.climate.length">
+                  <span class="preview-cat-name">{{ $t(`categories.${cat.key}.name`) }}</span>
+                  <span class="preview-climate">
+                    <span v-for="key in form.climate" :key="key">{{ climateIconMap[key] }}</span>
+                  </span>
+                </template>
+                <template v-else-if="(form.ratings as any)[cat.key] > 0">
                   <span class="preview-cat-name">{{ $t(`categories.${cat.key}.name`) }}</span>
                   <span class="preview-stars">{{ '★'.repeat((form.ratings as any)[cat.key]) }}{{ '☆'.repeat(5 - (form.ratings as any)[cat.key]) }}</span>
                 </template>
@@ -279,6 +270,7 @@
 import { APP_NAME, APP_URL } from '~/utils/appConfig'
 import { useToast } from 'primevue/usetoast'
 import { getFlagEmoji } from '~/utils/countries'
+import { getCategoryPrimeIcon } from '~/utils/categoryIcons'
 import { useReviewForm } from '~/composables/useReviewForm'
 
 const { t } = useI18n()
@@ -303,6 +295,7 @@ const {
   step,
   expanded,
   toggleExpand,
+  isCategoryFilled,
   submitting,
   submitSuccess,
   submit: submitForm,
@@ -315,7 +308,9 @@ const isValid = computed(() =>
   isValidBase.value
 )
 
-const hasAnyRating = computed(() => Object.values(form.ratings).some(r => r > 0))
+const hasAnyRating = computed(() =>
+  Object.entries(form.ratings).some(([key, r]) => key !== 'weather' && r > 0) || form.climate.length > 0
+)
 
 const { tm, locale } = useI18n()
 const supabase = useSupabaseClient()
@@ -368,6 +363,11 @@ const stayPurposeOptions = computed(() =>
 const weatherOptions = computed(() =>
   tm('common.weatherOptions') as Record<string, { label: string; icon: string }>
 )
+
+const climateIconMap = computed(() => {
+  const opts = weatherOptions.value
+  return Object.fromEntries(Object.entries(opts).map(([key, val]) => [key, val.icon]))
+})
 
 // Cost of living buttons
 const costOptions = computed(() =>
@@ -454,7 +454,7 @@ function submit() {
   padding: 20px;
 }
 .ratings-header { margin-bottom: 18px; }
-.ratings-title { display: block; font-size: 15px; font-weight: 600; color: var(--color-text); margin-bottom: 4px; }
+.ratings-title { display: block; font-size: 15px; font-weight: 600; color: var(--color-text); margin-bottom: 4px; font-family: var(--font-display); }
 .ratings-sub { font-size: 12px; color: var(--color-text-muted); }
 
 /* Actions */
@@ -535,6 +535,7 @@ function submit() {
 .preview-cat-row { display: flex; justify-content: space-between; align-items: center; }
 .preview-cat-name { font-size: 11px; color: var(--color-text-secondary); }
 .preview-stars { font-size: 11px; color: var(--color-star); letter-spacing: 1px; }
+.preview-climate { display: flex; gap: 4px; font-size: 14px; line-height: 1; }
 .preview-hint { font-size: 12px; color: var(--color-text-muted); font-style: italic; }
 
 /* Tips */

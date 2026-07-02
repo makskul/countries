@@ -2,7 +2,6 @@
   <div class="home-page">
     <!-- HERO -->
     <section class="hero">
-      <HomeHeroMapOverlay class="hero-map-overlay" />
       <div class="hero-visual-bg">
         <img
           class="bg-img"
@@ -47,7 +46,7 @@
         <div class="hero-copy">
           <div class="hero-mobile-banner">
             <div class="hero-mobile-bg" aria-hidden="true">
-              <HomeHeroMapOverlay class="hero-mobile-map" />
+              <HomeHeroMapOverlay class="hero-map-layer" />
               <img
                 class="hero-mobile-img"
                 src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=1200&auto=format&fit=crop"
@@ -267,7 +266,6 @@
         </div>
 
         <div class="panel map-panel-below">
-          <div class="panel-head"><h3>{{ $t('homepage.map.title') }}</h3></div>
           <HomeWorldMap :review-data="mapReviewData" />
           <div class="map-legend">
             <div class="map-legend-item">

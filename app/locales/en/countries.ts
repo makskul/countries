@@ -17,6 +17,7 @@ export default {
     allRegions: 'All regions',
     allCategories: 'Any category',
     found: 'Found {count} countries',
+    favoritesOnly: 'Favorites only',
     sort: { popular: 'Popular', ratingDesc: 'Best rating', ratingAsc: 'Worst rating', reviewsDesc: 'Most reviews', recent: 'Recently added' },
     regions: { all: 'All regions', europe: 'Europe', asia: 'Asia', americas: 'Americas', africa: 'Africa', oceania: 'Oceania', other: 'Other' },
   },
@@ -46,6 +47,11 @@ export default {
     title: 'Nothing found',
     message: 'No countries found — try changing filters',
     reset: 'Reset filters',
+  },
+  emptyFavorites: {
+    title: 'No favorite countries',
+    message: 'Tap the heart on a country card to add it to your favorites',
+    showAll: 'Show all countries',
   },
   ai: {
     title: 'Not sure which country to choose?',
