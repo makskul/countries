@@ -130,7 +130,7 @@
 
     <div class="container">
       <!-- POPULAR COUNTRIES -->
-      <section class="section" style="padding-top: 0">
+      <section class="section" style="padding-top: 50px">
         <div class="section-head">
           <h2>{{ $t('homepage.trending.title') }}</h2>
           <div class="section-head-actions">

@@ -286,32 +286,6 @@
   margin-top: 2px;
 }
 
-.home-page .fc-avatars {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink-soft);
-}
-
-.home-page .fc-avatars .avatar-group {
-  display: flex;
-}
-
-.home-page .fc-avatars img {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid white;
-  margin-left: -8px;
-  object-fit: cover;
-}
-
-.home-page .fc-avatars img:first-child {
-  margin-left: 0;
-}
 
 .home-page .review-card {
   position: absolute;
@@ -361,13 +335,6 @@
   color: var(--ink);
 }
 
-.home-page .rc-thumb {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
 
 .home-page .finder {
   background: var(--white);
@@ -494,102 +461,6 @@
   margin-bottom: 14px;
 }
 
-.home-page .ai-steps {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-}
-
-.home-page .step-dot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  color: var(--ink-soft);
-  font-weight: 600;
-}
-
-.home-page .step-circle {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: white;
-  border: 1.5px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 13px;
-  color: var(--ink-soft);
-}
-
-.home-page .step-dot.active .step-circle {
-  background: var(--purple-600);
-  color: white;
-  border-color: var(--purple-600);
-}
-
-.home-page .step-dot.active {
-  color: var(--purple-700);
-}
-
-.home-page .step-line {
-  width: 26px;
-  height: 1.5px;
-  background: var(--line);
-  margin-bottom: 20px;
-}
-
-.home-page .ai-right {
-  background: white;
-  border-radius: 14px;
-  padding: 16px 18px;
-  box-shadow: var(--shadow-sm);
-}
-
-.home-page .ai-right-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink-soft);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: .03em;
-}
-
-.home-page .match-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 7px 0;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.home-page .match-row+.match-row {
-  border-top: 1px solid var(--line);
-}
-
-.home-page .match-country {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.home-page .match-pct {
-  color: var(--green);
-  font-weight: 800;
-  font-size: 13.5px;
-}
-
-.home-page .see-all-link {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--purple-600);
-  margin-top: 10px;
-  display: inline-block;
-}
 
 /* ---------- Section heads ---------- */
 .home-page .section {
@@ -1082,13 +953,6 @@
   margin-bottom: 8px;
 }
 
-.home-page .ri-actions {
-  display: flex;
-  gap: 14px;
-  font-size: 11.5px;
-  color: var(--ink-soft);
-  font-weight: 600;
-}
 
 /* ---------- Topics ---------- */
 .home-page .topics-grid {
@@ -1097,48 +961,6 @@
   gap: 14px;
 }
 
-.home-page .topic-card {
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  padding: 16px 14px;
-  text-align: center;
-  background: white;
-  transition: box-shadow .2s, transform .2s;
-}
-
-.home-page .topic-card:hover {
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-3px);
-}
-
-.home-page .topic-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: var(--purple-100);
-  color: var(--purple-600);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 10px;
-}
-
-.home-page .topic-name {
-  font-size: 12.5px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.home-page .topic-score {
-  font-family: 'Manrope';
-  font-weight: 800;
-  font-size: 16px;
-}
-
-.home-page .topic-count {
-  font-size: 10.5px;
-  color: var(--ink-soft);
-}
 
 /* ---------- CTA banner ---------- */
 .home-page .cta-banner {
@@ -1245,22 +1067,6 @@
   font-weight: 600;
 }
 
-.home-page .avatar-stack {
-  display: flex;
-}
-
-.home-page .avatar-stack img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid white;
-  margin-left: -8px;
-  object-fit: cover;
-}
-
-.home-page .avatar-stack img:first-child {
-  margin-left: 0;
-}
 
 /* AppFooter lives in layout — do not style bare `footer` here */
 
@@ -1349,7 +1155,6 @@
     z-index: 0;
   }
 
-  .home-page .hero-mobile-map,
   .home-page .hero-map-layer {
     position: absolute;
     inset: 0;
@@ -1701,11 +1506,7 @@
 }
 
 @media (max-width:640px) {
-  nav.main-nav {
-    display: none;
-  }
-
-  .home-page .hero-mobile-inner h1 {
+.home-page .hero-mobile-inner h1 {
     font-size: 24px;
   }
 

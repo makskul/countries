@@ -40,7 +40,7 @@
           <span class="fbrand-name">Triplan<span class="fbrand-accent">dr</span></span>
         </div>
         <p class="fbrand-desc">{{ $t('footer.brand.description') }}</p>
-        <div class="fnl">
+        <!-- <div class="fnl">
           <span class="fnl-label">{{ $t('footer.newsletter.label') }}</span>
           <div class="fnl-row">
             <input
@@ -54,7 +54,7 @@
               {{ subscribing ? '...' : $t('footer.newsletter.button') }}
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- Col 2 — Popular countries -->

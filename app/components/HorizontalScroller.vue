@@ -90,8 +90,8 @@ onBeforeUnmount(() => {
   position: absolute;
   top: 50%;
   z-index: 3;
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   margin-top: -18px;
   border: 1px solid var(--line, #EAE7F5);
   border-radius: 50%;
@@ -113,8 +113,8 @@ onBeforeUnmount(() => {
   opacity: 0.35;
   cursor: default;
 }
-.h-scroll-btn--left { left: -6px; }
-.h-scroll-btn--right { right: -6px; }
+.h-scroll-btn--left { left: -22px; }
+.h-scroll-btn--right { right: -22px; }
 
 @media (max-width: 768px) {
   .h-scroll-btn {
