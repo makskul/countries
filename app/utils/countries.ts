@@ -89,12 +89,23 @@ export function getFlagEmoji(countryCode: string): string {
   return String.fromCodePoint(...codePoints)
 }
 
-export function timeAgo(dateStr: string): string {
+export function timeAgo(dateStr: string, locale = 'ru'): string {
   const diff = Date.now() - new Date(dateStr).getTime()
   const mins = Math.floor(diff / 60000)
-  if (mins < 60) return `${mins}m ago`
+  const loc = locale === 'uk' ? 'uk' : locale === 'en' ? 'en' : 'ru'
+
+  if (mins < 1) {
+    if (loc === 'en') return 'just now'
+    if (loc === 'uk') return 'щойно'
+    return 'только что'
+  }
+
+  const rtf = new Intl.RelativeTimeFormat(loc, { numeric: 'always' })
+  if (mins < 60) return rtf.format(-mins, 'minute')
   const hrs = Math.floor(mins / 60)
-  if (hrs < 24) return `${hrs}h ago`
+  if (hrs < 24) return rtf.format(-hrs, 'hour')
   const days = Math.floor(hrs / 24)
-  return `${days}d ago`
+  if (days < 30) return rtf.format(-days, 'day')
+  const months = Math.floor(days / 30)
+  return rtf.format(-months, 'month')
 }

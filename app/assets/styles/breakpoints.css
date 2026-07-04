@@ -1,0 +1,42 @@
+/*
+ * Breakpoints reference — Triplandr
+ * All @media queries used across CSS files in this project.
+ *
+ * Usage convention:
+ *   Desktop-first (max-width) — all breakpoints below.
+ *   One exception: min-width: 1101px in homepage.css (hero desktop layout).
+ *
+ * ─────────────────────────────────────────────────────────────
+ *  Breakpoint     Value         Used in
+ * ─────────────────────────────────────────────────────────────
+ *  desktop-only   min-width: 1101px   homepage.css (hero visual overrides)
+ *  tablet-lg      max-width: 1100px   homepage.css ×2, countries.css
+ *  tablet         max-width: 900px    countries.css
+ *  mobile-lg      max-width: 768px    homepage.css, global.css
+ *  mobile         max-width: 640px    homepage.css, countries.css ×2
+ *  mobile-sm      max-width: 480px    —
+ * ─────────────────────────────────────────────────────────────
+ */
+
+/*
+ * Recommended reference variables (not natively supported in @media,
+ * listed here for documentation only):
+ *
+ * --bp-desktop-only : 1101px  (min-width)
+ * --bp-tablet-lg    : 1100px  (max-width)
+ * --bp-tablet       : 900px   (max-width)
+ * --bp-mobile-lg    : 768px   (max-width)
+ * --bp-mobile       : 640px   (max-width)
+ * --bp-mobile-sm    : 480px   (max-width)
+ */
+
+/*
+ * Quick-copy templates:
+ *
+ * @media (min-width: 1101px) { }
+ * @media (max-width: 1100px) { }
+ * @media (max-width: 900px)  { }
+ * @media (max-width: 768px)  { }
+ * @media (max-width: 640px)  { }
+ * @media (max-width: 480px)  { }
+ */

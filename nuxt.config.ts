@@ -31,13 +31,14 @@ export default defineNuxtConfig({
       redirectOn: 'root',
       fallbackLocale: 'uk',
     },
-    lazy: true,
   },
   css: [
     'primeicons/primeicons.css',
     '@fontsource/inter/400.css',
     '@fontsource/inter/500.css',
     '@fontsource/inter/600.css',
+    '@fontsource/manrope/700.css',
+    '@fontsource/manrope/800.css',
     '~/assets/styles/tokens.css',
     '~/assets/styles/primevue.css',
     '~/assets/styles/global.css',
@@ -76,8 +77,10 @@ export default defineNuxtConfig({
       }
     }
   },
+  site: {
+    url: 'https://triplandr.com'
+  },
   sitemap: {
-    hostname: 'https://triplandr.com',
     // Static pages
     urls: [
       { loc: '/',          changefreq: 'weekly',  priority: 1.0 },

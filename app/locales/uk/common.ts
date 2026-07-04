@@ -14,6 +14,8 @@ export default {
     resetFilters: 'Скинути фільтри',
     continue: 'Продовжити',
     apply: 'Застосувати',
+    scrollLeft: 'Прокрутити вліво',
+    scrollRight: 'Прокрутити вправо',
   },
   labels: {
     reviews: 'відгуків',

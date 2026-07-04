@@ -41,8 +41,13 @@ export function useReviewForm() {
     form.country !== '' &&
     form.nationality !== '' &&
     form.stay_purpose !== '' &&
-    Object.values(form.ratings).some(r => r > 0)
+    (Object.entries(form.ratings).some(([key, r]) => key !== 'weather' && r > 0) || form.climate.length > 0)
   )
+
+  function isCategoryFilled(key: FormCategoryKey): boolean {
+    if (key === 'weather') return form.climate.length > 0
+    return form.ratings[key] > 0
+  }
 
   const step = computed(() => {
     if (form.country && form.nationality) return 2
@@ -55,8 +60,7 @@ export function useReviewForm() {
   )
 
   function toggleExpand(key: FormCategoryKey) {
-    // Can't collapse if rating is set
-    if (expanded[key] && form.ratings[key] > 0) return
+    if (expanded[key] && isCategoryFilled(key)) return
     expanded[key] = !expanded[key]
   }
 
@@ -75,6 +79,7 @@ export function useReviewForm() {
       const comments: Record<string, string> = {}
 
       for (const cat of FORM_CATEGORIES) {
+        if (cat.key === 'weather') continue
         if (form.ratings[cat.key] > 0) {
           ratings[cat.key] = form.ratings[cat.key]
           if (form.comments[cat.key].trim()) {
@@ -127,5 +132,5 @@ export function useReviewForm() {
     { server: false, watch: [() => form.country, () => form.nationality] }
   )
 
-  return { form, isValid, step, expanded, toggleExpand, submitting, submitSuccess, submit, countryStats, FORM_CATEGORIES }
+  return { form, isValid, step, expanded, toggleExpand, isCategoryFilled, submitting, submitSuccess, submit, countryStats, FORM_CATEGORIES }
 }
