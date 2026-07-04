@@ -86,7 +86,7 @@ const props = withDefaults(defineProps<{
 
 const wrapStyle = computed(() => ({
   height: props.mapHeight,
-  marginTop: props.mapHeight === '190px' || props.mapHeight === '280px' || props.mapHeight === '240px' ? '0' : '10px',
+  marginBottom: '25px',
 }))
 
 const { locale, t } = useI18n()

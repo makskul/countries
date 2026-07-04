@@ -3,32 +3,29 @@
 
     <!-- ── 1. STATS STRIP ────────────────────────────────── -->
     <div class="fstats">
-      <div class="finner fstats-inner">
-        <div class="fstat">
-          <span class="fstat-num">{{ fmt(stats?.totalReviews) }}</span>
-          <span class="fstat-label">{{ $t('footer.stats.reviews') }}</span>
-        </div>
-        <div class="fstat-divider" />
-        <div class="fstat">
-          <span class="fstat-num">{{ fmt(stats?.totalCountries) }}</span>
-          <span class="fstat-label">{{ $t('footer.stats.countries') }}</span>
-        </div>
-        <div class="fstat-divider" />
-        <div class="fstat">
-          <span class="fstat-num">{{ fmt(stats?.totalNationalities) }}</span>
-          <span class="fstat-label">{{ $t('footer.stats.nationalities') }}</span>
-        </div>
-        <div class="fstat-divider" />
-        <div class="fstat">
-          <span class="fstat-num">{{ fmt(stats?.totalReviews ? Math.round(stats.totalReviews * 0.72) : undefined) }}</span>
-          <span class="fstat-label">{{ $t('footer.stats.authors') }}</span>
-        </div>
+      <div class="fstat">
+        <span class="fstat-num">{{ fmt(stats?.totalReviews) }}</span>
+        <span class="fstat-label">{{ $t('footer.stats.reviews') }}</span>
+      </div>
+      <div class="fstat-divider" />
+      <div class="fstat">
+        <span class="fstat-num">{{ fmt(stats?.totalCountries) }}</span>
+        <span class="fstat-label">{{ $t('footer.stats.countries') }}</span>
+      </div>
+      <div class="fstat-divider" />
+      <div class="fstat">
+        <span class="fstat-num">{{ fmt(stats?.totalNationalities) }}</span>
+        <span class="fstat-label">{{ $t('footer.stats.nationalities') }}</span>
+      </div>
+      <div class="fstat-divider" />
+      <div class="fstat">
+        <span class="fstat-num">{{ fmt(stats?.totalReviews ? Math.round(stats.totalReviews * 0.72) : undefined) }}</span>
+        <span class="fstat-label">{{ $t('footer.stats.authors') }}</span>
       </div>
     </div>
 
     <!-- ── 2. FOOTER BODY ────────────────────────────────── -->
     <div class="fbody">
-      <div class="finner fbody-inner">
 
       <!-- Col 1 — Brand -->
       <div class="fcol fcol-brand">
@@ -65,14 +62,14 @@
         <span class="fcol-title">{{ $t('footer.columns.popularCountries') }}</span>
         <div class="fcol-links">
           <template v-if="topCountries && topCountries.length">
-            <NuxtLinkLocale
+            <NuxtLink
               v-for="code in topCountries"
               :key="code"
               :to="`/country/${code.toLowerCase()}`"
               class="fcol-link"
             >
-              {{ getFlagEmoji(code) }} {{ getCountryNameLocalized(code) }}
-            </NuxtLinkLocale>
+              {{ getCountryNameLocalized(code) }}
+            </NuxtLink>
           </template>
           <template v-else>
             <span v-for="i in 5" :key="i" class="fcol-link fcol-link--placeholder">
@@ -106,12 +103,11 @@
           <NuxtLinkLocale to="/privacy" class="fcol-link">{{ $t('footer.links.privacy') }}</NuxtLinkLocale>
         </div>
       </div>
-      </div>
+
     </div>
 
     <!-- ── 3. BOTTOM BAR ─────────────────────────────────── -->
     <div class="fbar">
-      <div class="finner fbar-inner">
       <span class="fbar-copy">
         © {{ year }} <span class="fbar-brand">{{ APP_NAME }}</span> — {{ $t('footer.copyright') }}
       </span>
@@ -142,13 +138,10 @@
           </svg>
         </a>
       </div>
-      </div>
     </div>
 
     <!-- ── 4. DISCLAIMER ──────────────────────────────────── -->
-    <div class="fdisclaimer">
-      <div class="finner">{{ $t('footer.disclaimer') }}</div>
-    </div>
+    <div class="fdisclaimer">{{ $t('footer.disclaimer') }}</div>
 
     <Toast />
   </footer>
@@ -160,7 +153,7 @@ import { getFlagEmoji } from '~/utils/countries'
 import { APP_NAME, APP_SOCIAL } from '~/utils/appConfig'
 import { useFooterData } from '~/composables/useFooterData'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
 const toast = useToast()
 const supabase = useSupabaseClient()
@@ -172,8 +165,7 @@ const subscribing = ref(false)
 
 function fmt(n: number | undefined): string {
   if (n === undefined || n === null) return '—'
-  const loc = locale.value === 'uk' ? 'uk-UA' : locale.value === 'en' ? 'en-US' : 'ru-RU'
-  return new Intl.NumberFormat(loc).format(n)
+  return new Intl.NumberFormat('ru-RU').format(n)
 }
 
 async function handleSubscribe() {
@@ -204,26 +196,12 @@ async function handleSubscribe() {
   background: #1A1A2E;
   color: white;
   margin-top: auto;
-  text-align: left;
-  padding: 0;
-  font-size: 15px;
-  width: 100%;
-}
-
-.finner {
-  width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding-left: 32px;
-  padding-right: 32px;
 }
 
 /* ── Stats strip ─────────────────────────────────────────── */
 .fstats {
   background: var(--color-primary);
-  padding: 16px 0;
-}
-.fstats-inner {
+  padding: 16px 32px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -237,13 +215,11 @@ async function handleSubscribe() {
 
 /* ── Footer body ─────────────────────────────────────────── */
 .fbody {
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  padding: 36px 0 28px;
-}
-.fbody-inner {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 32px;
+  padding: 36px 32px 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .fcol { display: flex; flex-direction: column; }
 
@@ -320,7 +296,7 @@ async function handleSubscribe() {
 .fcol-links { display: flex; flex-direction: column; gap: 9px; }
 .fcol-link {
   font-size: 13px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.80);
   text-decoration: none;
   cursor: pointer;
   transition: color 0.15s;
@@ -346,9 +322,7 @@ async function handleSubscribe() {
 
 /* ── Bottom bar ──────────────────────────────────────────── */
 .fbar {
-  padding: 16px 0;
-}
-.fbar-inner {
+  padding: 16px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -380,7 +354,7 @@ async function handleSubscribe() {
 
 /* ── Disclaimer ──────────────────────────────────────────── */
 .fdisclaimer {
-  padding: 0 0 16px;
+  padding: 0 32px 16px;
   font-size: 11px;
   color: rgba(255,255,255,0.2);
   line-height: 1.6;
@@ -388,24 +362,24 @@ async function handleSubscribe() {
 
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .finner { padding-left: 20px; padding-right: 20px; }
-  .fstats-inner { gap: 16px; display: grid; grid-template-columns: 1fr 1fr; }
+  .fstats { gap: 16px; }
   .fstat-divider { display: none; }
-  .fbody { padding: 24px 0 20px; }
-  .fbody-inner {
+  .fbody {
     grid-template-columns: 1fr 1fr;
     gap: 24px;
+    padding: 24px 20px 20px;
   }
   .fcol-brand { grid-column: 1 / -1; }
-  .fbar-inner {
+  .fbar {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    padding: 16px 20px;
   }
-  .fbar-social { width: 100%; justify-content: flex-start; }
+  .fdisclaimer { padding: 0 20px 16px; }
+  .fstats { padding: 16px 20px; }
 }
 @media (max-width: 480px) {
-  .fbody-inner { grid-template-columns: 1fr; }
-  .fstats-inner { grid-template-columns: 1fr 1fr; }
+  .fbody { grid-template-columns: 1fr; }
 }
 </style>
