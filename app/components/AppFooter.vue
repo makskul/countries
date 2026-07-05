@@ -2,7 +2,7 @@
   <footer class="footer">
 
     <!-- ── 1. STATS STRIP ────────────────────────────────── -->
-    <div class="fstats">
+    <div v-if="!isHome" class="fstats">
       <div class="fstat">
         <span class="fstat-num">{{ fmt(stats?.totalReviews) }}</span>
         <span class="fstat-label">{{ $t('footer.stats.reviews') }}</span>
@@ -158,6 +158,8 @@ const { getCountryNameLocalized } = useLocalizedCountries()
 const toast = useToast()
 const supabase = useSupabaseClient()
 const { stats, topCountries, subscribeNewsletter } = useFooterData()
+const route = useRoute()
+const isHome = computed(() => route.name === 'index' || route.name === 'index___uk' || route.name === 'index___en' || route.name === 'index___ru')
 
 const year = new Date().getFullYear()
 const email = ref('')
