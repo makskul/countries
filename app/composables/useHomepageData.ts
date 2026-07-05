@@ -18,51 +18,36 @@ export function useHomepageData() {
     }
   })
 
-  // Trending: last 30 days, fallback to all-time top 100 if empty
+  // Trending: 8 most recently reviewed unique countries
   const { data: trending, pending: trendingPending } = useAsyncData('trending', async () => {
-    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
-    let { data, error } = await supabase
+    const { data, error } = await supabase
       .from('reviews')
       .select('target_country, ratings')
       .eq('is_approved', true)
-      .gte('created_at', since)
+      .order('created_at', { ascending: false })
+      .limit(200)
     if (error) { console.error('[trending]', error.message); return [] }
-
-    // Fallback: if nothing in last 30 days, load all-time top
-    if (!data?.length) {
-      const fb = await supabase
-        .from('reviews')
-        .select('target_country, ratings')
-        .eq('is_approved', true)
-        .order('created_at', { ascending: false })
-        .limit(200)
-      if (fb.error) { console.error('[trending fallback]', fb.error.message); return [] }
-      data = fb.data
-    }
     if (!data?.length) return []
 
-    const grouped: Record<string, { reviewCount: number; ratingVals: number[]; cats: string[] }> = {}
+    const seen = new Set<string>()
+    const result: { code: string; total: number; avgRating: number; topCategories: string[] }[] = []
+
     for (const row of data as { target_country: string; ratings: Record<string, number> }[]) {
       const code = row.target_country
-      if (!grouped[code]) grouped[code] = { reviewCount: 0, ratingVals: [], cats: [] }
-      grouped[code].reviewCount++ // count reviews (rows), not individual category values
-      for (const [cat, val] of Object.entries(row.ratings ?? {})) {
-        if (typeof val === 'number') {
-          grouped[code].ratingVals.push(val)
-          if (!grouped[code].cats.includes(cat)) grouped[code].cats.push(cat)
-        }
-      }
+      if (seen.has(code)) continue
+      seen.add(code)
+      const vals = Object.values(row.ratings ?? {}).filter((v): v is number => typeof v === 'number')
+      const cats = Object.keys(row.ratings ?? {}).slice(0, 2)
+      result.push({
+        code,
+        total: 1,
+        avgRating: vals.length ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 10) / 10 : 0,
+        topCategories: cats,
+      })
+      if (result.length === 8) break
     }
 
-    return Object.entries(grouped)
-      .map(([code, { reviewCount, ratingVals, cats }]) => ({
-        code,
-        total: reviewCount, // correct: number of reviews (not category values)
-        avgRating: Math.round((ratingVals.reduce((a, b) => a + b, 0) / ratingVals.length) * 10) / 10,
-        topCategories: cats.slice(0, 2),
-      }))
-      .sort((a, b) => b.total - a.total)
-      .slice(0, 6)
+    return result
   })
 
   // Latest 3 reviews (show first category with a comment)
