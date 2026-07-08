@@ -452,6 +452,10 @@
   .countries-page .grid-skeleton { grid-template-columns: repeat(2, 1fr); }
   .countries-page .hero-banner-head { grid-template-columns: 1fr; }
   .countries-page .review-float { width: 100%; max-width: 320px; }
+  .countries-page .ai-banner-bottom {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 @media (max-width: 900px) {
   .countries-page .stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -482,7 +486,7 @@
   .countries-page .nat-select { width: 100%; }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .countries-page .ai-banner-bottom .ai-left {
     flex-wrap: wrap;
   }

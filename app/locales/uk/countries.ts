@@ -11,7 +11,7 @@ export default {
     nationalities: 'національностей',
     lastReview: 'останній відгук',
   },
-  viewingAs: 'Дивлюся як:',
+  viewingAs: 'Я із:',
   filters: {
     search: 'Пошук країни...',
     allRegions: 'Всі регіони',
@@ -49,7 +49,7 @@ export default {
     reviews: '{count} відгуків',
     hasReviews: 'Є відгуки для вас',
     noReviews: 'Немає відгуків для вашої нац.',
-    viewReviews: 'Дивитися відгуки',
+    viewReviews: 'Відгуки',
     whatPeopleSay: 'Що кажуть люди',
     recommend: 'Рекомендують',
     sunnyDays: 'Днів сонця',

@@ -6,7 +6,7 @@ export default {
     subtitle: 'Дізнайтеся, що про неї кажуть люди саме вашої національності.',
     selectNationality: 'Твоя національність',
     selectCountry: 'Обери країну...',
-    selectNationalityLabel: 'Я з',
+    selectNationalityLabel: 'Я із',
     selectCountryLabel: 'Хочу дізнатися про',
     cta: 'Отримати відгуки',
     stat: '{reviews} відгуків · {countries} країн · {nationalities} національностей',

@@ -22,14 +22,14 @@
     />
 
     <!-- Category filter -->
-    <Select
+    <!-- <Select
       v-model="localCategory"
       :options="CATEGORY_OPTIONS"
       optionLabel="label"
       optionValue="value"
       :placeholder="$t('countries.filters.allCategories')"
       class="cfb-select"
-    />
+    /> -->
 
     <!-- Spacer -->
     <div class="cfb-spacer" />

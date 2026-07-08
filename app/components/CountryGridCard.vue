@@ -46,7 +46,7 @@
     <div class="gc-body">
       <div class="gc-metrics">
         <div v-for="m in metrics" :key="m.key" class="gc-metric">
-          <div class="gc-metric-val">
+          <div class="gc-metric-val" :data-tip="m.label">
             <span v-if="m.key === 'cost_of_living'" class="gc-metric-icon" aria-hidden="true">
             </span>
             <span v-else-if="m.key === 'safety'" class="gc-metric-icon" aria-hidden="true">
@@ -60,7 +60,6 @@
             </span>
             {{ m.value }}
           </div>
-          <div class="gc-metric-lab">{{ m.label }}</div>
         </div>
       </div>
 
@@ -219,7 +218,6 @@ const cons = computed(() =>
   border: 1px solid var(--line, #EAE7F5);
   border-radius: 14px;
   background: white;
-  overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
 }
@@ -232,6 +230,7 @@ const cons = computed(() =>
   position: relative;
   height: 200px;
   overflow: hidden;
+  border-radius: 13px 13px 0 0;
 }
 .gc-img img {
   width: 100%;
@@ -362,7 +361,32 @@ const cons = computed(() =>
   align-items: center;
   flex-shrink: 0;
 }
-.gc-metric-lab { font-size: 9.5px; color: var(--ink-soft, #5B5876); margin-top: 1px; }
+
+/* tooltip on hover instead of a visible label */
+.gc-metric-val { position: relative; cursor: default; }
+.gc-metric-val::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(2px);
+  background: var(--ink, #1A1730);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 5px 9px;
+  border-radius: 7px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 10;
+}
+.gc-metric-val:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 .gc-say { font-size: 11px; font-weight: 700; color: var(--ink-soft, #5B5876); margin-bottom: 8px; }
 .gc-tags {
@@ -423,6 +447,7 @@ const cons = computed(() =>
   height: auto;
   min-height: 200px;
   flex-shrink: 0;
+  border-radius: 13px 0 0 13px;
 }
 .gcard--list .gc-body {
   flex: 1;
@@ -439,7 +464,7 @@ const cons = computed(() =>
 
 @media (max-width: 900px) {
   .gcard--list .gc-body { grid-template-columns: 1fr; gap: 10px; }
-  .gcard--list .gc-img { width: 100%; height: 200px; }
+  .gcard--list .gc-img { width: 100%; height: 200px; border-radius: 13px 13px 0 0; }
   .gcard--list { flex-direction: column; }
 }
 </style>

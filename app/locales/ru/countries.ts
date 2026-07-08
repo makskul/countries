@@ -11,7 +11,7 @@ export default {
     nationalities: 'национальностей',
     lastReview: 'последний отзыв',
   },
-  viewingAs: 'Смотрю как:',
+  viewingAs: 'Я из:',
   filters: {
     search: 'Поиск страны...',
     allRegions: 'Все регионы',
@@ -35,7 +35,7 @@ export default {
     reviews: '{count} отзывов',
     hasReviews: 'Есть отзывы для вас',
     noReviews: 'Нет отзывов для вашей нац.',
-    viewReviews: 'Смотреть отзывы',
+    viewReviews: 'Отзывы',
     whatPeopleSay: 'Что говорят люди',
     recommend: 'Рекомендуют',
     sunnyDays: 'Дней солнца',

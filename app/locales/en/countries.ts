@@ -11,7 +11,7 @@ export default {
     nationalities: 'nationalities',
     lastReview: 'last review',
   },
-  viewingAs: 'Viewing as:',
+  viewingAs: 'I am from:',
   filters: {
     search: 'Search country...',
     allRegions: 'All regions',
@@ -35,7 +35,7 @@ export default {
     reviews: '{count} reviews',
     hasReviews: 'Has reviews for you',
     noReviews: 'No reviews for your nationality',
-    viewReviews: 'View reviews',
+    viewReviews: 'Reviews',
     whatPeopleSay: 'What people say',
     recommend: 'Recommend',
     sunnyDays: 'Sunny days',
