@@ -1,5 +1,6 @@
 import Aura from '@primevue/themes/aura'
 
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   app: {
@@ -83,12 +84,12 @@ export default defineNuxtConfig({
   sitemap: {
     // Static pages
     urls: [
-      { loc: '/',          changefreq: 'weekly',  priority: 1.0 },
-      { loc: '/countries', changefreq: 'weekly',  priority: 0.9 },
-      { loc: '/compare',   changefreq: 'monthly', priority: 0.7 },
-      { loc: '/about',     changefreq: 'monthly', priority: 0.5 },
-      { loc: '/rules',     changefreq: 'monthly', priority: 0.4 },
-      { loc: '/privacy',   changefreq: 'monthly', priority: 0.4 },
+      { loc: '/',          changefreq: 'weekly',  priority: 1.0, lastmod: '2026-07-08' },
+      { loc: '/countries', changefreq: 'weekly',  priority: 0.9, lastmod: '2026-07-08' },
+      { loc: '/compare',   changefreq: 'monthly', priority: 0.7, lastmod: '2026-07-08' },
+      { loc: '/about',     changefreq: 'monthly', priority: 0.5, lastmod: '2026-07-08' },
+      { loc: '/rules',     changefreq: 'monthly', priority: 0.4, lastmod: '2026-07-08' },
+      { loc: '/privacy',   changefreq: 'monthly', priority: 0.4, lastmod: '2026-07-08' },
     ],
     // Dynamic pages from Supabase — fetched at build/runtime
     sources: [
