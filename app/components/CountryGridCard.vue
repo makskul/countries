@@ -374,8 +374,8 @@ const cons = computed(() =>
 .gc-tags-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .gc-tag { display: flex; align-items: flex-start; gap: 6px; font-size: 10px; font-weight: 600; line-height: 1.35; color: var(--ink-soft, #5B5876); }
 .gc-tag-mark { flex-shrink: 0; display: inline-flex; align-items: center; margin-top: 1px; }
-.gc-tag.pos .gc-tag-mark { color: var(--purple-600, #6C4CE0); }
-.gc-tag.neg .gc-tag-mark { color: #9A96B0; }
+.gc-tag.pos .gc-tag-mark { color: #1FAA6B; }
+.gc-tag.neg .gc-tag-mark { color: #E15B5B; }
 
 .gc-actions { display: flex; gap: 8px; }
 .gc-btn-primary {
