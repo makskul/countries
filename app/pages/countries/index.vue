@@ -110,7 +110,7 @@
           <h3>{{ $t('countries.ai.title') }}</h3>
           <p>{{ $t('countries.ai.subtitle') }}</p>
         </div>
-        <NuxtLinkLocale to="/countries" class="ai-cta">{{ $t('countries.ai.cta') }}</NuxtLinkLocale>
+        <NuxtLinkLocale to="/countries" class="ai-cta ai-cta--disabled" @click.prevent>{{ $t('countries.ai.cta') }}</NuxtLinkLocale>
       </div>
       <div>
         <div class="how-it-works-title">{{ $t('countries.ai.howTitle') }}</div>
