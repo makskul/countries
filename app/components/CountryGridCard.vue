@@ -69,12 +69,14 @@
         <div class="gc-tags">
           <div class="gc-tags-col">
             <div v-for="cat in pros" :key="cat.category" class="gc-tag pos">
-              ✓ {{ $t(`categories.${cat.category}.name`) }}
+              <span class="gc-tag-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+              {{ $t(`categories.${cat.category}.name`) }}
             </div>
           </div>
           <div class="gc-tags-col">
             <div v-for="cat in cons" :key="cat.category" class="gc-tag neg">
-              ✕ {{ $t(`categories.${cat.category}.name`) }}
+              <span class="gc-tag-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+              {{ $t(`categories.${cat.category}.name`) }}
             </div>
           </div>
         </div>
@@ -199,7 +201,7 @@ const metrics = computed(() => [
 
 const rankedCategories = computed(() =>
   [...props.country.categoryStats]
-    .filter(c => c.category !== 'overall')
+    .filter(c => c.category !== 'overall' && c.category !== 'attitude')
     .sort((a, b) => b.avg - a.avg)
 )
 
@@ -370,9 +372,10 @@ const cons = computed(() =>
   margin-bottom: 16px;
 }
 .gc-tags-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.gc-tag { display: flex; align-items: flex-start; gap: 6px; font-size: 10px; font-weight: 600; line-height: 1.35; }
-.gc-tag.pos { color: #1FAA6B; }
-.gc-tag.neg { color: #E15B5B; }
+.gc-tag { display: flex; align-items: flex-start; gap: 6px; font-size: 10px; font-weight: 600; line-height: 1.35; color: var(--ink-soft, #5B5876); }
+.gc-tag-mark { flex-shrink: 0; display: inline-flex; align-items: center; margin-top: 1px; }
+.gc-tag.pos .gc-tag-mark { color: var(--purple-600, #6C4CE0); }
+.gc-tag.neg .gc-tag-mark { color: #9A96B0; }
 
 .gc-actions { display: flex; gap: 8px; }
 .gc-btn-primary {
