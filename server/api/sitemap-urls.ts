@@ -8,46 +8,58 @@ export default defineEventHandler(async () => {
 
   const urls: { loc: string; changefreq: string; priority: number; lastmod?: string }[] = []
 
-  // ── 1. Country pages ────────────────────────────────────────────────────
+  // ── 1. Country pages — lastmod = date of latest review per country ──────
   const { data: countries } = await supabase
     .from('reviews')
-    .select('target_country')
+    .select('target_country, created_at')
     .eq('is_approved', true)
+    .order('created_at', { ascending: false })
 
-  const uniqueCountries = [...new Set((countries ?? []).map((r: any) => r.target_country as string))]
-
-  for (const code of uniqueCountries) {
-    const slug = code.toLowerCase()
-    // uk (default, no prefix)
-    urls.push({ loc: `/country/${slug}`,     changefreq: 'daily', priority: 0.8 })
-    // en
-    urls.push({ loc: `/en/country/${slug}`,  changefreq: 'daily', priority: 0.8 })
-    // ru
-    urls.push({ loc: `/ru/country/${slug}`,  changefreq: 'daily', priority: 0.8 })
+  const countryLastmod: Record<string, string> = {}
+  for (const r of (countries ?? []) as { target_country: string; created_at: string }[]) {
+    if (!countryLastmod[r.target_country]) {
+      countryLastmod[r.target_country] = r.created_at.slice(0, 10)
+    }
   }
 
-  // ── 2. City pages — only cities that have at least one approved review ──
+  for (const [code, lastmod] of Object.entries(countryLastmod)) {
+    const slug = code.toLowerCase()
+    urls.push({ loc: `/country/${slug}`,    changefreq: 'daily', priority: 0.8, lastmod })
+    urls.push({ loc: `/en/country/${slug}`, changefreq: 'daily', priority: 0.8, lastmod })
+    urls.push({ loc: `/ru/country/${slug}`, changefreq: 'daily', priority: 0.8, lastmod })
+  }
+
+  // ── 2. City pages — lastmod = date of latest review per city ────────────
   const { data: cityReviews } = await supabase
     .from('reviews')
-    .select('city_id')
+    .select('city_id, created_at')
     .eq('is_approved', true)
     .not('city_id', 'is', null)
+    .order('created_at', { ascending: false })
 
-  const uniqueCityIds = [...new Set((cityReviews ?? []).map((r: any) => r.city_id as number))]
+  const cityLastmod: Record<number, string> = {}
+  for (const r of (cityReviews ?? []) as { city_id: number; created_at: string }[]) {
+    if (!cityLastmod[r.city_id]) {
+      cityLastmod[r.city_id] = r.created_at.slice(0, 10)
+    }
+  }
+
+  const uniqueCityIds = Object.keys(cityLastmod).map(Number)
 
   if (uniqueCityIds.length > 0) {
     const { data: cities } = await supabase
       .from('cities')
-      .select('slug, country')
+      .select('id, slug, country')
       .in('id', uniqueCityIds)
       .not('slug', 'is', null)
 
-    for (const city of (cities ?? []) as { slug: string; country: string }[]) {
+    for (const city of (cities ?? []) as { id: number; slug: string; country: string }[]) {
       if (!city.slug) continue
       const countrySlug = city.country.toLowerCase()
-      urls.push({ loc: `/country/${countrySlug}/${city.slug}`,     changefreq: 'weekly', priority: 0.6 })
-      urls.push({ loc: `/en/country/${countrySlug}/${city.slug}`,  changefreq: 'weekly', priority: 0.6 })
-      urls.push({ loc: `/ru/country/${countrySlug}/${city.slug}`,  changefreq: 'weekly', priority: 0.6 })
+      const lastmod = cityLastmod[city.id]
+      urls.push({ loc: `/country/${countrySlug}/${city.slug}`,    changefreq: 'weekly', priority: 0.6, lastmod })
+      urls.push({ loc: `/en/country/${countrySlug}/${city.slug}`, changefreq: 'weekly', priority: 0.6, lastmod })
+      urls.push({ loc: `/ru/country/${countrySlug}/${city.slug}`, changefreq: 'weekly', priority: 0.6, lastmod })
     }
   }
 
