@@ -26,6 +26,11 @@ export default defineNuxtConfig({
     restructureDir: 'app',
     langDir: 'locales/',
     strategy: 'prefix_except_default',
+    customRoutes: 'config',
+    pages: {
+      admin: false,
+      'admin-login': false,
+    },
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'nv_locale',
@@ -97,7 +102,7 @@ export default defineNuxtConfig({
     ],
   },
   supabase: {
-    redirect: false
+    redirect: false,
   },
   runtimeConfig: {
     telegramBotToken:      process.env.TELEGRAM_BOT_TOKEN      || '',

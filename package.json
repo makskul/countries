@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
+    "build:deploy": "npm run db:deploy && nuxt build",
+    "db:deploy": "node scripts/deploy-db.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -26,6 +28,7 @@
     "vue-router": "^5.0.7"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1"
+    "@types/node": "^25.9.1",
+    "pg": "^8.22.0"
   }
 }
