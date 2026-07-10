@@ -26,11 +26,8 @@ export default defineNuxtConfig({
     restructureDir: 'app',
     langDir: 'locales/',
     strategy: 'prefix_except_default',
-    customRoutes: 'config',
-    pages: {
-      admin: false,
-      'admin-login': false,
-    },
+    // Use page meta so definePageMeta({ i18n: false }) on /admin/* is respected
+    customRoutes: 'meta',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'nv_locale',
@@ -103,6 +100,11 @@ export default defineNuxtConfig({
   },
   supabase: {
     redirect: false,
+    redirectOptions: {
+      login: '/admin/login',
+      callback: '/confirm',
+      exclude: ['/admin', '/admin/*'],
+    },
   },
   runtimeConfig: {
     telegramBotToken:      process.env.TELEGRAM_BOT_TOKEN      || '',

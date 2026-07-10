@@ -6,6 +6,7 @@
     "build": "nuxt build",
     "build:deploy": "npm run db:deploy && nuxt build",
     "db:deploy": "node scripts/deploy-db.mjs",
+    "db:status": "node scripts/deploy-db.mjs --status",
     "dev": "TMPDIR=/tmp nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -24,11 +25,11 @@
     "pinia": "^3.0.4",
     "primeicons": "^7.0.0",
     "primevue": "^4.5.5",
+    "pg": "^8.22.0",
     "vue": "^3.5.34",
     "vue-router": "^5.0.7"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
-    "pg": "^8.22.0"
+    "@types/node": "^25.9.1"
   }
 }

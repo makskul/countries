@@ -2,13 +2,15 @@
 /**
  * Applies Supabase SQL migrations and seeds during deploy/CI.
  *
- * Required env:
- *   DATABASE_URL — Postgres connection string (Supabase → Settings → Database)
+ * Database connection (one of):
+ *   DATABASE_URL — full Postgres URI
+ *   SUPABASE_DB_PASSWORD + SUPABASE_URL — builds direct URI automatically
+ *   SUPABASE_DB_PASSWORD + SUPABASE_URL + SUPABASE_DB_REGION — pooler URI
  *
  * Optional env (first-time admin bootstrap):
- *   SUPABASE_URL, SUPABASE_SERVICE_KEY, ADMIN_EMAIL, ADMIN_PASSWORD
+ *   SUPABASE_SERVICE_KEY, ADMIN_EMAIL, ADMIN_PASSWORD
  *
- * Skips silently when DATABASE_URL is unset (local `nuxt build` without DB).
+ * Skips silently when no DB credentials (local `nuxt build` without DB).
  */
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
@@ -21,17 +23,65 @@ const ROOT = join(__dirname, '..')
 const MIGRATIONS_DIR = join(ROOT, 'supabase/migrations')
 const SEED_DIR = join(ROOT, 'supabase/seed')
 
-const { DATABASE_URL, SUPABASE_URL, SUPABASE_SERVICE_KEY, ADMIN_EMAIL, ADMIN_PASSWORD } = process.env
+const {
+  SUPABASE_URL,
+  NUXT_PUBLIC_SUPABASE_URL,
+  SUPABASE_SERVICE_KEY,
+  ADMIN_EMAIL,
+  ADMIN_PASSWORD,
+} = process.env
+
+function extractProjectRef(supabaseUrl) {
+  try {
+    const ref = new URL(supabaseUrl).hostname.split('.')[0]
+    return ref || null
+  } catch {
+    return null
+  }
+}
+
+/** @returns {string | null} */
+export function resolveDatabaseUrl() {
+  if (process.env.DATABASE_URL) {
+    return process.env.DATABASE_URL
+  }
+
+  const password = process.env.SUPABASE_DB_PASSWORD
+  const supabaseUrl = SUPABASE_URL || NUXT_PUBLIC_SUPABASE_URL
+  if (!password || !supabaseUrl) {
+    return null
+  }
+
+  const ref = extractProjectRef(supabaseUrl)
+  if (!ref) {
+    return null
+  }
+
+  const encoded = encodeURIComponent(password)
+  const region = process.env.SUPABASE_DB_REGION
+
+  if (region) {
+    const host = process.env.SUPABASE_DB_HOST || `aws-0-${region}.pooler.supabase.com`
+    const port = process.env.SUPABASE_DB_PORT || '6543'
+    return `postgresql://postgres.${ref}:${encoded}@${host}:${port}/postgres`
+  }
+
+  const host = process.env.SUPABASE_DB_HOST || `db.${ref}.supabase.co`
+  const port = process.env.SUPABASE_DB_PORT || '5432'
+  return `postgresql://postgres:${encoded}@${host}:${port}/postgres`
+}
 
 async function main() {
-  if (!DATABASE_URL) {
-    console.log('[deploy-db] DATABASE_URL not set — skipping migrations (OK for local build)')
+  const databaseUrl = resolveDatabaseUrl()
+  if (!databaseUrl) {
+    console.log('[deploy-db] No DATABASE_URL / SUPABASE_DB_PASSWORD — skipping migrations (OK for local build)')
+    console.log('[deploy-db] Set SUPABASE_DB_PASSWORD in Vercel/GitHub secrets to enable auto-migrations')
     return
   }
 
   const client = new pg.Client({
-    connectionString: DATABASE_URL,
-    ssl: DATABASE_URL.includes('localhost') ? false : { rejectUnauthorized: false },
+    connectionString: databaseUrl,
+    ssl: databaseUrl.includes('localhost') ? false : { rejectUnauthorized: false },
   })
 
   await client.connect()
@@ -130,13 +180,14 @@ async function runSeeds(client) {
 }
 
 async function bootstrapAdmin() {
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY || !ADMIN_EMAIL || !ADMIN_PASSWORD) {
+  const supabaseUrl = SUPABASE_URL || NUXT_PUBLIC_SUPABASE_URL
+  if (!supabaseUrl || !SUPABASE_SERVICE_KEY || !ADMIN_EMAIL || !ADMIN_PASSWORD) {
     console.log('[deploy-db] Admin bootstrap skipped (set ADMIN_EMAIL + ADMIN_PASSWORD to enable)')
     return
   }
 
   const { createClient } = await import('@supabase/supabase-js')
-  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
+  const supabase = createClient(supabaseUrl, SUPABASE_SERVICE_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },
   })
 
@@ -186,7 +237,66 @@ async function bootstrapAdmin() {
   console.log(`[deploy-db] Created superadmin: ${ADMIN_EMAIL}`)
 }
 
-main().catch((err) => {
-  console.error('[deploy-db] Failed:', err.message ?? err)
-  process.exit(1)
-})
+async function printStatus() {
+  const databaseUrl = resolveDatabaseUrl()
+  if (!databaseUrl) {
+    console.log('[deploy-db] status: NO_DB_CREDENTIALS')
+    console.log('  Add DATABASE_URL or SUPABASE_DB_PASSWORD to .env / Vercel / GitHub secrets')
+    process.exit(1)
+  }
+
+  const client = new pg.Client({
+    connectionString: databaseUrl,
+    ssl: databaseUrl.includes('localhost') ? false : { rejectUnauthorized: false },
+  })
+
+  try {
+    await client.connect()
+    await ensureMigrationTable(client)
+
+    const { rows: applied } = await client.query(
+      'SELECT filename, applied_at FROM _schema_migrations ORDER BY applied_at',
+    )
+
+    const migrationFiles = existsSync(MIGRATIONS_DIR)
+      ? readdirSync(MIGRATIONS_DIR).filter(f => f.endsWith('.sql')).sort()
+      : []
+
+    const seedFiles = existsSync(SEED_DIR)
+      ? readdirSync(SEED_DIR).filter(f => f.endsWith('.sql')).sort()
+      : []
+
+    const appliedSet = new Set(applied.map(r => r.filename))
+
+    console.log('[deploy-db] status: CONNECTED')
+    console.log(`  applied: ${applied.length} records in _schema_migrations`)
+
+    for (const file of migrationFiles) {
+      console.log(`  migration ${appliedSet.has(file) ? '✓' : '✗'} ${file}`)
+    }
+    for (const file of seedFiles) {
+      const key = `seed:${file}`
+      console.log(`  seed      ${appliedSet.has(key) ? '✓' : '✗'} ${file}`)
+    }
+
+    const supabaseUrl = SUPABASE_URL || NUXT_PUBLIC_SUPABASE_URL
+    const adminReady = Boolean(supabaseUrl && SUPABASE_SERVICE_KEY && ADMIN_EMAIL && ADMIN_PASSWORD)
+    console.log(`  admin bootstrap env: ${adminReady ? 'configured' : 'missing ADMIN_EMAIL/PASSWORD'}`)
+  } finally {
+    await client.end()
+  }
+}
+
+const isStatus = process.argv.includes('--status')
+
+if (isStatus) {
+  printStatus().catch((err) => {
+    console.error('[deploy-db] status failed:', err.message ?? err)
+    process.exit(1)
+  })
+} else {
+  main().catch((err) => {
+    console.error('[deploy-db] Failed:', err.message ?? err)
+    process.exit(1)
+  })
+}

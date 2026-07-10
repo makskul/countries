@@ -1,84 +1,92 @@
 # Admin panel setup
 
-## Environment variables
+## Что нужно без доступа к Supabase Dashboard
 
-Add to `.env` (see `.env.example`):
+| Переменная | Откуда взять | Зачем |
+|------------|--------------|-------|
+| `SUPABASE_URL` | уже есть | API + auth |
+| `SUPABASE_KEY` | уже есть | клиент сайта |
+| `SUPABASE_SERVICE_KEY` | уже есть | admin API, bootstrap админа |
+| `SUPABASE_DB_PASSWORD` | **один раз у владельца проекта** | SQL-миграции |
+| `ADMIN_EMAIL` + `ADMIN_PASSWORD` | придумываете сами | первый вход в `/admin/login` |
 
-```env
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-anon-key
-SUPABASE_SERVICE_KEY=your-service-role-key
+**Service key ≠ пароль базы.** Миграции идут через Postgres (`pg`), для этого нужен `SUPABASE_DB_PASSWORD` или готовый `DATABASE_URL`.
 
-TELEGRAM_BOT_TOKEN=          # optional: review notifications
-TELEGRAM_ADMIN_CHAT_ID=
-SUPABASE_WEBHOOK_SECRET=
-```
+Попросите владельца Supabase: *Settings → Database → Database password* (или «Reset database password» и передать новый пароль).
 
-`SUPABASE_SERVICE_KEY` is required for admin API routes (bypasses RLS).
+---
 
 ## Автоматический деплой БД
 
-Скрипт [`scripts/deploy-db.mjs`](../scripts/deploy-db.mjs) при деплое:
+Скрипт [`scripts/deploy-db.mjs`](../scripts/deploy-db.mjs) при каждом деплое:
 
-1. Применяет новые SQL-миграции из `supabase/migrations/` (таблица `_schema_migrations`)
-2. Запускает seed из `supabase/seed/` (один раз)
-3. Опционально создаёт первого superadmin (если заданы `ADMIN_EMAIL` + `ADMIN_PASSWORD`)
+1. Подключается к Postgres (`DATABASE_URL` или `SUPABASE_DB_PASSWORD` + `SUPABASE_URL`)
+2. Применяет новые SQL из `supabase/migrations/` (таблица `_schema_migrations`)
+3. Запускает seed из `supabase/seed/` (один раз)
+4. Создаёт первого superadmin через **Auth Admin API** (без Dashboard)
 
-### Локально
+### Проверка локально
 
 ```bash
-# .env с DATABASE_URL
-npm run db:deploy
+# .env с SUPABASE_DB_PASSWORD (+ ADMIN_EMAIL/PASSWORD для bootstrap)
+npm run db:status   # список применённых / ожидающих миграций
+npm run db:deploy   # применить
 ```
 
-### Vercel
+### Vercel (основной путь)
 
-В [`vercel.json`](../vercel.json) указано:
+В [`vercel.json`](../vercel.json):
 
 ```json
 { "buildCommand": "npm run build:deploy" }
 ```
 
-Добавьте в Vercel → Environment Variables:
+**Environment Variables** (Production + Preview):
 
-| Variable | Назначение |
-|----------|------------|
-| `DATABASE_URL` | Postgres URI (обязательно для миграций) |
-| `SUPABASE_SERVICE_KEY` | service role (для bootstrap admin) |
-| `ADMIN_EMAIL` | email первого админа (опционально) |
-| `ADMIN_PASSWORD` | пароль (опционально, только первый deploy) |
+| Variable | Обязательно |
+|----------|-------------|
+| `SUPABASE_URL` | да |
+| `SUPABASE_KEY` | да |
+| `SUPABASE_SERVICE_KEY` | да |
+| `SUPABASE_DB_PASSWORD` | да (для миграций) |
+| `ADMIN_EMAIL` | да (первый deploy) |
+| `ADMIN_PASSWORD` | да (первый deploy) |
 
-Если `DATABASE_URL` не задан, скрипт **пропускается** — обычный `nuxt build` не ломается.
+После первого успешного деплоя `ADMIN_PASSWORD` можно убрать из Vercel — админ уже создан.
 
-### GitHub Actions
+Если direct `:5432` с Vercel не коннектится, добавьте:
 
-Workflow [`.github/workflows/deploy-db.yml`](../.github/workflows/deploy-db.yml) запускается при push в `dev`/`main`, если изменились миграции.
+```env
+SUPABASE_DB_REGION=eu-central-1   # регион из Supabase → Database → Connection string
+```
 
-Добавьте secrets в репозитории: `DATABASE_URL`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, при необходимости `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
+### GitHub Actions (запасной путь)
 
-### Что не автоматизируется
+Workflow [`.github/workflows/deploy-db.yml`](../.github/workflows/deploy-db.yml) — при push в `dev`/`main`, если менялись миграции, или вручную (*Actions → Deploy database → Run workflow*).
 
-- Telegram webhooks — настраиваются вручную один раз
-- Supabase Auth «Disable sign ups» — в Dashboard
-- Повторное создание админов — только первый `ADMIN_EMAIL`; дальше через Dashboard + SQL
+**Repository secrets:**
 
-## Database migrations (ручной режим)
+- `DATABASE_URL` **или** `SUPABASE_DB_PASSWORD` + `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+- `ADMIN_EMAIL`, `ADMIN_PASSWORD` (первый раз)
 
-Run in order in Supabase SQL Editor (or `npm run db:deploy`):
+---
 
-1. `supabase/migrations/001_reviews.sql` … `003_country_stats.sql` (if not applied)
-2. `004_reviews_extend.sql` … `008_rls.sql`
-3. Seed: `supabase/seed/countries.sql`
+## Ручной режим (если есть SQL Editor)
 
-## Supabase Auth
+1. `supabase/migrations/001` … `008`
+2. `supabase/seed/countries.sql`
+3. Создать пользователя в Auth + `INSERT INTO admin_users` (см. ниже)
 
-1. Dashboard → Authentication → Providers → enable **Email**
-2. Disable public sign-ups (invite-only)
-3. Create first user: Authentication → Users → Add user (email + password)
+---
 
-## Grant admin access
+## Supabase Auth (если есть Dashboard)
 
-After creating the Auth user, insert into `admin_users`:
+1. Authentication → Providers → **Email**
+2. Disable public sign-ups
+3. Users → Add user — **или** положитесь на `ADMIN_EMAIL`/`ADMIN_PASSWORD` при деплое
+
+## Grant admin access (ручной SQL)
 
 ```sql
 INSERT INTO admin_users (id, email, role)
@@ -93,7 +101,7 @@ Roles:
 
 | Role | Access |
 |------|--------|
-| `moderator` | Reviews moderation, dashboard, moderation log |
+| `moderator` | Reviews, dashboard, moderation log |
 | `editor` | + cities, countries CMS, newsletter |
 | `superadmin` | Full access |
 
@@ -101,8 +109,6 @@ Roles:
 
 - Database Webhook on `reviews` INSERT → `POST /api/webhook/review`
 - Telegram bot webhook → `POST /api/webhook/telegram`
-
-Admin panel at `/admin` is the primary moderation UI; Telegram remains a notification channel.
 
 ## Local development
 

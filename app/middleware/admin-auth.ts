@@ -1,7 +1,21 @@
+function isAdminLoginPath(path: string) {
+  return path === '/admin/login' || path.endsWith('/admin/login')
+}
+
+function isAdminPath(path: string) {
+  return path === '/admin' || path.startsWith('/admin/')
+}
+
 export default defineNuxtRouteMiddleware(async (to) => {
-  if (to.path === '/admin/login') {
+  if (!isAdminPath(to.path)) {
+    return
+  }
+
+  if (isAdminLoginPath(to.path)) {
     const user = useSupabaseUser()
-    if (user.value) return navigateTo('/admin')
+    if (user.value) {
+      return navigateTo('/admin')
+    }
     return
   }
 
