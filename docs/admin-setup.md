@@ -1,122 +1,97 @@
-# Admin panel setup
+# Admin panel + DB migrations
 
-## Что нужно без доступа к Supabase Dashboard
+## Блокер: service key ≠ доступ к SQL
 
-| Переменная | Откуда взять | Зачем |
-|------------|--------------|-------|
-| `SUPABASE_URL` | уже есть | API + auth |
-| `SUPABASE_KEY` | уже есть | клиент сайта |
-| `SUPABASE_SERVICE_KEY` | уже есть | admin API, bootstrap админа |
-| `SUPABASE_DB_PASSWORD` | **один раз у владельца проекта** | SQL-миграции |
-| `ADMIN_EMAIL` + `ADMIN_PASSWORD` | придумываете сами | первый вход в `/admin/login` |
+| Ключ | Что даёт | Миграции? |
+|------|----------|-----------|
+| `SUPABASE_KEY` / publishable | чтение/запись через API + RLS | нет |
+| `SUPABASE_SERVICE_KEY` | API без RLS, Auth Admin, bootstrap админа | **нет** |
+| `SUPABASE_DB_PASSWORD` / `DATABASE_URL` | прямой Postgres | **да** |
+| `SUPABASE_ACCESS_TOKEN` (`sbp_…`) | Management API → выполнить SQL | **да** |
 
-**Service key ≠ пароль базы.** Миграции идут через Postgres (`pg`), для этого нужен `SUPABASE_DB_PASSWORD` или готовый `DATABASE_URL`.
-
-Попросите владельца Supabase: *Settings → Database → Database password* (или «Reset database password» и передать новый пароль).
+Сейчас в `.env` есть service key и `ADMIN_*`, но **нет** ни пароля БД, ни access token — поэтому `db:deploy` пропускает миграции.
 
 ---
 
-## Автоматический деплой БД
+## Что попросить у владельца Supabase (один раз)
 
-Скрипт [`scripts/deploy-db.mjs`](../scripts/deploy-db.mjs) при каждом деплое:
+**Вариант A — проще для вас (рекомендуется):**
 
-1. Подключается к Postgres (`DATABASE_URL` или `SUPABASE_DB_PASSWORD` + `SUPABASE_URL`)
-2. Применяет новые SQL из `supabase/migrations/` (таблица `_schema_migrations`)
-3. Запускает seed из `supabase/seed/` (один раз)
-4. Создаёт первого superadmin через **Auth Admin API** (без Dashboard)
+> Создай Personal Access Token:  
+> https://supabase.com/dashboard/account/tokens → Generate new token  
+> Пришли значение `sbp_…` (можно отозвать после деплоя).
 
-### Проверка локально
+Добавьте в `.env` и в Vercel / GitHub secrets:
+
+```env
+SUPABASE_ACCESS_TOKEN=sbp_...
+```
+
+**Вариант B — пароль базы:**
+
+> Settings → Database → Database password (или Reset)  
+> + регион из Connection string (например `eu-central-1`)
+
+```env
+SUPABASE_DB_PASSWORD=...
+SUPABASE_DB_REGION=eu-central-1
+```
+
+---
+
+## Локально применить миграции
 
 ```bash
-# .env с SUPABASE_DB_PASSWORD (+ ADMIN_EMAIL/PASSWORD для bootstrap)
-npm run db:status   # список применённых / ожидающих миграций
-npm run db:deploy   # применить
+# после добавления SUPABASE_ACCESS_TOKEN или SUPABASE_DB_PASSWORD в .env
+npm run db:status
+npm run db:deploy
 ```
 
-### Vercel (основной путь)
+Скрипт сам читает `.env`. Сделает:
 
-В [`vercel.json`](../vercel.json):
+1. `_schema_migrations` + SQL из `supabase/migrations/`
+2. seed из `supabase/seed/`
+3. первого superadmin (`ADMIN_EMAIL` / `ADMIN_PASSWORD`) через Auth Admin API
 
-```json
-{ "buildCommand": "npm run build:deploy" }
-```
+---
 
-**Environment Variables** (Production + Preview):
+## Vercel
+
+`vercel.json` → `buildCommand: npm run build:deploy` (= `db:deploy` + `nuxt build`).
 
 | Variable | Обязательно |
 |----------|-------------|
 | `SUPABASE_URL` | да |
 | `SUPABASE_KEY` | да |
 | `SUPABASE_SERVICE_KEY` | да |
-| `SUPABASE_DB_PASSWORD` | да (для миграций) |
-| `ADMIN_EMAIL` | да (первый deploy) |
-| `ADMIN_PASSWORD` | да (первый deploy) |
+| `SUPABASE_ACCESS_TOKEN` **или** `SUPABASE_DB_PASSWORD` (+ `SUPABASE_DB_REGION`) | да для миграций |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | да (первый раз) |
 
-После первого успешного деплоя `ADMIN_PASSWORD` можно убрать из Vercel — админ уже создан.
+Без DB-кредов сборка приложения **не падает**, но схемы не будет — в логах будет явный skip.
 
-Если direct `:5432` с Vercel не коннектится, добавьте:
-
-```env
-SUPABASE_DB_REGION=eu-central-1   # регион из Supabase → Database → Connection string
-```
-
-Миграции на Vercel **не валят** деплой приложения, если БД недоступна (в логах будет warning). Чтобы сборка падала при ошибке миграций, задайте `DB_DEPLOY_STRICT=1` (так работает GitHub Actions CI).
-
-### GitHub Actions (запасной путь)
-
-Workflow [`.github/workflows/deploy-db.yml`](../.github/workflows/deploy-db.yml) — при push в `dev`/`main`, если менялись миграции, или вручную (*Actions → Deploy database → Run workflow*).
-
-**Repository secrets:**
-
-- `DATABASE_URL` **или** `SUPABASE_DB_PASSWORD` + `SUPABASE_URL`
-- `SUPABASE_SERVICE_KEY`
-- `ADMIN_EMAIL`, `ADMIN_PASSWORD` (первый раз)
+Чтобы падать при ошибке миграций: `DB_DEPLOY_STRICT=1`.
 
 ---
 
-## Ручной режим (если есть SQL Editor)
+## GitHub Actions
 
-1. `supabase/migrations/001` … `008`
-2. `supabase/seed/countries.sql`
-3. Создать пользователя в Auth + `INSERT INTO admin_users` (см. ниже)
+[`.github/workflows/deploy-db.yml`](../.github/workflows/deploy-db.yml) — push в `dev`/`main` при изменении миграций, или вручную.
+
+Secrets: `SUPABASE_URL`, `SUPABASE_ACCESS_TOKEN` **или** `SUPABASE_DB_PASSWORD` (+ region), `SUPABASE_SERVICE_KEY`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
 
 ---
 
-## Supabase Auth (если есть Dashboard)
-
-1. Authentication → Providers → **Email**
-2. Disable public sign-ups
-3. Users → Add user — **или** положитесь на `ADMIN_EMAIL`/`ADMIN_PASSWORD` при деплое
-
-## Grant admin access (ручной SQL)
-
-```sql
-INSERT INTO admin_users (id, email, role)
-VALUES (
-  'UUID-FROM-AUTH-USERS',
-  'admin@example.com',
-  'superadmin'
-);
-```
-
-Roles:
+## Роли админки
 
 | Role | Access |
 |------|--------|
 | `moderator` | Reviews, dashboard, moderation log |
 | `editor` | + cities, countries CMS, newsletter |
-| `superadmin` | Full access |
+| `superadmin` | Full |
 
-## Telegram webhooks (optional)
+Вход: `/admin/login`
+
+## Telegram (optional)
 
 - Database Webhook on `reviews` INSERT → `POST /api/webhook/review`
 - Telegram bot webhook → `POST /api/webhook/telegram`
-
-## Local development
-
-```bash
-npm install
-npm run dev
-```
-
-Open `http://localhost:3000/admin/login`
