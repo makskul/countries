@@ -26,7 +26,7 @@ export function useCityPage(
       // Step 1: resolve city id from slug
       const { data: city } = await supabase
         .from('cities')
-        .select('id, name_en, name_uk, name_ru, country, slug')
+        .select('id, name_en, name_uk, name_ru, country, slug, article_title_uk, article_title_en, article_title_ru, article_excerpt_uk, article_excerpt_en, article_excerpt_ru, article_body_uk, article_body_en, article_body_ru')
         .eq('country', slug.value)
         .eq('slug', citySlug.value)
         .maybeSingle()
@@ -37,17 +37,25 @@ export function useCityPage(
       const [reviewsResult, statsResult] = await Promise.all([
         // Reviews — filtered by nationality unless showAllOverride
         (async () => {
-          let q = supabase
-            .from('reviews')
-            .select('id, ratings, comments, created_at, author_nationality, city_id, author_profile, stay_purpose, still_there, climate, cities(id, name_en, name_uk, name_ru, slug)')
-            .eq('target_country', slug.value)
-            .eq('city_id', city.id)
-            .eq('is_approved', true)
-            .order('created_at', { ascending: false })
-          if (effectiveNationality.value && !showAllOverride.value) {
-            q = q.eq('author_nationality', effectiveNationality.value)
+          const selectWithCity = 'id, ratings, comments, created_at, author_nationality, city_id, author_profile, stay_purpose, still_there, climate, cities(id, name_en, name_uk, name_ru, slug)'
+          const selectPlain = 'id, ratings, comments, created_at, author_nationality, city_id, author_profile, stay_purpose, still_there, climate'
+          async function run(select: string) {
+            let q = supabase
+              .from('reviews')
+              .select(select)
+              .eq('target_country', slug.value)
+              .eq('city_id', city.id)
+              .eq('is_approved', true)
+              .order('created_at', { ascending: false })
+            if (effectiveNationality.value && !showAllOverride.value) {
+              q = q.eq('author_nationality', effectiveNationality.value)
+            }
+            return q
           }
-          const { data, error } = await q
+          let { data, error } = await run(selectWithCity)
+          if (error?.code === 'PGRST200' || error?.message?.includes('relationship')) {
+            ;({ data, error } = await run(selectPlain))
+          }
           if (error) throw error
           return (data ?? []) as any[]
         })(),

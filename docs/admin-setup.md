@@ -91,6 +91,25 @@ Secrets: `SUPABASE_URL`, `SUPABASE_ACCESS_TOKEN` **или** `SUPABASE_DB_PASSWOR
 
 Вход: `/admin/login`
 
+## Как править контент (для редактора)
+
+1. **Статья о стране** — Админка → «Страны и статьи» → карандаш → блок «Статья о стране» (UK / EN / RU). Кнопка «Открыть на сайте» проверяет результат.
+2. **Статья о городе** — «Города» → карандаш → «Статья о городе». Абзацы разделяйте пустой строкой.
+3. **Отзывы** — «Отзывы», фильтр «Все» или «Опубликованы». Метка **Демо** = сгенерированный seed-отзыв (`author_profile = seed`).
+4. **Справка / виза** — в карточке страны блоки «Основные данные» и «Виза».
+
+Подробнее про источники демо-текстов: [`content-sources.md`](content-sources.md).
+
+## Демо-контент (статьи + отзывы)
+
+Синтетическое наполнение на базе публичных источников — см. [`docs/content-sources.md`](content-sources.md).
+
+```bash
+npm run db:deploy          # миграции (в т.ч. article_* и FK)
+npm run content:generate   # facts → supabase/seed/generated/
+npm run db:seed-content    # города + статьи + 120+ отзывов
+```
+
 ## Telegram (optional)
 
 - Database Webhook on `reviews` INSERT → `POST /api/webhook/review`

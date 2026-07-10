@@ -242,6 +242,9 @@ async function runMigrationsApi(api) {
       continue
     }
     const sql = readFileSync(join(MIGRATIONS_DIR, file), 'utf8')
+    assertSafeMigrationSql(file, sql, {
+      allowDestructive: process.env.ALLOW_DESTRUCTIVE_MIGRATIONS === '1',
+    })
     console.log(`[deploy-db] applying migration: ${file}`)
     await api.runQuery(`
 ${sql}
@@ -294,6 +297,9 @@ async function runMigrationsPg(client) {
     }
 
     const sql = readFileSync(join(MIGRATIONS_DIR, file), 'utf8')
+    assertSafeMigrationSql(file, sql, {
+      allowDestructive: process.env.ALLOW_DESTRUCTIVE_MIGRATIONS === '1',
+    })
     console.log(`[deploy-db] applying migration: ${file}`)
     await client.query('BEGIN')
     try {

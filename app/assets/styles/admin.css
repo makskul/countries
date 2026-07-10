@@ -177,6 +177,89 @@
   margin-bottom: 16px;
 }
 
+.admin-page-lead {
+  margin: -8px 0 20px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--color-text-secondary, #6b7280);
+  max-width: 640px;
+}
+
+.admin-section {
+  margin-bottom: 20px;
+}
+
+.admin-section-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.admin-section-hint {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-text-muted, #6b7280);
+}
+
+.admin-field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-text-muted, #9ca3af);
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 4px 16px;
+}
+
+.admin-form-field--wide {
+  grid-column: 1 / -1;
+}
+
+.admin-form-field--inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.admin-form-field--inline label {
+  margin: 0;
+}
+
+.admin-nav-group {
+  margin: 14px 0 6px;
+  padding: 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted, #9ca3af);
+}
+
+.admin-help-card {
+  margin-top: 20px;
+}
+
+.admin-help-card ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.admin-help-card a {
+  color: var(--color-primary, #2563eb);
+  text-decoration: none;
+}
+
+.admin-help-card a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .admin-layout { flex-direction: column; }
   .admin-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--color-border); }

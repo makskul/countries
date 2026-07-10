@@ -8,7 +8,7 @@ const route = useRoute()
 const router = useRouter()
 const toast = useToast()
 
-const status = ref(String(route.query.status ?? 'pending'))
+const status = ref(String(route.query.status ?? 'all'))
 const countryFilter = ref('')
 const page = ref(1)
 const selected = ref<ReviewRow[]>([])
@@ -73,7 +73,7 @@ function parseRatings(row: ReviewRow): Record<string, number> {
         v-model="status"
         :options="[
           { label: 'Ожидают', value: 'pending' },
-          { label: 'Одобренные', value: 'approved' },
+          { label: 'Опубликованы', value: 'approved' },
           { label: 'Все', value: 'all' },
         ]"
         option-label="label"
@@ -83,7 +83,7 @@ function parseRatings(row: ReviewRow): Record<string, number> {
       <InputText v-model="countryFilter" placeholder="Код страны (PT)" style="width: 120px" />
       <Button v-if="selected.length" label="Одобрить выбранные" size="small" @click="bulkModerate(true)" />
       <Button v-if="selected.length" label="Отклонить выбранные" size="small" severity="secondary" @click="bulkModerate(false)" />
-      <Tag v-if="data" :value="`Pending: ${data.pending}`" severity="warn" />
+      <Tag v-if="data" :value="`Ожидают: ${data.pending}`" severity="warn" />
     </div>
 
     <div class="admin-card">
@@ -110,7 +110,18 @@ function parseRatings(row: ReviewRow): Record<string, number> {
         </Column>
         <Column header="Статус">
           <template #body="{ data: row }">
-            <Tag :value="row.is_approved ? 'OK' : 'Pending'" :severity="row.is_approved ? 'success' : 'warn'" />
+            <div class="admin-actions">
+              <Tag
+                :value="row.is_approved ? 'Опубликован' : 'Ожидает'"
+                :severity="row.is_approved ? 'success' : 'warn'"
+              />
+              <Tag
+                v-if="row.author_profile === 'seed'"
+                value="Демо"
+                severity="secondary"
+                title="Сгенерированный демо-отзыв"
+              />
+            </div>
           </template>
         </Column>
         <Column header="Действия">

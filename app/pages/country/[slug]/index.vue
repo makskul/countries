@@ -78,6 +78,14 @@
       <!-- MAIN COLUMN -->
       <div class="main-col">
 
+        <ContentArticle
+          v-if="countryArticle"
+          :section-label="$t('country.article.aboutCountry')"
+          :title="countryArticle.title"
+          :excerpt="countryArticle.excerpt"
+          :body="countryArticle.body"
+        />
+
         <!-- No reviews at all -->
         <div v-if="!pending && !countryHasAnyReviews" class="empty-state">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -322,6 +330,8 @@ const {
   showAllOverride,
   countryHasAnyReviews,
 } = useCountryPage(slug, nationality)
+
+const { article: countryArticle } = useCountryMetaData(slug)
 
 const showAllCitiesDialog = ref(false)
 const localePath = useLocalePath()

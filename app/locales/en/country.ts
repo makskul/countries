@@ -12,5 +12,6 @@ export default {
   empty: { title: 'No reviews for your nationality', subtitle: 'Be the first — share your experience about {country}', cta: 'Write the first review' },
   noNat: { message: 'Select your nationality to see reviews.', cta: 'Select nationality' },
   visaInfo: { default: 'Check official sources' },
+  article: { aboutCountry: 'About the country', aboutCity: 'About the city' },
   dialog: { title: 'Choose nationality', subtitle: 'Page reviews will update for your nationality.', apply: 'Apply', showAll: 'Show all reviews' },
 }

@@ -75,6 +75,15 @@ export interface Database {
           slug: string
           population: number
           created_at: string
+          article_title_uk: string | null
+          article_title_en: string | null
+          article_title_ru: string | null
+          article_excerpt_uk: string | null
+          article_excerpt_en: string | null
+          article_excerpt_ru: string | null
+          article_body_uk: string | null
+          article_body_en: string | null
+          article_body_ru: string | null
         }
         Insert: {
           id?: number
@@ -85,6 +94,15 @@ export interface Database {
           slug: string
           population?: number
           created_at?: string
+          article_title_uk?: string | null
+          article_title_en?: string | null
+          article_title_ru?: string | null
+          article_excerpt_uk?: string | null
+          article_excerpt_en?: string | null
+          article_excerpt_ru?: string | null
+          article_body_uk?: string | null
+          article_body_en?: string | null
+          article_body_ru?: string | null
         }
         Update: {
           id?: number
@@ -95,6 +113,15 @@ export interface Database {
           slug?: string
           population?: number
           created_at?: string
+          article_title_uk?: string | null
+          article_title_en?: string | null
+          article_title_ru?: string | null
+          article_excerpt_uk?: string | null
+          article_excerpt_en?: string | null
+          article_excerpt_ru?: string | null
+          article_body_uk?: string | null
+          article_body_en?: string | null
+          article_body_ru?: string | null
         }
         Relationships: []
       }
@@ -114,6 +141,15 @@ export interface Database {
           visa_info_uk: string | null
           visa_info_en: string | null
           visa_info_ru: string | null
+          article_title_uk: string | null
+          article_title_en: string | null
+          article_title_ru: string | null
+          article_excerpt_uk: string | null
+          article_excerpt_en: string | null
+          article_excerpt_ru: string | null
+          article_body_uk: string | null
+          article_body_en: string | null
+          article_body_ru: string | null
           updated_at: string
         }
         Insert: {
@@ -131,6 +167,15 @@ export interface Database {
           visa_info_uk?: string | null
           visa_info_en?: string | null
           visa_info_ru?: string | null
+          article_title_uk?: string | null
+          article_title_en?: string | null
+          article_title_ru?: string | null
+          article_excerpt_uk?: string | null
+          article_excerpt_en?: string | null
+          article_excerpt_ru?: string | null
+          article_body_uk?: string | null
+          article_body_en?: string | null
+          article_body_ru?: string | null
           updated_at?: string
         }
         Update: {
@@ -148,6 +193,15 @@ export interface Database {
           visa_info_uk?: string | null
           visa_info_en?: string | null
           visa_info_ru?: string | null
+          article_title_uk?: string | null
+          article_title_en?: string | null
+          article_title_ru?: string | null
+          article_excerpt_uk?: string | null
+          article_excerpt_en?: string | null
+          article_excerpt_ru?: string | null
+          article_body_uk?: string | null
+          article_body_en?: string | null
+          article_body_ru?: string | null
           updated_at?: string
         }
         Relationships: []
