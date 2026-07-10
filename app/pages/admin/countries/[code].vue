@@ -37,6 +37,12 @@ const form = reactive({
   article_body_en: '',
   article_body_ru: '',
   article_published: true,
+  seo_title_uk: '',
+  seo_title_en: '',
+  seo_title_ru: '',
+  seo_description_uk: '',
+  seo_description_en: '',
+  seo_description_ru: '',
 })
 
 watch(country, (c) => {
@@ -65,6 +71,12 @@ watch(country, (c) => {
     article_body_en: c.article_body_en ?? '',
     article_body_ru: c.article_body_ru ?? '',
     article_published: c.article_published !== false,
+    seo_title_uk: c.seo_title_uk ?? '',
+    seo_title_en: c.seo_title_en ?? '',
+    seo_title_ru: c.seo_title_ru ?? '',
+    seo_description_uk: c.seo_description_uk ?? '',
+    seo_description_en: c.seo_description_en ?? '',
+    seo_description_ru: c.seo_description_ru ?? '',
   })
 }, { immediate: true })
 
@@ -240,6 +252,45 @@ async function onHeroSelected(event: Event) {
         section-hint="Блок «О стране» над отзывами. Абзацы разделяйте пустой строкой."
         :body-rows="14"
       />
+
+      <section class="admin-card admin-section">
+        <h2 class="admin-section-title">SEO (title / description)</h2>
+        <p class="admin-section-hint">
+          Если пусто — сайт подставит стандартный заголовок и описание. Можно задать отдельно для UK / EN / RU.
+        </p>
+        <TabView>
+          <TabPanel header="Українська">
+            <div class="admin-form-field">
+              <label>Title</label>
+              <InputText v-model="form.seo_title_uk" class="w-full" maxlength="70" placeholder="До ~60 символів" />
+            </div>
+            <div class="admin-form-field">
+              <label>Description</label>
+              <Textarea v-model="form.seo_description_uk" rows="3" class="w-full" maxlength="160" placeholder="До ~155 символів" />
+            </div>
+          </TabPanel>
+          <TabPanel header="English">
+            <div class="admin-form-field">
+              <label>Title</label>
+              <InputText v-model="form.seo_title_en" class="w-full" maxlength="70" placeholder="Up to ~60 chars" />
+            </div>
+            <div class="admin-form-field">
+              <label>Description</label>
+              <Textarea v-model="form.seo_description_en" rows="3" class="w-full" maxlength="160" placeholder="Up to ~155 chars" />
+            </div>
+          </TabPanel>
+          <TabPanel header="Русский">
+            <div class="admin-form-field">
+              <label>Title</label>
+              <InputText v-model="form.seo_title_ru" class="w-full" maxlength="70" placeholder="До ~60 символов" />
+            </div>
+            <div class="admin-form-field">
+              <label>Description</label>
+              <Textarea v-model="form.seo_description_ru" rows="3" class="w-full" maxlength="160" placeholder="До ~155 символов" />
+            </div>
+          </TabPanel>
+        </TabView>
+      </section>
 
       <div class="admin-toolbar">
         <Button label="Сохранить изменения" icon="pi pi-save" @click="save" />

@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   const code = getRouterParam(event, 'code')?.toUpperCase()
   if (!code) throw createError({ statusCode: 400, message: 'Missing code' })
 
-  const { supabaseAdmin } = await requireAdmin(event, { roles: ['editor'] })
+  const { admin, supabaseAdmin } = await requireAdmin(event, { roles: ['editor'] })
   const parts = await readMultipartFormData(event)
   const file = parts?.find(p => p.name === 'file' && p.data?.length)
   if (!file?.data) throw createError({ statusCode: 400, message: 'Файл не передан' })
@@ -45,5 +45,14 @@ export default defineEventHandler(async (event) => {
     .single()
 
   if (error) throw createError({ statusCode: 500, message: error.message })
+
+  await logModeration(supabaseAdmin, {
+    adminId: admin.id,
+    action: 'cms_media',
+    entityType: 'country',
+    entityRef: code,
+    note: `hero → ${path}`,
+  })
+
   return { url, country: data }
 })

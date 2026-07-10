@@ -17,7 +17,7 @@
       <i class="pi pi-comments" /> Отзывы
     </NuxtLink>
     <NuxtLink to="/admin/moderation-log" class="admin-nav-link">
-      <i class="pi pi-history" /> Журнал
+      <i class="pi pi-history" /> Журнал изменений
     </NuxtLink>
 
     <div class="admin-nav-group">Прочее</div>

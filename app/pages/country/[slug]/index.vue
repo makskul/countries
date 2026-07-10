@@ -290,11 +290,43 @@ const natGenitive = computed(() =>
   nationality.value ? t(`nationalities.${nationality.value}.genitive`) : ''
 )
 
+const { article: countryArticle, row: countryRow } = useCountryMetaData(slug)
+
+const defaultSeoTitle = computed(() =>
+  `${countryFlag.value} ${countryName.value} — ${t('seo.country.reviewsOf')} ${natGenitive.value}`,
+)
+const defaultSeoDescription = computed(() =>
+  t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
+)
+
+const seoTitle = computed(() => {
+  const row = countryRow.value
+  if (!row) return defaultSeoTitle.value
+  const custom = locale.value === 'uk'
+    ? row.seo_title_uk
+    : locale.value === 'ru'
+      ? row.seo_title_ru
+      : row.seo_title_en
+  return (custom || row.seo_title_en || row.seo_title_uk || row.seo_title_ru || '').trim() || defaultSeoTitle.value
+})
+
+const seoDescription = computed(() => {
+  const row = countryRow.value
+  if (!row) return defaultSeoDescription.value
+  const custom = locale.value === 'uk'
+    ? row.seo_description_uk
+    : locale.value === 'ru'
+      ? row.seo_description_ru
+      : row.seo_description_en
+  return (custom || row.seo_description_en || row.seo_description_uk || row.seo_description_ru || '').trim()
+    || defaultSeoDescription.value
+})
+
 useSeoMeta({
-  title: () => `${countryFlag.value} ${countryName.value} — ${t('seo.country.reviewsOf')} ${natGenitive.value}`,
-  description: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
-  ogTitle: () => `${countryName.value} — ${natGenitive.value}`,
-  ogDescription: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
+  title: () => seoTitle.value,
+  description: () => seoDescription.value,
+  ogTitle: () => seoTitle.value,
+  ogDescription: () => seoDescription.value,
   ogImage: APP_URL + '/og/home.png',
   ogUrl: () => `${APP_URL}/country/${slug.value.toLowerCase()}`,
   ogType: 'website',
@@ -307,8 +339,8 @@ useHead({
     innerHTML: computed(() => JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: `${countryName.value} — отзывы эмигрантов`,
-      description: `Реальные отзывы о жизни в ${countryName.value}`,
+      name: seoTitle.value,
+      description: seoDescription.value,
       url: `${APP_URL}/country/${slug.value.toLowerCase()}`,
     })).value,
   }],
@@ -330,8 +362,6 @@ const {
   showAllOverride,
   countryHasAnyReviews,
 } = useCountryPage(slug, nationality)
-
-const { article: countryArticle } = useCountryMetaData(slug)
 
 const showAllCitiesDialog = ref(false)
 const localePath = useLocalePath()

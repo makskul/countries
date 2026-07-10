@@ -15,17 +15,52 @@ const { data, pending } = await useAsyncData(
 
 const actionOptions = [
   { label: 'Все', value: '' },
-  { label: 'approve', value: 'approve' },
-  { label: 'reject', value: 'reject' },
-  { label: 'edit', value: 'edit' },
-  { label: 'delete', value: 'delete' },
-  { label: 'create', value: 'create' },
+  { label: 'Одобрить отзыв', value: 'approve' },
+  { label: 'Отклонить отзыв', value: 'reject' },
+  { label: 'Правка отзыва', value: 'edit' },
+  { label: 'Удалить отзыв', value: 'delete' },
+  { label: 'Создать отзыв', value: 'create' },
+  { label: 'Правка CMS', value: 'cms_edit' },
+  { label: 'Публикация статьи', value: 'cms_publish' },
+  { label: 'Медиа CMS', value: 'cms_media' },
 ]
+
+const actionLabels: Record<string, string> = {
+  approve: 'Одобрить',
+  reject: 'Отклонить',
+  edit: 'Правка отзыва',
+  delete: 'Удалить',
+  create: 'Создать',
+  cms_edit: 'Правка CMS',
+  cms_publish: 'Публикация',
+  cms_media: 'Медиа',
+}
+
+function entityLink(row: Record<string, unknown>) {
+  const type = String(row.entity_type ?? '')
+  const ref = String(row.entity_ref ?? '')
+  if (type === 'country' && ref) return `/admin/countries/${ref}`
+  if (type === 'city' && ref) return `/admin/cities/${ref}`
+  if (row.review_id) return `/admin/reviews/${row.review_id}`
+  return null
+}
+
+function entityLabel(row: Record<string, unknown>) {
+  const type = String(row.entity_type ?? '')
+  const ref = String(row.entity_ref ?? '')
+  if (type === 'country' && ref) return `Страна ${ref}`
+  if (type === 'city' && ref) return `Город #${ref}`
+  if (row.review_id) return `Отзыв ${String(row.review_id).slice(0, 8)}…`
+  return '—'
+}
 </script>
 
 <template>
   <div>
-    <h1 class="admin-page-title">Журнал модерации</h1>
+    <h1 class="admin-page-title">Журнал изменений</h1>
+    <p class="admin-page-lead">
+      Модерация отзывов и правки стран / городов / медиа в CMS.
+    </p>
     <div class="admin-toolbar">
       <Select v-model="actionFilter" :options="actionOptions" option-label="label" option-value="value" placeholder="Действие" />
     </div>
@@ -34,10 +69,15 @@ const actionOptions = [
         <Column field="created_at" header="Дата">
           <template #body="{ data: row }">{{ formatAdminDate(String(row.created_at)) }}</template>
         </Column>
-        <Column field="action" header="Действие" />
-        <Column field="review_id" header="Review ID">
+        <Column field="action" header="Действие">
           <template #body="{ data: row }">
-            <NuxtLink v-if="row.review_id" :to="`/admin/reviews/${row.review_id}`">{{ String(row.review_id).slice(0, 8) }}…</NuxtLink>
+            {{ actionLabels[String(row.action)] ?? row.action }}
+          </template>
+        </Column>
+        <Column header="Объект">
+          <template #body="{ data: row }">
+            <NuxtLink v-if="entityLink(row)" :to="entityLink(row)!">{{ entityLabel(row) }}</NuxtLink>
+            <span v-else>{{ entityLabel(row) }}</span>
           </template>
         </Column>
         <Column header="Admin">
@@ -45,7 +85,7 @@ const actionOptions = [
             {{ row.admin_id ? String(row.admin_id).slice(0, 8) + '…' : '—' }}
           </template>
         </Column>
-        <Column field="note" header="Note" />
+        <Column field="note" header="Детали" />
       </DataTable>
     </div>
   </div>

@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     if (body[key] !== undefined) updates[key] = body[key]
   }
 
-  const { supabaseAdmin } = await requireAdmin(event, { roles: ['editor'] })
+  const { admin, supabaseAdmin } = await requireAdmin(event, { roles: ['editor'] })
   const { data, error } = await supabaseAdmin
     .from('cities')
     .update(updates)
@@ -31,5 +31,18 @@ export default defineEventHandler(async (event) => {
     .single()
 
   if (error) throw createError({ statusCode: 500, message: error.message })
+
+  const changed = Object.keys(updates)
+  const action = body.article_published !== undefined && changed.length === 1 && changed[0] === 'article_published'
+    ? 'cms_publish'
+    : 'cms_edit'
+  await logModeration(supabaseAdmin, {
+    adminId: admin.id,
+    action,
+    entityType: 'city',
+    entityRef: String(id),
+    note: changed.join(', '),
+  })
+
   return data
 })

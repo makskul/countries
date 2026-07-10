@@ -154,6 +154,12 @@ export interface Database {
           article_body_en: string | null
           article_body_ru: string | null
           article_published: boolean
+          seo_title_uk: string | null
+          seo_title_en: string | null
+          seo_title_ru: string | null
+          seo_description_uk: string | null
+          seo_description_en: string | null
+          seo_description_ru: string | null
           updated_at: string
         }
         Insert: {
@@ -181,6 +187,12 @@ export interface Database {
           article_body_en?: string | null
           article_body_ru?: string | null
           article_published?: boolean
+          seo_title_uk?: string | null
+          seo_title_en?: string | null
+          seo_title_ru?: string | null
+          seo_description_uk?: string | null
+          seo_description_en?: string | null
+          seo_description_ru?: string | null
           updated_at?: string
         }
         Update: {
@@ -208,6 +220,12 @@ export interface Database {
           article_body_en?: string | null
           article_body_ru?: string | null
           article_published?: boolean
+          seo_title_uk?: string | null
+          seo_title_en?: string | null
+          seo_title_ru?: string | null
+          seo_description_uk?: string | null
+          seo_description_en?: string | null
+          seo_description_ru?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -240,6 +258,8 @@ export interface Database {
           admin_id: string | null
           action: string
           note: string | null
+          entity_type: string | null
+          entity_ref: string | null
           created_at: string
         }
         Insert: {
@@ -248,6 +268,8 @@ export interface Database {
           admin_id?: string | null
           action: string
           note?: string | null
+          entity_type?: string | null
+          entity_ref?: string | null
           created_at?: string
         }
         Update: {
@@ -256,6 +278,8 @@ export interface Database {
           admin_id?: string | null
           action?: string
           note?: string | null
+          entity_type?: string | null
+          entity_ref?: string | null
           created_at?: string
         }
         Relationships: []

@@ -43,13 +43,25 @@ export async function requireAdmin(event: H3Event, options?: RequireAdminOptions
   return { user, admin: adminRow, supabaseAdmin: supabaseAdmin as SupabaseClient }
 }
 
+export type ModerationAction =
+  | 'approve'
+  | 'reject'
+  | 'edit'
+  | 'delete'
+  | 'create'
+  | 'cms_edit'
+  | 'cms_publish'
+  | 'cms_media'
+
 export async function logModeration(
   supabaseAdmin: SupabaseClient,
   params: {
     reviewId?: string | null
     adminId: string
-    action: 'approve' | 'reject' | 'edit' | 'delete' | 'create'
+    action: ModerationAction
     note?: string
+    entityType?: string | null
+    entityRef?: string | null
   },
 ) {
   await supabaseAdmin.from('moderation_log').insert({
@@ -57,6 +69,8 @@ export async function logModeration(
     admin_id: params.adminId,
     action: params.action,
     note: params.note ?? null,
+    entity_type: params.entityType ?? null,
+    entity_ref: params.entityRef ?? null,
   })
 }
 
