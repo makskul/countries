@@ -209,16 +209,24 @@
         <div class="preview-card">
           <div class="preview-title">{{ $t('review.preview.title') }}</div>
 
-          <div v-if="form.country" class="preview-country">
-            <span class="preview-flag">{{ getFlagEmoji(form.country) }}</span>
-            <span class="preview-name">{{ getCountryNameLocalized(form.country) }}</span>
+          <div v-if="form.country || form.nationality" class="preview-byline-wrap">
+            <ReviewByline
+              v-if="form.country && form.nationality"
+              compact
+              stack
+              :from="form.nationality"
+              :about="form.country"
+            />
+            <div v-else-if="form.country" class="preview-country">
+              <span class="preview-flag">{{ getFlagEmoji(form.country) }}</span>
+              <span class="preview-name">{{ getCountryNameLocalized(form.country) }}</span>
+            </div>
+            <div v-else class="preview-nat">
+              {{ getFlagEmoji(form.nationality) }}
+              <span class="preview-nat-pill">{{ getCountryNameLocalized(form.nationality) }}</span>
+            </div>
           </div>
           <div v-else class="preview-empty-row">{{ $t('review.preview.noCountry') }}</div>
-
-          <div v-if="form.nationality" class="preview-nat">
-            {{ getFlagEmoji(form.nationality) }}
-            <span class="preview-nat-pill">{{ getCountryNameLocalized(form.nationality) }}</span>
-          </div>
 
           <div class="preview-cats">
             <template v-if="hasAnyRating">

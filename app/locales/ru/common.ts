@@ -66,6 +66,10 @@ export default {
   stillThere:  'Сейчас там',
   alreadyLeft: 'Уже уехал',
   from:        'из',
+  reviewAttribution: {
+    from:  'из',
+    about: 'о',
+  },
   costOptions: [
     { value: 5, icon: '🤑', label: 'Очень дёшево'  },
     { value: 4, icon: '😊', label: 'Дёшево'        },
