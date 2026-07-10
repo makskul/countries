@@ -60,6 +60,8 @@ npm run db:deploy   # применить
 SUPABASE_DB_REGION=eu-central-1   # регион из Supabase → Database → Connection string
 ```
 
+Миграции на Vercel **не валят** деплой приложения, если БД недоступна (в логах будет warning). Чтобы сборка падала при ошибке миграций, задайте `DB_DEPLOY_STRICT=1` (так работает GitHub Actions CI).
+
 ### GitHub Actions (запасной путь)
 
 Workflow [`.github/workflows/deploy-db.yml`](../.github/workflows/deploy-db.yml) — при push в `dev`/`main`, если менялись миграции, или вручную (*Actions → Deploy database → Run workflow*).

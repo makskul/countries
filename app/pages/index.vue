@@ -33,7 +33,12 @@
           <div class="rc-content">
             <div class="review-top">
               <div>
-                <div class="review-name">{{ getCountryNameLocalized(heroReview.author_nationality) }}</div>
+                <ReviewByline
+                  compact
+                  stack
+                  :from="heroReview.author_nationality"
+                  :about="heroReview.target_country"
+                />
                 <div class="review-time">{{ timeAgo(heroReview.created_at) }}</div>
               </div>
             </div>
@@ -249,10 +254,11 @@
             <template v-else-if="latest?.length">
               <div v-for="r in latest.slice(0, 2)" :key="r.id" class="review-item">
                 <div class="ri-top">
-                  <div>
-                    <div class="ri-name">{{ getCountryNameLocalized(r.author_nationality) }}</div>
-                    <div class="ri-loc">{{ getCountryNameLocalized(r.target_country) }}</div>
-                  </div>
+                  <ReviewByline
+                    compact
+                    :from="r.author_nationality"
+                    :about="r.target_country"
+                  />
                   <div class="ri-time">{{ timeAgo(r.created_at) }}</div>
                 </div>
                 <div class="ri-stars">★★★★★</div>

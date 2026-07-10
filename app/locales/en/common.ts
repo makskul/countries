@@ -66,6 +66,10 @@ export default {
   stillThere:  'Currently living there',
   alreadyLeft: 'Already left',
   from:        'from',
+  reviewAttribution: {
+    from:  'from',
+    about: 'about',
+  },
   costOptions: [
     { value: 5, icon: '🤑', label: 'Very cheap'     },
     { value: 4, icon: '😊', label: 'Cheap'          },

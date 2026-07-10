@@ -130,6 +130,7 @@
   padding: 14px;
 }
 .preview-title { font-size: 12px; font-weight: 600; color: var(--color-primary-dark); margin-bottom: 10px; }
+.preview-byline-wrap { margin-bottom: 12px; }
 .preview-country { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .preview-flag { font-size: 20px; }
 .preview-name { font-size: 13px; font-weight: 600; color: var(--color-text); }

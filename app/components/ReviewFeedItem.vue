@@ -3,9 +3,10 @@
 
     <!-- Top block: country row + text — grows to fill available height -->
     <div class="rfi-top">
-      <!-- Row 1: country flag + name + category icon | stars -->
+      <!-- Row 1: about country + category | stars -->
       <div class="rfi-row1">
         <div class="rfi-left">
+          <span class="rfi-about-label">{{ $t('common.reviewAttribution.about') }}</span>
           <span class="rfi-flag">{{ targetFlag }}</span>
           <span class="rfi-country">{{ targetName }}</span>
           <span class="rfi-cat-icon" :class="`cat-${chosenEntry.key}`">
@@ -32,6 +33,7 @@
     <!-- Author row — always at bottom -->
     <div class="rfi-row3">
       <span class="rfi-nationality">
+        <span class="rfi-from-label">{{ $t('common.reviewAttribution.from') }}</span>
         <span>{{ authorFlag }}</span>
         <span class="rfi-nat-label">{{ authorNatLabel }}</span>
       </span>
@@ -119,6 +121,13 @@ const displayComment = computed(() => {
 }
 .rfi-flag    { font-size: 16px; }
 .rfi-country { font-size: 13px; font-weight: 600; color: var(--color-text); }
+.rfi-about-label,
+.rfi-from-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: lowercase;
+}
 
 .rfi-cat-icon {
   width: 22px; height: 22px;
