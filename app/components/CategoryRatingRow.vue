@@ -66,10 +66,10 @@
           @input="$emit('update:comment', ($event.target as HTMLTextAreaElement).value)"
           class="crr-textarea"
           :placeholder="$t('review.ratings.placeholder')"
-          rows="2"
-          maxlength="500"
+          :rows="category.key === 'overall' ? 4 : 2"
+          :maxlength="category.key === 'overall' ? 3000 : 500"
         />
-        <span class="crr-charcount">{{ comment.length }} / 500</span>
+        <span class="crr-charcount">{{ comment.length }} / {{ category.key === 'overall' ? 3000 : 500 }}</span>
       </div>
 
       <button v-if="!filled" class="crr-collapse-btn" @click="$emit('toggle')">

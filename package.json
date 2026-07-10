@@ -6,7 +6,7 @@
     "build": "nuxt build",
     "build:deploy": "npm run db:deploy && nuxt build",
     "db:deploy": "node scripts/deploy-db.mjs",
-    "dev": "nuxt dev",
+    "dev": "TMPDIR=/tmp nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
