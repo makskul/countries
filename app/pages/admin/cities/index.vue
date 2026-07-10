@@ -107,7 +107,7 @@ function articleStatus(row: CityRow) {
         <Column field="population" header="Население" />
         <Column header="Статья">
           <template #body="{ data: row }">
-            <Tag :value="hasArticle(row) ? 'Есть' : 'Нет'" :severity="hasArticle(row) ? 'success' : 'secondary'" />
+            <Tag :value="articleStatus(row).label" :severity="articleStatus(row).severity" />
           </template>
         </Column>
         <Column header="">
