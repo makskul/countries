@@ -1,3 +1,5 @@
+import type { CountryRow } from '~/types/database.types'
+
 export interface CountryMeta {
   languageKey: string
   currency: string
@@ -52,4 +54,22 @@ export const COUNTRY_META: Record<string, CountryMeta> = {
 
 export function getCountryMeta(code: string): CountryMeta | null {
   return COUNTRY_META[code.toUpperCase()] ?? null
+}
+
+export function mapCountryRowToMeta(row: CountryRow): CountryMeta {
+  return {
+    languageKey: row.language_key ?? 'english',
+    currency: row.currency ?? 'EUR',
+    climateKey: row.climate_key ?? 'temperate',
+    costLevel: (row.cost_level as CountryMeta['costLevel']) ?? 'medium',
+    residencyMonths: row.residency_months ?? '60',
+    tax_employee: row.tax_employee ?? '—',
+    tax_corporate: row.tax_corporate ?? '—',
+  }
+}
+
+export function getVisaInfoFromCountryRow(row: CountryRow, locale: string): string | null {
+  if (locale === 'uk') return row.visa_info_uk
+  if (locale === 'ru') return row.visa_info_ru
+  return row.visa_info_en
 }

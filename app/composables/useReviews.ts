@@ -41,7 +41,7 @@ export function useReviews() {
       target_country: review.target_country,
       ratings: review.ratings,
       comments: review.comments,
-      is_approved: true, // Auto-approve by default for developer convenience
+      is_approved: false,
     })
     if (error) throw error
   }

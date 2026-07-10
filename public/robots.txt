@@ -35,5 +35,6 @@ Disallow: /
 User-agent: *
 Disallow: /review/new
 Disallow: /contact
+Disallow: /admin
 
 Sitemap: https://triplandr.com/sitemap_index.xml
