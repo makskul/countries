@@ -82,9 +82,18 @@ async function main() {
   const client = new pg.Client({
     connectionString: databaseUrl,
     ssl: databaseUrl.includes('localhost') ? false : { rejectUnauthorized: false },
+    connectionTimeoutMillis: 12_000,
   })
 
-  await client.connect()
+  try {
+    await client.connect()
+  } catch (err) {
+    const message = err?.message ?? String(err)
+    console.error('[deploy-db] Could not connect to database:', message)
+    console.error('[deploy-db] Tip: on Vercel use pooler — set SUPABASE_DB_REGION (e.g. eu-central-1) or full DATABASE_URL with pooler host')
+    throw err
+  }
+
   console.log('[deploy-db] Connected to database')
 
   try {
@@ -288,6 +297,8 @@ async function printStatus() {
 }
 
 const isStatus = process.argv.includes('--status')
+const strict = process.env.DB_DEPLOY_STRICT === '1'
+  || (process.env.CI === 'true' && process.env.VERCEL !== '1')
 
 if (isStatus) {
   printStatus().catch((err) => {
@@ -297,6 +308,11 @@ if (isStatus) {
 } else {
   main().catch((err) => {
     console.error('[deploy-db] Failed:', err.message ?? err)
-    process.exit(1)
+    if (strict) {
+      process.exit(1)
+    }
+    // Preview/Production Vercel builds should still ship the app if DB is unreachable.
+    console.error('[deploy-db] Continuing without migrations (set DB_DEPLOY_STRICT=1 to fail the build)')
+    process.exit(0)
   })
 }

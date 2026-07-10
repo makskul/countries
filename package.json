@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "build:deploy": "npm run db:deploy && nuxt build",
+    "build:deploy": "node scripts/deploy-db.mjs && nuxt build",
     "db:deploy": "node scripts/deploy-db.mjs",
     "db:status": "node scripts/deploy-db.mjs --status",
     "dev": "TMPDIR=/tmp nuxt dev",
