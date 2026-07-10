@@ -71,6 +71,11 @@ async function save() {
 
 <template>
   <div>
+    <AdminBreadcrumb :items="[
+      { label: 'Обзор', to: '/admin' },
+      { label: 'Города', to: '/admin/cities' },
+      { label: form.name_ru || form.name_en || String(id) },
+    ]" />
     <div class="admin-toolbar">
       <NuxtLink to="/admin/cities">
         <Button label="К списку городов" icon="pi pi-arrow-left" text />
@@ -121,63 +126,20 @@ async function save() {
         </div>
       </section>
 
-      <section class="admin-card admin-section">
-        <h2 class="admin-section-title">Статья о городе</h2>
-        <p class="admin-section-hint">
-          Блок над отзывами на странице города. Абзацы разделяйте пустой строкой.
-        </p>
-        <TabView>
-          <TabPanel header="Українська">
-            <div class="admin-form-field">
-              <label>Заголовок</label>
-              <InputText v-model="form.article_title_uk" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Короткий лид</label>
-              <Textarea v-model="form.article_excerpt_uk" rows="3" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Текст статьи</label>
-              <Textarea v-model="form.article_body_uk" rows="12" class="w-full" />
-            </div>
-          </TabPanel>
-          <TabPanel header="English">
-            <div class="admin-form-field">
-              <label>Title</label>
-              <InputText v-model="form.article_title_en" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Excerpt</label>
-              <Textarea v-model="form.article_excerpt_en" rows="3" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Body</label>
-              <Textarea v-model="form.article_body_en" rows="12" class="w-full" />
-            </div>
-          </TabPanel>
-          <TabPanel header="Русский">
-            <div class="admin-form-field">
-              <label>Заголовок</label>
-              <InputText v-model="form.article_title_ru" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Короткий лид</label>
-              <Textarea v-model="form.article_excerpt_ru" rows="3" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Текст статьи</label>
-              <Textarea v-model="form.article_body_ru" rows="12" class="w-full" />
-            </div>
-          </TabPanel>
-        </TabView>
-      </section>
+      <AdminArticleEditor
+        v-model="form"
+        section-title="Статья о городе"
+        section-hint="Блок над отзывами на странице города. Абзацы разделяйте пустой строкой."
+        :body-rows="12"
+      />
 
       <div class="admin-toolbar">
         <Button label="Сохранить изменения" icon="pi pi-save" @click="save" />
       </div>
     </template>
-    <div v-else class="admin-card">
+    <div v-else class="admin-card admin-empty">
       <p>Город не найден.</p>
+      <NuxtLink to="/admin/cities"><Button label="К списку" text /></NuxtLink>
     </div>
   </div>
 </template>

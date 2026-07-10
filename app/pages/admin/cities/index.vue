@@ -69,6 +69,10 @@ function hasArticle(row: CityRow) {
 
 <template>
   <div>
+    <AdminBreadcrumb :items="[
+      { label: 'Обзор', to: '/admin' },
+      { label: 'Города' },
+    ]" />
     <h1 class="admin-page-title">Города</h1>
     <p class="admin-page-lead">
       Список городов. Откройте карточку, чтобы править названия и статью «О городе».

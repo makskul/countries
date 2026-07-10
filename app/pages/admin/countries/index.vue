@@ -34,6 +34,10 @@ const costLabel: Record<string, string> = {
 
 <template>
   <div>
+    <AdminBreadcrumb :items="[
+      { label: 'Обзор', to: '/admin' },
+      { label: 'Страны' },
+    ]" />
     <h1 class="admin-page-title">Страны</h1>
     <p class="admin-page-lead">
       Редактируйте справку, визу и статью о стране. Нажмите карандаш, чтобы открыть карточку.

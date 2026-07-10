@@ -97,6 +97,11 @@ async function save() {
 
 <template>
   <div>
+    <AdminBreadcrumb :items="[
+      { label: 'Обзор', to: '/admin' },
+      { label: 'Страны', to: '/admin/countries' },
+      { label: code },
+    ]" />
     <div class="admin-toolbar">
       <NuxtLink to="/admin/countries">
         <Button label="К списку стран" icon="pi pi-arrow-left" text />
@@ -178,56 +183,12 @@ async function save() {
         </TabView>
       </section>
 
-      <section class="admin-card admin-section">
-        <h2 class="admin-section-title">Статья о стране</h2>
-        <p class="admin-section-hint">
-          Блок «О стране» над отзывами. Абзацы разделяйте пустой строкой. Без юридических гарантий — только практический опыт.
-        </p>
-        <TabView>
-          <TabPanel header="Українська">
-            <div class="admin-form-field">
-              <label>Заголовок</label>
-              <InputText v-model="form.article_title_uk" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Короткий лид</label>
-              <Textarea v-model="form.article_excerpt_uk" rows="3" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Текст статьи</label>
-              <Textarea v-model="form.article_body_uk" rows="14" class="w-full" />
-            </div>
-          </TabPanel>
-          <TabPanel header="English">
-            <div class="admin-form-field">
-              <label>Title</label>
-              <InputText v-model="form.article_title_en" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Excerpt</label>
-              <Textarea v-model="form.article_excerpt_en" rows="3" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Body</label>
-              <Textarea v-model="form.article_body_en" rows="14" class="w-full" />
-            </div>
-          </TabPanel>
-          <TabPanel header="Русский">
-            <div class="admin-form-field">
-              <label>Заголовок</label>
-              <InputText v-model="form.article_title_ru" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Короткий лид</label>
-              <Textarea v-model="form.article_excerpt_ru" rows="3" class="w-full" />
-            </div>
-            <div class="admin-form-field">
-              <label>Текст статьи</label>
-              <Textarea v-model="form.article_body_ru" rows="14" class="w-full" />
-            </div>
-          </TabPanel>
-        </TabView>
-      </section>
+      <AdminArticleEditor
+        v-model="form"
+        section-title="Статья о стране"
+        section-hint="Блок «О стране» над отзывами. Абзацы разделяйте пустой строкой."
+        :body-rows="14"
+      />
 
       <div class="admin-toolbar">
         <Button label="Сохранить изменения" icon="pi pi-save" @click="save" />
