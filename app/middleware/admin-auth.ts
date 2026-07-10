@@ -1,9 +1,17 @@
+const LOCALE_PREFIX_RE = /^\/(en|ru)(?=\/|$)/
+
+function stripLocalePrefix(path: string) {
+  return path.replace(LOCALE_PREFIX_RE, '') || '/'
+}
+
 function isAdminLoginPath(path: string) {
-  return path === '/admin/login' || path.endsWith('/admin/login')
+  const bare = stripLocalePrefix(path)
+  return bare === '/admin/login'
 }
 
 function isAdminPath(path: string) {
-  return path === '/admin' || path.startsWith('/admin/')
+  const bare = stripLocalePrefix(path)
+  return bare === '/admin' || bare.startsWith('/admin/')
 }
 
 export default defineNuxtRouteMiddleware(async (to) => {

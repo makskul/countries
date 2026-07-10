@@ -2,7 +2,6 @@
 definePageMeta({
   layout: 'admin',
   middleware: 'admin-auth',
-  i18n: false,
 })
 
 useSeoMeta({ robots: 'noindex, nofollow' })

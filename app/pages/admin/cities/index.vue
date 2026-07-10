@@ -2,7 +2,7 @@
 import type { CityRow } from '~/types/database.types'
 import { TARGET_COUNTRIES } from '~/utils/countries'
 
-definePageMeta({ layout: 'admin', middleware: 'admin-auth', i18n: false })
+definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 useSeoMeta({ robots: 'noindex, nofollow' })
 
 const toast = useToast()
