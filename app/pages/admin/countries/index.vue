@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CountryRow } from '~/types/database.types'
 
-definePageMeta({ layout: 'admin', middleware: 'admin-auth', i18n: false })
+definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 useSeoMeta({ robots: 'noindex, nofollow' })
 
 const { data, pending } = await useAsyncData('admin-countries', () =>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'admin', middleware: 'admin-auth', i18n: false })
+definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 useSeoMeta({ robots: 'noindex, nofollow' })
 
 const { data, pending } = await useAsyncData('admin-newsletter', () =>

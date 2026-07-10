@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ReviewRow } from '~/types/database.types'
 
-definePageMeta({ layout: 'admin', middleware: 'admin-auth', i18n: false })
+definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 useSeoMeta({ robots: 'noindex, nofollow' })
 
 const route = useRoute()
