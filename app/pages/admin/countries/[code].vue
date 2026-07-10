@@ -36,6 +36,7 @@ const form = reactive({
   article_body_uk: '',
   article_body_en: '',
   article_body_ru: '',
+  article_published: true,
 })
 
 watch(country, (c) => {
@@ -63,6 +64,7 @@ watch(country, (c) => {
     article_body_uk: c.article_body_uk ?? '',
     article_body_en: c.article_body_en ?? '',
     article_body_ru: c.article_body_ru ?? '',
+    article_published: c.article_published !== false,
   })
 }, { immediate: true })
 
@@ -82,6 +84,8 @@ const regionOptions = [
 ]
 
 const sitePreview = computed(() => `/country/${code.toLowerCase()}`)
+const heroUploading = ref(false)
+const heroInput = ref<HTMLInputElement | null>(null)
 
 async function save() {
   try {
@@ -91,6 +95,30 @@ async function save() {
   } catch (e: unknown) {
     const err = e as { data?: { message?: string } }
     toast.add({ severity: 'error', summary: err.data?.message ?? 'Ошибка', life: 4000 })
+  }
+}
+
+async function onHeroSelected(event: Event) {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file) return
+  heroUploading.value = true
+  try {
+    const fd = new FormData()
+    fd.append('file', file)
+    const res = await useAdminFetch<{ url: string }>(`/api/admin/countries/${code}/hero`, {
+      method: 'POST',
+      body: fd,
+    })
+    form.hero_image_url = res.url
+    toast.add({ severity: 'success', summary: 'Картинка загружена', life: 2500 })
+    await refresh()
+  } catch (e: unknown) {
+    const err = e as { data?: { message?: string } }
+    toast.add({ severity: 'error', summary: err.data?.message ?? 'Ошибка загрузки', life: 4000 })
+  } finally {
+    heroUploading.value = false
+    input.value = ''
   }
 }
 </script>
@@ -161,8 +189,31 @@ async function save() {
             <InputText v-model="form.tax_corporate" class="w-full" />
           </div>
           <div class="admin-form-field admin-form-field--wide">
-            <label>URL картинки (hero)</label>
-            <InputText v-model="form.hero_image_url" class="w-full" placeholder="https://…" />
+            <label>Картинка страны (hero)</label>
+            <div class="admin-hero-row">
+              <InputText v-model="form.hero_image_url" class="w-full" placeholder="https://… или загрузите файл" />
+              <input
+                ref="heroInput"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                class="admin-file-input"
+                @change="onHeroSelected"
+              >
+              <Button
+                label="Загрузить"
+                icon="pi pi-upload"
+                severity="secondary"
+                :loading="heroUploading"
+                @click="heroInput?.click()"
+              />
+            </div>
+            <small class="admin-field-hint">JPEG / PNG / WebP / GIF, до 5 МБ</small>
+            <img
+              v-if="form.hero_image_url"
+              :src="form.hero_image_url"
+              alt=""
+              class="admin-hero-preview"
+            >
           </div>
         </div>
       </section>

@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
     'article_title_uk', 'article_title_en', 'article_title_ru',
     'article_excerpt_uk', 'article_excerpt_en', 'article_excerpt_ru',
     'article_body_uk', 'article_body_en', 'article_body_ru',
+    'article_published',
   ]
 
   const updates: Record<string, unknown> = { updated_at: new Date().toISOString() }

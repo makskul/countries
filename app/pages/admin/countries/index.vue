@@ -61,8 +61,19 @@ const costLabel: Record<string, string> = {
         <Column header="Статья">
           <template #body="{ data: row }">
             <Tag
-              :value="row.article_title_en || row.article_title_uk || row.article_title_ru ? 'Есть' : 'Нет'"
-              :severity="row.article_title_en || row.article_title_uk || row.article_title_ru ? 'success' : 'secondary'"
+              v-if="!(row.article_title_en || row.article_title_uk || row.article_title_ru)"
+              value="Нет"
+              severity="secondary"
+            />
+            <Tag
+              v-else-if="row.article_published === false"
+              value="Черновик"
+              severity="warn"
+            />
+            <Tag
+              v-else
+              value="На сайте"
+              severity="success"
             />
           </template>
         </Column>

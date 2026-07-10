@@ -9,6 +9,7 @@ export type ArticleFields = {
   article_body_uk: string
   article_body_en: string
   article_body_ru: string
+  article_published?: boolean
 }
 
 const model = defineModel<ArticleFields & Record<string, unknown>>({ required: true })
@@ -26,6 +27,11 @@ const props = withDefaults(defineProps<{
 const toast = useToast()
 const previewLang = ref<'uk' | 'en' | 'ru'>('ru')
 const showPreview = ref(true)
+
+const published = computed({
+  get: () => model.value.article_published !== false,
+  set: (v: boolean) => { model.value.article_published = v },
+})
 
 function paragraphs(body: string) {
   return body
@@ -88,6 +94,11 @@ function copyFromEn(target: 'uk' | 'ru') {
           @click="showPreview = !showPreview"
         />
       </div>
+    </div>
+
+    <div class="admin-form-field admin-form-field--inline" style="margin-top: 0; margin-bottom: 12px">
+      <Checkbox v-model="published" binary input-id="article-published" />
+      <label for="article-published">Показывать статью на сайте</label>
     </div>
 
     <div class="admin-translation-status">

@@ -426,6 +426,26 @@
 
 .mt-2 { margin-top: 12px; }
 
+.admin-hero-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.admin-file-input {
+  display: none;
+}
+
+.admin-hero-preview {
+  display: block;
+  margin-top: 10px;
+  max-width: 320px;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--color-border, #e5e7eb);
+}
+
 @media (max-width: 768px) {
   .admin-layout { flex-direction: column; }
   .admin-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--color-border); }

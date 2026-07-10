@@ -65,6 +65,12 @@ async function remove(city: CityRow) {
 function hasArticle(row: CityRow) {
   return Boolean(row.article_title_en || row.article_title_uk || row.article_title_ru)
 }
+
+function articleStatus(row: CityRow) {
+  if (!hasArticle(row)) return { label: 'Нет', severity: 'secondary' as const }
+  if (row.article_published === false) return { label: 'Черновик', severity: 'warn' as const }
+  return { label: 'На сайте', severity: 'success' as const }
+}
 </script>
 
 <template>

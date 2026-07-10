@@ -41,6 +41,7 @@ export function useCountryMetaData(countryCode: MaybeRefOrGetter<string>) {
   const article = computed(() => {
     const row = meta.value?.row
     if (!row) return null
+    if (row.article_published === false) return null
     const loc = locale.value
     const pick = (uk: string | null, en: string | null, ru: string | null) =>
       (loc === 'uk' ? uk : loc === 'ru' ? ru : en) || en || uk || ru || null

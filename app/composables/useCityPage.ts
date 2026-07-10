@@ -26,7 +26,7 @@ export function useCityPage(
       // Step 1: resolve city id from slug
       const { data: city } = await supabase
         .from('cities')
-        .select('id, name_en, name_uk, name_ru, country, slug, article_title_uk, article_title_en, article_title_ru, article_excerpt_uk, article_excerpt_en, article_excerpt_ru, article_body_uk, article_body_en, article_body_ru')
+        .select('id, name_en, name_uk, name_ru, country, slug, article_published, article_title_uk, article_title_en, article_title_ru, article_excerpt_uk, article_excerpt_en, article_excerpt_ru, article_body_uk, article_body_en, article_body_ru')
         .eq('country', slug.value)
         .eq('slug', citySlug.value)
         .maybeSingle()

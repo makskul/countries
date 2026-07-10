@@ -84,6 +84,7 @@ export interface Database {
           article_body_uk: string | null
           article_body_en: string | null
           article_body_ru: string | null
+          article_published: boolean
         }
         Insert: {
           id?: number
@@ -103,6 +104,7 @@ export interface Database {
           article_body_uk?: string | null
           article_body_en?: string | null
           article_body_ru?: string | null
+          article_published?: boolean
         }
         Update: {
           id?: number
@@ -122,6 +124,7 @@ export interface Database {
           article_body_uk?: string | null
           article_body_en?: string | null
           article_body_ru?: string | null
+          article_published?: boolean
         }
         Relationships: []
       }
@@ -150,6 +153,7 @@ export interface Database {
           article_body_uk: string | null
           article_body_en: string | null
           article_body_ru: string | null
+          article_published: boolean
           updated_at: string
         }
         Insert: {
@@ -176,6 +180,7 @@ export interface Database {
           article_body_uk?: string | null
           article_body_en?: string | null
           article_body_ru?: string | null
+          article_published?: boolean
           updated_at?: string
         }
         Update: {
@@ -202,6 +207,7 @@ export interface Database {
           article_body_uk?: string | null
           article_body_en?: string | null
           article_body_ru?: string | null
+          article_published?: boolean
           updated_at?: string
         }
         Relationships: []

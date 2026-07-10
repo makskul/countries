@@ -29,6 +29,7 @@ const form = reactive({
   article_body_uk: '',
   article_body_en: '',
   article_body_ru: '',
+  article_published: true,
 })
 
 watch(city, (c) => {
@@ -49,6 +50,7 @@ watch(city, (c) => {
     article_body_uk: c.article_body_uk ?? '',
     article_body_en: c.article_body_en ?? '',
     article_body_ru: c.article_body_ru ?? '',
+    article_published: c.article_published !== false,
   })
 }, { immediate: true })
 

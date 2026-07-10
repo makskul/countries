@@ -238,6 +238,7 @@ const cityName = computed(() => {
 const cityArticle = computed(() => {
   const d = cityData.value as any
   if (!d) return null
+  if (d.article_published === false) return null
   const pick = (uk: string | null, en: string | null, ru: string | null) =>
     (locale.value === 'uk' ? uk : locale.value === 'ru' ? ru : en) || en || uk || ru || null
   const title = pick(d.article_title_uk, d.article_title_en, d.article_title_ru)

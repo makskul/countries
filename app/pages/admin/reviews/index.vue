@@ -83,6 +83,28 @@ async function bulkModerate(approve: boolean) {
   await refresh()
 }
 
+async function seedAction(action: 'unpublish' | 'delete') {
+  const msg = action === 'delete'
+    ? 'Удалить ВСЕ демо-отзывы безвозвратно?'
+    : 'Снять с публикации все демо-отзывы?'
+  if (!confirm(msg)) return
+  try {
+    const res = await useAdminFetch<{ affected: number }>('/api/admin/reviews/seed', {
+      method: 'POST',
+      body: { action },
+    })
+    toast.add({
+      severity: 'success',
+      summary: action === 'delete' ? `Удалено: ${res.affected}` : `Скрыто: ${res.affected}`,
+      life: 3000,
+    })
+    await refresh()
+  } catch (e: unknown) {
+    const err = e as { data?: { message?: string } }
+    toast.add({ severity: 'error', summary: err.data?.message ?? 'Ошибка', life: 4000 })
+  }
+}
+
 function parseRatings(row: ReviewRow): Record<string, number> {
   const r = row.ratings
   return typeof r === 'object' && r !== null ? r as Record<string, number> : {}
@@ -137,6 +159,23 @@ function commentPreview(row: ReviewRow): string {
       <Button label="Опубликовать выбранные" size="small" @click="bulkModerate(true)" />
       <Button label="Снять с публикации" size="small" severity="secondary" @click="bulkModerate(false)" />
       <span class="admin-section-hint" style="margin: 0">Выбрано: {{ selected.length }}</span>
+    </div>
+
+    <div class="admin-toolbar">
+      <Button
+        label="Скрыть все демо"
+        size="small"
+        severity="secondary"
+        outlined
+        @click="seedAction('unpublish')"
+      />
+      <Button
+        label="Удалить все демо"
+        size="small"
+        severity="danger"
+        outlined
+        @click="seedAction('delete')"
+      />
     </div>
 
     <div class="admin-card">
