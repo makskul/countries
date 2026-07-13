@@ -357,6 +357,7 @@ const {
   loadMore,
   similarCountries,
   markHelpful,
+  selectedCityId,
   citiesWithReviews,
   natReviewsCount,
   showAllOverride,
