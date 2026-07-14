@@ -97,7 +97,12 @@ export default defineNuxtConfig({
     ],
   },
   supabase: {
-    redirect: false
+    redirect: false,
+    redirectOptions: {
+      login: '/admin/login',
+      callback: '/confirm',
+      exclude: ['/admin', '/admin/*'],
+    },
   },
   runtimeConfig: {
     telegramBotToken:      process.env.TELEGRAM_BOT_TOKEN      || '',

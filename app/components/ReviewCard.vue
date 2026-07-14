@@ -32,7 +32,8 @@
       <div class="rc-avatar">{{ nationalityFlag }}</div>
       <div class="rc-author-info">
         <div class="rc-author-line">
-          {{ $t('common.from') }} {{ nationalityName }}
+          <span class="rc-from-label">{{ $t('common.reviewAttribution.from') }}</span>
+          {{ nationalityName }}
           <span v-if="review.stay_purpose">
             · {{ $t(`common.stayPurposes.${review.stay_purpose}.label`) }}
           </span>
@@ -190,6 +191,13 @@ const nationalityName = computed(() => getCountryNameLocalized(props.review.auth
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.rc-from-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: lowercase;
+  margin-right: 2px;
 }
 .rc-author-sub {
   font-size: 11px;

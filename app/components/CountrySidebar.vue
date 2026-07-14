@@ -77,7 +77,7 @@
 <script setup lang="ts">
 import { getFlagEmoji } from '~/utils/countries'
 import { APP_NAME } from '~/utils/appConfig'
-import { getCountryMeta } from '~/utils/countryMeta'
+import { useCountryMetaData } from '~/composables/useCountryMetaData'
 
 const { getCountryNameLocalized } = useLocalizedCountries()
 const router = useRouter()
@@ -90,7 +90,7 @@ const props = defineProps<{
 }>()
 
 const countryName = computed(() => getCountryNameLocalized(props.countryCode))
-const meta = computed(() => getCountryMeta(props.countryCode))
+const { meta } = useCountryMetaData(() => props.countryCode)
 
 const costLevelClass = computed(() => {
   switch (meta.value?.costLevel) {

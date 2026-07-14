@@ -21,11 +21,13 @@
             <div class="review-top">
               <img class="avatar" :src="reviewAvatar" alt="">
               <div>
-                <div class="review-name">
-                  <span class="review-name-flag">{{ getFlagEmoji(featuredReview.target_country) }}</span>
-                  <span class="review-name-text">{{ getCountryNameLocalized(featuredReview.target_country) }}</span>
-                </div>
-                <div class="review-time">{{ reviewMeta }}</div>
+                <ReviewByline
+                  compact
+                  stack
+                  :from="featuredReview.author_nationality"
+                  :about="featuredReview.target_country"
+                />
+                <div class="review-time">{{ reviewWhen }}</div>
               </div>
             </div>
             <div v-if="reviewRating" class="review-stars">
@@ -83,7 +85,7 @@
 
 <script setup lang="ts">
 import type { MapReviewEntry } from '~/components/HomeWorldMap.vue'
-import { getFlagEmoji, timeAgo } from '~/utils/countries'
+import { timeAgo } from '~/utils/countries'
 
 const props = defineProps<{
   stats: { total: number; countries: number; nationalities: number } | null
@@ -93,7 +95,6 @@ const props = defineProps<{
 }>()
 
 const { t, locale } = useI18n()
-const { getCountryNameLocalized } = useLocalizedCountries()
 
 function fmt(n: number | undefined): string {
   if (n === undefined || n === null) return '—'
@@ -107,13 +108,9 @@ const reviewAvatar = computed(() =>
     : ''
 )
 
-const reviewMeta = computed(() => {
+const reviewWhen = computed(() => {
   if (!props.featuredReview) return ''
-  const code = props.featuredReview.author_nationality
-  const natRaw = t(`nationalities.${code}.nominative`, code)
-  const natLabel = natRaw.includes(' / ') ? natRaw.split(' / ')[0] : natRaw
-  const when = timeAgo(props.featuredReview.created_at, locale.value)
-  return `${natLabel} · ${when}`
+  return timeAgo(props.featuredReview.created_at, locale.value)
 })
 
 const reviewText = computed(() => {

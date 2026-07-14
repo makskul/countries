@@ -919,19 +919,14 @@
 
 .home-page .ri-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   margin-bottom: 6px;
 }
 
-.home-page .ri-name {
-  font-weight: 700;
-  font-size: 13.5px;
-}
-
-.home-page .ri-loc {
-  font-size: 11px;
-  color: var(--ink-soft);
+.home-page .ri-top .review-byline {
+  flex: 1;
+  min-width: 0;
 }
 
 .home-page .ri-time {
