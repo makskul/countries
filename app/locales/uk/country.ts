@@ -113,6 +113,7 @@ export default {
     cta: 'Обрати національність',
   },
   visaInfo: { default: 'Уточнюйте' },
+  article: { aboutCountry: 'Про країну', aboutCity: 'Про місто' },
   dialog: {
     title: 'Обери національність',
     subtitle: 'Відгуки на сторінці будуть перераховані під твою національність.',

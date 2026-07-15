@@ -38,19 +38,29 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     () => `country-${slug.value}-${effectiveNationality.value}-${selectedCityId.value ?? 'all'}-${showAllOverride.value}`,
     async () => {
       if (!slug.value) return [] as RawReview[]
-      let query = supabase
-        .from('reviews')
-        .select('id, ratings, comments, created_at, author_nationality, city_id, author_profile, stay_purpose, still_there, climate, cities(id, name_en, name_uk, name_ru, slug)')
-        .eq('target_country', slug.value)
-        .eq('is_approved', true)
-        .order('created_at', { ascending: false })
-      if (effectiveNationality.value && !showAllOverride.value) {
-        query = query.eq('author_nationality', effectiveNationality.value)
+      const selectWithCity = 'id, ratings, comments, created_at, author_nationality, city_id, author_profile, stay_purpose, still_there, climate, cities(id, name_en, name_uk, name_ru, slug)'
+      const selectPlain = 'id, ratings, comments, created_at, author_nationality, city_id, author_profile, stay_purpose, still_there, climate'
+
+      async function run(select: string) {
+        let query = supabase
+          .from('reviews')
+          .select(select)
+          .eq('target_country', slug.value)
+          .eq('is_approved', true)
+          .order('created_at', { ascending: false })
+        if (effectiveNationality.value && !showAllOverride.value) {
+          query = query.eq('author_nationality', effectiveNationality.value)
+        }
+        if (selectedCityId.value) {
+          query = query.eq('city_id', selectedCityId.value)
+        }
+        return query
       }
-      if (selectedCityId.value) {
-        query = query.eq('city_id', selectedCityId.value)
+
+      let { data, error } = await run(selectWithCity)
+      if (error?.code === 'PGRST200' || error?.message?.includes('relationship')) {
+        ;({ data, error } = await run(selectPlain))
       }
-      const { data, error } = await query
       if (error) throw error
       return (data ?? []) as RawReview[]
     },

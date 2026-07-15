@@ -1,22 +1,28 @@
 <template>
   <nav class="admin-nav">
     <NuxtLink to="/admin" class="admin-nav-link">
-      <i class="pi pi-chart-bar" /> Dashboard
+      <i class="pi pi-chart-bar" /> Обзор
     </NuxtLink>
-    <NuxtLink to="/admin/reviews" class="admin-nav-link">
-      <i class="pi pi-comments" /> Отзывы
+
+    <div class="admin-nav-group">Контент</div>
+    <NuxtLink to="/admin/countries" class="admin-nav-link">
+      <i class="pi pi-globe" /> Страны и статьи
     </NuxtLink>
     <NuxtLink to="/admin/cities" class="admin-nav-link">
       <i class="pi pi-map-marker" /> Города
     </NuxtLink>
-    <NuxtLink to="/admin/countries" class="admin-nav-link">
-      <i class="pi pi-globe" /> Страны
-    </NuxtLink>
-    <NuxtLink to="/admin/newsletter" class="admin-nav-link">
-      <i class="pi pi-envelope" /> Newsletter
+
+    <div class="admin-nav-group">Модерация</div>
+    <NuxtLink to="/admin/reviews" class="admin-nav-link">
+      <i class="pi pi-comments" /> Отзывы
     </NuxtLink>
     <NuxtLink to="/admin/moderation-log" class="admin-nav-link">
-      <i class="pi pi-history" /> Журнал
+      <i class="pi pi-history" /> Журнал изменений
+    </NuxtLink>
+
+    <div class="admin-nav-group">Прочее</div>
+    <NuxtLink to="/admin/newsletter" class="admin-nav-link">
+      <i class="pi pi-envelope" /> Рассылка
     </NuxtLink>
   </nav>
 </template>

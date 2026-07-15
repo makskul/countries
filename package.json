@@ -7,6 +7,8 @@
     "build:deploy": "node scripts/deploy-db.mjs && nuxt build",
     "db:deploy": "node scripts/deploy-db.mjs",
     "db:status": "node scripts/deploy-db.mjs --status",
+    "content:generate": "node scripts/generate-content.mjs",
+    "db:seed-content": "node scripts/seed-content.mjs",
     "dev": "TMPDIR=/tmp nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

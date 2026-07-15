@@ -1,0 +1,858 @@
+{
+  "_meta": {
+    "updated": "2026-07-10",
+    "docs": "docs/content-sources.md",
+    "sources": [
+      {
+        "id": "eurostat_ppp_2025",
+        "name": "Eurostat comparative price levels 2025",
+        "url": "https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20260618-2"
+      },
+      {
+        "id": "internations_2025",
+        "name": "InterNations Expat Insider 2025",
+        "url": "https://www.internations.org/expat-insider/2025/best-and-worst-countries-2025"
+      },
+      {
+        "id": "eu_tpd",
+        "name": "EU Temporary Protection for Ukraine (extended to 4 Mar 2027)",
+        "url": "https://www.consilium.europa.eu/en/press/press-releases/2025/09/16/protection-of-displaced-ukrainians-council-adopts-recommendation-about-transition-out-of-temporary-protection/"
+      }
+    ]
+  },
+  "defaults": {
+    "eu_member": false,
+    "tpd_available": false,
+    "price_level_eu": null,
+    "housing_note_en": "Housing is usually the largest budget line; compare districts before signing.",
+    "housing_note_uk": "Житло зазвичай найбільша стаття бюджету; порівнюйте райони перед договором.",
+    "housing_note_ru": "Жильё обычно самая большая статья бюджета; сравнивайте районы перед договором."
+  },
+  "countries": {
+    "AT": {
+      "price_level_eu": 118,
+      "internations_rank": 23,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "German dominates outside tourist/tech bubbles; English helps in Vienna.",
+      "language_uk": "Німецька домінує поза туристичними/tech-колами; в Відні англійська допомагає.",
+      "language_ru": "Немецкий доминирует вне туристических/tech-кругов; в Вене английский помогает.",
+      "hook_en": "Strong public services and alpine access, but rent in Vienna and German paperwork set the pace.",
+      "hook_uk": "Сильні держсервіси й Альпи поруч, але оренда у Відні та німецька бюрократія задають темп.",
+      "hook_ru": "Сильные госуслуги и Альпы рядом, но аренда в Вене и немецкая бюрократия задают темп.",
+      "cities": {
+        "vienna": { "en": "Districts matter: Innere Stadt is pricey; outer Bezirke trade space for commute.", "uk": "Райони важливі: Innere Stadt дорогий; зовнішні Bezirke — більше простору за час у дорозі.", "ru": "Районы важны: Innere Stadt дорогой; внешние Bezirke — больше пространства за время в пути." },
+        "graz": { "en": "Student city vibe, slightly softer rents than Vienna.", "uk": "Студентський ритм, оренда м’якша ніж у Відні.", "ru": "Студенческий ритм, аренда мягче, чем в Вене." },
+        "linz": { "en": "Industrial/tech corridor; practical rather than tourist.", "uk": "Індустріально-tech коридор; більше практики, ніж туризму.", "ru": "Индустриально-tech коридор; больше практики, чем туризма." },
+        "salzburg": { "en": "Compact and scenic; tourism pushes short-term rents up.", "uk": "Компактне й мальовниче; туризм піднімає короткострокову оренду.", "ru": "Компактный и живописный; туризм поднимает краткосрочную аренду." }
+      }
+    },
+    "BE": {
+      "price_level_eu": 115,
+      "internations_rank": 24,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Dutch/French split by region; English common in Brussels offices.",
+      "language_uk": "Нідерландська/французька за регіонами; в Брюсселі в офісах часто англійська.",
+      "language_ru": "Нидерландский/французский по регионам; в Брюсселе в офисах часто английский.",
+      "hook_en": "EU hub logistics and dense trains; language politics and commune registration take time.",
+      "hook_uk": "EU-хаб і щільні потяги; мовна політика й реєстрація в комуні займають час.",
+      "hook_ru": "EU-хаб и плотные поезда; языковая политика и регистрация в коммуне занимают время.",
+      "cities": {
+        "brussels": { "en": "International bubble vs Flemish/Walloon daily life — pick neighborhood carefully.", "uk": "Міжнародна бульбашка vs фламандський/валонський побут — район критичний.", "ru": "Международный пузырь vs фламандский/валлонский быт — район критичен." },
+        "antwerp": { "en": "Port city energy; Dutch-first outside expat circles.", "uk": "Портовий ритм; нідерландська перша поза експат-колами.", "ru": "Портовый ритм; нидерландский первый вне экспат-кругов." },
+        "ghent": { "en": "Bikeable and student-friendly; calmer than Brussels.", "uk": "Велосипедне й студентське; спокійніше за Брюссель.", "ru": "Велосипедный и студенческий; спокойнее Брюсселя." },
+        "liege": { "en": "French-speaking, more affordable than the capital.", "uk": "Франкомовне, доступніше за столицю.", "ru": "Франкоязычный, доступнее столицы." },
+        "bruges": { "en": "Tourism-heavy medieval core; quieter residential pockets outside the center.", "uk": "Туристичне середньовічне ядро; тихіші житлові кишені поза центром.", "ru": "Туристическое средневековое ядро; более тихие жилые карманы вне центра." }
+      }
+    },
+    "BG": {
+      "price_level_eu": 63,
+      "internations_rank": null,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "low",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Bulgarian is essential outside Sofia tech/tourism; English uneven.",
+      "language_uk": "Болгарська потрібна поза Sofia tech/туризмом; англійська нерівна.",
+      "language_ru": "Болгарский нужен вне Sofia tech/туризма; английский неровный.",
+      "hook_en": "Eurostat 2025: among the lowest EU price levels (~63% of EU average); wages are also lower — budget in local terms.",
+      "hook_uk": "Eurostat 2025: одні з найнижчих цін у EU (~63% середнього); зарплати теж нижчі — рахуйте в локальних реаліях.",
+      "hook_ru": "Eurostat 2025: одни из самых низких цен в EU (~63% среднего); зарплаты тоже ниже — считайте в локальных реалиях.",
+      "cities": {
+        "sofia": { "en": "Capital services + mountains nearby; air quality and traffic are common complaints.", "uk": "Столичні сервіси + гори поруч; повітря й трафік — часті скарги.", "ru": "Столичные сервисы + горы рядом; воздух и трафик — частые жалобы." },
+        "plovdiv": { "en": "Slower pace, growing creative scene, lower rents than Sofia.", "uk": "Повільніший темп, креативна сцена, оренда нижча за Sofia.", "ru": "Более медленный темп, креативная сцена, аренда ниже Sofia." },
+        "varna": { "en": "Black Sea seasonality: summer busy, winter quieter and cheaper.", "uk": "Чорноморська сезонність: літо людне, зима тихіша й дешевша.", "ru": "Черноморская сезонность: лето людное, зима тише и дешевле." },
+        "burgas": { "en": "Port + beach logistics; practical base for the coast.", "uk": "Порт + пляж; практична база для узбережжя.", "ru": "Порт + пляж; практичная база для побережья." }
+      }
+    },
+    "HR": {
+      "price_level_eu": 78,
+      "internations_rank": null,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Croatian for admin; coastal tourism English is stronger in summer.",
+      "language_uk": "Хорватська для адмінки; на узбережжі влітку англійська сильніша.",
+      "language_ru": "Хорватский для админки; на побережье летом английский сильнее.",
+      "hook_en": "Euro + Adriatic lifestyle; peak-season rents on the coast jump hard.",
+      "hook_uk": "Євро + адріатичний стиль; у пік сезону оренда на узбережжі різко росте.",
+      "hook_ru": "Евро + адриатический стиль; в пик сезона аренда на побережье резко растёт.",
+      "cities": {
+        "zagreb": { "en": "Year-round services; less seasonal than the coast.", "uk": "Цілорічні сервіси; менше сезонності, ніж на узбережжі.", "ru": "Круглогодичные сервисы; меньше сезонности, чем на побережье." },
+        "split": { "en": "Tourism pressure on housing; ferry links to islands.", "uk": "Туризм тисне на житло; пороми на острови.", "ru": "Туризм давит на жильё; паромы на острова." },
+        "rijeka": { "en": "Port city, more workaday than Split/Dubrovnik.", "uk": "Портове місто, більш робоче ніж Split/Dubrovnik.", "ru": "Портовый город, более рабочий, чем Split/Dubrovnik." },
+        "osijek": { "en": "Eastern inland base; quieter and usually cheaper.", "uk": "Східна база вглибині; тихіше й зазвичай дешевше.", "ru": "Восточная база в глубине; тише и обычно дешевле." },
+        "zadar": { "en": "Dalmatian coast base; strong summer seasonality on rents.", "uk": "Далматинське узбережжя; сильна літня сезонність оренди.", "ru": "Далматинское побережье; сильная летняя сезонность аренды." }
+      }
+    },
+    "CY": {
+      "price_level_eu": 90,
+      "internations_rank": 14,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Greek + strong English in business/expat areas.",
+      "language_uk": "Грецька + сильна англійська в бізнес/експат-зонах.",
+      "language_ru": "Греческий + сильный английский в бизнес/экспат-зонах.",
+      "hook_en": "InterNations top-15 feel: sun, English-friendly services; island logistics and summer heat matter.",
+      "hook_uk": "InterNations top-15: сонце, англомовні сервіси; острівна логістика й літня спека важливі.",
+      "hook_ru": "InterNations top-15: солнце, англоязычные сервисы; островная логистика и летняя жара важны.",
+      "cities": {
+        "nicosia": { "en": "Capital admin hub; inland heat, less beach lifestyle.", "uk": "Столичний адмін-хаб; спека вглибині, менше пляжного життя.", "ru": "Столичный админ-хаб; жара в глубине, меньше пляжной жизни." },
+        "limassol": { "en": "Business/coast mix; popular with relocators.", "uk": "Бізнес + узбережжя; популярне серед релокантів.", "ru": "Бизнес + побережье; популярно у релокантов." },
+        "larnaca": { "en": "Airport convenience; calmer than Limassol.", "uk": "Зручний аеропорт; спокійніше за Limassol.", "ru": "Удобный аэропорт; спокойнее Limassol." },
+        "paphos": { "en": "Tourism + retiree vibe; seasonal crowds.", "uk": "Туризм + пенсійний вайб; сезонні натовпи.", "ru": "Туризм + пенсионный вайб; сезонные толпы." }
+      }
+    },
+    "CZ": {
+      "price_level_eu": 80,
+      "internations_rank": 21,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Czech for offices; Prague English is stronger than smaller cities.",
+      "language_uk": "Чеська для установ; у Празі англійська сильніша, ніж у менших містах.",
+      "language_ru": "Чешский для учреждений; в Праге английский сильнее, чем в меньших городах.",
+      "hook_en": "Solid mid-Europe base: Prague housing competition is the main shock for newcomers.",
+      "hook_uk": "Міцна центральноєвропейська база: конкуренція за житло в Празі — головний шок.",
+      "hook_ru": "Крепкая центральноевропейская база: конкуренция за жильё в Праге — главный шок.",
+      "cities": {
+        "prague": { "en": "Tourist core vs residential districts (Žižkov, Vinohrady, outer panels).", "uk": "Туристичне ядро vs житлові райони (Žižkov, Vinohrady, панелі).", "ru": "Туристическое ядро vs жилые районы (Žižkov, Vinohrady, панели)." },
+        "brno": { "en": "Tech/student city; often better value than Prague.", "uk": "Tech/студентське місто; часто вигідніше за Прагу.", "ru": "Tech/студенческий город; часто выгоднее Праги." },
+        "ostrava": { "en": "Industrial heritage, lower costs, fewer English services.", "uk": "Індустріальна спадщина, нижчі витрати, менше англійських сервісів.", "ru": "Индустриальное наследие, ниже расходы, меньше английских сервисов." },
+        "plzen": { "en": "Compact west Bohemia base with brewery tourism.", "uk": "Компактна база в Західній Богемії з пивним туризмом.", "ru": "Компактная база в Западной Богемии с пивным туризмом." }
+      }
+    },
+    "DK": {
+      "price_level_eu": 140,
+      "internations_rank": 25,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "very_high",
+      "bureaucracy_tone": "low",
+      "safety_tone": "high",
+      "language_en": "Danish for deep integration; English is widely usable day-to-day.",
+      "language_uk": "Данська для глибокої інтеграції; англійська широко працює в побуті.",
+      "language_ru": "Датский для глубокой интеграции; английский широко работает в быту.",
+      "hook_en": "Eurostat 2025: highest EU household price level (~140%). High wages help only if your income is local/strong.",
+      "hook_uk": "Eurostat 2025: найвищий рівень цін у EU (~140%). Високі зарплати рятують лише за сильного доходу.",
+      "hook_ru": "Eurostat 2025: самый высокий уровень цен в EU (~140%). Высокие зарплаты спасают только при сильном доходе.",
+      "cities": {
+        "copenhagen": { "en": "Bikes + design + brutal rents; suburbs stretch the budget.", "uk": "Велосипеди + дизайн + жорстка оренда; передмістя розтягують бюджет.", "ru": "Велосипеды + дизайн + жёсткая аренда; пригороды растягивают бюджет." },
+        "aarhus": { "en": "Second city, slightly softer costs, strong student scene.", "uk": "Друге місто, трохи м’якші ціни, сильна студентська сцена.", "ru": "Второй город, чуть мягче цены, сильная студенческая сцена." },
+        "odense": { "en": "Smaller scale, practical for families testing Denmark.", "uk": "Менший масштаб, зручно для сімей на пробу Данії.", "ru": "Меньший масштаб, удобно для семей на пробу Дании." },
+        "aalborg": { "en": "North Jutland base; quieter winters.", "uk": "База в Північній Ютландії; тихіші зими.", "ru": "База в Северной Ютландии; более тихие зимы." }
+      }
+    },
+    "EE": {
+      "price_level_eu": 85,
+      "internations_rank": null,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "low",
+      "safety_tone": "high",
+      "language_en": "Estonian + Russian in some areas; digital public services are a plus.",
+      "language_uk": "Естонська + російська в частині районів; цифрові держсервіси — плюс.",
+      "language_ru": "Эстонский + русский в части районов; цифровые госуслуги — плюс.",
+      "hook_en": "e-government reputation is real for residents; Tallinn housing still tight for newcomers.",
+      "hook_uk": "Репутація e-gov для резидентів виправдана; житло в Таллінні все одно тісне для новачків.",
+      "hook_ru": "Репутация e-gov для резидентов оправдана; жильё в Таллине всё равно тесное для новичков.",
+      "cities": {
+        "tallinn": { "en": "Old Town tourism vs residential districts; winter darkness is real.", "uk": "Old Town vs житлові райони; зимова темрява відчутна.", "ru": "Old Town vs жилые районы; зимняя темнота ощутима." },
+        "tartu": { "en": "University town, softer pace than Tallinn.", "uk": "Університетське місто, м’якший темп ніж Таллінн.", "ru": "Университетский город, мягче темп, чем Таллинн." },
+        "narva": { "en": "Border city dynamics; language mix differs from Tallinn.", "uk": "Прикордонна динаміка; мовний мікс інший ніж у Таллінні.", "ru": "Приграничная динамика; языковой микс иной, чем в Таллине." },
+        "parnu": { "en": "Summer resort rhythm; quieter off-season.", "uk": "Літній курортний ритм; поза сезоном тихіше.", "ru": "Летний курортный ритм; вне сезона тише." }
+      }
+    },
+    "FI": {
+      "price_level_eu": 125,
+      "internations_rank": 43,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "high",
+      "bureaucracy_tone": "low",
+      "safety_tone": "high",
+      "language_en": "Finnish/Swedish; English works in cities but social circles can feel closed (InterNations settling-in pain point).",
+      "language_uk": "Фінська/шведська; англійська в містах є, але соцкола бувають закритими (слабке місце InterNations).",
+      "language_ru": "Финский/шведский; английский в городах есть, но соцкруги бывают закрытыми (слабое место InterNations).",
+      "hook_en": "InterNations 2025 ranks Finland near the bottom for expats — strong safety/nature, harder settling-in and costs.",
+      "hook_uk": "InterNations 2025 ставить Фінляндію низько для експатів — сильна безпека/природа, складніше «влитися» і дорого.",
+      "hook_ru": "InterNations 2025 ставит Финляндию низко для экспатов — сильная безопасность/природа, сложнее «влиться» и дорого.",
+      "cities": {
+        "helsinki": { "en": "Capital services; housing hunt is competitive.", "uk": "Столичні сервіси; пошук житла конкурентний.", "ru": "Столичные сервисы; поиск жилья конкурентный." },
+        "espoo": { "en": "Tech corridor next to Helsinki; suburban feel.", "uk": "Tech-коридор біля Гельсінкі; передміський вайб.", "ru": "Tech-коридор рядом с Хельсинки; пригородный вайб." },
+        "tampere": { "en": "Lakes + industry/tech; often preferred for value.", "uk": "Озера + індустрія/tech; часто вигідніше.", "ru": "Озёра + индустрия/tech; часто выгоднее." },
+        "turku": { "en": "Historic southwest base; ferry links to Sweden.", "uk": "Історична південно-західна база; пороми до Швеції.", "ru": "Историческая юго-западная база; паромы в Швецию." }
+      }
+    },
+    "FR": {
+      "price_level_eu": 112,
+      "internations_rank": 27,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "high",
+      "bureaucracy_tone": "high",
+      "safety_tone": "medium",
+      "language_en": "French is non-negotiable for admin and many jobs; Paris English is patchy.",
+      "language_uk": "Французька обов’язкова для адмінки й багатьох робіт; у Парижі англійська нерівна.",
+      "language_ru": "Французский обязателен для админки и многих работ; в Париже английский неровный.",
+      "hook_en": "Healthcare and transport can impress; préfecture queues and housing dossiers frustrate newcomers.",
+      "hook_uk": "Медицина й транспорт можуть вразити; черги в préfecture і досьє на житло бісять новачків.",
+      "hook_ru": "Медицина и транспорт могут впечатлить; очереди в préfecture и досье на жильё бесят новичков.",
+      "cities": {
+        "paris": { "en": "Arrondissements price everything; banlieue commute math is mandatory.", "uk": "Округи визначають ціну; математика банльє обов’язкова.", "ru": "Округа определяют цену; математика банльё обязательна." },
+        "lyon": { "en": "Food capital energy with slightly better rent than Paris.", "uk": "Гастрономічна енергія, оренда трохи краща за Париж.", "ru": "Гастрономическая энергия, аренда чуть лучше Парижа." },
+        "marseille": { "en": "Mediterranean port city; neighborhood choice matters a lot.", "uk": "Середземноморський порт; вибір району критичний.", "ru": "Средиземноморский порт; выбор района критичен." },
+        "toulouse": { "en": "Aerospace/tech hub in the southwest.", "uk": "Аерокосмічний/tech хаб на південному заході.", "ru": "Аэрокосмический/tech хаб на юго-западе." }
+      }
+    },
+    "DE": {
+      "price_level_eu": 110,
+      "internations_rank": 42,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "high",
+      "bureaucracy_tone": "high",
+      "safety_tone": "high",
+      "language_en": "German for Amt and landlords; English alone is rarely enough long-term.",
+      "language_uk": "Німецька для Amt і орендодавців; лише англійської надовго рідко вистачає.",
+      "language_ru": "Немецкий для Amt и арендодателей; одного английского надолго редко хватает.",
+      "hook_en": "InterNations 2025: Germany near bottom (bureaucracy, housing, digital life) despite strong infrastructure — plan Anmeldung and flat hunt early.",
+      "hook_uk": "InterNations 2025: Німеччина біля дна (бюрократія, житло, digital) попри сильну інфраструктуру — Anmeldung і пошук квартири плануйте рано.",
+      "hook_ru": "InterNations 2025: Германия у дна (бюрократия, жильё, digital) при сильной инфраструктуре — Anmeldung и поиск квартиры планируйте рано.",
+      "cities": {
+        "berlin": { "en": "Creative scene + brutal flat competition; WG culture is common.", "uk": "Креативна сцена + жорстка конкуренція за квартири; WG — норма.", "ru": "Креативная сцена + жёсткая конкуренция за квартиры; WG — норма." },
+        "munich": { "en": "High salaries, higher rents; Bavarian formality.", "uk": "Вищі зарплати й ще вища оренда; баварська формальність.", "ru": "Выше зарплаты и ещё выше аренда; баварская формальность." },
+        "hamburg": { "en": "Port city, strong media/logistics, wet weather.", "uk": "Порт, медіа/логістика, волога погода.", "ru": "Порт, медиа/логистика, влажная погода." },
+        "cologne": { "en": "Rhine city, carnival culture, solid rail links.", "uk": "Місто на Рейні, карнавал, зручна залізниця.", "ru": "Город на Рейне, карнавал, удобная железная дорога." }
+      }
+    },
+    "GR": {
+      "price_level_eu": 85,
+      "internations_rank": 34,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "high",
+      "safety_tone": "medium",
+      "language_en": "Greek for bureaucracy; islands/tourist zones have more English.",
+      "language_uk": "Грецька для бюрократії; на островах/у туризмі більше англійської.",
+      "language_ru": "Греческий для бюрократии; на островах/в туризме больше английского.",
+      "hook_en": "Climate and food draw people; tax/ID paperwork and summer heat/AC costs surprise budgets.",
+      "hook_uk": "Клімат і їжа приваблюють; папери й літні витрати на кондиціонер б’ють по бюджету.",
+      "hook_ru": "Климат и еда привлекают; бумаги и летние расходы на кондиционер бьют по бюджету.",
+      "cities": {
+        "athens": { "en": "Neighborhoods vary wildly; traffic and heat shape daily life.", "uk": "Райони дуже різні; трафік і спека формують побут.", "ru": "Районы очень разные; трафик и жара формируют быт." },
+        "thessaloniki": { "en": "Northern hub, student energy, often preferred over Athens pace.", "uk": "Північний хаб, студентська енергія, часто спокійніше за Афіни.", "ru": "Северный хаб, студенческая энергия, часто спокойнее Афин." },
+        "patras": { "en": "West coast port; ferry gateway to Italy.", "uk": "Західний порт; пороми до Італії.", "ru": "Западный порт; паромы в Италию." },
+        "heraklion": { "en": "Crete base; tourism seasonality is strong.", "uk": "База на Криті; сильна туристична сезонність.", "ru": "База на Крите; сильная туристическая сезонность." }
+      }
+    },
+    "HU": {
+      "price_level_eu": 70,
+      "internations_rank": 30,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "low",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Hungarian is hard; Budapest English is better than countryside.",
+      "language_uk": "Угорська складна; в Будапешті англійська краща, ніж у регіонах.",
+      "language_ru": "Венгерский сложный; в Будапеште английский лучше, чем в регионах.",
+      "hook_en": "Lower EU price level helps remote earners; politics and forint swings affect planning.",
+      "hook_uk": "Нижчий рівень цін EU допомагає remote; політика й курс форинта впливають на плани.",
+      "hook_ru": "Ниже уровень цен EU помогает remote; политика и курс форинта влияют на планы.",
+      "cities": {
+        "budapest": { "en": "Pest vs Buda trade-offs; ruin-bar tourism vs residential quiet.", "uk": "Pest vs Buda; ruin-bar туризм vs тихі житлові квартали.", "ru": "Pest vs Buda; ruin-bar туризм vs тихие жилые кварталы." },
+        "debrecen": { "en": "Eastern university/city base, lower costs.", "uk": "Східна університетська база, нижчі витрати.", "ru": "Восточная университетская база, ниже расходы." },
+        "szeged": { "en": "Southern student city near the border.", "uk": "Південне студентське місто біля кордону.", "ru": "Южный студенческий город у границы." },
+        "pecs": { "en": "Mediterranean-tinged south, calmer pace.", "uk": "«Середземноморський» південь, спокійніший темп.", "ru": "«Средиземноморский» юг, более спокойный темп." }
+      }
+    },
+    "IS": {
+      "price_level_eu": 155,
+      "internations_rank": null,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "very_high",
+      "bureaucracy_tone": "low",
+      "safety_tone": "high",
+      "language_en": "Icelandic for depth; English is widely spoken in Reykjavík.",
+      "language_uk": "Ісландська для глибини; в Рейк’явіку англійська поширена.",
+      "language_ru": "Исландский для глубины; в Рейкьявике английский распространён.",
+      "hook_en": "Very high prices (import-heavy economy); nature access is unmatched if budget allows.",
+      "hook_uk": "Дуже високі ціни (імпортна економіка); природа унікальна, якщо бюджет тягне.",
+      "hook_ru": "Очень высокие цены (импортная экономика); природа уникальна, если бюджет тянет.",
+      "cities": {
+        "reykjavik": { "en": "Almost everything funnels through the capital region.", "uk": "Майже все життя зав’язане на столичний регіон.", "ru": "Почти вся жизнь завязана на столичный регион." },
+        "kopavogur": { "en": "Capital-area suburb with practical housing options.", "uk": "Передмістя столиці з практичнішим житлом.", "ru": "Пригород столицы с более практичным жильём." },
+        "hafnarfjordur": { "en": "Harbor town feel within commuting distance.", "uk": "Портове відчуття в межах щоденної дороги.", "ru": "Портовое ощущение в пределах ежедневной дороги." },
+        "akureyri": { "en": "North Iceland hub; darker winters, tighter community.", "uk": "Хаб Північної Ісландії; темніші зими, щільніша спільнота.", "ru": "Хаб Северной Исландии; более тёмные зимы, более плотное сообщество." }
+      }
+    },
+    "IE": {
+      "price_level_eu": 136,
+      "internations_rank": 28,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "very_high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "English-first; Irish language is cultural, not a daily barrier for most.",
+      "language_uk": "Англійська перша; ірландська — культурний шар, не щоденний бар’єр для більшості.",
+      "language_ru": "Английский первый; ирландский — культурный слой, не ежедневный барьер для большинства.",
+      "hook_en": "Eurostat 2025: ~136% EU prices; housing ~190% EU average — rent is the relocation bottleneck.",
+      "hook_uk": "Eurostat 2025: ~136% цін EU; житло ~190% середнього EU — оренда головне вузьке місце.",
+      "hook_ru": "Eurostat 2025: ~136% цен EU; жильё ~190% среднего EU — аренда главное узкое место.",
+      "cities": {
+        "dublin": { "en": "Tech salaries vs extreme rents; many commute from further out.", "uk": "Tech-зарплати vs екстремальна оренда; багато хто їздить здалеку.", "ru": "Tech-зарплаты vs экстремальная аренда; многие ездят издалека." },
+        "cork": { "en": "Second city alternative with slightly softer pressure.", "uk": "Альтернатива другому місту з трохи м’якшим тиском.", "ru": "Альтернатива второму городу с чуть более мягким давлением." },
+        "limerick": { "en": "Shannon region base; more space for the money.", "uk": "Регіон Shannon; більше простору за ті самі гроші.", "ru": "Регион Shannon; больше пространства за те же деньги." },
+        "galway": { "en": "West coast culture hub; tourism seasonality.", "uk": "Культурний хаб західного узбережжя; сезонність туризму.", "ru": "Культурный хаб западного побережья; сезонность туризма." }
+      }
+    },
+    "IL": {
+      "price_level_eu": null,
+      "internations_rank": null,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "high",
+      "bureaucracy_tone": "high",
+      "safety_tone": "medium",
+      "language_en": "Hebrew (and Arabic) for daily depth; English common in tech.",
+      "language_uk": "Іврит (і арабська) для глибини побуту; в tech англійська поширена.",
+      "language_ru": "Иврит (и арабский) для глубины быта; в tech английский распространён.",
+      "hook_en": "High cost of living and security context shape every plan; tech hubs concentrate opportunity.",
+      "hook_uk": "Висока вартість життя й безпековий контекст формують плани; tech-хаби концентрують можливості.",
+      "hook_ru": "Высокая стоимость жизни и контекст безопасности формируют планы; tech-хабы концентрируют возможности.",
+      "cities": {
+        "tel-aviv": { "en": "Startup density + very high rents; coastal lifestyle.", "uk": "Startup-щільність + дуже висока оренда; прибережний стиль.", "ru": "Startup-плотность + очень высокая аренда; прибрежный стиль." },
+        "jerusalem": { "en": "Layered city life; different rhythm from Tel Aviv.", "uk": "Багатошарове міське життя; інший ритм ніж Тель-Авів.", "ru": "Многослойная городская жизнь; иной ритм, чем Тель-Авив." },
+        "haifa": { "en": "Port + tech, often more affordable than TLV.", "uk": "Порт + tech, часто доступніше за TLV.", "ru": "Порт + tech, часто доступнее TLV." },
+        "beer-sheva": { "en": "Southern university/tech growth, desert climate.", "uk": "Південне університетське/tech зростання, пустельний клімат.", "ru": "Южный университетский/tech рост, пустынный климат." }
+      }
+    },
+    "IT": {
+      "price_level_eu": 100,
+      "internations_rank": 37,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "high",
+      "safety_tone": "medium",
+      "language_en": "Italian for almost everything official; tourist English fades inland.",
+      "language_uk": "Італійська майже для всього офіційного; туристична англійська зникає вглибині.",
+      "language_ru": "Итальянский почти для всего официального; туристический английский исчезает в глубине.",
+      "hook_en": "InterNations ranks Italy low on bureaucracy/digital life; north–south cost and service gaps are large.",
+      "hook_uk": "InterNations низько оцінює Італію за бюрократією/digital; розрив північ–південь великий.",
+      "hook_ru": "InterNations низко оценивает Италию по бюрократии/digital; разрыв север–юг большой.",
+      "cities": {
+        "rome": { "en": "Eternal bureaucracy + tourism crowds; choose residential quartieri.", "uk": "Вічна бюрократія + туристичні натовпи; обирайте житлові quartieri.", "ru": "Вечная бюрократия + туристические толпы; выбирайте жилые quartieri." },
+        "milan": { "en": "Fashion/finance hub; northern prices and pace.", "uk": "Fashion/finance хаб; північні ціни й темп.", "ru": "Fashion/finance хаб; северные цены и темп." },
+        "naples": { "en": "Intense street life; neighborhood knowledge is safety.", "uk": "Інтенсивне вуличне життя; знання району = безпека.", "ru": "Интенсивная уличная жизнь; знание района = безопасность." },
+        "turin": { "en": "Industrial/alpine gateway; calmer than Milan.", "uk": "Індустріальний/альпійський вхід; спокійніше за Мілан.", "ru": "Индустриальный/альпийский вход; спокойнее Милана." }
+      }
+    },
+    "LV": {
+      "price_level_eu": 80,
+      "internations_rank": null,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Latvian + Russian in daily life; English growing in Riga.",
+      "language_uk": "Латиська + російська в побуті; англійська росте в Ризі.",
+      "language_ru": "Латышский + русский в быту; английский растёт в Риге.",
+      "hook_en": "Baltic capital access with EU rules; winters and language politics are part of the package.",
+      "hook_uk": "Балтійський доступ з правилами EU; зими й мовна політика — частина пакету.",
+      "hook_ru": "Балтийский доступ с правилами EU; зимы и языковая политика — часть пакета.",
+      "cities": {
+        "riga": { "en": "Main services hub; Art Nouveau center vs Soviet-era districts.", "uk": "Головний сервісний хаб; модерн-центр vs радянські райони.", "ru": "Главный сервисный хаб; модерн-центр vs советские районы." },
+        "daugavpils": { "en": "Eastern city, different language mix, lower costs.", "uk": "Східне місто, інший мовний мікс, нижчі витрати.", "ru": "Восточный город, иной языковой микс, ниже расходы." },
+        "liepaja": { "en": "Coastal west; windy and quieter than Riga.", "uk": "Західне узбережжя; вітряніше й тихіше за Ригу.", "ru": "Западное побережье; ветренее и тише Риги." },
+        "jelgava": { "en": "Commuter distance to Riga for some.", "uk": "Для когось — відстань щоденної дороги до Риги.", "ru": "Для кого-то — расстояние ежедневной дороги до Риги." }
+      }
+    },
+    "LT": {
+      "price_level_eu": 78,
+      "internations_rank": null,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Lithuanian first; Vilnius English is workable in tech/services.",
+      "language_uk": "Литовська перша; у Вільнюсі англійська працює в tech/сервісах.",
+      "language_ru": "Литовский первый; в Вильнюсе английский работает в tech/сервисах.",
+      "hook_en": "Growing fintech scene and EU access; still plan for local-language admin.",
+      "hook_uk": "Зростаючий fintech і доступ EU; адмінку все одно плануйте з місцевою мовою.",
+      "hook_ru": "Растущий fintech и доступ EU; админку всё равно планируйте с местным языком.",
+      "cities": {
+        "vilnius": { "en": "Old Town charm + New Town practicality; housing demand rising.", "uk": "Old Town шарм + New Town практика; попит на житло росте.", "ru": "Old Town шарм + New Town практика; спрос на жильё растёт." },
+        "kaunas": { "en": "Second city, often better rent-to-space.", "uk": "Друге місто, часто краще співвідношення оренда/простір.", "ru": "Второй город, часто лучше соотношение аренда/пространство." },
+        "klaipeda": { "en": "Port and coast access.", "uk": "Порт і доступ до моря.", "ru": "Порт и доступ к морю." },
+        "siauliai": { "en": "Northern inland base, quieter market.", "uk": "Північна база вглибині, тихіший ринок.", "ru": "Северная база в глубине, более тихий рынок." }
+      }
+    },
+    "LU": {
+      "price_level_eu": 132,
+      "internations_rank": 18,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "very_high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "French/German/Luxembourgish mix; English in finance.",
+      "language_uk": "Мікс французької/німецької/люксембурзької; англійська у фінансах.",
+      "language_ru": "Микс французского/немецкого/люксембургского; английский в финансах.",
+      "hook_en": "Eurostat: among highest EU prices (~132%); cross-border commuting from FR/DE/BE is common.",
+      "hook_uk": "Eurostat: серед найвищих цін EU (~132%); багато хто їздить з FR/DE/BE.",
+      "hook_ru": "Eurostat: среди самых высоких цен EU (~132%); многие ездят из FR/DE/BE.",
+      "cities": {
+        "luxembourg-city": { "en": "Finance core; tiny geography, huge housing pressure.", "uk": "Фін’ядро; мала географія, великий тиск на житло.", "ru": "Финъядро; малая география, большое давление на жильё." },
+        "esch-sur-alzette": { "en": "South alternative, slightly more space.", "uk": "Південна альтернатива, трохи більше простору.", "ru": "Южная альтернатива, чуть больше пространства." },
+        "differdange": { "en": "Industrial south, practical rents relative to the capital.", "uk": "Індустріальний південь, практичніша оренда відносно столиці.", "ru": "Индустриальный юг, более практичная аренда относительно столицы." },
+        "dudelange": { "en": "Commuter town pattern for capital jobs.", "uk": "Передміський патерн для роботи в столиці.", "ru": "Пригородный паттерн для работы в столице." }
+      }
+    },
+    "MD": {
+      "price_level_eu": null,
+      "internations_rank": null,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "low",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Romanian (Moldovan) + Russian widely; English limited outside Chisinau services.",
+      "language_uk": "Румунська (молдовська) + російська широко; англійська обмежена поза сервісами Кишинева.",
+      "language_ru": "Румынский (молдавский) + русский широко; английский ограничен вне сервисов Кишинёва.",
+      "hook_en": "Lower costs than EU neighbors; EU accession path is political context, not a personal visa shortcut.",
+      "hook_uk": "Нижчі витрати ніж у сусідів EU; євроінтеграція — політичний контекст, не особистий візовий shortcut.",
+      "hook_ru": "Ниже расходы, чем у соседей EU; евроинтеграция — политический контекст, не личный визовый shortcut.",
+      "cities": {
+        "chisinau": { "en": "Main services and jobs; everything else is secondary.", "uk": "Головні сервіси й робота; решта вторинна.", "ru": "Главные сервисы и работа; остальное вторично." },
+        "balti": { "en": "Northern hub, quieter market.", "uk": "Північний хаб, тихіший ринок.", "ru": "Северный хаб, более тихий рынок." },
+        "tiraspol": { "en": "Transnistria context — special rules, verify status carefully.", "uk": "Контекст Придністров’я — окремі правила, статус перевіряйте уважно.", "ru": "Контекст Приднестровья — особые правила, статус проверяйте внимательно." },
+        "cahul": { "en": "Southern regional center near the Romanian border.", "uk": "Південний регіональний центр біля кордону з Румунією.", "ru": "Южный региональный центр у границы с Румынией." }
+      }
+    },
+    "MT": {
+      "price_level_eu": 90,
+      "internations_rank": 26,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Maltese + English official; English is very usable.",
+      "language_uk": "Мальтійська + англійська офіційні; англійська дуже робоча.",
+      "language_ru": "Мальтийский + английский официальные; английский очень рабочий.",
+      "hook_en": "English-friendly EU island; summer heat, construction, and small-island logistics dominate complaints.",
+      "hook_uk": "Англомовний EU-острів; літня спека, будівництво й острівна логістика — головні скарги.",
+      "hook_ru": "Англоязычный EU-остров; летняя жара, стройка и островная логистика — главные жалобы.",
+      "cities": {
+        "valletta": { "en": "Tiny capital; beautiful but limited housing stock.", "uk": "Крихітна столиця; красиво, але мало житла.", "ru": "Крошечная столица; красиво, но мало жилья." },
+        "sliema": { "en": "Expat-heavy coast; higher rents.", "uk": "Узбережжя з багатьма експатами; вища оренда.", "ru": "Побережье с многими экспатами; выше аренда." },
+        "birkirkara": { "en": "Central residential alternative to the promenade.", "uk": "Центральна житлова альтернатива набережній.", "ru": "Центральная жилая альтернатива набережной." },
+        "mosta": { "en": "Inland town life with bus links.", "uk": "Життя вглибині острова з автобусами.", "ru": "Жизнь в глубине острова с автобусами." },
+        "st-julians": { "en": "Nightlife/expat coast strip; louder and pricier than inland towns.", "uk": "Nightlife/експат-смуга узбережжя; гучніше й дорожче за міста вглибині.", "ru": "Nightlife/экспат-полоса побережья; шумнее и дороже городов в глубине." },
+        "mdina": { "en": "Silent city tourism; tiny housing stock, day-trip energy.", "uk": "«Тихе місто» для туристів; крихітний житловий фонд.", "ru": "«Тихий город» для туристов; крошечный жилой фонд." }
+      }
+    },
+    "NL": {
+      "price_level_eu": 120,
+      "internations_rank": 22,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "very_high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Dutch for long-term; English is unusually strong in Randstad.",
+      "language_uk": "Нідерландська надовго; у Randstad англійська напрочуд сильна.",
+      "language_ru": "Нидерландский надолго; в Randstad английский удивительно сильный.",
+      "hook_en": "Bike infrastructure and English help; housing shortage and high rents are the main blocker.",
+      "hook_uk": "Велоінфраструктура й англійська допомагають; дефіцит житла й висока оренда — головний блокер.",
+      "hook_ru": "Велоинфраструктура и английский помогают; дефицит жилья и высокая аренда — главный блокер.",
+      "cities": {
+        "amsterdam": { "en": "Iconic and expensive; many live in surrounding towns.", "uk": "Іконічне й дороге; багато хто живе в навколишніх містах.", "ru": "Иконичный и дорогой; многие живут в окрестных городах." },
+        "rotterdam": { "en": "Modern port city, often better space/price than Amsterdam.", "uk": "Сучасне портове місто, часто краще простір/ціна ніж Amsterdam.", "ru": "Современный портовый город, часто лучше пространство/цена, чем Amsterdam." },
+        "the-hague": { "en": "International institutions; coastal Scheveningen nearby.", "uk": "Міжнародні інституції; поруч Scheveningen.", "ru": "Международные институции; рядом Scheveningen." },
+        "utrecht": { "en": "Central rail hub, student energy, competitive housing.", "uk": "Центральний залізничний хаб, студенти, конкурентне житло.", "ru": "Центральный железнодорожный хаб, студенты, конкурентное жильё." }
+      }
+    },
+    "NO": {
+      "price_level_eu": 145,
+      "internations_rank": 39,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "very_high",
+      "bureaucracy_tone": "low",
+      "safety_tone": "high",
+      "language_en": "Norwegian for depth; English strong in cities (settling-in still hard per InterNations).",
+      "language_uk": "Норвезька для глибини; англійська сильна в містах (але «влитися» складно за InterNations).",
+      "language_ru": "Норвежский для глубины; английский силён в городах (но «влиться» сложно по InterNations).",
+      "hook_en": "InterNations bottom-10: high costs + hard social settling; nature and safety are the upside.",
+      "hook_uk": "InterNations bottom-10: високі ціни + складна соціальна адаптація; природа й безпека — плюс.",
+      "hook_ru": "InterNations bottom-10: высокие цены + сложная социальная адаптация; природа и безопасность — плюс.",
+      "cities": {
+        "oslo": { "en": "Capital premiums on everything; outdoor culture nearby.", "uk": "Столична надбавка на все; outdoor поруч.", "ru": "Столичная надбавка на всё; outdoor рядом." },
+        "bergen": { "en": "Rain capital reputation; fjord access.", "uk": "Репутація «столиці дощу»; фіорди поруч.", "ru": "Репутация «столицы дождя»; фьорды рядом." },
+        "trondheim": { "en": "Tech/student north-ish hub.", "uk": "Tech/студентський хаб північніше.", "ru": "Tech/студенческий хаб севернее." },
+        "stavanger": { "en": "Energy-industry wages and costs.", "uk": "Зарплати й ціни енергетичної індустрії.", "ru": "Зарплаты и цены энергетической индустрии." }
+      }
+    },
+    "PL": {
+      "price_level_eu": 73,
+      "internations_rank": 31,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "low",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Polish for offices; big-city English improving but uneven.",
+      "language_uk": "Польська для установ; у великих містах англійська краща, але нерівна.",
+      "language_ru": "Польский для учреждений; в крупных городах английский лучше, но неровный.",
+      "hook_en": "Eurostat 2025: ~73% of EU average prices — popular UA destination; Warsaw/Krakow rents rose with demand.",
+      "hook_uk": "Eurostat 2025: ~73% середнього EU — популярний напрям для UA; оренда у Варшаві/Кракові виросла з попитом.",
+      "hook_ru": "Eurostat 2025: ~73% среднего EU — популярное направление для UA; аренда в Варшаве/Кракове выросла со спросом.",
+      "cities": {
+        "warsaw": { "en": "Job magnet; Mokotów/Wola/Praga feel very different.", "uk": "Магніт роботи; Mokotów/Wola/Praga — різні світи.", "ru": "Магнит работы; Mokotów/Wola/Praga — разные миры." },
+        "krakow": { "en": "Tourism + outsourcing; Old Town vs new districts.", "uk": "Туризм + outsourcing; Old Town vs нові райони.", "ru": "Туризм + outsourcing; Old Town vs новые районы." },
+        "wroclaw": { "en": "Balanced city many UA expats like for size/cost.", "uk": "Збалансоване місто, яке багато UA обирають за розмір/ціну.", "ru": "Сбалансированный город, который многие UA выбирают за размер/цену." },
+        "gdansk": { "en": "Tri-City coast access; seasonal tourism.", "uk": "Труймясто й море; сезонний туризм.", "ru": "Труймясто и море; сезонный туризм." }
+      }
+    },
+    "PT": {
+      "price_level_eu": 88,
+      "internations_rank": 17,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Portuguese for residency steps; Lisbon/Porto English is common in services.",
+      "language_uk": "Португальська для резиденції; у Лісабоні/Порту англійська в сервісах звичайна.",
+      "language_ru": "Португальский для резиденции; в Лиссабоне/Порту английский в сервисах обычен.",
+      "hook_en": "InterNations mid-high: climate and lifestyle pull; Lisbon housing and SEF/AIMA timelines frustrate.",
+      "hook_uk": "InterNations середньо-високо: клімат і стиль життя; житло в Лісабоні та терміни SEF/AIMA дратують.",
+      "hook_ru": "InterNations средне-высоко: климат и стиль жизни; жильё в Лиссабоне и сроки SEF/AIMA раздражают.",
+      "cities": {
+        "lisbon": { "en": "Hills, trams, and short-term rental pressure on long-term stock.", "uk": "Пагорби, трамваї й тиск short-term на довгострокове житло.", "ru": "Холмы, трамваи и давление short-term на долгосрочное жильё." },
+        "porto": { "en": "Often preferred for value vs Lisbon; rainy winters.", "uk": "Часто обирають замість Лісабона за цінністю; дощові зими.", "ru": "Часто выбирают вместо Лиссабона за ценностью; дождливые зимы." },
+        "braga": { "en": "Northern inland, younger vibe, lower rents.", "uk": "Північ углибині, молодший вайб, нижча оренда.", "ru": "Север в глубине, более молодой вайб, ниже аренда." },
+        "faro": { "en": "Algarve base; summer tourism, winter quieter.", "uk": "База Алгарве; літній туризм, взимку тихіше.", "ru": "База Алгарве; летний туризм, зимой тише." }
+      }
+    },
+    "RO": {
+      "price_level_eu": 65,
+      "internations_rank": null,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "low",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Romanian for admin; Bucharest English uneven outside IT.",
+      "language_uk": "Румунська для адмінки; у Бухаресті англійська нерівна поза IT.",
+      "language_ru": "Румынский для админки; в Бухаресте английский неровный вне IT.",
+      "hook_en": "Eurostat 2025: ~65% EU prices (near lowest); IT hubs raise local rents faster than wages elsewhere.",
+      "hook_uk": "Eurostat 2025: ~65% цін EU (майже найнижчі); IT-хаби піднімають оренду швидше за зарплати в регіонах.",
+      "hook_ru": "Eurostat 2025: ~65% цен EU (почти самые низкие); IT-хабы поднимают аренду быстрее зарплат в регионах.",
+      "cities": {
+        "bucharest": { "en": "Traffic and sprawl; neighborhoods differ sharply.", "uk": "Трафік і розповзання; райони дуже різні.", "ru": "Трафик и расползание; районы очень разные." },
+        "cluj-napoca": { "en": "IT magnet in Transylvania; competitive housing.", "uk": "IT-магніт у Трансильванії; конкурентне житло.", "ru": "IT-магнит в Трансильвании; конкурентное жильё." },
+        "timisoara": { "en": "Western gateway toward Hungary/Serbia.", "uk": "Західний вхід до Угорщини/Сербії.", "ru": "Западный вход к Венгрии/Сербии." },
+        "iasi": { "en": "Eastern university city, lower costs.", "uk": "Східне університетське місто, нижчі витрати.", "ru": "Восточный университетский город, ниже расходы." }
+      }
+    },
+    "SK": {
+      "price_level_eu": 80,
+      "internations_rank": null,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Slovak for offices; Bratislava English limited outside corporates.",
+      "language_uk": "Словацька для установ; у Братиславі англійська обмежена поза корпораціями.",
+      "language_ru": "Словацкий для учреждений; в Братиславе английский ограничен вне корпораций.",
+      "hook_en": "Vienna-commute option for some; smaller market than CZ/PL.",
+      "hook_uk": "Для когось — щоденна дорога до Відня; ринок менший ніж CZ/PL.",
+      "hook_ru": "Для кого-то — ежедневная дорога в Вену; рынок меньше, чем CZ/PL.",
+      "cities": {
+        "bratislava": { "en": "Compact capital; housing tight relative to size.", "uk": "Компактна столиця; житло тісне відносно розміру.", "ru": "Компактная столица; жильё тесное относительно размера." },
+        "kosice": { "en": "Eastern hub, lower costs than Bratislava.", "uk": "Східний хаб, нижчі витрати ніж Братислава.", "ru": "Восточный хаб, ниже расходы, чем Братислава." },
+        "presov": { "en": "Near Košice, quieter residential option.", "uk": "Біля Кошице, тихіша житлова опція.", "ru": "Рядом с Кошице, более тихая жилая опция." },
+        "zilina": { "en": "North-west industry/transport node.", "uk": "Північно-західний індустріальний/транспортний вузол.", "ru": "Северо-западный индустриальный/транспортный узел." }
+      }
+    },
+    "SI": {
+      "price_level_eu": 88,
+      "internations_rank": null,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Slovenian for admin; Ljubljana English is manageable in services.",
+      "language_uk": "Словенська для адмінки; у Любляні англійська в сервісах прийнятна.",
+      "language_ru": "Словенский для админки; в Любляне английский в сервисах приемлем.",
+      "hook_en": "Compact country: Alps + Adriatic day trips; Ljubljana housing is the scarce resource.",
+      "hook_uk": "Компактна країна: Альпи + Адріатика на день; житло в Любляні — дефіцит.",
+      "hook_ru": "Компактная страна: Альпы + Адриатика на день; жильё в Любляне — дефицит.",
+      "cities": {
+        "ljubljana": { "en": "Walkable center; competition for long-term rentals.", "uk": "Пішохідний центр; конкуренція за довгострокову оренду.", "ru": "Пешеходный центр; конкуренция за долгосрочную аренду." },
+        "maribor": { "en": "Second city, often better value.", "uk": "Друге місто, часто вигідніше.", "ru": "Второй город, часто выгоднее." },
+        "celje": { "en": "Central Slovenia practical base.", "uk": "Практична база в центрі Словенії.", "ru": "Практичная база в центре Словении." },
+        "koper": { "en": "Coastal port; Italian influence, summer crowds.", "uk": "Прибережний порт; італійський вплив, літні натовпи.", "ru": "Прибрежный порт; итальянское влияние, летние толпы." }
+      }
+    },
+    "ES": {
+      "price_level_eu": 95,
+      "internations_rank": 9,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "medium",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Spanish essential outside tourist/expat pockets; Catalan/Basque/Galician regionally.",
+      "language_uk": "Іспанська потрібна поза туристичними/експат-кишенями; каталонська/баскська/галісійська регіонально.",
+      "language_ru": "Испанский нужен вне туристических/экспат-карманов; каталонский/баскский/галисийский регионально.",
+      "hook_en": "Only EU country in InterNations 2025 top-10 — lifestyle/QoL pull; Madrid/Barcelona rents and paperwork still bite.",
+      "hook_uk": "Єдина країна EU у top-10 InterNations 2025 — стиль життя/QoL; оренда в Madrid/Barcelona і папери все одно кусаються.",
+      "hook_ru": "Единственная страна EU в top-10 InterNations 2025 — стиль жизни/QoL; аренда в Madrid/Barcelona и бумаги всё равно кусаются.",
+      "cities": {
+        "madrid": { "en": "Central hub; dry heat summers, strong job market.", "uk": "Центральний хаб; суха літня спека, сильний ринок праці.", "ru": "Центральный хаб; сухая летняя жара, сильный рынок труда." },
+        "barcelona": { "en": "Coast + tourism pressure; Catalan in admin/schools.", "uk": "Узбережжя + тиск туризму; каталонська в адмінці/школах.", "ru": "Побережье + давление туризма; каталонский в админке/школах." },
+        "valencia": { "en": "Often cited for balance of cost/climate vs Madrid/BCN.", "uk": "Часто хвалять за баланс ціна/клімат vs Madrid/BCN.", "ru": "Часто хвалят за баланс цена/климат vs Madrid/BCN." },
+        "seville": { "en": "Andalusian heat; lower costs, slower summer pace.", "uk": "Андалусійська спека; нижчі витрати, повільніше літо.", "ru": "Андалусийская жара; ниже расходы, более медленное лето." }
+      }
+    },
+    "SE": {
+      "price_level_eu": 125,
+      "internations_rank": 38,
+      "eu_member": true,
+      "tpd_available": true,
+      "cost_tone": "very_high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "Swedish for depth; English excellent but social entry can be slow (InterNations).",
+      "language_uk": "Шведська для глибини; англійська відмінна, але вхід у соцкола повільний (InterNations).",
+      "language_ru": "Шведский для глубины; английский отличный, но вход в соцкруги медленный (InterNations).",
+      "hook_en": "InterNations bottom-10: high costs and settling-in friction; strong welfare/nature upside.",
+      "hook_uk": "InterNations bottom-10: високі ціни й тертя адаптації; сильний welfare/природа.",
+      "hook_ru": "InterNations bottom-10: высокие цены и трение адаптации; сильный welfare/природа.",
+      "cities": {
+        "stockholm": { "en": "Archipelago lifestyle, tough housing queue culture.", "uk": "Архіпелагний стиль, жорстка культура черг на житло.", "ru": "Архипелаговый стиль, жёсткая культура очередей на жильё." },
+        "gothenburg": { "en": "West coast industry/port; slightly softer than Stockholm.", "uk": "Західне узбережжя, порт/індустрія; трохи м’якше за Стокгольм.", "ru": "Западное побережье, порт/индустрия; чуть мягче Стокгольма." },
+        "malmo": { "en": "Øresund link to Copenhagen; multicultural south.", "uk": "Зв’язок Øresund з Копенгагеном; мультикультурний південь.", "ru": "Связь Øresund с Копенгагеном; мультикультурный юг." },
+        "uppsala": { "en": "University town near Stockholm.", "uk": "Університетське місто біля Стокгольма.", "ru": "Университетский город рядом со Стокгольмом." }
+      }
+    },
+    "CH": {
+      "price_level_eu": 170,
+      "internations_rank": 29,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "very_high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "German/French/Italian by canton; English in international hubs.",
+      "language_uk": "Німецька/французька/італійська за кантонами; англійська в міжнародних хабах.",
+      "language_ru": "Немецкий/французский/итальянский по кантонам; английский в международных хабах.",
+      "hook_en": "Among Europe’s highest price levels; salaries and public services match only if your permit/income does.",
+      "hook_uk": "Серед найвищих цін у Європі; зарплати й сервіси «сходяться» лише за відповідного permit/доходу.",
+      "hook_ru": "Среди самых высоких цен в Европе; зарплаты и сервисы «сходятся» только при соответствующем permit/доходе.",
+      "cities": {
+        "zurich": { "en": "Finance magnet; everything costs more.", "uk": "Фінмагніт; усе коштує більше.", "ru": "Финмагнит; всё стоит больше." },
+        "geneva": { "en": "International orgs; French-speaking, high rents.", "uk": "Міжнародні організації; франкомовне, висока оренда.", "ru": "Международные организации; франкоязычный, высокая аренда." },
+        "basel": { "en": "Pharma/tri-border practicality.", "uk": "Фарма/трикордоння, практичність.", "ru": "Фарма/трёхграничье, практичность." },
+        "bern": { "en": "Federal capital pace, slightly calmer than Zurich.", "uk": "Федеральний темп, трохи спокійніше за Цюрих.", "ru": "Федеральный темп, чуть спокойнее Цюриха." }
+      }
+    },
+    "GB": {
+      "price_level_eu": 120,
+      "internations_rank": 41,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "English-first — language is not the barrier; visas and housing are.",
+      "language_uk": "Англійська перша — мова не бар’єр; візи й житло — так.",
+      "language_ru": "Английский первый — язык не барьер; визы и жильё — да.",
+      "hook_en": "InterNations 2025 near bottom: personal finance + housing/medical costs drag; post-Brexit visas are separate from EU TPD.",
+      "hook_uk": "InterNations 2025 біля дна: особисті фінанси + житло/медицина тягнуть вниз; візи після Brexit окремо від EU TPD.",
+      "hook_ru": "InterNations 2025 у дна: личные финансы + жильё/медицина тянут вниз; визы после Brexit отдельно от EU TPD.",
+      "cities": {
+        "london": { "en": "Global city premiums; zones define your budget.", "uk": "Глобальна надбавка; зони визначають бюджет.", "ru": "Глобальная надбавка; зоны определяют бюджет." },
+        "manchester": { "en": "Northern alternative with strong culture/jobs mix.", "uk": "Північна альтернатива з культурою/роботою.", "ru": "Северная альтернатива с культурой/работой." },
+        "birmingham": { "en": "Central England hub, more space for money than London.", "uk": "Хаб центральної Англії, більше простору за гроші ніж Лондон.", "ru": "Хаб центральной Англии, больше пространства за деньги, чем Лондон." },
+        "edinburgh": { "en": "Scottish capital; festivals and student density.", "uk": "Шотландська столиця; фестивалі й студенти.", "ru": "Шотландская столица; фестивали и студенты." }
+      }
+    },
+    "IM": {
+      "price_level_eu": null,
+      "internations_rank": null,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "English; island rules differ from the UK mainland.",
+      "language_uk": "Англійська; острівні правила відрізняються від материкової UK.",
+      "language_ru": "Английский; островные правила отличаются от материковой UK.",
+      "hook_en": "Crown Dependency specifics: check work/residence rules separately from UK visas.",
+      "hook_uk": "Специфіка Crown Dependency: правила роботи/проживання окремо від віз UK.",
+      "hook_ru": "Специфика Crown Dependency: правила работы/проживания отдельно от виз UK.",
+      "cities": {
+        "douglas": { "en": "Main town services and ferry/air links.", "uk": "Головні сервіси міста, пором/авіа.", "ru": "Главные сервисы города, паром/авиа." },
+        "ramsey": { "en": "North quieter alternative.", "uk": "Північна тихіша альтернатива.", "ru": "Северная более тихая альтернатива." },
+        "peel": { "en": "West coast smaller-town pace.", "uk": "Західне узбережжя, менший темп.", "ru": "Западное побережье, меньший темп." },
+        "castletown": { "en": "Historic south; limited housing stock.", "uk": "Історичний південь; обмежений житловий фонд.", "ru": "Исторический юг; ограниченный жилой фонд." }
+      }
+    },
+    "JE": {
+      "price_level_eu": null,
+      "internations_rank": null,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "English; housing qualifications are a known local constraint.",
+      "language_uk": "Англійська; кваліфікація на житло — відоме місцеве обмеження.",
+      "language_ru": "Английский; квалификация на жильё — известное местное ограничение.",
+      "hook_en": "Finance-island economics: high costs and strict housing categories — verify before relocating.",
+      "hook_uk": "Острівна фінекономіка: високі ціни й жорсткі категорії житла — перевіряйте до переїзду.",
+      "hook_ru": "Островная финэкономика: высокие цены и жёсткие категории жилья — проверяйте до переезда.",
+      "cities": {
+        "saint-helier": { "en": "Main services and jobs concentrate here.", "uk": "Головні сервіси й робота тут.", "ru": "Главные сервисы и работа здесь." },
+        "saint-brelade": { "en": "Coastal residential feel.", "uk": "Прибережний житловий вайб.", "ru": "Прибрежный жилой вайб." },
+        "saint-clement": { "en": "Quieter parish living.", "uk": "Тихіше парафіяльне життя.", "ru": "Более тихая приходская жизнь." },
+        "gorey": { "en": "East coast harbour charm; limited stock.", "uk": "Східна гавань; обмежений фонд.", "ru": "Восточная гавань; ограниченный фонд." }
+      }
+    },
+    "GG": {
+      "price_level_eu": null,
+      "internations_rank": null,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "high",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "high",
+      "language_en": "English; local housing/work permits differ from UK/EU.",
+      "language_uk": "Англійська; місцеві permit на житло/роботу відрізняються від UK/EU.",
+      "language_ru": "Английский; местные permit на жильё/работу отличаются от UK/EU.",
+      "hook_en": "Small-island finance hub: verify housing licence rules early.",
+      "hook_uk": "Малий острівний фінхаб: правила housing licence перевіряйте рано.",
+      "hook_ru": "Малый островной финхаб: правила housing licence проверяйте рано.",
+      "cities": {
+        "saint-peter-port": { "en": "Harbour capital of daily life.", "uk": "Гавань — центр щоденного життя.", "ru": "Гавань — центр повседневной жизни." },
+        "saint-sampson": { "en": "North practical alternative.", "uk": "Північна практична альтернатива.", "ru": "Северная практическая альтернатива." },
+        "vale": { "en": "Residential north parish.", "uk": "Житлова північна парафія.", "ru": "Жилой северный приход." },
+        "forest": { "en": "Quieter inland/south feel.", "uk": "Тихіше вглибині/на півдні.", "ru": "Тише в глубине/на юге." }
+      }
+    },
+    "TH": {
+      "price_level_eu": null,
+      "internations_rank": 4,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "low",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Thai for depth; English in tourist/expat zones, weaker inland.",
+      "language_uk": "Тайська для глибини; англійська в туристичних/експат-зонах, слабша вглибині.",
+      "language_ru": "Тайский для глубины; английский в туристических/экспат-зонах, слабее в глубине.",
+      "hook_en": "InterNations 2025 #4: personal finance and housing ease stand out; visas are time-limited — plan exits/extensions.",
+      "hook_uk": "InterNations 2025 #4: особисті фінанси й легкість житла виділяються; візи обмежені в часі — плануйте продовження.",
+      "hook_ru": "InterNations 2025 #4: личные финансы и лёгкость жилья выделяются; визы ограничены по времени — планируйте продления.",
+      "cities": {
+        "bangkok": { "en": "Transit chaos + endless food; floods and heat are real.", "uk": "Транспортний хаос + їжа без кінця; повені й спека реальні.", "ru": "Транспортный хаос + еда без конца; наводнения и жара реальны." },
+        "chiang-mai": { "en": "Digital-nomad classic; smoke season (Feb–Apr) matters.", "uk": "Класика digital nomad; сезон диму (лют–квіт) важливий.", "ru": "Классика digital nomad; сезон дыма (фев–апр) важен." },
+        "phuket": { "en": "Tourism economy; rainy season and tourist pricing.", "uk": "Туристична економіка; сезон дощів і туристичні ціни.", "ru": "Туристическая экономика; сезон дождей и туристические цены." },
+        "pattaya": { "en": "Coastal expat scene; nightlife-heavy reputation.", "uk": "Прибережна експат-сцена; репутація nightlife.", "ru": "Прибрежная экспат-сцена; репутация nightlife." }
+      }
+    },
+    "VN": {
+      "price_level_eu": null,
+      "internations_rank": 5,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "low",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Vietnamese essential outside expat bubbles; English growing in HCMC/Hanoi services.",
+      "language_uk": "В’єтнамська потрібна поза експат-бульбашками; англійська росте в HCMC/Hanoi.",
+      "language_ru": "Вьетнамский нужен вне экспат-пузырей; английский растёт в HCMC/Hanoi.",
+      "hook_en": "InterNations 2025 #5 / strong personal finance: low costs if you live local; traffic and air quality are daily trade-offs.",
+      "hook_uk": "InterNations 2025 #5 / сильні особисті фінанси: низькі витрати при локальному стилі; трафік і повітря — щоденний компроміс.",
+      "hook_ru": "InterNations 2025 #5 / сильные личные финансы: низкие расходы при локальном стиле; трафик и воздух — ежедневный компромисс.",
+      "cities": {
+        "ho-chi-minh-city": { "en": "Economic engine; motorbike traffic defines the day.", "uk": "Економічний двигун; мототрафік визначає день.", "ru": "Экономический двигатель; мототрафик определяет день." },
+        "hanoi": { "en": "Political capital, four seasons, denser old quarters.", "uk": "Політична столиця, чотири сезони, щільні старі квартали.", "ru": "Политическая столица, четыре сезона, плотные старые кварталы." },
+        "da-nang": { "en": "Central coast balance many remote workers like.", "uk": "Центральне узбережжя — баланс, який люблять remote.", "ru": "Центральное побережье — баланс, который любят remote." },
+        "hai-phong": { "en": "Port city north; more industrial than tourist.", "uk": "Північний порт; більш індустріальний ніж туристичний.", "ru": "Северный порт; более индустриальный, чем туристический." },
+        "nha-trang": { "en": "Central coast beach city; tourism pricing and typhoon season awareness.", "uk": "Пляжне місто центрального узбережжя; туристичні ціни й сезон тайфунів.", "ru": "Пляжный город центрального побережья; туристические цены и сезон тайфунов." }
+      }
+    },
+    "ID": {
+      "price_level_eu": null,
+      "internations_rank": 8,
+      "eu_member": false,
+      "tpd_available": false,
+      "cost_tone": "low",
+      "bureaucracy_tone": "medium",
+      "safety_tone": "medium",
+      "language_en": "Bahasa Indonesia opens doors; Bali English is stronger than most islands.",
+      "language_uk": "Bahasa Indonesia відкриває двері; на Балі англійська сильніша, ніж на більшості островів.",
+      "language_ru": "Bahasa Indonesia открывает двери; на Бали английский сильнее, чем на большинстве островов.",
+      "hook_en": "InterNations 2025 #8: affordability wins; QoL varies by island — Jakarta traffic vs Bali tourism pressure.",
+      "hook_uk": "InterNations 2025 #8: доступність виграє; QoL залежить від острова — трафік Джакарти vs туристичний тиск Балі.",
+      "hook_ru": "InterNations 2025 #8: доступность выигрывает; QoL зависит от острова — трафик Джакарты vs туристическое давление Бали.",
+      "cities": {
+        "jakarta": { "en": "Megacity scale; floods, traffic, and gated compounds shape choices.", "uk": "Масштаб мегаполісу; повені, трафік і gated compounds формують вибір.", "ru": "Масштаб мегаполиса; наводнения, трафик и gated compounds формируют выбор." },
+        "surabaya": { "en": "East Java business hub, less tourist than Bali.", "uk": "Бізнес-хаб Східної Яви, менше туризму ніж Балі.", "ru": "Бизнес-хаб Восточной Явы, меньше туризма, чем Бали." },
+        "bandung": { "en": "Cooler highland climate near Jakarta.", "uk": "Прохолодніший клімат високогір’я біля Джакарти.", "ru": "Более прохладный климат нагорья рядом с Джакартой." },
+        "medan": { "en": "Sumatra gateway; different food/culture mix.", "uk": "Вхід на Суматру; інший мікс їжі/культури.", "ru": "Вход на Суматру; иной микс еды/культуры." },
+        "bali-denpasar": { "en": "Bali gateway: tourism economy, traffic, and visa runs are part of the rhythm.", "uk": "Вхід на Балі: туристична економіка, трафік і visa runs — частина ритму.", "ru": "Вход на Бали: туристическая экономика, трафик и visa runs — часть ритма." }
+      }
+    }
+  }
+}

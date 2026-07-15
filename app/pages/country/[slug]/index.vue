@@ -78,12 +78,20 @@
       <!-- MAIN COLUMN -->
       <div class="main-col">
 
+        <ContentArticle
+          v-if="countryArticle"
+          :section-label="$t('country.article.aboutCountry')"
+          :title="countryArticle.title"
+          :excerpt="countryArticle.excerpt"
+          :body="countryArticle.body"
+        />
+
         <!-- No reviews at all -->
         <div v-if="!pending && !countryHasAnyReviews" class="empty-state">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <h3 class="empty-h3">{{ $t('country.empty.title') }}</h3>
           <p class="empty-p">{{ $t('country.empty.subtitle', { country: countryName }) }}</p>
-          <NuxtLinkLocale :to="`/review/new?country=${slug.toUpperCase()}`" class="empty-btn">{{ $t('country.empty.cta') }}</NuxtLinkLocale>
+          <NuxtLinkLocale :to="`/review/new?country=${slug}`" class="empty-btn">{{ $t('country.empty.cta') }}</NuxtLinkLocale>
         </div>
 
         <template v-else>
@@ -113,7 +121,7 @@
             </div>
             <div class="nat-empty-cta">
               <p class="nat-empty-cta-text">{{ $t('country.empty.subtitle', { country: countryName }) }}</p>
-              <NuxtLinkLocale :to="`/review/new?country=${slug.toUpperCase()}`" class="empty-btn">
+              <NuxtLinkLocale :to="`/review/new?country=${slug}`" class="empty-btn">
                 {{ $t('country.empty.cta') }}
               </NuxtLinkLocale>
             </div>
@@ -187,7 +195,7 @@
 
       <!-- SIDEBAR -->
       <CountrySidebar
-        :countryCode="slug.toUpperCase()"
+        :countryCode="slug"
         :nationality="nationality"
         :similar="similarCountries"
       />
@@ -282,11 +290,43 @@ const natGenitive = computed(() =>
   nationality.value ? t(`nationalities.${nationality.value}.genitive`) : ''
 )
 
+const { article: countryArticle, row: countryRow } = useCountryMetaData(slug)
+
+const defaultSeoTitle = computed(() =>
+  `${countryFlag.value} ${countryName.value} — ${t('seo.country.reviewsOf')} ${natGenitive.value}`,
+)
+const defaultSeoDescription = computed(() =>
+  t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
+)
+
+const seoTitle = computed(() => {
+  const row = countryRow.value
+  if (!row) return defaultSeoTitle.value
+  const custom = locale.value === 'uk'
+    ? row.seo_title_uk
+    : locale.value === 'ru'
+      ? row.seo_title_ru
+      : row.seo_title_en
+  return (custom || row.seo_title_en || row.seo_title_uk || row.seo_title_ru || '').trim() || defaultSeoTitle.value
+})
+
+const seoDescription = computed(() => {
+  const row = countryRow.value
+  if (!row) return defaultSeoDescription.value
+  const custom = locale.value === 'uk'
+    ? row.seo_description_uk
+    : locale.value === 'ru'
+      ? row.seo_description_ru
+      : row.seo_description_en
+  return (custom || row.seo_description_en || row.seo_description_uk || row.seo_description_ru || '').trim()
+    || defaultSeoDescription.value
+})
+
 useSeoMeta({
-  title: () => `${countryFlag.value} ${countryName.value} — ${t('seo.country.reviewsOf')} ${natGenitive.value}`,
-  description: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
-  ogTitle: () => `${countryName.value} — ${natGenitive.value}`,
-  ogDescription: () => t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
+  title: () => seoTitle.value,
+  description: () => seoDescription.value,
+  ogTitle: () => seoTitle.value,
+  ogDescription: () => seoDescription.value,
   ogImage: APP_URL + '/og/home.png',
   ogUrl: () => `${APP_URL}/country/${slug.value.toLowerCase()}`,
   ogType: 'website',
@@ -299,8 +339,8 @@ useHead({
     innerHTML: computed(() => JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: `${countryName.value} — отзывы эмигрантов`,
-      description: `Реальные отзывы о жизни в ${countryName.value}`,
+      name: seoTitle.value,
+      description: seoDescription.value,
       url: `${APP_URL}/country/${slug.value.toLowerCase()}`,
     })).value,
   }],
@@ -317,6 +357,7 @@ const {
   loadMore,
   similarCountries,
   markHelpful,
+  selectedCityId,
   citiesWithReviews,
   natReviewsCount,
   showAllOverride,

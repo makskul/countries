@@ -20,7 +20,10 @@ const { data: stats, pending } = await useAsyncData('admin-stats', () =>
 
 <template>
   <div>
-    <h1 class="admin-page-title">Dashboard</h1>
+    <h1 class="admin-page-title">Обзор</h1>
+    <p class="admin-page-lead">
+      Краткая статистика и быстрые ссылки для ведения сайта без кода.
+    </p>
 
     <div v-if="pending" class="admin-stats-grid">
       <Skeleton v-for="i in 5" :key="i" height="90px" />
@@ -57,11 +60,33 @@ const { data: stats, pending } = await useAsyncData('admin-stats', () =>
       </NuxtLink>
     </div>
 
-    <div v-if="stats?.topCountries.length" class="admin-card">
+    <div class="admin-card admin-help-card">
+      <h2 style="font-size: 15px; margin: 0 0 12px">Что править</h2>
+      <ul>
+        <li>
+          <NuxtLink to="/admin/countries">Страны и статьи</NuxtLink>
+          — справка, виза, текст «О стране»
+        </li>
+        <li>
+          <NuxtLink to="/admin/cities">Города</NuxtLink>
+          — названия и статья «О городе»
+        </li>
+        <li>
+          <NuxtLink to="/admin/reviews">Отзывы</NuxtLink>
+          — одобрить, отклонить или отредактировать
+        </li>
+        <li>
+          <NuxtLink to="/admin/newsletter">Рассылка</NuxtLink>
+          — список подписчиков
+        </li>
+      </ul>
+    </div>
+
+    <div v-if="stats?.topCountries.length" class="admin-card" style="margin-top: 20px">
       <h2 style="font-size: 15px; margin: 0 0 12px">Топ стран по отзывам</h2>
       <ul style="margin: 0; padding-left: 18px">
         <li v-for="c in stats.topCountries" :key="c.code">
-          {{ c.code }} — {{ c.count }}
+          <NuxtLink :to="`/admin/countries/${c.code}`">{{ c.code }}</NuxtLink> — {{ c.count }}
         </li>
       </ul>
     </div>

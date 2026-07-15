@@ -1,0 +1,4843 @@
+[
+  {
+    "author_nationality": "UA",
+    "target_country": "AT",
+    "city_slug": "vienna",
+    "city_name": "Vienna",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Райони важливі: Innere Stadt дорогий; зовнішні Bezirke — більше простору за час у дорозі."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-06T14:00:47.836Z",
+    "_seed_index": 0
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "AT",
+    "city_slug": "graz",
+    "city_name": "Graz",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 3,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "In Graz rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-14T14:00:47.837Z",
+    "_seed_index": 1
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "AT",
+    "city_slug": "linz",
+    "city_name": "Linz",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 5,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Німецька домінує поза туристичними/tech-колами; в Відні англійська допомагає.",
+      "overall": "Індустріально-tech коридор; більше практики, ніж туризму."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-20T14:00:47.837Z",
+    "_seed_index": 2
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "AT",
+    "city_slug": "salzburg",
+    "city_name": "Salzburg",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "У Зальцбург оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Компактне й мальовниче; туризм піднімає короткострокову оренду."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-07-03T14:00:47.837Z",
+    "_seed_index": 3
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "BE",
+    "city_slug": "brussels",
+    "city_name": "Brussels",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~115% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-04T14:00:47.837Z",
+    "_seed_index": 4
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "BE",
+    "city_slug": "antwerp",
+    "city_name": "Antwerp",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 3,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "Prices feel close to the Eurostat compass (~115% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "Petty theft is the main risk.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-05T14:00:47.837Z",
+    "_seed_index": 5
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "BE",
+    "city_slug": "ghent",
+    "city_name": "Ghent",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "safety": 3,
+      "healthcare": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~115% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-30T14:00:47.837Z",
+    "_seed_index": 6
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "BE",
+    "city_slug": "bruges",
+    "city_name": "Bruges",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "Prices feel close to the Eurostat compass (~115% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Dutch/French split by region; English common in Brussels offices.",
+      "overall": "Tourism-heavy medieval core; quieter residential pockets outside the center."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-19T14:00:47.837Z",
+    "_seed_index": 7
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "BG",
+    "city_slug": "sofia",
+    "city_name": "Sofia",
+    "ratings": {
+      "legalization": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У центрі ок, уночі обираю освітлені маршрути.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Болгарська потрібна поза Sofia tech/туризмом; англійська нерівна.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-03T14:00:47.837Z",
+    "_seed_index": 8
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "BG",
+    "city_slug": "plovdiv",
+    "city_name": "Plovdiv",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 5,
+      "cleanliness": 3,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~63% EU): оренда б’є сильніше за продукти.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Болгарська потрібна поза Sofia tech/туризмом; англійська нерівна.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-23T14:00:47.837Z",
+    "_seed_index": 9
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "BG",
+    "city_slug": "varna",
+    "city_name": "Varna",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 4,
+      "cleanliness": 3,
+      "safety": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~63% EU): оренда б’є сильніше за продукти.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Чорноморська сезонність: літо людне, зима тихіша й дешевша."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-23T14:00:47.837Z",
+    "_seed_index": 10
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "BG",
+    "city_slug": "burgas",
+    "city_name": "Burgas",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 5,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~63% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "language_barrier": "Болгарська потрібна поза Sofia tech/туризмом; англійська нерівна.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-08-31T14:00:47.837Z",
+    "_seed_index": 11
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "HR",
+    "city_slug": "zagreb",
+    "city_name": "Zagreb",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Загреб оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Цілорічні сервіси; менше сезонності, ніж на узбережжі."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-21T14:00:47.837Z",
+    "_seed_index": 12
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "HR",
+    "city_slug": "split",
+    "city_name": "Split",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 5
+    },
+    "comments": {
+      "cost_of_living": "У Спліт оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Спліт ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-14T14:00:47.837Z",
+    "_seed_index": 13
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "HR",
+    "city_slug": "rijeka",
+    "city_name": "Rijeka",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "У Рієка оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Хорватська для адмінки; на узбережжі влітку англійська сильніша.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-24T14:00:47.837Z",
+    "_seed_index": 14
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "HR",
+    "city_slug": "zadar",
+    "city_name": "Zadar",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "In Zadar rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "safety": "I feel safe in residential parts of Zadar at night.",
+      "language_barrier": "Croatian for admin; coastal tourism English is stronger in summer.",
+      "overall": "Dalmatian coast base; strong summer seasonality on rents."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-21T14:00:47.837Z",
+    "_seed_index": 15
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "CY",
+    "city_slug": "nicosia",
+    "city_name": "Nicosia",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~90% EU): оренда б’є сильніше за продукти.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Грецька + сильна англійська в бізнес/експат-зонах.",
+      "overall": "Столичний адмін-хаб; спека вглибині, менше пляжного життя."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-14T14:00:47.837Z",
+    "_seed_index": 16
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "CY",
+    "city_slug": "limassol",
+    "city_name": "Limassol",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~90% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Суб’єктивно збігається з високими оцінками експатів у InterNations — якщо бюджет реалістичний."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-05T14:00:47.837Z",
+    "_seed_index": 17
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "CY",
+    "city_slug": "larnaca",
+    "city_name": "Larnaca",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~90% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Зручний аеропорт; спокійніше за Limassol."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-10T14:00:47.837Z",
+    "_seed_index": 18
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "CY",
+    "city_slug": "paphos",
+    "city_name": "Paphos",
+    "ratings": {
+      "legalization": 5,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У Пафос ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Туризм + пенсійний вайб; сезонні натовпи."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-22T14:00:47.837Z",
+    "_seed_index": 19
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "CZ",
+    "city_slug": "prague",
+    "city_name": "Prague",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "overall": "Tourist core vs residential districts (Žižkov, Vinohrady, outer panels)."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-05T14:00:47.837Z",
+    "_seed_index": 20
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "CZ",
+    "city_slug": "brno",
+    "city_name": "Brno",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "safety": 4,
+      "healthcare": 5,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~80% EU): оренда б’є сильніше за продукти.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Tech/студентське місто; часто вигідніше за Прагу."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-17T14:00:47.837Z",
+    "_seed_index": 21
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "CZ",
+    "city_slug": "ostrava",
+    "city_name": "Ostrava",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "У Острава оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Острава ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Індустріальна спадщина, нижчі витрати, менше англійських сервісів."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-29T14:00:47.837Z",
+    "_seed_index": 22
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "CZ",
+    "city_slug": "plzen",
+    "city_name": "Plzen",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 5,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~80% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Звичайна міська обережність достатня.",
+      "language_barrier": "Чеська для установ; у Празі англійська сильніша, ніж у менших містах.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-06T14:00:47.837Z",
+    "_seed_index": 23
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "DK",
+    "city_slug": "copenhagen",
+    "city_name": "Copenhagen",
+    "ratings": {
+      "cost_of_living": 3,
+      "bureaucracy": 5,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~140% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Копенгаген ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Данська для глибокої інтеграції; англійська широко працює в побуті.",
+      "overall": "Велосипеди + дизайн + жорстка оренда; передмістя розтягують бюджет."
+    },
+    "stay_purpose": "tourism",
+    "still_there": false,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-16T14:00:47.837Z",
+    "_seed_index": 24
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "DK",
+    "city_slug": "aarhus",
+    "city_name": "Aarhus",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 5,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~140% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У Орхус ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Друге місто, трохи м’якші ціни, сильна студентська сцена."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-19T14:00:47.837Z",
+    "_seed_index": 25
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "DK",
+    "city_slug": "odense",
+    "city_name": "Odense",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 2,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cost_of_living": "У Оденсе оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-21T14:00:47.837Z",
+    "_seed_index": 26
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "DK",
+    "city_slug": "aalborg",
+    "city_name": "Aalborg",
+    "ratings": {
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "У Ольборг оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У Ольборг ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "База в Північній Ютландії; тихіші зими."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-17T14:00:47.837Z",
+    "_seed_index": 27
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "EE",
+    "city_slug": "tallinn",
+    "city_name": "Tallinn",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 5,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "In Tallinn rent ate most of the budget.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Normal city caution is enough.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-27T14:00:47.838Z",
+    "_seed_index": 28
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "EE",
+    "city_slug": "tartu",
+    "city_name": "Tartu",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "bureaucracy": 5,
+      "cleanliness": 4,
+      "safety": 3,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Tartu rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "I feel safe in residential parts of Tartu at night.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "University town, softer pace than Tallinn."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-07T14:00:47.838Z",
+    "_seed_index": 29
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "EE",
+    "city_slug": "narva",
+    "city_name": "Narva",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 5,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 5,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Estonian + Russian in some areas; digital public services are a plus.",
+      "overall": "Border city dynamics; language mix differs from Tallinn."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-21T14:00:47.838Z",
+    "_seed_index": 30
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "FI",
+    "city_slug": "helsinki",
+    "city_name": "Helsinki",
+    "ratings": {
+      "bureaucracy": 5,
+      "cleanliness": 3,
+      "safety": 4,
+      "language_barrier": 3,
+      "overall": 2
+    },
+    "comments": {
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "language_barrier": "Фінська/шведська; англійська в містах є, але соцкола бувають закритими (слабке місце InterNations).",
+      "overall": "Столичні сервіси; пошук житла конкурентний."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-06-15T14:00:47.838Z",
+    "_seed_index": 31
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "FI",
+    "city_slug": "espoo",
+    "city_name": "Espoo",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 2,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "Normal city caution is enough.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "overall": "Infrastructure is strong, but settling-in and costs bite — consistent with lower InterNations ranks."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-27T14:00:47.838Z",
+    "_seed_index": 32
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "FI",
+    "city_slug": "tampere",
+    "city_name": "Tampere",
+    "ratings": {
+      "legalization": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Озера + індустрія/tech; часто вигідніше."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-23T14:00:47.838Z",
+    "_seed_index": 33
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "FI",
+    "city_slug": "turku",
+    "city_name": "Turku",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "overall": 2
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Turku rent ate most of the budget.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "I feel safe in residential parts of Turku at night.",
+      "healthcare": "Emergency care was solid when needed.",
+      "overall": "Historic southwest base; ferry links to Sweden."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-05T14:00:47.838Z",
+    "_seed_index": 34
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "FR",
+    "city_slug": "paris",
+    "city_name": "Paris",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 2,
+      "cleanliness": 3,
+      "safety": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "bureaucracy": "Bureaucracy is heavy: one missing stamp costs another week.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-10T14:00:47.838Z",
+    "_seed_index": 35
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "FR",
+    "city_slug": "lyon",
+    "city_name": "Lyon",
+    "ratings": {
+      "legalization": 5,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "safety": 3,
+      "healthcare": 3,
+      "language_barrier": 2,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "bureaucracy": "Бюрократія важка: один відсутній штамп = ще тиждень.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Французька обов’язкова для адмінки й багатьох робіт; у Парижі англійська нерівна.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-08T14:00:47.838Z",
+    "_seed_index": 36
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "FR",
+    "city_slug": "marseille",
+    "city_name": "Marseille",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 3,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-22T14:00:47.838Z",
+    "_seed_index": 37
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "FR",
+    "city_slug": "toulouse",
+    "city_name": "Toulouse",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "Prices feel close to the Eurostat compass (~112% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Bureaucracy is heavy: one missing stamp costs another week.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "French is non-negotiable for admin and many jobs; Paris English is patchy.",
+      "overall": "Aerospace/tech hub in the southwest."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-23T14:00:47.838Z",
+    "_seed_index": 38
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "DE",
+    "city_slug": "berlin",
+    "city_name": "Berlin",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 2
+    },
+    "comments": {
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~110% EU): оренда б’є сильніше за продукти.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Берлін ввечері почуваюся спокійно в житлових районах.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-28T14:00:47.838Z",
+    "_seed_index": 39
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "DE",
+    "city_slug": "munich",
+    "city_name": "Munich",
+    "ratings": {
+      "cost_of_living": 3,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 5,
+      "language_barrier": 4,
+      "overall": 2
+    },
+    "comments": {
+      "bureaucracy": "Онлайн є, але фінал майже завжди офлайн.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Німецька для Amt і орендодавців; лише англійської надовго рідко вистачає.",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-20T14:00:47.838Z",
+    "_seed_index": 40
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "DE",
+    "city_slug": "hamburg",
+    "city_name": "Hamburg",
+    "ratings": {
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "overall": 3
+    },
+    "comments": {
+      "bureaucracy": "Онлайн є, але фінал майже завжди офлайн.",
+      "safety": "Звичайна міська обережність достатня.",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-02T14:00:47.838Z",
+    "_seed_index": 41
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "DE",
+    "city_slug": "cologne",
+    "city_name": "Cologne",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "overall": 2
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "Prices feel close to the Eurostat compass (~110% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Bureaucracy is heavy: one missing stamp costs another week.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Normal city caution is enough.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "overall": "Infrastructure is strong, but settling-in and costs bite — consistent with lower InterNations ranks."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-26T14:00:47.838Z",
+    "_seed_index": 42
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "GR",
+    "city_slug": "athens",
+    "city_name": "Athens",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 2,
+      "safety": 3,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "In Athens rent ate most of the budget.",
+      "bureaucracy": "Portals help, but the final step is usually in person.",
+      "safety": "Petty theft is the main risk.",
+      "language_barrier": "Greek for bureaucracy; islands/tourist zones have more English.",
+      "overall": "Neighborhoods vary wildly; traffic and heat shape daily life."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-27T14:00:47.838Z",
+    "_seed_index": 43
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "GR",
+    "city_slug": "thessaloniki",
+    "city_name": "Thessaloniki",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 3,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 2
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "In Thessaloniki rent ate most of the budget.",
+      "bureaucracy": "Bureaucracy is heavy: one missing stamp costs another week.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Northern hub, student energy, often preferred over Athens pace."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-30T14:00:47.838Z",
+    "_seed_index": 44
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "GR",
+    "city_slug": "patras",
+    "city_name": "Patras",
+    "ratings": {
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "Prices feel close to the Eurostat compass (~85% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Bureaucracy is heavy: one missing stamp costs another week.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "language_barrier": "Greek for bureaucracy; islands/tourist zones have more English.",
+      "overall": "West coast port; ferry gateway to Italy."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-17T14:00:47.838Z",
+    "_seed_index": 45
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "GR",
+    "city_slug": "heraklion",
+    "city_name": "Heraklion",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 4,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "safety": 3,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Іракліон оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Онлайн є, але фінал майже завжди офлайн.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-19T14:00:47.838Z",
+    "_seed_index": 46
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "HU",
+    "city_slug": "budapest",
+    "city_name": "Budapest",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 5,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "healthcare": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Будапешт оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-19T14:00:47.838Z",
+    "_seed_index": 47
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "HU",
+    "city_slug": "debrecen",
+    "city_name": "Debrecen",
+    "ratings": {
+      "cost_of_living": 5,
+      "cleanliness": 3,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 2
+    },
+    "comments": {
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~70% EU): оренда б’є сильніше за продукти.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "overall": "Східна університетська база, нижчі витрати."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-29T14:00:47.838Z",
+    "_seed_index": 48
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "HU",
+    "city_slug": "szeged",
+    "city_name": "Szeged",
+    "ratings": {
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~70% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-02T14:00:47.838Z",
+    "_seed_index": 49
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "HU",
+    "city_slug": "pecs",
+    "city_name": "Pecs",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-22T14:00:47.838Z",
+    "_seed_index": 50
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "IS",
+    "city_slug": "reykjavik",
+    "city_name": "Reykjavik",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "National rules are stricter than EU TPD — I double-checked the official site.",
+      "cost_of_living": "In Reykjavik rent ate most of the budget.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Normal city caution is enough.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-08-26T14:00:47.838Z",
+    "_seed_index": 51
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "IS",
+    "city_slug": "kopavogur",
+    "city_name": "Kopavogur",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 3,
+      "safety": 5,
+      "healthcare": 2,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "cost_of_living": "У Коупавогюр оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "language_barrier": "Ісландська для глибини; в Рейк’явіку англійська поширена.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-06T14:00:47.838Z",
+    "_seed_index": 52
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "IS",
+    "city_slug": "akureyri",
+    "city_name": "Akureyri",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 1,
+      "bureaucracy": 5,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Візовий трек зайняв довше, ніж очікував — без запасу часу ніяк.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~155% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Хаб Північної Ісландії; темніші зими, щільніша спільнота."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-24T14:00:47.838Z",
+    "_seed_index": 53
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "IE",
+    "city_slug": "dublin",
+    "city_name": "Dublin",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-28T14:00:47.838Z",
+    "_seed_index": 54
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "IE",
+    "city_slug": "cork",
+    "city_name": "Cork",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 4,
+      "safety": 5,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "safety": "У Корк ввечері почуваюся спокійно в житлових районах.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Альтернатива другому місту з трохи м’якшим тиском."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-02T14:00:47.838Z",
+    "_seed_index": 55
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "IE",
+    "city_slug": "galway",
+    "city_name": "Galway",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Англійська перша; ірландська — культурний шар, не щоденний бар’єр для більшості.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-28T14:00:47.838Z",
+    "_seed_index": 56
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "IE",
+    "city_slug": "limerick",
+    "city_name": "Limerick",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 2,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Limerick rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "healthcare": "Emergency care was solid when needed.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-01T14:00:47.838Z",
+    "_seed_index": 57
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "IL",
+    "city_slug": "tel-aviv",
+    "city_name": "Tel Aviv",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "Якщо дохід у «твердій» валюті — жити легше; на локальній зарплаті тісніше.",
+      "bureaucracy": "Бюрократія важка: один відсутній штамп = ще тиждень.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У центрі ок, уночі обираю освітлені маршрути.",
+      "overall": "Startup-щільність + дуже висока оренда; прибережний стиль."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-22T14:00:47.838Z",
+    "_seed_index": 58
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "IL",
+    "city_slug": "jerusalem",
+    "city_name": "Jerusalem",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 2,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "bureaucracy": "Онлайн є, але фінал майже завжди офлайн.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "language_barrier": "Іврит (і арабська) для глибини побуту; в tech англійська поширена.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-21T14:00:47.838Z",
+    "_seed_index": 59
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "IL",
+    "city_slug": "haifa",
+    "city_name": "Haifa",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 2,
+      "bureaucracy": 2,
+      "cleanliness": 3,
+      "safety": 3,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "cost_of_living": "Якщо дохід у «твердій» валюті — жити легше; на локальній зарплаті тісніше.",
+      "bureaucracy": "Бюрократія важка: один відсутній штамп = ще тиждень.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Порт + tech, часто доступніше за TLV."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-06-05T14:00:47.838Z",
+    "_seed_index": 60
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "IL",
+    "city_slug": "beer-sheva",
+    "city_name": "Beersheba",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "У Беер-Шева головний удар — житло; локальна їжа рятує бюджет.",
+      "bureaucracy": "Бюрократія важка: один відсутній штамп = ще тиждень.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-15T14:00:47.838Z",
+    "_seed_index": 61
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "IT",
+    "city_slug": "rome",
+    "city_name": "Rome",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 3,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "bureaucracy": "Portals help, but the final step is usually in person.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "Petty theft is the main risk.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Italian for almost everything official; tourist English fades inland.",
+      "overall": "Infrastructure is strong, but settling-in and costs bite — consistent with lower InterNations ranks."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-13T14:00:47.838Z",
+    "_seed_index": 62
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "IT",
+    "city_slug": "milan",
+    "city_name": "Milan",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 2,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 5,
+      "language_barrier": 3,
+      "overall": 2
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Milan rent ate most of the budget.",
+      "bureaucracy": "Bureaucracy is heavy: one missing stamp costs another week.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Fashion/finance hub; northern prices and pace."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-19T14:00:47.838Z",
+    "_seed_index": 63
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "IT",
+    "city_slug": "naples",
+    "city_name": "Naples",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 2,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 5,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "Prices feel close to the Eurostat compass (~100% of EU): rent hits harder than groceries.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Italian for almost everything official; tourist English fades inland.",
+      "overall": "Intense street life; neighborhood knowledge is safety."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-22T14:00:47.838Z",
+    "_seed_index": 64
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "IT",
+    "city_slug": "turin",
+    "city_name": "Turin",
+    "ratings": {
+      "cost_of_living": 4,
+      "cleanliness": 3,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "In Turin rent ate most of the budget.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Italian for almost everything official; tourist English fades inland.",
+      "overall": "Industrial/alpine gateway; calmer than Milan."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-30T14:00:47.838Z",
+    "_seed_index": 65
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "LV",
+    "city_slug": "riga",
+    "city_name": "Riga",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "In Riga rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "I feel safe in residential parts of Riga at night.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Latvian + Russian in daily life; English growing in Riga.",
+      "overall": "Main services hub; Art Nouveau center vs Soviet-era districts."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-17T14:00:47.838Z",
+    "_seed_index": 66
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "LV",
+    "city_slug": "daugavpils",
+    "city_name": "Daugavpils",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "overall": "Східне місто, інший мовний мікс, нижчі витрати."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-03T14:00:47.838Z",
+    "_seed_index": 67
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "LV",
+    "city_slug": "liepaja",
+    "city_name": "Liepaja",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 4,
+      "safety": 5,
+      "healthcare": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "safety": "У Лієпая ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Західне узбережжя; вітряніше й тихіше за Ригу."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-06-04T14:00:47.838Z",
+    "_seed_index": 68
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "LT",
+    "city_slug": "vilnius",
+    "city_name": "Vilnius",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 2,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~78% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Литовська перша; у Вільнюсі англійська працює в tech/сервісах.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-22T14:00:47.838Z",
+    "_seed_index": 69
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "LT",
+    "city_slug": "kaunas",
+    "city_name": "Kaunas",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "Prices feel close to the Eurostat compass (~78% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "safety": "Normal city caution is enough.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Lithuanian first; Vilnius English is workable in tech/services.",
+      "overall": "Second city, often better rent-to-space."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-20T14:00:47.838Z",
+    "_seed_index": 70
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "LT",
+    "city_slug": "klaipeda",
+    "city_name": "Klaipeda",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "safety": "I feel safe in residential parts of Klaipeda at night.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Lithuanian first; Vilnius English is workable in tech/services.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-28T14:00:47.838Z",
+    "_seed_index": 71
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "LT",
+    "city_slug": "siauliai",
+    "city_name": "Siauliai",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "Prices feel close to the Eurostat compass (~78% of EU): rent hits harder than groceries.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "I feel safe in residential parts of Siauliai at night.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-25T14:00:47.838Z",
+    "_seed_index": 72
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "LU",
+    "city_slug": "luxembourg-city",
+    "city_name": "Luxembourg City",
+    "ratings": {
+      "legalization": 5,
+      "bureaucracy": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "overall": 4
+    },
+    "comments": {
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "safety": "У Люксембург ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Фін’ядро; мала географія, великий тиск на житло."
+    },
+    "stay_purpose": "permanent",
+    "still_there": false,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-14T14:00:47.838Z",
+    "_seed_index": 73
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "LU",
+    "city_slug": "esch-sur-alzette",
+    "city_name": "Esch-sur-Alzette",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 2,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "South alternative, slightly more space."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-18T14:00:47.838Z",
+    "_seed_index": 74
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "LU",
+    "city_slug": "differdange",
+    "city_name": "Differdange",
+    "ratings": {
+      "legalization": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Normal city caution is enough.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "French/German/Luxembourgish mix; English in finance.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "tourism",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-13T14:00:47.838Z",
+    "_seed_index": 75
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "MD",
+    "city_slug": "chisinau",
+    "city_name": "Chisinau",
+    "ratings": {
+      "legalization": 3,
+      "safety": 3,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "safety": "У центрі ок, уночі обираю освітлені маршрути.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Головні сервіси й робота; решта вторинна."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-18T14:00:47.838Z",
+    "_seed_index": 76
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "MD",
+    "city_slug": "balti",
+    "city_name": "Balti",
+    "ratings": {
+      "legalization": 2,
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "National rules are stricter than EU TPD — I double-checked the official site.",
+      "cost_of_living": "Hard-currency income makes daily life easier.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "Petty theft is the main risk.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-23T14:00:47.838Z",
+    "_seed_index": 77
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "MD",
+    "city_slug": "tiraspol",
+    "city_name": "Tiraspol",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 5,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "Якщо дохід у «твердій» валюті — жити легше; на локальній зарплаті тісніше.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "overall": "Контекст Придністров’я — окремі правила, статус перевіряйте уважно."
+    },
+    "stay_purpose": "permanent",
+    "still_there": false,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-22T14:00:47.838Z",
+    "_seed_index": 78
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "MT",
+    "city_slug": "valletta",
+    "city_name": "Valletta",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 5,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Valletta rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "Normal city caution is enough.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "tourism",
+    "still_there": false,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-06-04T14:00:47.838Z",
+    "_seed_index": 79
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "MT",
+    "city_slug": "sliema",
+    "city_name": "Sliema",
+    "ratings": {
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 5,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "У Сліма оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Мальтійська + англійська офіційні; англійська дуже робоча.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-30T14:00:47.838Z",
+    "_seed_index": 80
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "MT",
+    "city_slug": "st-julians",
+    "city_name": "St. Julian's",
+    "ratings": {
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 2,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "У Сент-Джуліанс оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "safety": "У Сент-Джуліанс ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Мальтійська + англійська офіційні; англійська дуже робоча.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-03T14:00:47.838Z",
+    "_seed_index": 81
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "MT",
+    "city_slug": "mdina",
+    "city_name": "Mdina",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Мдіна оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "«Тихе місто» для туристів; крихітний житловий фонд."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-02T14:00:47.838Z",
+    "_seed_index": 82
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "NL",
+    "city_slug": "amsterdam",
+    "city_name": "Amsterdam",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 2,
+      "bureaucracy": 4,
+      "safety": 5,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Dutch for long-term; English is unusually strong in Randstad.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-10T14:00:47.838Z",
+    "_seed_index": 83
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "NL",
+    "city_slug": "rotterdam",
+    "city_name": "Rotterdam",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Роттердам оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У Роттердам ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Сучасне портове місто, часто краще простір/ціна ніж Amsterdam."
+    },
+    "stay_purpose": "permanent",
+    "still_there": false,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-03T14:00:47.838Z",
+    "_seed_index": 84
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "NL",
+    "city_slug": "the-hague",
+    "city_name": "The Hague",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 2,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Гаага оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У Гаага ввечері почуваюся спокійно в житлових районах.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-02T14:00:47.838Z",
+    "_seed_index": 85
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "NL",
+    "city_slug": "utrecht",
+    "city_name": "Utrecht",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "safety": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "Prices feel close to the Eurostat compass (~120% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "language_barrier": "Dutch for long-term; English is unusually strong in Randstad.",
+      "overall": "Central rail hub, student energy, competitive housing."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-03T14:00:47.838Z",
+    "_seed_index": 86
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "NO",
+    "city_slug": "oslo",
+    "city_name": "Oslo",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 5,
+      "cleanliness": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "У Осло оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-14T14:00:47.838Z",
+    "_seed_index": 87
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "NO",
+    "city_slug": "bergen",
+    "city_name": "Bergen",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 5,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 3,
+      "overall": 2
+    },
+    "comments": {
+      "legalization": "Візовий трек зайняв довше, ніж очікував — без запасу часу ніяк.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "safety": "У Берген ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-15T14:00:47.838Z",
+    "_seed_index": 88
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "NO",
+    "city_slug": "trondheim",
+    "city_name": "Trondheim",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 1,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "Prices feel close to the Eurostat compass (~145% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "I feel safe in residential parts of Trondheim at night.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Norwegian for depth; English strong in cities (settling-in still hard per InterNations).",
+      "overall": "Infrastructure is strong, but settling-in and costs bite — consistent with lower InterNations ranks."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-06T14:00:47.839Z",
+    "_seed_index": 89
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "NO",
+    "city_slug": "stavanger",
+    "city_name": "Stavanger",
+    "ratings": {
+      "legalization": 3,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "The visa track took longer than expected.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Norwegian for depth; English strong in cities (settling-in still hard per InterNations).",
+      "overall": "Energy-industry wages and costs."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-08T14:00:47.839Z",
+    "_seed_index": 90
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "PL",
+    "city_slug": "warsaw",
+    "city_name": "Warsaw",
+    "ratings": {
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "У Варшава оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "safety": "У Варшава ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "tourism",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-13T14:00:47.839Z",
+    "_seed_index": 91
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "PL",
+    "city_slug": "krakow",
+    "city_name": "Krakow",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "In Krakow rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "Normal city caution is enough.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Tourism + outsourcing; Old Town vs new districts."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-06T14:00:47.839Z",
+    "_seed_index": 92
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "PL",
+    "city_slug": "wroclaw",
+    "city_name": "Wroclaw",
+    "ratings": {
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "У Вроцлав оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Вроцлав ввечері почуваюся спокійно в житлових районах.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-05T14:00:47.839Z",
+    "_seed_index": 93
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "PL",
+    "city_slug": "gdansk",
+    "city_name": "Gdansk",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~73% EU): оренда б’є сильніше за продукти.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У Гданськ ввечері почуваюся спокійно в житлових районах.",
+      "language_barrier": "Польська для установ; у великих містах англійська краща, але нерівна.",
+      "overall": "Труймясто й море; сезонний туризм."
+    },
+    "stay_purpose": "tourism",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-05T14:00:47.839Z",
+    "_seed_index": 94
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "PT",
+    "city_slug": "lisbon",
+    "city_name": "Lisbon",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 4,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "safety": 5,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "overall": "Пагорби, трамваї й тиск short-term на довгострокове житло."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-14T14:00:47.839Z",
+    "_seed_index": 95
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "PT",
+    "city_slug": "porto",
+    "city_name": "Porto",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "У Порту оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "safety": "Звичайна міська обережність достатня.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Часто обирають замість Лісабона за цінністю; дощові зими."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-04T14:00:47.839Z",
+    "_seed_index": 96
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "PT",
+    "city_slug": "braga",
+    "city_name": "Braga",
+    "ratings": {
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "overall": 4
+    },
+    "comments": {
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Брага ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Північ углибині, молодший вайб, нижча оренда."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-29T14:00:47.839Z",
+    "_seed_index": 97
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "PT",
+    "city_slug": "faro",
+    "city_name": "Faro",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~88% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "safety": "У Фару ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Португальська для резиденції; у Лісабоні/Порту англійська в сервісах звичайна.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-08-25T14:00:47.839Z",
+    "_seed_index": 98
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "RO",
+    "city_slug": "bucharest",
+    "city_name": "Bucharest",
+    "ratings": {
+      "legalization": 4,
+      "cleanliness": 4,
+      "safety": 3,
+      "healthcare": 4,
+      "overall": 4
+    },
+    "comments": {
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "permanent",
+    "still_there": false,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-10T14:00:47.839Z",
+    "_seed_index": 99
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "RO",
+    "city_slug": "cluj-napoca",
+    "city_name": "Cluj-Napoca",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 3,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У центрі ок, уночі обираю освітлені маршрути.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Румунська для адмінки; у Бухаресті англійська нерівна поза IT.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-06-09T14:00:47.839Z",
+    "_seed_index": 100
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "RO",
+    "city_slug": "timisoara",
+    "city_name": "Timisoara",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "In Timisoara rent ate most of the budget.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-18T14:00:47.839Z",
+    "_seed_index": 101
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "RO",
+    "city_slug": "iasi",
+    "city_name": "Iasi",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 5,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 3,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "Prices feel close to the Eurostat compass (~65% of EU): rent hits harder than groceries.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Romanian for admin; Bucharest English uneven outside IT.",
+      "overall": "Eastern university city, lower costs."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-26T14:00:47.839Z",
+    "_seed_index": 102
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "SK",
+    "city_slug": "bratislava",
+    "city_name": "Bratislava",
+    "ratings": {
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "In Bratislava rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Normal city caution is enough.",
+      "overall": "Compact capital; housing tight relative to size."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-08T14:00:47.839Z",
+    "_seed_index": 103
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "SK",
+    "city_slug": "kosice",
+    "city_name": "Kosice",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Temporary protection made the start easier, but queues and certificates still took time.",
+      "cost_of_living": "Prices feel close to the Eurostat compass (~80% of EU): rent hits harder than groceries.",
+      "safety": "I feel safe in residential parts of Kosice at night.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-02T14:00:47.839Z",
+    "_seed_index": 104
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "SK",
+    "city_slug": "presov",
+    "city_name": "Presov",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Presov rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "I feel safe in residential parts of Presov at night.",
+      "language_barrier": "Slovak for offices; Bratislava English limited outside corporates.",
+      "overall": "Near Košice, quieter residential option."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-20T14:00:47.839Z",
+    "_seed_index": 105
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "SK",
+    "city_slug": "zilina",
+    "city_name": "Zilina",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 4,
+      "bureaucracy": 2,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Жиліна оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Жиліна ввечері почуваюся спокійно в житлових районах.",
+      "overall": "Північно-західний індустріальний/транспортний вузол."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-30T14:00:47.839Z",
+    "_seed_index": 106
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "SI",
+    "city_slug": "ljubljana",
+    "city_name": "Ljubljana",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Ljubljana rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "I feel safe in residential parts of Ljubljana at night.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Slovenian for admin; Ljubljana English is manageable in services.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-23T14:00:47.839Z",
+    "_seed_index": 107
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "SI",
+    "city_slug": "maribor",
+    "city_name": "Maribor",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 2,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Normal city caution is enough.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-09T14:00:47.839Z",
+    "_seed_index": 108
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "SI",
+    "city_slug": "celje",
+    "city_name": "Celje",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~88% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Практична база в центрі Словенії."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-04T14:00:47.839Z",
+    "_seed_index": 109
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "SI",
+    "city_slug": "koper",
+    "city_name": "Koper",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Koper rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-22T14:00:47.839Z",
+    "_seed_index": 110
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "ES",
+    "city_slug": "madrid",
+    "city_name": "Madrid",
+    "ratings": {
+      "legalization": 5,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "Booking the appointment was the bottleneck — keep passport scans ready.",
+      "cost_of_living": "In Madrid rent ate most of the budget.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Petty theft is the main risk.",
+      "language_barrier": "Spanish essential outside tourist/expat pockets; Catalan/Basque/Galician regionally.",
+      "overall": "Matches the strong InterNations vibe — if your budget is realistic."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-04T14:00:47.839Z",
+    "_seed_index": 111
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "ES",
+    "city_slug": "barcelona",
+    "city_name": "Barcelona",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "safety": 3,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cost_of_living": "У Барселона оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Іспанська потрібна поза туристичними/експат-кишенями; каталонська/баскська/галісійська регіонально.",
+      "overall": "Суб’єктивно збігається з високими оцінками експатів у InterNations — якщо бюджет реалістичний."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-29T14:00:47.839Z",
+    "_seed_index": 112
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "ES",
+    "city_slug": "valencia",
+    "city_name": "Valencia",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 3,
+      "healthcare": 4,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Валенсія оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Часто хвалять за баланс ціна/клімат vs Madrid/BCN."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-02T14:00:47.839Z",
+    "_seed_index": 113
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "ES",
+    "city_slug": "seville",
+    "city_name": "Seville",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 2,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~95% EU): оренда б’є сильніше за продукти.",
+      "safety": "У центрі ок, уночі обираю освітлені маршрути.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Андалусійська спека; нижчі витрати, повільніше літо."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-25T14:00:47.839Z",
+    "_seed_index": 114
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "SE",
+    "city_slug": "stockholm",
+    "city_name": "Stockholm",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 2,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Запис на подання — головне вузьке місце; скани всіх сторінок паспорта тримайте під рукою.",
+      "cost_of_living": "У Стокгольм оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Шведська для глибини; англійська відмінна, але вхід у соцкола повільний (InterNations).",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-11T14:00:47.839Z",
+    "_seed_index": 115
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "SE",
+    "city_slug": "gothenburg",
+    "city_name": "Gothenburg",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Звичайна міська обережність достатня.",
+      "language_barrier": "Шведська для глибини; англійська відмінна, але вхід у соцкола повільний (InterNations).",
+      "overall": "Західне узбережжя, порт/індустрія; трохи м’якше за Стокгольм."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-08-21T14:00:47.839Z",
+    "_seed_index": 116
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "SE",
+    "city_slug": "malmo",
+    "city_name": "Malmo",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 2
+    },
+    "comments": {
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~125% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Мальме ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Зв’язок Øresund з Копенгагеном; мультикультурний південь."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "cloudy",
+      "rainy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-13T14:00:47.839Z",
+    "_seed_index": 117
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "SE",
+    "city_slug": "uppsala",
+    "city_name": "Uppsala",
+    "ratings": {
+      "legalization": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "healthcare": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Тимчасовий захист у EU спростив старт, але черги й довідки все одно були.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-19T14:00:47.839Z",
+    "_seed_index": 118
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "CH",
+    "city_slug": "zurich",
+    "city_name": "Zurich",
+    "ratings": {
+      "legalization": 3,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Фінмагніт; усе коштує більше."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-19T14:00:47.839Z",
+    "_seed_index": 119
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "CH",
+    "city_slug": "geneva",
+    "city_name": "Geneva",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 2,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~170% EU): оренда б’є сильніше за продукти.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Німецька/французька/італійська за кантонами; англійська в міжнародних хабах.",
+      "overall": "Міжнародні організації; франкомовне, висока оренда."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-11T14:00:47.839Z",
+    "_seed_index": 120
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "CH",
+    "city_slug": "basel",
+    "city_name": "Basel",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 2,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "The visa track took longer than expected.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "healthcare": "Emergency care was solid when needed.",
+      "overall": "Pharma/tri-border practicality."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-01-15T14:00:47.839Z",
+    "_seed_index": 121
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "CH",
+    "city_slug": "bern",
+    "city_name": "Bern",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 3,
+      "overall": 3
+    },
+    "comments": {
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Федеральний темп, трохи спокійніше за Цюрих."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-05T14:00:47.839Z",
+    "_seed_index": 122
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "GB",
+    "city_slug": "london",
+    "city_name": "London",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Візовий трек зайняв довше, ніж очікував — без запасу часу ніяк.",
+      "cost_of_living": "Ціни відчуваються близько до орієнтира Eurostat (~120% EU): оренда б’є сильніше за продукти.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-23T14:00:47.839Z",
+    "_seed_index": 123
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "GB",
+    "city_slug": "manchester",
+    "city_name": "Manchester",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "cost_of_living": "У Манчестер оренда з’їла більшість бюджету; продукти терпимі, якщо готувати вдома.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У центрі ок, уночі обираю освітлені маршрути.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Інфраструктура сильна, але адаптація й витрати важчі, ніж очікував — як у низьких місцях InterNations."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-17T14:00:47.839Z",
+    "_seed_index": 124
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "GB",
+    "city_slug": "birmingham",
+    "city_name": "Birmingham",
+    "ratings": {
+      "cost_of_living": 2,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "overall": "Infrastructure is strong, but settling-in and costs bite — consistent with lower InterNations ranks."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-09T14:00:47.839Z",
+    "_seed_index": 125
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "GB",
+    "city_slug": "edinburgh",
+    "city_name": "Edinburgh",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "cleanliness": 3,
+      "safety": 3,
+      "healthcare": 3,
+      "overall": 2
+    },
+    "comments": {
+      "cost_of_living": "In Edinburgh rent ate most of the budget.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "overall": "Infrastructure is strong, but settling-in and costs bite — consistent with lower InterNations ranks."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-06T14:00:47.839Z",
+    "_seed_index": 126
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "IM",
+    "city_slug": "douglas",
+    "city_name": "Douglas",
+    "ratings": {
+      "legalization": 2,
+      "cost_of_living": 2,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Звичайна міська обережність достатня.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Англійська; острівні правила відрізняються від материкової UK.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-20T14:00:47.839Z",
+    "_seed_index": 127
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "IM",
+    "city_slug": "ramsey",
+    "city_name": "Ramsey",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 2,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "Hard-currency income makes daily life easier.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "I feel safe in residential parts of Ramsey at night.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "overall": "Do a trial stay before a long lease."
+    },
+    "stay_purpose": "tourism",
+    "still_there": false,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-20T14:00:47.839Z",
+    "_seed_index": 128
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "IM",
+    "city_slug": "peel",
+    "city_name": "Peel",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "cost_of_living": "Якщо дохід у «твердій» валюті — жити легше; на локальній зарплаті тісніше.",
+      "safety": "Звичайна міська обережність достатня.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-02T14:00:47.839Z",
+    "_seed_index": 129
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "JE",
+    "city_slug": "saint-helier",
+    "city_name": "Saint Helier",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Візовий трек зайняв довше, ніж очікував — без запасу часу ніяк.",
+      "cost_of_living": "Якщо дохід у «твердій» валюті — жити легше; на локальній зарплаті тісніше.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Сент-Гелієр ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-12T14:00:47.839Z",
+    "_seed_index": 130
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "JE",
+    "city_slug": "saint-brelade",
+    "city_name": "Saint Brelade",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "The visa track took longer than expected.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Coastal residential feel."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-05-25T14:00:47.839Z",
+    "_seed_index": 131
+  },
+  {
+    "author_nationality": "PL",
+    "target_country": "JE",
+    "city_slug": "gorey",
+    "city_name": "Gorey",
+    "ratings": {
+      "legalization": 4,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Візовий трек зайняв довше, ніж очікував — без запасу часу ніяк.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Звичайна міська обережність достатня.",
+      "overall": "Східна гавань; обмежений фонд."
+    },
+    "stay_purpose": "long_term",
+    "still_there": false,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-10-11T14:00:47.839Z",
+    "_seed_index": 132
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "GG",
+    "city_slug": "saint-peter-port",
+    "city_name": "Saint Peter Port",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "safety": 5,
+      "healthcare": 4,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "Візовий трек зайняв довше, ніж очікував — без запасу часу ніяк.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У Сент-Пітер-Порт ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Англійська; місцеві permit на житло/роботу відрізняються від UK/EU.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-14T14:00:47.839Z",
+    "_seed_index": 133
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "GG",
+    "city_slug": "saint-sampson",
+    "city_name": "Saint Sampson",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Візовий трек зайняв довше, ніж очікував — без запасу часу ніяк.",
+      "cost_of_living": "Якщо дохід у «твердій» валюті — жити легше; на локальній зарплаті тісніше.",
+      "bureaucracy": "Портали допомагають, але копії все одно беріть.",
+      "safety": "У Сент-Семпсон ввечері почуваюся спокійно в житлових районах.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Англійська; місцеві permit на житло/роботу відрізняються від UK/EU.",
+      "overall": "Рекомендую пробний період перед довгим контрактом оренди."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-26T14:00:47.839Z",
+    "_seed_index": 134
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "GG",
+    "city_slug": "vale",
+    "city_name": "Vale",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "safety": 5,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 3
+    },
+    "comments": {
+      "legalization": "National rules are stricter than EU TPD — I double-checked the official site.",
+      "cost_of_living": "Hard-currency income makes daily life easier.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "safety": "I feel safe in residential parts of Vale at night.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "English; local housing/work permits differ from UK/EU.",
+      "overall": "Residential north parish."
+    },
+    "stay_purpose": "permanent",
+    "still_there": false,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-02T14:00:47.839Z",
+    "_seed_index": 135
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "TH",
+    "city_slug": "bangkok",
+    "city_name": "Bangkok",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 5,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "overall": 5
+    },
+    "comments": {
+      "cost_of_living": "Якщо дохід у «твердій» валюті — жити легше; на локальній зарплаті тісніше.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "У центрі ок, уночі обираю освітлені маршрути.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "overall": "Суб’єктивно збігається з високими оцінками експатів у InterNations — якщо бюджет реалістичний."
+    },
+    "stay_purpose": "permanent",
+    "still_there": false,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-04-07T14:00:47.839Z",
+    "_seed_index": 136
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "TH",
+    "city_slug": "chiang-mai",
+    "city_name": "Chiang Mai",
+    "ratings": {
+      "legalization": 2,
+      "cost_of_living": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "In Chiang Mai housing is the main hit.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Thai for depth; English in tourist/expat zones, weaker inland.",
+      "overall": "Matches the strong InterNations vibe — if your budget is realistic."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-06-30T14:00:47.839Z",
+    "_seed_index": 137
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "TH",
+    "city_slug": "phuket",
+    "city_name": "Phuket",
+    "ratings": {
+      "legalization": 2,
+      "cost_of_living": 4,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "The visa track took longer than expected.",
+      "cost_of_living": "In Phuket housing is the main hit.",
+      "healthcare": "Emergency care was solid when needed.",
+      "overall": "Tourism economy; rainy season and tourist pricing."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-06T14:00:47.839Z",
+    "_seed_index": 138
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "TH",
+    "city_slug": "pattaya",
+    "city_name": "Pattaya",
+    "ratings": {
+      "cost_of_living": 4,
+      "cleanliness": 3,
+      "safety": 3,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 5
+    },
+    "comments": {
+      "cost_of_living": "У Паттайя головний удар — житло; локальна їжа рятує бюджет.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "healthcare": "До сімейного лікаря чекати довго; приватне швидше.",
+      "language_barrier": "Тайська для глибини; англійська в туристичних/експат-зонах, слабша вглибині.",
+      "overall": "Суб’єктивно збігається з високими оцінками експатів у InterNations — якщо бюджет реалістичний."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "sunny"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-03-16T14:00:47.839Z",
+    "_seed_index": 139
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "VN",
+    "city_slug": "ho-chi-minh-city",
+    "city_name": "Ho Chi Minh City",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 4,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Національні правила тут жорсткіші за EU TPD; перевіряв офіційний сайт двічі.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "У центрі ок, уночі обираю освітлені маршрути.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Економічний двигун; мототрафік визначає день."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "sunny",
+      "warm"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-22T14:00:47.839Z",
+    "_seed_index": 140
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "VN",
+    "city_slug": "hanoi",
+    "city_name": "Hanoi",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 5,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "National rules are stricter than EU TPD — I double-checked the official site.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Matches the strong InterNations vibe — if your budget is realistic."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-11-19T14:00:47.839Z",
+    "_seed_index": 141
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "VN",
+    "city_slug": "da-nang",
+    "city_name": "Da Nang",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "National rules are stricter than EU TPD — I double-checked the official site.",
+      "cost_of_living": "In Da Nang housing is the main hit.",
+      "cleanliness": "Tourist cores get messier in peak season.",
+      "safety": "Fine in the center; I stick to lit streets late.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Basic phrases helped a lot with landlords and clinics.",
+      "overall": "Matches the strong InterNations vibe — if your budget is realistic."
+    },
+    "stay_purpose": "permanent",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-12-30T14:00:47.839Z",
+    "_seed_index": 142
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "VN",
+    "city_slug": "nha-trang",
+    "city_name": "Nha Trang",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 5,
+      "bureaucracy": 3,
+      "cleanliness": 3,
+      "safety": 4,
+      "healthcare": 4,
+      "language_barrier": 3,
+      "overall": 5
+    },
+    "comments": {
+      "cost_of_living": "Якщо дохід у «твердій» валюті — жити легше; на локальній зарплаті тісніше.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Туристичний центр брудніший у пік сезону.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Базові фрази дуже допомогли з орендодавцем і клінікою.",
+      "overall": "Пляжне місто центрального узбережжя; туристичні ціни й сезон тайфунів."
+    },
+    "stay_purpose": "long_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-06-23T14:00:47.839Z",
+    "_seed_index": 143
+  },
+  {
+    "author_nationality": "DK",
+    "target_country": "ID",
+    "city_slug": "jakarta",
+    "city_name": "Jakarta",
+    "ratings": {
+      "legalization": 3,
+      "bureaucracy": 3,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 5
+    },
+    "comments": {
+      "legalization": "The visa track took longer than expected.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "safety": "Petty theft is the main risk.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Bahasa Indonesia opens doors; Bali English is stronger than most islands.",
+      "overall": "Megacity scale; floods, traffic, and gated compounds shape choices."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "cold",
+      "windy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-07-02T14:00:47.839Z",
+    "_seed_index": 144
+  },
+  {
+    "author_nationality": "DE",
+    "target_country": "ID",
+    "city_slug": "bali-denpasar",
+    "city_name": "Denpasar",
+    "ratings": {
+      "cost_of_living": 5,
+      "bureaucracy": 4,
+      "cleanliness": 3,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "cost_of_living": "Hard-currency income makes daily life easier.",
+      "bureaucracy": "Bring printed copies anyway.",
+      "cleanliness": "Streets are generally tidy; depends on the district.",
+      "healthcare": "Emergency care was solid when needed.",
+      "language_barrier": "Bahasa Indonesia opens doors; Bali English is stronger than most islands.",
+      "overall": "Bali gateway: tourism economy, traffic, and visa runs are part of the rhythm."
+    },
+    "stay_purpose": "short_term",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-06T14:00:47.839Z",
+    "_seed_index": 145
+  },
+  {
+    "author_nationality": "GB",
+    "target_country": "ID",
+    "city_slug": "surabaya",
+    "city_name": "Surabaya",
+    "ratings": {
+      "legalization": 4,
+      "cost_of_living": 5,
+      "bureaucracy": 3,
+      "safety": 3,
+      "healthcare": 3,
+      "language_barrier": 3,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "The visa track took longer than expected.",
+      "bureaucracy": "Paperwork is manageable with a checklist.",
+      "safety": "Petty theft is the main risk.",
+      "healthcare": "GP waits are long; private is faster if you can pay.",
+      "language_barrier": "Bahasa Indonesia opens doors; Bali English is stronger than most islands.",
+      "overall": "Matches the strong InterNations vibe — if your budget is realistic."
+    },
+    "stay_purpose": "short_term",
+    "still_there": false,
+    "climate": [
+      "rainy",
+      "cloudy"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2025-09-28T14:00:47.839Z",
+    "_seed_index": 146
+  },
+  {
+    "author_nationality": "UA",
+    "target_country": "ID",
+    "city_slug": "bandung",
+    "city_name": "Bandung",
+    "ratings": {
+      "legalization": 3,
+      "cost_of_living": 5,
+      "bureaucracy": 4,
+      "cleanliness": 4,
+      "safety": 4,
+      "healthcare": 3,
+      "language_barrier": 4,
+      "overall": 4
+    },
+    "comments": {
+      "legalization": "Візовий трек зайняв довше, ніж очікував — без запасу часу ніяк.",
+      "bureaucracy": "Папери відносно структуровані, якщо є чекліст.",
+      "cleanliness": "Вулиці загалом охайні, залежить від району.",
+      "safety": "Дрібні крадіжки — основний ризик.",
+      "healthcare": "Екстрена допомога була на рівні, коли знадобилась.",
+      "language_barrier": "Bahasa Indonesia відкриває двері; на Балі англійська сильніша, ніж на більшості островів.",
+      "overall": "Прохолодніший клімат високогір’я біля Джакарти."
+    },
+    "stay_purpose": "tourism",
+    "still_there": true,
+    "climate": [
+      "warm",
+      "humid"
+    ],
+    "is_approved": true,
+    "author_profile": "seed",
+    "created_at": "2026-02-09T14:00:47.839Z",
+    "_seed_index": 147
+  }
+]

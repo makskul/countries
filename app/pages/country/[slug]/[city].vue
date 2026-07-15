@@ -80,6 +80,14 @@
     <!-- PAGE BODY -->
     <div class="page-body">
       <div class="main-col">
+        <ContentArticle
+          v-if="cityArticle"
+          :section-label="$t('country.article.aboutCity')"
+          :title="cityArticle.title"
+          :excerpt="cityArticle.excerpt"
+          :body="cityArticle.body"
+        />
+
         <!-- No reviews at all for this city -->
         <div v-if="!pending && totalReviews === 0 && !nationality" class="empty-state">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -225,6 +233,19 @@ const cityName = computed(() => {
   if (locale.value === 'uk' && d.name_uk) return d.name_uk
   if (locale.value === 'ru' && d.name_ru) return d.name_ru
   return d.name_en ?? citySlug.value
+})
+
+const cityArticle = computed(() => {
+  const d = cityData.value as any
+  if (!d) return null
+  if (d.article_published === false) return null
+  const pick = (uk: string | null, en: string | null, ru: string | null) =>
+    (locale.value === 'uk' ? uk : locale.value === 'ru' ? ru : en) || en || uk || ru || null
+  const title = pick(d.article_title_uk, d.article_title_en, d.article_title_ru)
+  const excerpt = pick(d.article_excerpt_uk, d.article_excerpt_en, d.article_excerpt_ru)
+  const body = pick(d.article_body_uk, d.article_body_en, d.article_body_ru)
+  if (!title && !excerpt && !body) return null
+  return { title, excerpt, body }
 })
 
 const natGenitive = computed(() =>
