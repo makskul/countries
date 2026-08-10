@@ -25,6 +25,13 @@
               :title="getWeatherLabel(key)"
             >{{ getWeatherIcon(key) }}</span>
           </div>
+          <Rating
+            v-else-if="review.ratings?.weather != null"
+            :modelValue="review.ratings.weather"
+            readonly
+            :cancel="false"
+            :stars="5"
+          />
         </div>
 
         <!-- Comment text (no box, no background) -->

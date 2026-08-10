@@ -14,6 +14,7 @@ export default {
     resetFilters: 'Reset filters',
     continue: 'Continue',
     apply: 'Apply',
+    close: 'Close',
     scrollLeft: 'Scroll left',
     scrollRight: 'Scroll right',
   },

@@ -39,7 +39,6 @@
                   :from="heroReview.author_nationality"
                   :about="heroReview.target_country"
                 />
-                <div class="review-time">{{ timeAgo(heroReview.created_at) }}</div>
               </div>
             </div>
             <div class="review-text">{{ heroReviewSnippet }}</div>
@@ -272,10 +271,15 @@
         </div>
 
         <div class="panel map-panel-below">
-          <HomeWorldMap :review-data="mapReviewData" />
+          <HomeWorldMap
+            :review-data="mapReviewData"
+            :scope-nationality="mapScopeNationality"
+            :scope-label="mapScopeLabel"
+            v-model:show-all-nationalities="mapShowAllNationalities"
+          />
           <div class="map-legend">
             <div class="map-legend-item">
-              <span class="map-legend-swatch" style="background:#B9A8ED" />
+              <span class="map-legend-swatch has-data" />
               {{ $t('homepage.map.legendHasData') }}
             </div>
             <div class="map-legend-item">
@@ -384,9 +388,38 @@ const {
   mapCountries,
 } = useHomepageData()
 
+/** When user has a nationality, default to filtering map; toggle shows all. */
+const mapShowAllNationalities = ref(!store.nationality)
+
+watch(
+  () => store.nationality,
+  (nat) => {
+    mapShowAllNationalities.value = !nat
+  },
+)
+
+const mapScopeNationality = computed(() => store.nationality || '')
+const mapScopeLabel = computed(() =>
+  store.nationality ? getCountryNameLocalized(store.nationality) : '',
+)
+
 const mapReviewData = computed<Record<string, MapReviewEntry>>(() => {
   const result: Record<string, MapReviewEntry> = {}
+  const nat = store.nationality?.toUpperCase()
+  const filterByNat = !!nat && !mapShowAllNationalities.value
+
   for (const item of mapCountries.value ?? []) {
+    if (filterByNat) {
+      const natStats = item.byNationality?.[nat!]
+      if (!natStats) continue
+      const mapName = codeToMapName(item.code, getCountryName(item.code))
+      result[mapName] = {
+        code: item.code,
+        rating: natStats.avgRating,
+        reviews: natStats.total,
+      }
+      continue
+    }
     const mapName = codeToMapName(item.code, getCountryName(item.code))
     result[mapName] = {
       code: item.code,

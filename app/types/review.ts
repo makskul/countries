@@ -5,6 +5,7 @@ export interface Review {
   target_country: string
   ratings: Record<string, number>
   comments: Record<string, string | null>
+  climate?: string[] | null
   is_approved: boolean
 }
 

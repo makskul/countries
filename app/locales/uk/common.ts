@@ -14,6 +14,7 @@ export default {
     resetFilters: 'Скинути фільтри',
     continue: 'Продовжити',
     apply: 'Застосувати',
+    close: 'Закрити',
     scrollLeft: 'Прокрутити вліво',
     scrollRight: 'Прокрутити вправо',
   },

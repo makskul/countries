@@ -123,7 +123,43 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       if (error) { console.error('[citiesWithReviews]', error.message); return [] }
       if (!stats?.length) return []
 
-      const cityIds = stats.map((r: any) => r.city_id).filter(Boolean)
+      // When showing all nationalities, city_stats has one row per nat — merge by city_id.
+      const AVG_KEYS = [
+        'avg_legalization', 'avg_cost_of_living', 'avg_safety', 'avg_bureaucracy',
+        'avg_weather', 'avg_language_barrier', 'avg_cleanliness', 'avg_healthcare', 'avg_overall',
+      ] as const
+      const merged: any[] = []
+      if (effectiveNationality.value && !showAllOverride.value) {
+        merged.push(...stats)
+      } else {
+        const byCity: Record<number, any[]> = {}
+        for (const r of stats as any[]) {
+          if (!r.city_id) continue
+          if (!byCity[r.city_id]) byCity[r.city_id] = []
+          byCity[r.city_id].push(r)
+        }
+        for (const rows of Object.values(byCity)) {
+          const total = rows.reduce((s, r) => s + (Number(r.total_reviews) || 0), 0)
+          const base = { ...rows[0], total_reviews: total }
+          for (const key of AVG_KEYS) {
+            let sum = 0
+            let weight = 0
+            for (const r of rows) {
+              const v = r[key]
+              const w = Number(r.total_reviews) || 0
+              if (v !== null && v !== undefined && w > 0) {
+                sum += Number(v) * w
+                weight += w
+              }
+            }
+            base[key] = weight ? Math.round((sum / weight) * 100) / 100 : null
+          }
+          merged.push(base)
+        }
+        merged.sort((a, b) => (b.total_reviews ?? 0) - (a.total_reviews ?? 0))
+      }
+
+      const cityIds = merged.map((r: any) => r.city_id).filter(Boolean)
       const { data: cities } = await supabase
         .from('cities')
         .select('id, slug, name_en, name_uk, name_ru')
@@ -133,7 +169,7 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
         if (c.slug) cityMap[c.id] = c
       }
 
-      return stats
+      return merged
         .filter((r: any) => cityMap[r.city_id])
         .map((r: any) => ({ ...r, slug: cityMap[r.city_id].slug, name_en: cityMap[r.city_id].name_en, name_uk: cityMap[r.city_id].name_uk, name_ru: cityMap[r.city_id].name_ru })) as any[]
     },
@@ -157,9 +193,12 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     { watch: [selectedCityId, slug, effectiveNationality] }
   )
 
-  // Category stats — uses cityStats when in city view, otherwise statsRow
+  // Category stats — uses cityStats when in city view, otherwise statsRow.
+  // Skip precomputed stats when showing all nationalities (stats are per-nat).
   const catStats = computed(() => {
-    const source = selectedCityId.value ? cityStats.value : statsRow.value
+    const source = !showAllOverride.value
+      ? (selectedCityId.value ? cityStats.value : statsRow.value)
+      : null
     if (source) {
       const s = source as any
       const cats = [
@@ -207,11 +246,15 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
       .sort((a, b) => b.count - a.count)
   })
 
-  // Overall avg — average of all category averages (excluding the 'overall' field itself)
-  // This gives a more meaningful score than just statsRow.avg_overall
+  // Overall avg — average of category averages (excluding the 'overall' field itself).
+  // Prefer city_stats when a city tab is selected; skip precomputed stats when
+  // showing all nationalities (those rows are per author_nationality).
   const overallAvg = computed(() => {
-    if (statsRow.value) {
-      const s = statsRow.value as any
+    const source = !showAllOverride.value
+      ? (selectedCityId.value ? cityStats.value : statsRow.value)
+      : null
+    if (source) {
+      const s = source as any
       const catVals = [
         s.avg_legalization, s.avg_cost_of_living, s.avg_safety,
         s.avg_bureaucracy, s.avg_weather, s.avg_language_barrier,
@@ -221,7 +264,7 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
         return Math.round((catVals.reduce((a, b) => a + b, 0) / catVals.length) * 10) / 10
       }
     }
-    // Fallback: compute from raw rows (same logic — exclude 'overall' field)
+    // Fallback: micro-average of category ratings from raw rows (excl. 'overall')
     const r = rows.value
     if (!r?.length) return null
     const vals = r.flatMap(row =>

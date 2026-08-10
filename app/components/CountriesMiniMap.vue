@@ -19,10 +19,7 @@
         class="mini-pin"
         :transform="`translate(${pin.cx},${pin.cy})`"
       >
-        <circle class="dot" :r="pin.r" />
-        <text x="0" :y="pin.r * 0.35" text-anchor="middle" :style="{ fontSize: `${pin.r * 0.85}px` }">
-          {{ pin.label }}
-        </text>
+        <circle class="dot" r="2.2" />
       </g>
     </svg>
     <div ref="tooltipRef" class="mini-tooltip" :class="{ show: tooltipVisible }" v-html="tooltipHtml" />
@@ -63,15 +60,13 @@ function getLocalizedName(mapName: string, code?: string): string {
 
 const pins = computed(() =>
   Object.entries(props.reviewData)
-    .map(([mapName, data]) => {
+    .map(([mapName]) => {
       const entry = WORLD_COUNTRIES.find(c => c[0] === mapName)
       if (!entry) return null
       const [, , cx, cy] = entry
-      const r = Math.max(7, Math.min(13, 5 + data.reviews / 60))
-      const label = data.reviews >= 100 ? `${Math.round(data.reviews / 10) / 10}k` : String(data.reviews)
-      return { name: mapName, cx, cy, r, label }
+      return { name: mapName, cx, cy }
     })
-    .filter(Boolean) as { name: string; cx: number; cy: number; r: number; label: string }[]
+    .filter(Boolean) as { name: string; cx: number; cy: number }[]
 )
 
 const mapWrapRef = ref<HTMLElement | null>(null)
@@ -155,12 +150,7 @@ function hideTooltip() {
 .mini-pin .dot {
   fill: #5B3DE0;
   stroke: white;
-  stroke-width: 1.2;
-}
-.mini-pin text {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 800;
-  fill: white;
+  stroke-width: 0.7;
 }
 .mini-tooltip {
   position: absolute;

@@ -3,7 +3,7 @@
 
     <!-- Top block: country row + text — grows to fill available height -->
     <div class="rfi-top">
-      <!-- Row 1: about country + category | stars -->
+      <!-- Row 1: about country + category | stars / climate -->
       <div class="rfi-row1">
         <div class="rfi-left">
           <span class="rfi-about-label">{{ $t('common.reviewAttribution.about') }}</span>
@@ -21,7 +21,23 @@
             <svg v-else width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </span>
         </div>
-        <Rating :modelValue="displayRating" readonly :cancel="false" :stars="5" />
+        <div class="rfi-meta-right">
+          <div v-if="climateIcons.length" class="rfi-weather-icons">
+            <span
+              v-for="item in climateIcons"
+              :key="item.key"
+              class="rfi-weather-icon"
+              :title="item.label"
+            >{{ item.icon }}</span>
+          </div>
+          <Rating
+            v-if="chosenEntry.key !== 'weather'"
+            :modelValue="displayRating"
+            readonly
+            :cancel="false"
+            :stars="5"
+          />
+        </div>
       </div>
 
       <!-- Comment with gray box -->
@@ -49,7 +65,7 @@ import type { Review } from '~/types/review'
 import { CATEGORY_ICONS } from '~/utils/categories'
 import { getFlagEmoji, timeAgo } from '~/utils/countries'
 
-const { t } = useI18n()
+const { tm } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
 
 const props = defineProps<{ review: Review }>()
@@ -64,18 +80,40 @@ function catIconName(key: string): string {
   return CATEGORY_ICONS[key] ?? 'star'
 }
 
-// Pick the best category: prefer one with a comment, fallback to highest rated
+function getWeatherIcon(key: string): string {
+  const opts = tm('common.weatherOptions') as Record<string, { icon: string; label: string }>
+  return opts[key]?.icon ?? '🌡️'
+}
+function getWeatherLabel(key: string): string {
+  const opts = tm('common.weatherOptions') as Record<string, { icon: string; label: string }>
+  return opts[key]?.label ?? key
+}
+
+// Pick the best category: prefer one with a comment, then climate tags, then highest rated
 const chosenEntry = computed(() => {
   const ratings: Record<string, number>      = (props.review.ratings  as Record<string, number>)      ?? {}
   const comments: Record<string, string | null> = (props.review.comments as Record<string, string | null>) ?? {}
+  const climate = props.review.climate ?? []
 
   const withComment = Object.entries(comments).find(([, text]) => text && text.trim().length > 0)
   if (withComment) {
     return { key: withComment[0], rating: ratings[withComment[0]] ?? 0, comment: withComment[1] ?? '' }
   }
+  if (climate.length) {
+    return { key: 'weather', rating: 0, comment: '' }
+  }
   const highest = Object.entries(ratings).sort((a, b) => b[1] - a[1])[0]
   if (highest) return { key: highest[0], rating: highest[1], comment: '' }
   return { key: 'overall', rating: 0, comment: '' }
+})
+
+const climateIcons = computed(() => {
+  const climate = props.review.climate ?? []
+  return climate.map(key => ({
+    key,
+    icon: getWeatherIcon(key),
+    label: getWeatherLabel(key),
+  }))
 })
 
 const displayRating  = computed(() => chosenEntry.value.rating)
@@ -137,6 +175,13 @@ const displayComment = computed(() => {
 }
 .rfi-cat-icon i { font-size: 11px; }
 
+.rfi-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 /* Category icon colors */
 .cat-legalization      { background: #E1F5EE; color: #0F6E56; }
 .cat-safety            { background: #FCEBEB; color: #A32D2D; }
@@ -147,6 +192,9 @@ const displayComment = computed(() => {
 .cat-cleanliness       { background: #E1F5EE; color: #0F6E56; }
 .cat-healthcare        { background: #E6F1FB; color: #185FA5; }
 .cat-overall           { background: var(--color-primary-light); color: var(--color-primary-dark); }
+
+.rfi-weather-icons { display: flex; gap: 4px; flex-wrap: wrap; flex-shrink: 0; }
+.rfi-weather-icon  { font-size: 16px; line-height: 1; }
 
 .rfi-text-box {
   background: var(--color-bg-secondary);

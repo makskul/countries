@@ -335,7 +335,11 @@ const { data: statsData, pending } = useLazyAsyncData(
           q = q.eq('author_nationality', localNat.value)
         }
         const { data } = await q
-        return { country: code, stats: data?.[0] ?? null }
+        if (!data?.length) return { country: code, stats: null }
+        // With a nationality filter there is at most one row.
+        if (localNat.value) return { country: code, stats: data[0] ?? null }
+        // "All nationalities": weight category avgs by total_reviews (not data[0]).
+        return { country: code, stats: aggregateCountryStats(data as Record<string, unknown>[]) }
       })
     )
     return results
@@ -360,6 +364,31 @@ const COMPARE_CATEGORIES = [
   { key: 'healthcare',      icon: 'heart'     },
   { key: 'overall',         icon: 'star'      },
 ]
+
+const AVG_KEYS = [
+  'avg_legalization', 'avg_cost_of_living', 'avg_safety', 'avg_bureaucracy',
+  'avg_weather', 'avg_language_barrier', 'avg_cleanliness', 'avg_healthcare', 'avg_overall',
+] as const
+
+/** Weight per-nationality country_stats rows by total_reviews. */
+function aggregateCountryStats(rows: Record<string, unknown>[]) {
+  const total = rows.reduce((s, r) => s + (Number(r.total_reviews) || 0), 0)
+  const out: Record<string, unknown> = { total_reviews: total }
+  for (const key of AVG_KEYS) {
+    let sum = 0
+    let weight = 0
+    for (const row of rows) {
+      const v = row[key]
+      const w = Number(row.total_reviews) || 0
+      if (v !== null && v !== undefined && w > 0) {
+        sum += Number(v) * w
+        weight += w
+      }
+    }
+    out[key] = weight ? Math.round((sum / weight) * 100) / 100 : null
+  }
+  return out
+}
 
 function getCatAvg(stats: Record<string, unknown> | null, key: string): number | null {
   if (!stats) return null
