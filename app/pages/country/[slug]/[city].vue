@@ -93,7 +93,7 @@
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <h3 class="empty-h3">{{ $t('country.empty.title') }}</h3>
           <p class="empty-p">{{ $t('country.empty.subtitle', { country: cityName }) }}</p>
-          <NuxtLinkLocale :to="`/review/new?country=${slug.toUpperCase()}`" class="empty-btn">{{ $t('country.empty.cta') }}</NuxtLinkLocale>
+          <NuxtLinkLocale :to="`/review/new?country=${slug}`" class="empty-btn">{{ $t('country.empty.cta') }}</NuxtLinkLocale>
         </div>
 
         <template v-else>
@@ -114,7 +114,7 @@
             </div>
             <div class="nat-empty-cta">
               <p class="nat-empty-cta-text">{{ $t('country.empty.subtitle', { country: cityName }) }}</p>
-              <NuxtLinkLocale :to="`/review/new?country=${slug.toUpperCase()}`" class="empty-btn">
+              <NuxtLinkLocale :to="`/review/new?country=${slug}`" class="empty-btn">
                 {{ $t('country.empty.cta') }}
               </NuxtLinkLocale>
             </div>

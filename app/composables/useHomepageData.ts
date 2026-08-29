@@ -95,27 +95,46 @@ export function useHomepageData() {
     })
   })
 
-  // All countries with reviews — for interactive world map
-  const { data: mapCountries, pending: mapCountriesPending } = useAsyncData('mapCountries', async () => {
+  // All countries with reviews — for interactive world map (incl. nationality breakdown)
+  const { data: mapCountries, pending: mapCountriesPending } = useAsyncData('mapCountriesByNat', async () => {
     const { data, error } = await supabase
       .from('reviews')
-      .select('target_country, ratings')
+      .select('target_country, author_nationality, ratings')
       .eq('is_approved', true)
     if (error) { console.error('[mapCountries]', error.message); return [] }
 
-    const grouped: Record<string, number[]> = {}
-    for (const row of data as { target_country: string; ratings: Record<string, number> }[]) {
+    type Bucket = { all: number[]; byNat: Record<string, number[]> }
+    const grouped: Record<string, Bucket> = {}
+    for (const row of data as {
+      target_country: string
+      author_nationality: string
+      ratings: Record<string, number>
+    }[]) {
       const code = row.target_country
-      if (!grouped[code]) grouped[code] = []
+      if (!grouped[code]) grouped[code] = { all: [], byNat: {} }
       const vals = Object.values(row.ratings ?? {}).filter(v => typeof v === 'number')
       const rowAvg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0
-      grouped[code].push(rowAvg)
+      grouped[code].all.push(rowAvg)
+      const nat = (row.author_nationality || '').toUpperCase()
+      if (nat) {
+        if (!grouped[code].byNat[nat]) grouped[code].byNat[nat] = []
+        grouped[code].byNat[nat].push(rowAvg)
+      }
     }
 
-    return Object.entries(grouped).map(([code, avgs]) => ({
+    const avg = (avgs: number[]) =>
+      Math.round((avgs.reduce((a, b) => a + b, 0) / avgs.length) * 10) / 10
+
+    return Object.entries(grouped).map(([code, bucket]) => ({
       code,
-      total: avgs.length,
-      avgRating: Math.round((avgs.reduce((a, b) => a + b, 0) / avgs.length) * 10) / 10,
+      total: bucket.all.length,
+      avgRating: avg(bucket.all),
+      byNationality: Object.fromEntries(
+        Object.entries(bucket.byNat).map(([nat, avgs]) => [
+          nat,
+          { total: avgs.length, avgRating: avg(avgs) },
+        ]),
+      ) as Record<string, { total: number; avgRating: number }>,
     }))
   })
 

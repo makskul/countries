@@ -67,7 +67,7 @@ const { data: reviews, pending } = useLazyAsyncData('reviews-feed', async () => 
 
   const { data: todayData } = await supabase
     .from('reviews')
-    .select('id, target_country, author_nationality, ratings, comments, created_at')
+    .select('id, target_country, author_nationality, ratings, comments, climate, created_at')
     .eq('is_approved', true)
     .gte('created_at', todayStart.toISOString())
     .order('created_at', { ascending: false })
@@ -75,7 +75,7 @@ const { data: reviews, pending } = useLazyAsyncData('reviews-feed', async () => 
   // Always fetch latest 20 as well
   const { data: latestData } = await supabase
     .from('reviews')
-    .select('id, target_country, author_nationality, ratings, comments, created_at')
+    .select('id, target_country, author_nationality, ratings, comments, climate, created_at')
     .eq('is_approved', true)
     .order('created_at', { ascending: false })
     .limit(PAGE_SIZE)
@@ -119,7 +119,7 @@ async function loadMore() {
   try {
     const { data } = await supabase
       .from('reviews')
-      .select('id, target_country, author_nationality, ratings, comments, created_at')
+      .select('id, target_country, author_nationality, ratings, comments, climate, created_at')
       .eq('is_approved', true)
       .order('created_at', { ascending: false })
       .range(offset.value, offset.value + PAGE_SIZE - 1)

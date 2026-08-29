@@ -114,6 +114,14 @@ async function handleShare() {
 
 <style scoped>
 .sidebar { display: flex; flex-direction: column; gap: 12px; }
+/* Stick beside main column on desktop; disabled when stacked under 768px */
+@media (min-width: 769px) {
+  .sidebar {
+    position: sticky;
+    top: 74px; /* 58px sticky navbar + 16px breathing room */
+    align-self: start;
+  }
+}
 .s-card {
   background: #fff;
   border: 1px solid var(--color-border);

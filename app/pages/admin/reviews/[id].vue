@@ -51,6 +51,23 @@ const ratingEntries = computed(() => {
   }))
 })
 
+const climateOptions: Record<string, { icon: string; label: string }> = {
+  sunny: { icon: '☀️', label: 'Солнечно' },
+  warm: { icon: '🌤️', label: 'Тепло' },
+  rainy: { icon: '🌧️', label: 'Дождь' },
+  cloudy: { icon: '🌥️', label: 'Облачно' },
+  cold: { icon: '❄️', label: 'Холодно' },
+  snow: { icon: '🌨️', label: 'Снег' },
+  windy: { icon: '💨', label: 'Ветрено' },
+  humid: { icon: '💧', label: 'Влажно' },
+}
+function climateIcon(key: string) {
+  return climateOptions[key]?.icon ?? '🌡️'
+}
+function climateLabel(key: string) {
+  return climateOptions[key]?.label ?? key
+}
+
 const siteLink = computed(() => {
   const r = review.value
   if (!r?.target_country) return null
@@ -202,10 +219,13 @@ async function remove() {
             </div>
             <p v-if="item.comment" class="admin-rating-comment">{{ item.comment }}</p>
           </div>
-          <p v-if="!ratingEntries.length" class="admin-section-hint">Нет оценок и комментариев.</p>
-          <p v-if="review.climate?.length" class="admin-section-hint" style="margin-top: 12px">
-            Климат: {{ review.climate.join(', ') }}
-          </p>
+          <p v-if="!ratingEntries.length && !review.climate?.length" class="admin-section-hint">Нет оценок и комментариев.</p>
+          <div v-if="review.climate?.length" class="admin-climate-row">
+            <strong>Климат / погода</strong>
+            <span class="admin-climate-icons">
+              <span v-for="key in review.climate" :key="key">{{ climateIcon(key) }} {{ climateLabel(key) }}</span>
+            </span>
+          </div>
         </div>
       </section>
     </template>

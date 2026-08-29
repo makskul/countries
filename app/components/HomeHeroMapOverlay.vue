@@ -21,7 +21,7 @@ withDefaults(defineProps<{
   viewBox?: string
   preserveAspectRatio?: string
 }>(), {
-  viewBox: '455 25 140 110',
+  viewBox: '448 78 172 105',
   preserveAspectRatio: 'xMidYMid slice',
 })
 

@@ -64,8 +64,9 @@
 
 .home-page .hero-map-layer .hero-map-country {
   fill: #E4E0F7;
-  stroke: #fff;
-  stroke-width: 0.5;
+  stroke: #F4F2FA;
+  stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
 }
 
 @media (min-width: 1101px) {
@@ -607,6 +608,10 @@
   margin-top: 20px;
 }
 
+.home-page .map-panel-below .home-world-map {
+  background: #fff;
+}
+
 .home-page .promo-panel {
   position: relative;
   display: block;
@@ -660,6 +665,9 @@
   font-weight: 800;
   margin: 0 0 6px;
   line-height: 1.2;
+  /* Override global h3 color so title stays readable on the photo */
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(26, 23, 48, 0.45);
 }
 
 .home-page .promo-panel-overlay p {
@@ -719,56 +727,7 @@
   color: var(--purple-600);
 }
 
-/* map */
-.home-page #map-wrap {
-  position: relative;
-  height: 390px;
-  background: #F8F7FC;
-}
-
-.home-page #worldmap {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.home-page .map-country {
-  fill: #E7E4F3;
-  stroke: #fff;
-  stroke-width: 0.5;
-  transition: fill .15s;
-  cursor: pointer;
-}
-
-.home-page .map-country:hover {
-  fill: #D5CEF0;
-}
-
-.home-page .map-country.has-data {
-  fill: #B9A8ED;
-  cursor: pointer;
-}
-
-.home-page .map-country.has-data:hover {
-  fill: var(--purple-600);
-}
-
-.home-page .map-pin {
-  pointer-events: none;
-}
-
-.home-page .map-pin circle.dot {
-  fill: var(--purple-700);
-  stroke: white;
-  stroke-width: 1.4;
-}
-
-.home-page .map-pin text {
-  font-family: 'Manrope';
-  font-weight: 800;
-  fill: white;
-}
-
+/* map legend / hint (map visuals live in HomeWorldMap scoped styles) */
 .home-page .map-legend {
   display: flex;
   align-items: center;
@@ -777,6 +736,7 @@
   font-size: 11.5px;
   color: var(--ink-soft);
   font-weight: 600;
+  flex-wrap: wrap;
 }
 
 .home-page .map-legend-item {
@@ -789,68 +749,19 @@
   width: 12px;
   height: 12px;
   border-radius: 3px;
+  flex-shrink: 0;
 }
 
-.home-page .map-tooltip {
-  position: absolute;
-  pointer-events: none;
-  z-index: 20;
-  background: white;
-  border-radius: 12px;
-  padding: 12px 14px;
-  box-shadow: 0 14px 32px rgba(26, 23, 48, 0.2);
-  width: 190px;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity .15s, transform .15s;
-}
-
-.home-page .map-tooltip.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.home-page .mt-flag-row {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-weight: 800;
-  font-family: 'Manrope';
-  font-size: 13.5px;
-  margin-bottom: 3px;
-}
-
-.home-page .mt-rating {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--amber);
-  font-weight: 700;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
-
-.home-page .mt-sub {
-  font-size: 11px;
-  color: var(--ink-soft);
-  margin-bottom: 4px;
-}
-
-.home-page .mt-btn {
-  font-size: 11.5px;
-  font-weight: 700;
-  color: white;
-  background: var(--purple-600);
-  padding: 6px 10px;
-  border-radius: 8px;
-  display: inline-block;
-  margin-top: 4px;
+.home-page .map-legend-swatch.has-data {
+  background: #B9A8ED;
+  box-shadow: inset 0 0 0 1px #8B74E0;
 }
 
 .home-page .map-hint {
-  padding: 10px 18px 16px;
+  padding: 8px 18px 14px;
   font-size: 11.5px;
   color: var(--ink-soft);
+  line-height: 1.4;
 }
 
 /* compare panel */

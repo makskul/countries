@@ -424,6 +424,21 @@
   color: var(--color-text-secondary, #4b5563);
 }
 
+.admin-climate-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.admin-climate-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-secondary, #4b5563);
+}
+
 .mt-2 { margin-top: 12px; }
 
 .admin-hero-row {

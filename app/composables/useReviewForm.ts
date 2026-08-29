@@ -79,7 +79,13 @@ export function useReviewForm() {
       const comments: Record<string, string> = {}
 
       for (const cat of FORM_CATEGORIES) {
-        if (cat.key === 'weather') continue
+        if (cat.key === 'weather') {
+          // Weather is stored in climate[], not ratings — still keep optional comment
+          if (form.comments[cat.key].trim()) {
+            comments[cat.key] = form.comments[cat.key].trim()
+          }
+          continue
+        }
         if (form.ratings[cat.key] > 0) {
           ratings[cat.key] = form.ratings[cat.key]
           if (form.comments[cat.key].trim()) {

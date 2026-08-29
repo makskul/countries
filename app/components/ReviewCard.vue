@@ -9,17 +9,29 @@
           <span class="rc-cat-badge" :class="`cat-${cat}`">
             {{ $t(`categories.${cat}.name`) }}
           </span>
-          <Rating :modelValue="review.ratings[cat]" readonly :cancel="false" :stars="5" />
-        </div>
-
-        <!-- Weather icons right under the weather badge -->
-        <div v-if="cat === 'weather' && review.climate && review.climate.length" class="rc-weather-icons">
-          <span
-            v-for="key in review.climate"
-            :key="key"
-            class="rc-weather-icon"
-            :title="getWeatherLabel(key)"
-          >{{ getWeatherIcon(key) }}</span>
+          <!-- Weather uses climate tags, not star ratings -->
+          <Rating
+            v-if="cat !== 'weather'"
+            :modelValue="review.ratings[cat]"
+            readonly
+            :cancel="false"
+            :stars="5"
+          />
+          <div v-else-if="review.climate?.length" class="rc-weather-icons">
+            <span
+              v-for="key in review.climate"
+              :key="key"
+              class="rc-weather-icon"
+              :title="getWeatherLabel(key)"
+            >{{ getWeatherIcon(key) }}</span>
+          </div>
+          <Rating
+            v-else-if="review.ratings?.weather != null"
+            :modelValue="review.ratings.weather"
+            readonly
+            :cancel="false"
+            :stars="5"
+          />
         </div>
 
         <!-- Comment text (no box, no background) -->
@@ -80,9 +92,14 @@ function getWeatherLabel(key: string): string {
 }
 
 const filledCategories = computed(() =>
-  CATEGORIES.filter(cat =>
-    props.review.ratings?.[cat] != null || props.review.comments?.[cat]?.trim()
-  )
+  CATEGORIES.filter(cat => {
+    if (cat === 'weather') {
+      return (props.review.climate?.length ?? 0) > 0
+        || props.review.ratings?.[cat] != null
+        || !!props.review.comments?.[cat]?.trim()
+    }
+    return props.review.ratings?.[cat] != null || !!props.review.comments?.[cat]?.trim()
+  })
 )
 
 const overallRating = computed(() => {
