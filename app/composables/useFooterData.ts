@@ -16,10 +16,10 @@ export function useFooterData() {
 
   const topCountries = ref(['PT', 'DE', 'PL', 'BG', 'NL'])
 
-  async function subscribeNewsletter(email: string, supabaseClient: any) {
+  async function subscribeNewsletter(email: string, supabaseClient: any, source = 'footer') {
     const { error } = await supabaseClient
       .from('newsletter_subscribers')
-      .insert({ email, source: 'footer' })
+      .insert({ email, source })
     if (error) {
       if (error.code === '23505') throw new Error('already_subscribed')
       throw error

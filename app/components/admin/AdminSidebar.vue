@@ -21,6 +21,9 @@
     </NuxtLink>
 
     <div class="admin-nav-group">Прочее</div>
+    <NuxtLink to="/admin/leads" class="admin-nav-link">
+      <i class="pi pi-inbox" /> Лиды
+    </NuxtLink>
     <NuxtLink to="/admin/newsletter" class="admin-nav-link">
       <i class="pi pi-envelope" /> Рассылка
     </NuxtLink>
