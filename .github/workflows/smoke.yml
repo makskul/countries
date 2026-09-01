@@ -8,6 +8,17 @@ on:
 jobs:
   smoke:
     runs-on: ubuntu-latest
+    env:
+      # Legacy + Nuxt runtime overrides (NUXT_PUBLIC_* applies at preview even if build baked empty values)
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      NUXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      NUXT_PUBLIC_SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      NUXT_SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      NUXT_PUBLIC_PLAUSIBLE_DOMAIN: ''
+      HOST: 127.0.0.1
+      PORT: '3000'
     steps:
       - uses: actions/checkout@v4
 
@@ -18,19 +29,20 @@ jobs:
 
       - run: npm ci
 
+      - name: Verify Supabase credentials
+        run: |
+          if [ -z "$NUXT_PUBLIC_SUPABASE_URL" ] || [ -z "$NUXT_PUBLIC_SUPABASE_KEY" ]; then
+            echo "::error::SUPABASE_URL and SUPABASE_KEY GitHub secrets are required for smoke tests."
+            exit 1
+          fi
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
       - name: Build app
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-          NUXT_PUBLIC_PLAUSIBLE_DOMAIN: ''
         run: npm run build
 
       - name: Run smoke tests
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           CI: 'true'
         run: npm run test:smoke

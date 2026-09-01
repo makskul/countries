@@ -2,6 +2,18 @@ import { defineConfig, devices } from '@playwright/test'
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:3000'
 
+const webServerEnv = {
+  HOST: process.env.HOST || '127.0.0.1',
+  PORT: process.env.PORT || '3000',
+  SUPABASE_URL: process.env.SUPABASE_URL,
+  SUPABASE_KEY: process.env.SUPABASE_KEY,
+  NUXT_PUBLIC_SUPABASE_URL: process.env.NUXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL,
+  NUXT_PUBLIC_SUPABASE_KEY: process.env.NUXT_PUBLIC_SUPABASE_KEY || process.env.SUPABASE_KEY,
+  SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY,
+  NUXT_SUPABASE_SECRET_KEY: process.env.NUXT_SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_KEY,
+  NUXT_PUBLIC_PLAUSIBLE_DOMAIN: process.env.NUXT_PUBLIC_PLAUSIBLE_DOMAIN ?? '',
+}
+
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -21,5 +33,6 @@ export default defineConfig({
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 180_000,
+        env: webServerEnv,
       },
 })
