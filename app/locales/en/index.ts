@@ -10,6 +10,7 @@ import nationalities from './nationalities'
 import categories from './categories'
 import seo from './seo'
 import pages from './pages'
+import partners from './partners'
 
 export default {
   common,
@@ -24,4 +25,5 @@ export default {
   seo,
   pages,
   compare,
+  partners,
 }

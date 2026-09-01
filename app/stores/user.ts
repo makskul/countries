@@ -17,11 +17,17 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     setNationality(code: string) {
+      const prev = this.nationality
       this.nationality = code
       this.showAllReviews = false
       if (import.meta.client) {
         localStorage.setItem('nationality', code)
         document.cookie = `${COOKIE_KEY}=${code}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`
+        if (code && code !== prev) {
+          import('~/utils/analytics').then(({ trackEvent }) => {
+            trackEvent('nat_set', { nationality: code })
+          })
+        }
       }
     },
     setSelectedCity(id: number | null) {

@@ -134,8 +134,9 @@
             <NuxtLinkLocale
               :to="`/review/new?country=${selectedCountry.code}`"
               class="map-detail-btn map-detail-btn--primary"
+              :class="{ 'map-detail-btn--write-first': !selectedCountry.entry }"
             >
-              {{ $t('homepage.map.leaveReview') }}
+              {{ selectedCountry.entry ? $t('homepage.map.leaveReview') : $t('country.empty.cta') }}
             </NuxtLinkLocale>
             <NuxtLinkLocale
               v-if="selectedCountry.entry"
@@ -144,6 +145,16 @@
             >
               {{ $t('homepage.map.openCountry') }}
             </NuxtLinkLocale>
+          </div>
+          <div v-if="mapAffiliateTitle" class="map-detail-affiliate">
+            <div class="map-detail-affiliate-title">{{ mapAffiliateTitle }}</div>
+            <AffiliatePartnerLinks
+              partner-slot="map"
+              :country="selectedCountry.code"
+              :nat="effectiveNat"
+              :limit="2"
+              compact
+            />
           </div>
         </div>
 
@@ -181,7 +192,9 @@
               ★ {{ item.entry.rating }}
               <span class="map-list-meta-count">{{ item.entry.reviews }}</span>
             </span>
-            <span v-else class="map-list-meta map-list-meta--empty">—</span>
+            <span v-else class="map-list-meta map-list-meta--write-first">
+              {{ $t('homepage.map.writeFirst') }}
+            </span>
           </button>
         </div>
         <div v-else class="map-list-empty">
@@ -263,8 +276,18 @@ const wrapStyle = computed(() => {
   }
 })
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
+
+const effectiveNat = computed(() =>
+  props.scopeNationality && !props.showAllNationalities ? props.scopeNationality : '',
+)
+
+const mapAffiliateTitle = computed(() => {
+  if (!selectedCountry.value) return ''
+  return t('partners.map.title', { country: selectedCountry.value.label })
+})
+const { trackEvent } = useAnalytics()
 
 const scopeLabel = computed(() => {
   if (props.scopeLabel) return props.scopeLabel
@@ -464,7 +487,11 @@ const regionCountries = computed((): RegionCountryItem[] => {
   }
 
   const items = [...byCode.values()]
+  const prioritizeEmpty = !!props.scopeNationality && !props.showAllNationalities
   items.sort((a, b) => {
+    const aEmpty = !a.entry
+    const bEmpty = !b.entry
+    if (prioritizeEmpty && aEmpty !== bEmpty) return aEmpty ? -1 : 1
     const ar = a.entry?.reviews ?? 0
     const br = b.entry?.reviews ?? 0
     if (ar !== br) return br - ar
@@ -475,6 +502,10 @@ const regionCountries = computed((): RegionCountryItem[] => {
 
 function selectCountry(item: RegionCountryItem) {
   selectedCode.value = item.code
+  trackEvent('map_country_select', {
+    country: item.code,
+    has_reviews: Boolean(item.entry),
+  })
   if (item.mapName) {
     const focus = getCountryFocusViewBox(item.mapName)
     if (focus) {
@@ -864,6 +895,11 @@ onUnmounted(() => {
   background: var(--purple-700, #5B3DE0);
 }
 
+.map-detail-btn--write-first {
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(108, 76, 224, 0.35);
+}
+
 .map-detail-btn--ghost {
   background: #fff;
   color: var(--ink, #1A1730);
@@ -873,6 +909,20 @@ onUnmounted(() => {
 .map-detail-btn--ghost:hover {
   border-color: #C8BFE8;
   background: #F8F7FC;
+}
+
+.map-detail-affiliate {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line, #EAE7F5);
+}
+
+.map-detail-affiliate-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-soft, #5B5876);
+  margin-bottom: 8px;
+  line-height: 1.35;
 }
 
 .map-list-head {
@@ -963,6 +1013,18 @@ onUnmounted(() => {
 
 .map-list-meta--empty {
   color: #C4C0D4;
+}
+
+.map-list-meta--write-first {
+  color: var(--purple-600, #6C4CE0);
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.map-list-item:not(.has-data) {
+  border: 1px dashed #E4DFF3;
 }
 
 .map-list-empty {

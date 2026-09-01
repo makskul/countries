@@ -16,6 +16,16 @@ export default {
     ctaText: 'Your review will help hundreds of people make an informed decision.',
     ctaBtn: 'Write a review',
   },
+  monetization: {
+    title: 'How we make money',
+    lead: 'Triplandr is free for readers and reviewers. Here is how the project is funded — and what we never do.',
+    sections: [
+      { title: 'Affiliate links', text: 'Some pages include partner links (visa services, insurance, housing). If you click and sign up, we may earn a small commission at no extra cost to you.' },
+      { title: 'No impact on moderation', text: 'Partner relationships never affect which reviews are published, how they are ranked, or editorial decisions on country pages.' },
+      { title: 'No paid reviews', text: 'We do not sell reviews, sponsored ratings, or “featured” country placements. All user reviews go through the same moderation process.' },
+      { title: 'Questions', text: 'Want to partner or have concerns? Write to hello@triplandr.com.' },
+    ],
+  },
   rules: {
     title: 'Site rules',
     lead: 'Rules for publishing reviews on Triplandr.',

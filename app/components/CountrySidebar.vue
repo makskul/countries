@@ -2,8 +2,12 @@
   <div class="sidebar">
     <!-- Card 1: Actions -->
     <div class="s-card">
-      <NuxtLinkLocale :to="`/review/new?country=${countryCode}`" class="s-btn-primary">
-        + {{ $t('common.buttons.writeReview').replace('+ ', '') }} {{ countryName }}
+      <NuxtLinkLocale
+        :to="`/review/new?country=${countryCode}`"
+        class="s-btn-primary"
+        :class="{ 's-btn-primary--highlight': writeFirstHighlight }"
+      >
+        + {{ writeFirstHighlight ? $t('country.empty.cta') : $t('common.buttons.writeReview').replace('+ ', '') + ' ' + countryName }}
       </NuxtLinkLocale>
       <button class="s-btn-secondary" @click="handleShare">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
@@ -11,7 +15,19 @@
       </button>
     </div>
 
-    <!-- Card 2: Quick facts -->
+    <!-- Affiliate partners (A/B: top vs bottom) -->
+    <div class="s-card" v-if="affiliateTitle && sidebarAtTop">
+      <div class="s-card-title">{{ affiliateTitle }}</div>
+      <AffiliatePartnerLinks
+        partner-slot="sidebar"
+        :country="countryCode"
+        :nat="nationality"
+        :limit="2"
+        compact
+      />
+    </div>
+
+    <!-- Card 3: Quick facts -->
     <div class="s-card" v-if="meta">
       <div class="s-card-title">{{ $t('country.sidebar.quickFacts') }}</div>
 
@@ -53,7 +69,7 @@
       </div>
     </div>
 
-    <!-- Card 3: Similar countries -->
+    <!-- Card 4: Similar countries -->
     <div class="s-card" v-if="similar && similar.length">
       <span class="s-card-title">{{ $t('country.sidebar.similarCountries') }}</span>
       <div class="s-similar">
@@ -71,6 +87,17 @@
         </div>
       </div>
     </div>
+
+    <div class="s-card" v-if="affiliateTitle && sidebarAtBottom">
+      <div class="s-card-title">{{ affiliateTitle }}</div>
+      <AffiliatePartnerLinks
+        partner-slot="sidebar"
+        :country="countryCode"
+        :nat="nationality"
+        :limit="2"
+        compact
+      />
+    </div>
   </div>
 </template>
 
@@ -87,10 +114,24 @@ const props = defineProps<{
   countryCode: string
   nationality: string
   similar: { code: string; avgRating: number }[] | null
+  writeFirstHighlight?: boolean
 }>()
 
+const { t } = useI18n()
+const { sidebarAtTop, sidebarAtBottom } = useAffiliateAb()
 const countryName = computed(() => getCountryNameLocalized(props.countryCode))
 const { meta } = useCountryMetaData(() => props.countryCode)
+
+const natLabel = computed(() =>
+  props.nationality ? getCountryNameLocalized(props.nationality) : '',
+)
+
+const affiliateTitle = computed(() => {
+  if (props.nationality && natLabel.value) {
+    return t('partners.sidebar.title', { nat: natLabel.value })
+  }
+  return t('partners.sidebar.titleNoNat')
+})
 
 const costLevelClass = computed(() => {
   switch (meta.value?.costLevel) {
@@ -140,6 +181,15 @@ async function handleShare() {
   text-align: center; box-sizing: border-box;
 }
 .s-btn-primary:hover { background: var(--color-primary-hover); }
+.s-btn-primary--highlight {
+  background: linear-gradient(135deg, #6C4CE0 0%, #8B6CF0 100%);
+  box-shadow: 0 2px 8px rgba(108, 76, 224, 0.35);
+  font-size: 14px;
+  padding: 13px;
+}
+.s-btn-primary--highlight:hover {
+  background: linear-gradient(135deg, #5A3EC8 0%, #7A5CE0 100%);
+}
 .s-btn-secondary {
   width: 100%; background: #fff; color: var(--color-text-secondary);
   border: 1px solid var(--color-border); border-radius: var(--radius-md);
