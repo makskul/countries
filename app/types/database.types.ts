@@ -28,6 +28,7 @@ export interface Database {
           climate: string[] | null
           moderated_at: string | null
           moderated_by: string | null
+          user_id: string | null
         }
         Insert: {
           id?: string
@@ -45,6 +46,7 @@ export interface Database {
           climate?: string[] | null
           moderated_at?: string | null
           moderated_by?: string | null
+          user_id?: string | null
         }
         Update: {
           id?: string
@@ -62,6 +64,34 @@ export interface Database {
           climate?: string[] | null
           moderated_at?: string | null
           moderated_by?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          display_name: string | null
+          default_nationality: string | null
+          locale: string | null
+        }
+        Insert: {
+          id: string
+          created_at?: string
+          updated_at?: string
+          display_name?: string | null
+          default_nationality?: string | null
+          locale?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          display_name?: string | null
+          default_nationality?: string | null
+          locale?: string | null
         }
         Relationships: []
       }
@@ -328,6 +358,7 @@ export interface Database {
 }
 
 export type ReviewRow = Database['public']['Tables']['reviews']['Row']
+export type ProfileRow = Database['public']['Tables']['profiles']['Row']
 export type CityRow = Database['public']['Tables']['cities']['Row']
 export type CountryRow = Database['public']['Tables']['countries']['Row']
 export type AdminUserRow = Database['public']['Tables']['admin_users']['Row']

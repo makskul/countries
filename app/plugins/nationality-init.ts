@@ -7,7 +7,7 @@ export default defineNuxtPlugin(() => {
   const cookie = useCookie('nv_nationality', { maxAge: 60 * 60 * 24 * 365 })
 
   function syncNationality() {
-    if (cookie.value && !store.nationality) {
+    if (!store.isLoggedIn && cookie.value && !store.nationality) {
       store.initFromCookie(cookie.value)
     }
 

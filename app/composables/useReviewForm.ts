@@ -17,6 +17,7 @@ export type FormCategoryKey = typeof FORM_CATEGORIES[number]['key']
 export function useReviewForm() {
   const supabase = useSupabaseClient()
   const store = useUserStore()
+  const user = useSupabaseUser()
   const router = useRouter()
   const route = useRoute()
   const toast = useToast()
@@ -25,7 +26,7 @@ export function useReviewForm() {
 
   const form = reactive({
     country: (route.query.country as string) || '',
-    nationality: store.nationality || '',
+    nationality: store.effectiveNationality || '',
     stay_purpose: '' as string,
     still_there: false as boolean,
     climate: [] as string[],
@@ -36,8 +37,12 @@ export function useReviewForm() {
   })
 
   // Sync nationality with store when changed
+  watch(() => store.effectiveNationality, (v) => {
+    if (v && !form.nationality) form.nationality = v
+  })
+
   watch(() => form.nationality, (v) => {
-    if (v) store.setNationality(v)
+    if (v && !user.value) store.setNationality(v)
   })
 
   const isValid = computed(() =>
@@ -102,7 +107,7 @@ export function useReviewForm() {
         }
       }
 
-      await $fetch('/api/reviews/submit', {
+      const result = await $fetch<{ ok: true; id: string; claim_token?: string }>('/api/reviews/submit', {
         method: 'POST',
         body: {
           author_nationality: form.nationality,
@@ -115,7 +120,15 @@ export function useReviewForm() {
           comments,
           website: form.website,
         },
+        credentials: 'include',
       })
+
+      if (result.claim_token && import.meta.client) {
+        sessionStorage.setItem('nv_pending_claim', JSON.stringify({
+          review_id: result.id,
+          claim_token: result.claim_token,
+        }))
+      }
 
       submitSuccess.value = true
       const { trackEvent } = await import('~/utils/analytics')

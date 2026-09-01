@@ -7,6 +7,10 @@ export type ProductEvent =
   | 'affiliate_click'
   | 'lead_submit'
   | 'map_country_select'
+  | 'auth_signup_start'
+  | 'auth_signup_complete'
+  | 'auth_login'
+  | 'review_claim'
 
 export type ProductEventProps = {
   nat_set: { nationality: string; source?: string }
@@ -15,6 +19,10 @@ export type ProductEventProps = {
   affiliate_click: { partner: string; country?: string; placement: string; ab_variant?: string }
   lead_submit: { country: string; source: string }
   map_country_select: { country: string; has_reviews: boolean }
+  auth_signup_start: { method: string }
+  auth_signup_complete: { method: string }
+  auth_login: Record<string, never>
+  review_claim: { review_id: string }
 }
 
 declare global {
