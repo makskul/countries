@@ -13,6 +13,18 @@ export default {
   winner:           '🏆 Best',
   overallLabel:     'overall',
   goToReviews:      'Reviews',
-  seoTitle:         'comparison for expats',
-  seoDescription:   'Compare {a} and {b} by legalization, cost of living, safety. Real expat reviews.',
+  seoTitle:         'comparison: visa, legalization, costs',
+  seoDescription:   'Compare {a} and {b} on legalization, visa, cost of living, and safety. Real expat reviews on Triplandr.',
+  seoTitleWithNat:  '{a} or {b} for {nat}? Visa, legalization, costs',
+  h1Pair:           '{a} vs {b}',
+  h1WithNat:        '{a} vs {b} for {nat}',
+  lowData: {
+    message: 'Only {count} reviews so far — ratings may change as more people share their experience.',
+    cta:     'Write the first review',
+  },
+  hubLinks: {
+    title:    'Country guides',
+    subtitle: 'Detailed hubs for Ukrainians — reviews, stats, and comparisons.',
+    link:     'Ukrainians in {country}',
+  },
 }

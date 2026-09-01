@@ -765,6 +765,16 @@
 }
 
 /* compare panel */
+.home-page .compare-panel-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+.home-page .compare-panel-link:hover {
+  background: rgba(108, 76, 224, 0.04);
+}
+
 .home-page .compare-head-row {
   display: flex;
   align-items: center;

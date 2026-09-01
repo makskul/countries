@@ -214,7 +214,11 @@
               <h3>{{ $t('homepage.compare.title') }}</h3>
               <NuxtLinkLocale to="/compare">{{ $t('homepage.compare.seeAll') }} →</NuxtLinkLocale>
             </div>
-            <template v-if="comparePair.length === 2">
+            <NuxtLinkLocale
+              v-if="comparePair.length === 2 && comparePairSlug"
+              :to="`/compare/${comparePairSlug}`"
+              class="compare-panel-link"
+            >
               <div class="compare-head-row">
                 <div class="compare-flag">
                   <span class="compare-flag-emoji">{{ getFlagEmoji(comparePair[0].code) }}</span>
@@ -236,7 +240,7 @@
                   <div class="cmp-val">{{ comparePair[0].total }} / {{ comparePair[1].total }}</div>
                 </div>
               </div>
-            </template>
+            </NuxtLinkLocale>
             <Message v-else severity="info" :closable="false" style="margin: 16px 18px">
               {{ $t('homepage.trending.empty') }}
             </Message>
@@ -347,7 +351,7 @@
 import { APP_URL } from '~/utils/appConfig'
 import { countryToSlug, getCountryName, getFlagEmoji, timeAgo } from '~/utils/countries'
 import { getCountryImage } from '~/utils/countryImages'
-import { codeToMapName } from '~/utils/worldMapGeo'
+import { toCompareSlug } from '~/utils/compareSlug'
 
 interface MapReviewEntry {
   code: string
@@ -461,6 +465,10 @@ const floatClasses = ['flag-de', 'flag-pl', 'flag-pt']
 const heroFloatCountries = computed(() => topCountries.value ?? [])
 const popularCountries = computed(() => (trending.value ?? []).slice(0, 5))
 const comparePair = computed(() => (trending.value ?? []).slice(0, 2))
+const comparePairSlug = computed(() => {
+  if (comparePair.value.length !== 2) return null
+  return toCompareSlug(comparePair.value[0].code, comparePair.value[1].code)
+})
 const heroReview = computed(() => latest.value?.[0] ?? null)
 
 const heroReviewSnippet = computed(() => {
