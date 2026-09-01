@@ -41,6 +41,13 @@
       </div>
     </div>
 
+    <WriteFirstBanner
+      v-if="showWriteFirstBanner"
+      :country-code="slug"
+      :nationality-code="nationality"
+      :campaign="isCampaignCountry"
+    />
+
     <!-- TABS BAR -->
     <div class="tabs-bar">
       <button class="tab-btn" @click="navigateTo(localePath(`/country/${slug.toLowerCase()}`))">
@@ -159,7 +166,12 @@
         </template>
       </div>
 
-      <CountrySidebar :countryCode="slug" :nationality="nationality" :similar="null" />
+      <CountrySidebar
+        :countryCode="slug"
+        :nationality="nationality"
+        :similar="null"
+        :write-first-highlight="showWriteFirstBanner"
+      />
     </div>
 
     <!-- Nationality dialog -->
@@ -181,6 +193,7 @@ import { APP_NAME, APP_URL } from '~/utils/appConfig'
 import { getFlagEmoji } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCityPage } from '~/composables/useCityPage'
+import { isEmptyStateCampaignCountry } from '~/data/emptyStateCampaign'
 
 const route = useRoute()
 const store = useUserStore()
@@ -224,6 +237,18 @@ const {
   showAllOverride,
   natReviewsCount,
 } = useCityPage(slug, citySlug, nationality)
+
+const showWriteFirstBanner = computed(() =>
+  !!nationality.value
+  && natReviewsCount.value === 0
+  && !showAllOverride.value
+  && !pending.value
+  && totalReviews.value > 0
+)
+
+const isCampaignCountry = computed(() =>
+  isEmptyStateCampaignCountry(slug.value, nationality.value)
+)
 
 // showAllOverride is now from Pinia store (shared with country page)
 

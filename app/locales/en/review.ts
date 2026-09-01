@@ -8,5 +8,13 @@ export default {
   preview: { title: '👁 Preview', noCountry: 'No country selected', empty: 'Start rating' },
   stats: { title: '{count} reviews about {country}', subtitle: 'Already {natCount} reviews from {nationality}. Your experience is valuable.' },
   success: { title: 'Review submitted!', subtitle: 'Redirecting to country page...' },
+  toast: {
+    validationSummary: 'Complete the form',
+    validationDetail: 'Select country, nationality, and at least one rating',
+    successSummary: 'Thank you! 🎉',
+    successDetail: 'Your review was submitted successfully',
+    errorSummary: 'Error',
+    errorFallback: 'Could not submit review',
+  },
   dialog: { title: 'Select nationality first', subtitle: 'To see filtered reviews, tell us your nationality.' },
 }

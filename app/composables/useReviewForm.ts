@@ -21,6 +21,7 @@ export function useReviewForm() {
   const route = useRoute()
   const toast = useToast()
   const localePath = useLocalePath()
+  const { t } = useI18n()
 
   const form = reactive({
     country: (route.query.country as string) || '',
@@ -30,6 +31,8 @@ export function useReviewForm() {
     climate: [] as string[],
     ratings: Object.fromEntries(FORM_CATEGORIES.map(c => [c.key, 0])) as Record<FormCategoryKey, number>,
     comments: Object.fromEntries(FORM_CATEGORIES.map(c => [c.key, ''])) as Record<FormCategoryKey, string>,
+    /** Honeypot — hidden from users; bots often fill "website" fields. */
+    website: '',
   })
 
   // Sync nationality with store when changed
@@ -69,7 +72,12 @@ export function useReviewForm() {
 
   async function submit(cityName?: string, cityId?: number) {
     if (!isValid.value) {
-      toast.add({ severity: 'warn', summary: 'Заполни форму', detail: 'Выбери страну, национальность и хотя бы одну оценку', life: 4000 })
+      toast.add({
+        severity: 'warn',
+        summary: t('review.toast.validationSummary'),
+        detail: t('review.toast.validationDetail'),
+        life: 4000,
+      })
       return
     }
 
@@ -94,27 +102,44 @@ export function useReviewForm() {
         }
       }
 
-      const { error } = await supabase.from('reviews').insert({
-        author_nationality: form.nationality,
-        target_country: form.country,
-        stay_purpose: form.stay_purpose,
-        still_there: form.still_there,
-        climate: form.climate.length ? form.climate : null,
-        ...(cityName ? { city_name: cityName, city_id: cityId } : {}),
-        ratings,
-        comments,
-        is_approved: false,
+      await $fetch('/api/reviews/submit', {
+        method: 'POST',
+        body: {
+          author_nationality: form.nationality,
+          target_country: form.country,
+          stay_purpose: form.stay_purpose,
+          still_there: form.still_there,
+          climate: form.climate.length ? form.climate : null,
+          ...(cityName ? { city_name: cityName, city_id: cityId } : {}),
+          ratings,
+          comments,
+          website: form.website,
+        },
       })
 
-      if (error) throw error
-
       submitSuccess.value = true
-      toast.add({ severity: 'success', summary: 'Спасибо! 🎉', detail: 'Отзыв успешно отправлен', life: 3000 })
+      const { trackEvent } = await import('~/utils/analytics')
+      trackEvent('review_submit', {
+        country: form.country,
+        nationality: form.nationality,
+        has_city: Boolean(cityName),
+      })
+      toast.add({
+        severity: 'success',
+        summary: t('review.toast.successSummary'),
+        detail: t('review.toast.successDetail'),
+        life: 3000,
+      })
       setTimeout(() => {
         router.push(localePath(`/country/${form.country.toLowerCase()}`))
       }, 2000)
     } catch (err: any) {
-      toast.add({ severity: 'error', summary: 'Ошибка', detail: err.message ?? 'Не удалось отправить', life: 4000 })
+      toast.add({
+        severity: 'error',
+        summary: t('review.toast.errorSummary'),
+        detail: err.message ?? t('review.toast.errorFallback'),
+        life: 4000,
+      })
     } finally {
       submitting.value = false
     }

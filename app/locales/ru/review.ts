@@ -8,5 +8,13 @@ export default {
   preview: { title: '👁 Предпросмотр', noCountry: 'Страна не выбрана', empty: 'Начинай оценивать' },
   stats: { title: '{count} отзывов о {country}', subtitle: 'Уже есть {natCount} отзывов от {nationality}. Твой опыт будет ценным дополнением.' },
   success: { title: 'Отзыв отправлен!', subtitle: 'Перенаправляем на страницу страны...' },
+  toast: {
+    validationSummary: 'Заполни форму',
+    validationDetail: 'Выбери страну, национальность и хотя бы одну оценку',
+    successSummary: 'Спасибо! 🎉',
+    successDetail: 'Отзыв успешно отправлен',
+    errorSummary: 'Ошибка',
+    errorFallback: 'Не удалось отправить отзыв',
+  },
   dialog: { title: 'Сначала выбери национальность', subtitle: 'Чтобы видеть отфильтрованные отзывы, укажи свою национальность.' },
 }

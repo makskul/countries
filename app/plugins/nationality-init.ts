@@ -3,8 +3,22 @@
 // so SSR queries already know the nationality on first render.
 export default defineNuxtPlugin(() => {
   const store = useUserStore()
-  const cookie = useCookie('nv_nationality')
-  if (cookie.value) {
-    store.initFromCookie(cookie.value)
+  const route = useRoute()
+  const cookie = useCookie('nv_nationality', { maxAge: 60 * 60 * 24 * 365 })
+
+  function syncNationality() {
+    if (cookie.value && !store.nationality) {
+      store.initFromCookie(cookie.value)
+    }
+
+    const natQuery = route.query.nat
+    if (typeof natQuery === 'string' && natQuery.trim()) {
+      const code = natQuery.trim().toUpperCase()
+      cookie.value = code
+      store.setNationality(code)
+    }
   }
+
+  syncNationality()
+  watch(() => route.query.nat, syncNationality)
 })

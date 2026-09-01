@@ -13,6 +13,18 @@
       <!-- ═══════ MAIN COLUMN ═══════ -->
       <div class="rn-main">
 
+        <!-- Honeypot: hidden from humans, bots fill it -->
+        <label class="hp-field" aria-hidden="true">
+          <span>Website</span>
+          <input
+            v-model="form.website"
+            type="text"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+          >
+        </label>
+
         <!-- STEP INDICATOR + SELECTORS -->
         <div class="step-card">
           <!-- Steps -->
@@ -396,4 +408,14 @@ function submit() {
 
 <style scoped>
 @import '~/assets/styles/review.css';
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
 </style>
