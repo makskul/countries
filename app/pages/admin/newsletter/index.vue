@@ -11,7 +11,7 @@ type DigestPreview = {
   reviews: { targetCountryName: string; authorNationalityName: string; snippet: string }[]
 }
 
-const { data, pending } = await useAsyncData('admin-newsletter', () =>
+const { data, pending, error, refresh } = await useAsyncData('admin-newsletter', () =>
   useAdminFetch<{ items: { id: string; email: string; created_at: string; source: string }[] }>('/api/admin/newsletter'),
 )
 
@@ -21,8 +21,27 @@ const sendLoading = ref(false)
 const preview = ref<DigestPreview | null>(null)
 const toast = useToast()
 
-function exportCsv() {
-  window.open('/api/admin/newsletter?format=csv', '_blank')
+async function exportCsv() {
+  try {
+    const csv = await useAdminFetch<string>('/api/admin/newsletter', {
+      query: { format: 'csv' },
+      responseType: 'text',
+    })
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'newsletter.csv'
+    a.click()
+    URL.revokeObjectURL(url)
+  } catch (err: any) {
+    toast.add({
+      severity: 'error',
+      summary: 'Ошибка экспорта',
+      detail: err?.data?.message ?? err?.message,
+      life: 5000,
+    })
+  }
 }
 
 async function loadPreview() {
@@ -36,7 +55,7 @@ async function loadPreview() {
   } catch (err: any) {
     toast.add({
       severity: 'error',
-      summary: 'Не вдалося зібрати превʼю',
+      summary: 'Не удалось собрать превью',
       detail: err?.data?.message ?? err?.message,
       life: 5000,
     })
@@ -54,14 +73,14 @@ async function sendTest() {
     )
     toast.add({
       severity: 'success',
-      summary: 'Тестовий лист надіслано',
+      summary: 'Тестовое письмо отправлено',
       detail: `${result.subject} → ${result.to}`,
       life: 6000,
     })
   } catch (err: any) {
     toast.add({
       severity: 'error',
-      summary: 'Помилка відправки',
+      summary: 'Ошибка отправки',
       detail: err?.data?.message ?? err?.message,
       life: 6000,
     })
@@ -73,11 +92,16 @@ async function sendTest() {
 
 <template>
   <div>
-    <h1 class="admin-page-title">Newsletter</h1>
+    <AdminBreadcrumb :items="[{ label: 'Обзор', to: '/admin' }, { label: 'Рассылка' }]" />
+    <h1 class="admin-page-title">Рассылка</h1>
+    <p class="admin-page-lead">
+      Подписчики и тест еженедельного дайджеста (uk) на ADMIN_EMAIL.
+    </p>
+
     <div class="admin-toolbar">
       <Button label="Экспорт CSV" icon="pi pi-download" @click="exportCsv" />
       <Button
-        label="Превʼю дайджеста"
+        label="Превью дайджеста"
         icon="pi pi-eye"
         severity="secondary"
         :loading="previewLoading"
@@ -89,12 +113,27 @@ async function sendTest() {
         :loading="sendLoading"
         @click="sendTest"
       />
-      <Tag :value="`${data?.items.length ?? 0} подписчиков`" />
+      <Tag v-if="data" :value="`${data.items.length} подписчиков`" />
+      <Button v-if="error" label="Повторить" icon="pi pi-refresh" size="small" text @click="refresh()" />
     </div>
+
+    <Message v-if="error" severity="error" :closable="false" class="mb-3">
+      {{ (error as { data?: { message?: string } }).data?.message ?? error.message ?? 'Не удалось загрузить подписчиков' }}
+    </Message>
+
     <div class="admin-card">
-      <DataTable :value="data?.items ?? []" :loading="pending">
-        <Column field="email" header="Email" />
-        <Column field="source" header="Source" />
+      <DataTable :value="data?.items ?? []" :loading="pending" paginator :rows="25">
+        <template #empty>
+          <div class="admin-empty">
+            <p>Пока нет подписчиков. Они появятся после формы рассылки на сайте.</p>
+          </div>
+        </template>
+        <Column field="email" header="Email">
+          <template #body="{ data: row }">
+            <a :href="`mailto:${row.email}`">{{ row.email }}</a>
+          </template>
+        </Column>
+        <Column field="source" header="Источник" />
         <Column field="created_at" header="Дата">
           <template #body="{ data: row }">{{ formatAdminDate(row.created_at) }}</template>
         </Column>
@@ -103,15 +142,15 @@ async function sendTest() {
 
     <Dialog
       v-model:visible="previewOpen"
-      header="Превʼю дайджеста (uk)"
+      header="Превью дайджеста (uk)"
       modal
       :style="{ width: 'min(720px, 96vw)' }"
     >
       <template v-if="preview">
-        <p class="preview-subject"><strong>Subject:</strong> {{ preview.subject }}</p>
+        <p class="preview-subject"><strong>Тема:</strong> {{ preview.subject }}</p>
         <div class="preview-meta">
-          <span>{{ preview.compareLinks.length }} порівнянь</span>
-          <span>{{ preview.reviews.length }} відгуків</span>
+          <span>{{ preview.compareLinks.length }} сравнений</span>
+          <span>{{ preview.reviews.length }} отзывов</span>
         </div>
         <iframe
           class="preview-frame"

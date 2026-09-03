@@ -24,7 +24,10 @@ export default defineEventHandler(async (event) => {
 
   await supabase
     .from('reviews')
-    .update({ is_approved: isApprove })
+    .update({
+      is_approved: isApprove,
+      moderated_at: new Date().toISOString(),
+    })
     .eq('id', reviewId)
 
   await $fetch(

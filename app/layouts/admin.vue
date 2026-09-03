@@ -1,14 +1,21 @@
 <script setup lang="ts">
 const adminProfile = ref<{ user: { email?: string }; admin: { role: string } } | null>(null)
+const adminRole = computed(() => adminProfile.value?.admin?.role ?? null)
+provide('adminRole', adminRole)
 
 try {
   adminProfile.value = await useAdminFetch('/api/admin/me')
 } catch {
   adminProfile.value = null
+  await navigateTo('/admin/login')
 }
 
 async function logout() {
-  await useAdminFetch('/api/admin/logout', { method: 'POST' })
+  try {
+    await useAdminFetch('/api/admin/logout', { method: 'POST' })
+  } catch {
+    // still clear client session
+  }
   const client = useSupabaseClient()
   await client.auth.signOut()
   await navigateTo('/admin/login')

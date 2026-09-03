@@ -5,8 +5,11 @@ import { TARGET_COUNTRIES } from '~/utils/countries'
 definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 useSeoMeta({ robots: 'noindex, nofollow' })
 
-const toast = useToast()
 const countryFilter = ref('')
+const page = ref(1)
+const pageSize = 25
+
+const toast = useToast()
 const showDialog = ref(false)
 
 const form = reactive({
@@ -23,10 +26,20 @@ const countryOptions = TARGET_COUNTRIES.map(c => ({ label: c.code, value: c.code
 const { data, pending, refresh } = await useAsyncData(
   'admin-cities',
   () => useAdminFetch<{ items: CityRow[]; total: number }>('/api/admin/cities', {
-    query: { country: countryFilter.value || undefined, pageSize: 200 },
+    query: {
+      country: countryFilter.value || undefined,
+      page: page.value,
+      pageSize,
+    },
   }),
-  { watch: [countryFilter] },
+  { watch: [countryFilter, page] },
 )
+
+watch(countryFilter, () => { page.value = 1 })
+
+function onPageChange(e: { page: number }) {
+  page.value = e.page + 1
+}
 
 function openCreate() {
   Object.assign(form, {
@@ -57,9 +70,14 @@ async function saveCreate() {
 
 async function remove(city: CityRow) {
   if (!confirm(`Удалить ${city.name_en}?`)) return
-  await useAdminFetch(`/api/admin/cities/${city.id}`, { method: 'DELETE' })
-  toast.add({ severity: 'success', summary: 'Удалено', life: 2000 })
-  await refresh()
+  try {
+    await useAdminFetch(`/api/admin/cities/${city.id}`, { method: 'DELETE' })
+    toast.add({ severity: 'success', summary: 'Удалено', life: 2000 })
+    await refresh()
+  } catch (e: unknown) {
+    const err = e as { data?: { message?: string } }
+    toast.add({ severity: 'error', summary: err.data?.message ?? 'Ошибка удаления', life: 4000 })
+  }
 }
 
 function hasArticle(row: CityRow) {
@@ -93,10 +111,25 @@ function articleStatus(row: CityRow) {
         placeholder="Страна"
       />
       <Button label="Добавить город" icon="pi pi-plus" @click="openCreate" />
+      <Tag v-if="data" :value="`Всего: ${data.total}`" severity="secondary" />
     </div>
 
     <div class="admin-card">
-      <DataTable :value="data?.items ?? []" :loading="pending" paginator :rows="25">
+      <DataTable
+        :value="data?.items ?? []"
+        :loading="pending"
+        paginator
+        lazy
+        :rows="pageSize"
+        :total-records="data?.total ?? 0"
+        @page="onPageChange"
+      >
+        <template #empty>
+          <div class="admin-empty">
+            <p>{{ countryFilter ? 'Нет городов для этой страны.' : 'Городов пока нет.' }}</p>
+            <Button label="Добавить город" text @click="openCreate" />
+          </div>
+        </template>
         <Column field="country" header="Страна" sortable />
         <Column field="name_ru" header="Название (RU)">
           <template #body="{ data: row }">{{ row.name_ru || row.name_en }}</template>

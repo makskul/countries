@@ -5,5 +5,19 @@ export default defineEventHandler(async (event) => {
   const { supabaseAdmin } = await requireAdmin(event)
   const { data, error } = await supabaseAdmin.from('reviews').select('*').eq('id', id).single()
   if (error || !data) throw createError({ statusCode: 404, message: 'Review not found' })
-  return data
+
+  let author: { id: string; display_name: string | null } | null = null
+  if (data.user_id) {
+    const { data: profile } = await supabaseAdmin
+      .from('profiles')
+      .select('id, display_name')
+      .eq('id', data.user_id)
+      .maybeSingle()
+    author = {
+      id: data.user_id,
+      display_name: profile?.display_name ?? null,
+    }
+  }
+
+  return { ...data, author }
 })
