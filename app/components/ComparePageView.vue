@@ -4,7 +4,12 @@
     <div class="breadcrumb">
       <NuxtLinkLocale to="/" class="bc-link">{{ $t('nav.breadcrumbs.home') }}</NuxtLinkLocale>
       <span class="bc-sep">→</span>
-      <span class="bc-current">{{ $t('compare.title') }}</span>
+      <template v-if="isSlugPage">
+        <NuxtLinkLocale to="/compare" class="bc-link">{{ $t('compare.title') }}</NuxtLinkLocale>
+        <span class="bc-sep">→</span>
+        <span class="bc-current">{{ pageH1 }}</span>
+      </template>
+      <span v-else class="bc-current">{{ $t('compare.title') }}</span>
     </div>
 
     <div class="cmp-header">
@@ -55,7 +60,7 @@
           </template>
         </Select>
 
-        <template v-if="showThird">
+        <template v-if="showThird && isSlugPage">
           <span class="cmp-vs">VS</span>
           <div style="display:flex; align-items:center; gap:6px">
             <Select
@@ -79,7 +84,11 @@
           </div>
         </template>
 
-        <button v-if="!showThird" class="cmp-add-btn" @click="showThird = true">
+        <button
+          v-if="!showThird && isSlugPage"
+          class="cmp-add-btn"
+          @click="showThird = true"
+        >
           {{ $t('compare.addCountry') }}
         </button>
 
@@ -99,6 +108,7 @@
             </template>
             <template #value="{ value }">
               <span v-if="value">{{ getFlagEmoji(value) }} {{ getCountryNameLocalized(value) }}</span>
+              <span v-else style="color:var(--color-text-muted)">{{ $t('compare.allNationalities') }}</span>
             </template>
           </Select>
         </div>
@@ -107,9 +117,31 @@
 
     <div class="cmp-content">
 
-      <div v-if="selectedCountries.length < 2" class="cmp-empty">
-        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/></svg>
-        <p>{{ $t('compare.selectHint') }}</p>
+      <div v-if="selectedCountries.length < 2" class="cmp-landing">
+        <p class="cmp-landing-hint">{{ $t('compare.selectHint') }}</p>
+
+        <div class="cmp-featured">
+          <div class="cmp-featured-head">
+            <span class="section-label">{{ $t('compare.featured.title') }}</span>
+            <p class="cmp-featured-sub">{{ $t('compare.featured.subtitle') }}</p>
+          </div>
+          <div class="cmp-featured-grid">
+            <NuxtLinkLocale
+              v-for="pair in featuredPairs"
+              :key="pair.slug"
+              :to="pairHref(pair.slug)"
+              class="cmp-featured-card"
+            >
+              <span class="cmp-featured-flags">
+                <span>{{ pair.flagA }}</span>
+                <span class="cmp-featured-vs">{{ $t('compare.featured.vs') }}</span>
+                <span>{{ pair.flagB }}</span>
+              </span>
+              <span class="cmp-featured-label">{{ pair.label }}</span>
+              <span class="cmp-featured-arrow">→</span>
+            </NuxtLinkLocale>
+          </div>
+        </div>
       </div>
 
       <template v-else>
@@ -117,7 +149,20 @@
           {{ $t('compare.noNatHint') }}
         </Message>
 
-        <div v-if="isLowData" class="cmp-low-data">
+        <div v-if="isEmptyData" class="cmp-empty-data">
+          <div class="cmp-empty-data-copy">
+            <p class="cmp-empty-data-title">{{ $t('compare.emptyData.title') }}</p>
+            <p class="cmp-empty-data-text">{{ $t('compare.emptyData.message') }}</p>
+          </div>
+          <NuxtLinkLocale
+            :to="`/review/new?country=${firstReviewCountry.toLowerCase()}${localNat ? `&nat=${localNat.toLowerCase()}` : ''}`"
+            class="cmp-low-data-cta"
+          >
+            {{ $t('compare.emptyData.cta') }}
+          </NuxtLinkLocale>
+        </div>
+
+        <div v-else-if="isLowData" class="cmp-low-data">
           <p class="cmp-low-data-text">{{ $t('compare.lowData.message', { count: totalReviewCount }) }}</p>
           <NuxtLinkLocale
             :to="`/review/new?country=${firstReviewCountry.toLowerCase()}${localNat ? `&nat=${localNat.toLowerCase()}` : ''}`"
@@ -292,6 +337,7 @@ import {
 } from '~/composables/useComparePage'
 import { getCompareWinnerPartner } from '~/utils/partners'
 import { isContentHubCountry } from '~/data/contentHubCountries'
+import { getFeaturedCompareSlugs, codesFromCompareSlug } from '~/data/comparePairs'
 
 const props = defineProps<{
   fixedPair?: { a: string; b: string }
@@ -320,9 +366,38 @@ const {
   staticRows,
   pageH1,
   firstReviewCountry,
+  isSlugPage,
+  localePath,
 } = useComparePage({ fixedPair: props.fixedPair, ssr: props.ssr })
 
 const { showCompareAffiliate } = useAffiliateAb()
+
+const isEmptyData = computed(() =>
+  selectedCountries.value.length >= 2
+  && !pending.value
+  && totalReviewCount.value === 0,
+)
+
+const featuredPairs = computed(() => {
+  return getFeaturedCompareSlugs(12).map((slug) => {
+    const codes = codesFromCompareSlug(slug)
+    if (!codes) {
+      return { slug, flagA: '', flagB: '', label: slug }
+    }
+    const [a, b] = codes
+    return {
+      slug,
+      flagA: getFlagEmoji(a),
+      flagB: getFlagEmoji(b),
+      label: `${getCountryNameLocalized(a)} vs ${getCountryNameLocalized(b)}`,
+    }
+  })
+})
+
+function pairHref(slug: string) {
+  if (!localNat.value) return `/compare/${slug}`
+  return `/compare/${slug}?nat=${localNat.value.toLowerCase()}`
+}
 
 const legalizationWinner = computed((): string | null => {
   if (selectedCountries.value.length !== 2 || !statsData.value?.length) return null
@@ -348,7 +423,6 @@ const compareWinnerPartners = computed(() => {
   return partner ? [partner] : []
 })
 
-const localePath = useLocalePath()
 const { t } = useI18n()
 
 const hubCountryLinks = computed(() => {
@@ -400,10 +474,76 @@ const hubCountryLinks = computed(() => {
 .cmp-filter-label { font-size: 12px; color: var(--color-text-muted); white-space: nowrap; }
 
 .cmp-content { max-width: 1200px; margin: 0 auto; padding: 20px 24px; }
-.cmp-empty { text-align: center; padding: 60px 24px; color: var(--color-text-muted); font-size: 15px; }
-.cmp-empty svg { display: block; margin: 0 auto 16px; }
+
+.cmp-landing { padding: 8px 0 24px; }
+.cmp-landing-hint {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.cmp-featured {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+}
+.cmp-featured-head { margin-bottom: 14px; }
+.cmp-featured-sub {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.cmp-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px;
+}
+.cmp-featured-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: background 0.15s, border-color 0.15s;
+}
+.cmp-featured-card:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary-mid);
+}
+.cmp-featured-flags {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.cmp-featured-vs {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.cmp-featured-label {
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 0;
+}
+.cmp-featured-arrow {
+  margin-left: auto;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
 .cmp-skeleton { margin-bottom: 20px; }
 
+.cmp-empty-data,
 .cmp-low-data {
   background: var(--color-warning-light);
   border: 1px solid #e8c97a;
@@ -416,7 +556,23 @@ const hubCountryLinks = computed(() => {
   gap: 12px;
   flex-wrap: wrap;
 }
-.cmp-low-data-text { margin: 0; font-size: 13px; color: var(--color-text-secondary); }
+.cmp-empty-data {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary-mid);
+}
+.cmp-empty-data-copy { min-width: 0; }
+.cmp-empty-data-title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+.cmp-empty-data-text,
+.cmp-low-data-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
 .cmp-low-data-cta {
   background: var(--color-primary);
   color: #fff;
@@ -459,17 +615,23 @@ const hubCountryLinks = computed(() => {
 }
 .cmp-cat-name { font-size: 12px; color: var(--color-text-secondary); }
 
-.cmp-cell--val { flex-direction: column; align-items: flex-start; gap: 4px; }
-.cmp-bar-wrap { width: 100%; height: 4px; background: var(--color-bg-tertiary); border-radius: 2px; overflow: hidden; }
-.cmp-bar { height: 100%; border-radius: 2px; transition: width 0.4s ease; }
+.cmp-cell--val { flex-direction: column; align-items: flex-start; gap: 6px; }
+.cmp-bar-wrap {
+  width: 100%;
+  height: 8px;
+  background: var(--color-bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.cmp-bar { height: 100%; border-radius: 4px; transition: width 0.4s ease; min-width: 2px; }
 .cmp-score-row { display: flex; align-items: center; gap: 6px; }
-.cmp-score { font-size: 12px; font-weight: 600; color: var(--color-text); }
+.cmp-score { font-size: 13px; font-weight: 600; color: var(--color-text); }
 .cmp-winner { font-size: 10px; background: var(--color-success); color: #fff; border-radius: var(--radius-pill); padding: 1px 6px; white-space: nowrap; }
 .cmp-no-data { font-size: 13px; color: var(--color-text-muted); }
-.compare-climate-icons { display: flex; align-items: center; gap: 5px; margin-top: 4px; flex-wrap: wrap; }
+.compare-climate-icons { display: flex; align-items: center; gap: 5px; margin-top: 2px; flex-wrap: wrap; }
 .compare-climate-icons span:first-child { font-size: 14px; line-height: 1; }
 .compare-climate-text { font-size: 11px; color: var(--color-text-muted); }
-.compare-cost-label { font-size: 11px; font-weight: 500; margin-top: 4px; width: fit-content; padding: 1px 7px; border-radius: 999px; }
+.compare-cost-label { font-size: 11px; font-weight: 500; margin-top: 2px; width: fit-content; padding: 1px 7px; border-radius: 999px; }
 .cost-low       { background: var(--color-success-light); color: var(--color-success); }
 .cost-medium    { background: var(--color-bg-tertiary);   color: var(--color-text-secondary); }
 .cost-high      { background: var(--color-warning-light); color: var(--color-warning); }
@@ -547,5 +709,8 @@ const hubCountryLinks = computed(() => {
   .cmp-selectors { gap: 8px; }
   .cmp-nat-filter { margin-left: 0; width: 100%; }
   .cmp-select { min-width: 140px; }
+  .cmp-featured-grid { grid-template-columns: 1fr; }
+  .cmp-table { min-width: 520px; }
+  .cmp-cell--label { min-width: 120px; }
 }
 </style>

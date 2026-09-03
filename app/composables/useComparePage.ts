@@ -78,39 +78,61 @@ export function useComparePage(options: UseComparePageOptions = {}) {
   const countryA = ref(options.fixedPair?.a ?? ((route.query.a as string)?.toUpperCase() || ''))
   const countryB = ref(options.fixedPair?.b ?? ((route.query.b as string)?.toUpperCase() || ''))
   const countryC = ref((route.query.c as string)?.toUpperCase() || '')
-  const showThird = ref(!!route.query.c && !options.fixedPair)
+  const showThird = ref(!!route.query.c)
   const localNat = ref(((route.query.nat as string) || '').toUpperCase())
 
+  function pairQuery() {
+    return {
+      nat: localNat.value ? localNat.value.toLowerCase() : undefined,
+      c: (showThird.value && countryC.value) ? countryC.value.toLowerCase() : undefined,
+    }
+  }
+
+  // Avoid firing route updates on initial mount (would wipe query / loop).
+  let routeSyncReady = false
+  onMounted(() => { routeSyncReady = true })
+
   watch([countryA, countryB, countryC, showThird, localNat], () => {
+    if (!routeSyncReady) return
+
     if (options.fixedPair) {
       router.replace({
         path: route.path,
-        query: {
-          nat: localNat.value || undefined,
-          c: (showThird.value && countryC.value) ? countryC.value.toLowerCase() : undefined,
-        },
+        query: pairQuery(),
       })
       return
     }
+
+    // Landing: once both countries are chosen, go to the canonical SEO pair URL.
+    if (countryA.value && countryB.value) {
+      const slug = toCompareSlug(countryA.value, countryB.value)
+      navigateTo({
+        path: localePath(`/compare/${slug}`),
+        query: pairQuery(),
+      })
+      return
+    }
+
+    // Partial selection — keep shareable draft query on /compare
     router.replace({
       query: {
         a: countryA.value ? countryA.value.toLowerCase() : undefined,
         b: countryB.value ? countryB.value.toLowerCase() : undefined,
-        c: (showThird.value && countryC.value) ? countryC.value.toLowerCase() : undefined,
-        nat: localNat.value ? localNat.value.toLowerCase() : undefined,
+        ...pairQuery(),
       },
     })
   })
 
   if (options.fixedPair) {
     watch([countryA, countryB], ([a, b]) => {
+      if (!routeSyncReady) return
       if (!a || !b) return
       const slug = toCompareSlug(a, b)
       const current = (route.params.pair as string | undefined)?.toLowerCase()
       if (current === slug) return
       navigateTo({
         path: localePath(`/compare/${slug}`),
-        query: { nat: localNat.value ? localNat.value.toLowerCase() : undefined },
+        query: pairQuery(),
       })
     })
   }
@@ -214,12 +236,13 @@ export function useComparePage(options: UseComparePageOptions = {}) {
     return `${a} vs ${b} — ${t('compare.seoTitle')}`
   })
 
-  const pageDescription = computed(() =>
-    t('compare.seoDescription', {
+  const pageDescription = computed(() => {
+    if (!countryA.value || !countryB.value) return t('compare.landingSeoDescription')
+    return t('compare.seoDescription', {
       a: getCountryNameLocalized(countryA.value),
       b: getCountryNameLocalized(countryB.value),
-    }),
-  )
+    })
+  })
 
   const pageH1 = computed(() => {
     if (!countryA.value || !countryB.value) return t('compare.title')
