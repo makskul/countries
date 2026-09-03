@@ -1,6 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { APP_NAME, APP_URL } from '~/utils/appConfig'
 import { getFeaturedCompareSlugs } from '~/data/comparePairs'
+import type { ContentItem } from './contentQueue'
+import { buildNewsletterRollupFromQueue } from './contentQueue'
 
 export type DigestReview = {
   id: string
@@ -55,6 +57,7 @@ function escapeHtml(value: string): string {
 
 export async function buildWeeklyDigestUk(
   supabaseAdmin: SupabaseClient,
+  opts: { contentQueue?: ContentItem[] } = {},
 ): Promise<DigestContent> {
   const compareSlugs = getFeaturedCompareSlugs(5)
   const compareLinks: DigestCompareLink[] = compareSlugs.map(slug => {
@@ -110,6 +113,15 @@ export async function buildWeeklyDigestUk(
         </div>`).join('')
     : '<p style="color:#666;">Нових відгуків поки немає — будь першим на triplandr.com!</p>'
 
+  const queue = opts.contentQueue ?? []
+  const rollup = queue.length
+    ? buildNewsletterRollupFromQueue(queue, { locale: 'uk' })
+    : null
+  const rollupHtml = rollup
+    ? `<div style="margin:24px 0 0;">${rollup.html}</div>`
+    : ''
+  const rollupText = rollup ? `\n\n${rollup.text}\n` : ''
+
   const html = `<!DOCTYPE html>
 <html lang="uk">
 <head><meta charset="utf-8"><title>${escapeHtml(subject)}</title></head>
@@ -124,6 +136,7 @@ export async function buildWeeklyDigestUk(
       ${compareHtml}
       <h2 style="margin:24px 0 12px;font-size:16px;color:#1A1A2E;">💬 Свіжі відгуки</h2>
       ${reviewsHtml}
+      ${rollupHtml}
       <p style="margin:28px 0 0;font-size:13px;color:#888;line-height:1.5;">
         Ти отримав цей лист, бо підписався на дайджест ${APP_NAME}.
         <a href="${APP_URL}" style="color:#534AB7;">triplandr.com</a>
@@ -144,8 +157,7 @@ export async function buildWeeklyDigestUk(
 ${textCompare || '—'}
 
 Свіжі відгуки:
-${textReviews || '—'}
-
+${textReviews || '—'}${rollupText}
 ${APP_URL}`
 
   return { subject, html, text, compareLinks, reviews }

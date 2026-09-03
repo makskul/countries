@@ -2,7 +2,8 @@
 
 Ops template for Triplandr review-supply loop. Copy goes to the main channel; link to country or compare pages on triplandr.com.
 
-**Cadence:** 2 posts per week (e.g. Tue + Fri, 18:00 Kyiv).
+**Cadence:** 2 posts per week (e.g. Tue + Fri, 18:00 Kyiv) for the manual template below.
+**Automation:** daily candidate generation + Telegram auto-post — see [content-data-sources.md](./content-data-sources.md) and `npm run content:daily`.
 
 ---
 

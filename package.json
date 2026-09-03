@@ -9,6 +9,7 @@
     "db:status": "node scripts/deploy-db.mjs --status",
     "db:backup": "node scripts/backup-db.mjs",
     "content:generate": "node scripts/generate-content.mjs",
+    "content:daily": "node scripts/daily-content.mjs",
     "db:seed-content": "node scripts/seed-content.mjs",
     "dev": "TMPDIR=/tmp nuxt dev",
     "generate": "nuxt generate",
