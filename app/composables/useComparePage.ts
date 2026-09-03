@@ -1,6 +1,7 @@
 import { getCountryMeta } from '~/utils/countryMeta'
 import { APP_URL } from '~/utils/appConfig'
 import { toCompareSlug } from '~/utils/compareSlug'
+import { isDestinationAllowed } from '~/utils/countries'
 
 export const COMPARE_CATEGORIES = [
   { key: 'legalization', icon: 'shield' },
@@ -75,10 +76,15 @@ export function useComparePage(options: UseComparePageOptions = {}) {
   const supabase = useSupabaseClient()
   const { countryList, nationalityList, getCountryNameLocalized } = useLocalizedCountries()
 
-  const countryA = ref(options.fixedPair?.a ?? ((route.query.a as string)?.toUpperCase() || ''))
-  const countryB = ref(options.fixedPair?.b ?? ((route.query.b as string)?.toUpperCase() || ''))
+  // For `/compare/{slug}` we must hydrate selects + data fetch using the exact ISO codes
+  // (all DB rows use upper-case country codes).
+  const countryA = ref((options.fixedPair?.a ?? ((route.query.a as string)?.toUpperCase() || '')).toUpperCase())
+  const countryB = ref((options.fixedPair?.b ?? ((route.query.b as string)?.toUpperCase() || '')).toUpperCase())
   const countryC = ref((route.query.c as string)?.toUpperCase() || '')
-  const showThird = ref(!!route.query.c)
+  if (!isDestinationAllowed(countryA.value)) countryA.value = ''
+  if (!isDestinationAllowed(countryB.value)) countryB.value = ''
+  if (!isDestinationAllowed(countryC.value)) countryC.value = ''
+  const showThird = ref(!!countryC.value)
   const localNat = ref(((route.query.nat as string) || '').toUpperCase())
 
   function pairQuery() {

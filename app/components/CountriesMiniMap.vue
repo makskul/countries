@@ -22,7 +22,14 @@
         <circle class="dot" r="2.2" />
       </g>
     </svg>
-    <div ref="tooltipRef" class="mini-tooltip" :class="{ show: tooltipVisible }" v-html="tooltipHtml" />
+    <div
+      ref="tooltipRef"
+      class="mini-tooltip"
+      :class="{ show: tooltipVisible }"
+      v-html="tooltipHtml"
+      @mouseenter="tooltipVisible = true"
+      @mouseleave="hideTooltip"
+    />
   </div>
 </template>
 
@@ -154,7 +161,7 @@ function hideTooltip() {
 }
 .mini-tooltip {
   position: absolute;
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 20;
   background: white;
   border-radius: 12px;

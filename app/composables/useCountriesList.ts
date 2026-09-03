@@ -1,4 +1,4 @@
-import { getCountryName } from '~/utils/countries'
+import { getCountryName, isDestinationAllowed } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { CATEGORIES } from '~/utils/categories'
 
@@ -49,6 +49,7 @@ export function useCountriesList() {
 
     for (const row of rows.value ?? []) {
       const code = row.target_country
+      if (!isDestinationAllowed(code)) continue
       if (!map[code]) {
         map[code] = { totalReviews: 0, ratingSum: 0, ratingCount: 0, nationalities: new Set(), catRatings: {} }
       }

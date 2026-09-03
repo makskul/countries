@@ -65,7 +65,7 @@ import type { Review } from '~/types/review'
 import { CATEGORY_ICONS } from '~/utils/categories'
 import { getFlagEmoji, timeAgo } from '~/utils/countries'
 
-const { tm } = useI18n()
+const { tm, locale } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
 
 const props = defineProps<{ review: Review }>()
@@ -74,7 +74,7 @@ const targetFlag    = computed(() => getFlagEmoji(props.review.target_country))
 const targetName    = computed(() => getCountryNameLocalized(props.review.target_country))
 const authorFlag    = computed(() => getFlagEmoji(props.review.author_nationality))
 const authorNatLabel = computed(() => getCountryNameLocalized(props.review.author_nationality))
-const time          = computed(() => timeAgo(props.review.created_at))
+const time          = computed(() => timeAgo(props.review.created_at, locale.value))
 
 function catIconName(key: string): string {
   return CATEGORY_ICONS[key] ?? 'star'

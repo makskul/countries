@@ -26,7 +26,7 @@ export default {
     title: 'Бесплатная консультация по визе в {country}',
     subtitle: 'Оценки по легализации здесь низкие — получите бесплатную консультацию у партнёра.',
     email: 'Email',
-    emailPlaceholder: 'you@example.com',
+    emailPlaceholder: 'you{\'@\'}example.com',
     message: 'Ваш вопрос (необязательно)',
     messagePlaceholder: 'Какой маршрут визы или ВНЖ вас интересует?',
     submit: 'Запросить консультацию',

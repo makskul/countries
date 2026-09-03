@@ -26,7 +26,7 @@ export default {
     title: 'Free visa consultation for {country}',
     subtitle: 'Legalization scores are low here — get a free consultation from a partner specialist.',
     email: 'Email',
-    emailPlaceholder: 'you@example.com',
+    emailPlaceholder: 'you{\'@\'}example.com',
     message: 'Your question (optional)',
     messagePlaceholder: 'What visa or residency route are you considering?',
     submit: 'Request consultation',

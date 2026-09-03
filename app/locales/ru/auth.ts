@@ -3,7 +3,7 @@ export default {
     title: 'Войти',
     subtitle: 'Сохраните национальность и отслеживайте свои отзывы',
     emailLabel: 'Email',
-    emailPlaceholder: 'you@example.com',
+    emailPlaceholder: 'you{\'@\'}example.com',
     magicLinkBtn: 'Отправить magic link',
     magicLinkSending: 'Отправка…',
     magicLinkSent: 'Проверьте почту — мы отправили ссылку для входа',

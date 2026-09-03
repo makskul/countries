@@ -74,6 +74,7 @@ export function useReviewForm() {
 
   const submitting = ref(false)
   const submitSuccess = ref(false)
+  const canClaimReview = ref(false)
 
   async function submit(cityName?: string, cityId?: number) {
     if (!isValid.value) {
@@ -128,6 +129,7 @@ export function useReviewForm() {
           review_id: result.id,
           claim_token: result.claim_token,
         }))
+        canClaimReview.value = true
       }
 
       submitSuccess.value = true
@@ -143,14 +145,18 @@ export function useReviewForm() {
         detail: t('review.toast.successDetail'),
         life: 3000,
       })
-      setTimeout(() => {
-        router.push(localePath(`/country/${form.country.toLowerCase()}`))
-      }, 2000)
+      // Keep anonymous users on the success screen so they can claim via sign-in.
+      if (!canClaimReview.value) {
+        setTimeout(() => {
+          router.push(localePath(`/country/${form.country.toLowerCase()}`))
+        }, 2000)
+      }
     } catch (err: any) {
+      const detail = err?.data?.message || err?.statusMessage || err?.message || t('review.toast.errorFallback')
       toast.add({
         severity: 'error',
         summary: t('review.toast.errorSummary'),
-        detail: err.message ?? t('review.toast.errorFallback'),
+        detail,
         life: 4000,
       })
     } finally {
@@ -176,5 +182,5 @@ export function useReviewForm() {
     { server: false, watch: [() => form.country, () => form.nationality] }
   )
 
-  return { form, isValid, step, expanded, toggleExpand, isCategoryFilled, submitting, submitSuccess, submit, countryStats, FORM_CATEGORIES }
+  return { form, isValid, step, expanded, toggleExpand, isCategoryFilled, submitting, submitSuccess, canClaimReview, submit, countryStats, FORM_CATEGORIES }
 }

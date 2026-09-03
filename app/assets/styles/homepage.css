@@ -829,8 +829,15 @@
 
 /* reviews list */
 .home-page .review-item {
+  display: block;
   padding: 14px 18px;
   border-top: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+.home-page .review-item:hover {
+  background: var(--color-bg-secondary, #f7f6fb);
 }
 
 .home-page .review-item:first-of-type {

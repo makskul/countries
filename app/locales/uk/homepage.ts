@@ -23,6 +23,7 @@ export default {
     sectionLabel: 'Свіжі записи',
     title: 'Останні відгуки',
     empty: 'Відгуків поки немає.',
+    noSnippet: 'Оцінка без коментаря',
     seeAll: 'Дивитися всі',
   },
   categories: {

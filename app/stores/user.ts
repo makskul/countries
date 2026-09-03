@@ -28,14 +28,18 @@ export const useUserStore = defineStore('user', {
   actions: {
     setNationality(code: string) {
       const prev = this.effectiveNationality
-      this.nationality = code
+      const normalized = code ? code.toUpperCase() : ''
+      this.nationality = normalized
       this.showAllReviews = false
+      // Keep Nuxt useCookie in sync so SSR fallbacks and clear() work
+      const cookie = useCookie(COOKIE_KEY, { maxAge: COOKIE_MAX_AGE, path: '/', sameSite: 'lax' })
+      cookie.value = normalized || null
       if (import.meta.client) {
-        localStorage.setItem('nationality', code)
-        document.cookie = `${COOKIE_KEY}=${code}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`
-        if (code && code !== prev) {
+        if (normalized) localStorage.setItem('nationality', normalized)
+        else localStorage.removeItem('nationality')
+        if (normalized && normalized !== prev) {
           import('~/utils/analytics').then(({ trackEvent }) => {
-            trackEvent('nat_set', { nationality: code })
+            trackEvent('nat_set', { nationality: normalized })
           })
         }
       }
@@ -49,9 +53,10 @@ export const useUserStore = defineStore('user', {
       if (profile?.default_nationality) {
         this.profileNationality = profile.default_nationality.toUpperCase()
         this.nationality = this.profileNationality
+        const cookie = useCookie(COOKIE_KEY, { maxAge: COOKIE_MAX_AGE, path: '/', sameSite: 'lax' })
+        cookie.value = this.profileNationality
         if (import.meta.client) {
           localStorage.setItem('nationality', this.profileNationality)
-          document.cookie = `${COOKIE_KEY}=${this.profileNationality}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`
         }
       }
     },
@@ -98,8 +103,9 @@ export const useUserStore = defineStore('user', {
       if (!this.nationality && !this.profileNationality) {
         const stored = localStorage.getItem('nationality')
         if (stored) {
-          this.nationality = stored
-          document.cookie = `nv_nationality=${stored}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`
+          this.nationality = stored.toUpperCase()
+          const cookie = useCookie(COOKIE_KEY, { maxAge: COOKIE_MAX_AGE, path: '/', sameSite: 'lax' })
+          cookie.value = this.nationality
         }
       }
       this.loadFavoritesFromStorage()

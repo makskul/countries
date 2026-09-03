@@ -1,3 +1,5 @@
+import { isDestinationAllowed } from '~/utils/countries'
+
 export function useFooterData() {
   const supabase = useSupabaseClient()
 
@@ -7,9 +9,10 @@ export function useFooterData() {
       .select('target_country, author_nationality')
       .eq('is_approved', true)
     if (error || !data?.length) return { totalReviews: 0, totalCountries: 0, totalNationalities: 0 }
+    const destinations = data.filter((r: any) => isDestinationAllowed(r.target_country))
     return {
-      totalReviews: data.length,
-      totalCountries: new Set(data.map((r: any) => r.target_country)).size,
+      totalReviews: destinations.length,
+      totalCountries: new Set(destinations.map((r: any) => r.target_country)).size,
       totalNationalities: new Set(data.map((r: any) => r.author_nationality)).size,
     }
   }, { server: false })

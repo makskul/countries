@@ -255,18 +255,23 @@
               <Skeleton v-for="i in 2" :key="i" height="100px" style="margin: 14px 18px" />
             </div>
             <template v-else-if="latest?.length">
-              <div v-for="r in latest.slice(0, 2)" :key="r.id" class="review-item">
+              <NuxtLinkLocale
+                v-for="r in latest.slice(0, 2)"
+                :key="r.id"
+                :to="`/country/${r.target_country.toLowerCase()}`"
+                class="review-item"
+              >
                 <div class="ri-top">
                   <ReviewByline
                     compact
                     :from="r.author_nationality"
                     :about="r.target_country"
                   />
-                  <div class="ri-time">{{ timeAgo(r.created_at) }}</div>
+                  <div class="ri-time">{{ timeAgo(r.created_at, locale) }}</div>
                 </div>
-                <div class="ri-stars">★★★★★</div>
+                <div class="ri-stars">{{ reviewStars(r) }}</div>
                 <div class="ri-text">{{ reviewSnippet(r) }}</div>
-              </div>
+              </NuxtLinkLocale>
             </template>
             <Message v-else severity="info" :closable="false" style="margin: 14px 18px">
               {{ $t('homepage.latest.empty') }}
@@ -349,7 +354,7 @@
 
 <script setup lang="ts">
 import { APP_URL } from '~/utils/appConfig'
-import { countryToSlug, getCountryName, getFlagEmoji, timeAgo } from '~/utils/countries'
+import { countryToSlug, getCountryName, getFlagEmoji, timeAgo, isDestinationAllowed } from '~/utils/countries'
 import { getCountryImage } from '~/utils/countryImages'
 import { toCompareSlug } from '~/utils/compareSlug'
 
@@ -359,7 +364,7 @@ interface MapReviewEntry {
   reviews: number
 }
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 useSeoMeta({
   title: () => t('seo.home.title'),
@@ -382,7 +387,10 @@ const { getCountryNameLocalized } = useLocalizedCountries()
 
 onMounted(() => store.loadFromStorage())
 
-const nationality = ref(store.nationality)
+const nationality = computed({
+  get: () => store.nationality,
+  set: (v: string) => store.setNationality(v || ''),
+})
 const targetCountry = ref('')
 
 const {
@@ -479,8 +487,16 @@ const heroReviewSnippet = computed(() => {
 function reviewSnippet(review: any): string {
   const comments = (review.comments ?? {}) as Record<string, string | null>
   const text = Object.values(comments).find(c => c && c.trim())
-  if (!text) return t('homepage.latest.empty')
+  if (!text) return t('homepage.latest.noSnippet')
   return text.length > 120 ? text.slice(0, 120) + '…' : text
+}
+
+function reviewStars(review: any): string {
+  const ratings = (review.ratings ?? {}) as Record<string, number>
+  const vals = Object.values(ratings).filter((v): v is number => typeof v === 'number' && v > 0)
+  if (!vals.length) return '☆☆☆☆☆'
+  const avg = Math.round(vals.reduce((a, b) => a + b, 0) / vals.length)
+  return '★'.repeat(avg) + '☆'.repeat(5 - avg)
 }
 
 function handleSubmit() {

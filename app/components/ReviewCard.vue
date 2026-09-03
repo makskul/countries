@@ -72,7 +72,7 @@ import type { RawReview } from '~/composables/useCountryPage'
 const { getCountryNameLocalized } = useLocalizedCountries()
 const { tm, locale } = useI18n()
 const props = defineProps<{ review: RawReview }>()
-const time = computed(() => timeAgo(props.review.created_at))
+const time = computed(() => timeAgo(props.review.created_at, locale.value))
 
 const cityName = computed(() => {
   const c = props.review.cities

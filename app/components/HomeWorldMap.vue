@@ -207,7 +207,7 @@
 
 <script setup lang="ts">
 import { WORLD_COUNTRIES, RU_NAMES, codeToMapName } from '~/utils/worldMapGeo'
-import { getCountryName, getFlagEmoji, TARGET_COUNTRIES } from '~/utils/countries'
+import { getCountryName, getFlagEmoji, TARGET_COUNTRIES, isDestinationAllowed } from '~/utils/countries'
 import {
   MAP_CONTINENT_IDS,
   MAP_REGION_IDS,
@@ -448,6 +448,7 @@ const regionCountries = computed((): RegionCountryItem[] => {
 
   const upsert = (code: string, mapName?: string) => {
     const upper = code.toUpperCase()
+    if (!isDestinationAllowed(upper)) return
     const existing = byCode.get(upper)
     const resolvedMap = mapName
       ?? existing?.mapName

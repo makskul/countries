@@ -54,7 +54,6 @@ export const COMPARE_PAIRS: readonly (readonly [string, string])[] = [
   ['US', 'CA'],
   ['IL', 'DE'],
   ['KZ', 'PL'],
-  ['BY', 'PL'],
   ['GR', 'DE'],
 ] as const
 

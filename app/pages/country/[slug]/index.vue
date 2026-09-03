@@ -44,7 +44,7 @@
         </div>
         <div class="ch-pill" v-if="headerStats.lastReviewAt">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          {{ $t('country.header.lastReview', { time: timeAgo(headerStats.lastReviewAt) }) }}
+          {{ $t('country.header.lastReview', { time: timeAgo(headerStats.lastReviewAt, locale) }) }}
         </div>
       </div>
       <div v-else-if="pending" class="ch-pills">
@@ -262,7 +262,7 @@
 
 <script setup lang="ts">
 import { APP_NAME, APP_URL } from '~/utils/appConfig'
-import { getFlagEmoji, timeAgo } from '~/utils/countries'
+import { getFlagEmoji, timeAgo, isDestinationAllowed } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCountryPage } from '~/composables/useCountryPage'
 import { isEmptyStateCampaignCountry } from '~/data/emptyStateCampaign'
@@ -273,6 +273,11 @@ const router = useRouter()
 const store = useUserStore()
 const { t, locale } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
+
+const pageCountryCode = (route.params.slug as string).toUpperCase()
+if (!isDestinationAllowed(pageCountryCode)) {
+  throw createError({ statusCode: 404, statusMessage: 'Country not found' })
+}
 
 function getCityDisplayName(city: any): string {
   if (locale.value === 'uk' && city.name_uk) return city.name_uk
@@ -424,7 +429,10 @@ const {
   countryHasAnyReviews,
 } = useCountryPage(slug, nationality)
 
-const isHubCountry = computed(() => isContentHubCountry(slug.value))
+const isHubCountry = computed(() =>
+  isContentHubCountry(slug.value)
+  && (landingNat.value === 'UA' || nationality.value === 'UA'),
+)
 
 const featuredHubReviews = computed(() => (pagedReviews.value ?? []).slice(0, 3))
 

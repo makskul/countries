@@ -23,6 +23,7 @@ export default {
     sectionLabel: 'Fresh posts',
     title: 'Latest reviews',
     empty: 'No reviews yet.',
+    noSnippet: 'Rated without a comment',
     seeAll: 'See all',
   },
   categories: {

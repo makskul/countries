@@ -3,7 +3,7 @@ export default {
     title: 'Sign in',
     subtitle: 'Save your nationality and track your reviews',
     emailLabel: 'Email',
-    emailPlaceholder: 'you@example.com',
+    emailPlaceholder: 'you{\'@\'}example.com',
     magicLinkBtn: 'Send magic link',
     magicLinkSending: 'Sending…',
     magicLinkSent: 'Check your inbox — we sent a sign-in link',
@@ -20,6 +20,7 @@ export default {
   callback: {
     title: 'Signing you in…',
     error: 'Sign-in failed. Please try again.',
+    claimError: 'Could not link your recent review — try again from the same browser',
   },
   account: {
     title: 'My account',

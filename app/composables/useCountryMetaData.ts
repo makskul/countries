@@ -1,5 +1,6 @@
 import type { CountryRow } from '~/types/database.types'
 import { getCountryMeta, mapCountryRowToMeta } from '~/utils/countryMeta'
+import { isDestinationAllowed } from '~/utils/countries'
 
 export function useCountryMetaData(countryCode: MaybeRefOrGetter<string>) {
   const code = computed(() => String(toValue(countryCode) ?? '').toUpperCase())
@@ -9,17 +10,20 @@ export function useCountryMetaData(countryCode: MaybeRefOrGetter<string>) {
   const { data: meta, pending, refresh } = useAsyncData(
     () => `country-meta-${code.value}`,
     async () => {
+      if (!isDestinationAllowed(code.value)) return null
+
       const { data } = await supabase
         .from('countries')
         .select('*')
         .eq('code', code.value)
-        .eq('is_active', true)
         .maybeSingle()
 
       if (data) {
+        const row = data as CountryRow
+        if (!row.is_active) return null
         return {
-          meta: mapCountryRowToMeta(data as CountryRow),
-          row: data as CountryRow,
+          meta: mapCountryRowToMeta(row),
+          row,
         }
       }
 

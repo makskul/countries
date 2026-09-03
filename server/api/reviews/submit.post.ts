@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import { serverSupabaseClient } from '#supabase/server'
 import { checkReviewSubmitRateLimit } from '../../utils/reviewRateLimit'
 import { createReviewClaimToken } from '../../utils/reviewClaim'
+import { isDestinationAllowed } from '~/utils/countries'
 
 type ReviewSubmitBody = {
   author_nationality: string
@@ -30,6 +31,10 @@ export default defineEventHandler(async (event) => {
 
   if (!body.author_nationality || !body.target_country || !body.stay_purpose || !body.ratings) {
     throw createError({ statusCode: 400, message: 'Missing required fields' })
+  }
+
+  if (!isDestinationAllowed(body.target_country)) {
+    throw createError({ statusCode: 400, message: 'Target country is not available as a destination' })
   }
 
   const ratingKeys = Object.keys(body.ratings)

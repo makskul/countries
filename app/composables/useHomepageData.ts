@@ -1,4 +1,4 @@
-import { CATEGORIES, CATEGORY_LABELS } from '~/utils/categories'
+import { isDestinationAllowed } from '~/utils/countries'
 
 export function useHomepageData() {
   const supabase = useSupabaseClient()
@@ -11,55 +11,69 @@ export function useHomepageData() {
       .eq('is_approved', true)
     if (error) { console.error('[heroStats]', error.message); return { total: 0, countries: 0, nationalities: 0 } }
     if (!data?.length) return { total: 0, countries: 0, nationalities: 0 }
+    const destinationReviews = data.filter((r: any) => isDestinationAllowed(r.target_country))
     return {
-      total: data.length,
-      countries: new Set(data.map((r: any) => r.target_country)).size,
+      total: destinationReviews.length,
+      countries: new Set(destinationReviews.map((r: any) => r.target_country)).size,
       nationalities: new Set(data.map((r: any) => r.author_nationality)).size,
     }
   })
 
-  // Trending: 8 most recently reviewed unique countries
+  // Trending: recently active countries with real review counts + averages
   const { data: trending, pending: trendingPending } = useAsyncData('trending', async () => {
     const { data, error } = await supabase
       .from('reviews')
-      .select('target_country, ratings')
+      .select('target_country, ratings, created_at')
       .eq('is_approved', true)
       .order('created_at', { ascending: false })
-      .limit(200)
+      .limit(500)
     if (error) { console.error('[trending]', error.message); return [] }
     if (!data?.length) return []
 
-    const seen = new Set<string>()
-    const result: { code: string; total: number; avgRating: number; topCategories: string[] }[] = []
+    type Acc = { code: string; totals: number[]; lastAt: number; topCategories: string[] }
+    const byCode = new Map<string, Acc>()
 
-    for (const row of data as { target_country: string; ratings: Record<string, number> }[]) {
+    for (const row of data as { target_country: string; ratings: Record<string, number>; created_at: string }[]) {
       const code = row.target_country
-      if (seen.has(code)) continue
-      seen.add(code)
+      if (!isDestinationAllowed(code)) continue
       const vals = Object.values(row.ratings ?? {}).filter((v): v is number => typeof v === 'number')
-      const cats = Object.keys(row.ratings ?? {}).slice(0, 2)
-      result.push({
-        code,
-        total: 1,
-        avgRating: vals.length ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 10) / 10 : 0,
-        topCategories: cats,
-      })
-      if (result.length === 8) break
+      const rowAvg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0
+      const existing = byCode.get(code)
+      if (!existing) {
+        byCode.set(code, {
+          code,
+          totals: [rowAvg],
+          lastAt: new Date(row.created_at).getTime(),
+          topCategories: Object.keys(row.ratings ?? {}).slice(0, 2),
+        })
+      } else {
+        existing.totals.push(rowAvg)
+      }
     }
 
-    return result
+    return [...byCode.values()]
+      .map(acc => ({
+        code: acc.code,
+        total: acc.totals.length,
+        avgRating: Math.round((acc.totals.reduce((a, b) => a + b, 0) / acc.totals.length) * 10) / 10,
+        topCategories: acc.topCategories,
+        lastAt: acc.lastAt,
+      }))
+      .sort((a, b) => b.lastAt - a.lastAt || b.total - a.total)
+      .slice(0, 8)
+      .map(({ lastAt: _lastAt, ...rest }) => rest)
   })
 
-  // Latest 3 reviews (show first category with a comment)
+  // Latest reviews (fetch a few extra so deactivated destinations can be skipped)
   const { data: latest, pending: latestPending } = useAsyncData('latest', async () => {
     const { data, error } = await supabase
       .from('reviews')
       .select('id, target_country, author_nationality, ratings, comments, created_at')
       .eq('is_approved', true)
       .order('created_at', { ascending: false })
-      .limit(4)
+      .limit(20)
     if (error) { console.error('[latest]', error.message); return [] }
-    return (data ?? []) as any[]
+    return ((data ?? []) as any[]).filter(r => isDestinationAllowed(r.target_country)).slice(0, 4)
   })
 
   // Category highlights (4 selected categories — keys match JSONB in DB)
@@ -74,6 +88,7 @@ export function useHomepageData() {
 
     const grouped: Record<string, { vals: number[]; countries: Record<string, number[]> }> = {}
     for (const row of data as { ratings: Record<string, number>; target_country: string }[]) {
+      if (!isDestinationAllowed(row.target_country)) continue
       for (const cat of HIGHLIGHT_CATS) {
         const val = row.ratings?.[cat]
         if (typeof val !== 'number') continue
@@ -111,6 +126,7 @@ export function useHomepageData() {
       ratings: Record<string, number>
     }[]) {
       const code = row.target_country
+      if (!isDestinationAllowed(code)) continue
       if (!grouped[code]) grouped[code] = { all: [], byNat: {} }
       const vals = Object.values(row.ratings ?? {}).filter(v => typeof v === 'number')
       const rowAvg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0

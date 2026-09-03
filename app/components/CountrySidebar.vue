@@ -7,7 +7,7 @@
         class="s-btn-primary"
         :class="{ 's-btn-primary--highlight': writeFirstHighlight }"
       >
-        + {{ writeFirstHighlight ? $t('country.empty.cta') : $t('common.buttons.writeReview').replace('+ ', '') + ' ' + countryName }}
+        + {{ writeFirstHighlight ? $t('country.empty.cta') : $t('country.sidebar.writeReview', { country: countryName }) }}
       </NuxtLinkLocale>
       <button class="s-btn-secondary" @click="handleShare">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
@@ -77,7 +77,7 @@
           v-for="c in similar"
           :key="c.code"
           class="s-similar-row"
-          @click="router.push(localePath(`/country/${c.code.toLowerCase()}`))"
+          @click="goToSimilar(c.code)"
         >
           <span class="s-similar-left">
             {{ getFlagEmoji(c.code) }}
@@ -150,6 +150,14 @@ async function handleShare() {
   } else {
     await navigator.clipboard.writeText(url)
   }
+}
+
+function goToSimilar(code: string) {
+  const path = localePath(`/country/${code.toLowerCase()}`)
+  const href = props.nationality
+    ? `${path}?nat=${encodeURIComponent(props.nationality.toLowerCase())}`
+    : path
+  router.push(href)
 }
 </script>
 

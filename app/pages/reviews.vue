@@ -51,6 +51,8 @@
 </template>
 
 <script setup lang="ts">
+import { isDestinationAllowed } from '~/utils/countries'
+
 useSeoMeta({
   title: 'Останні відгуки',
   description: 'Найновіші відгуки емігрантів про країни світу на Triplandr.',
@@ -59,6 +61,10 @@ useSeoMeta({
 
 const supabase = useSupabaseClient()
 const PAGE_SIZE = 20
+
+function filterDestinationReviews<T extends { target_country: string }>(rows: T[] | null | undefined): T[] {
+  return (rows ?? []).filter(r => isDestinationAllowed(r.target_country))
+}
 
 const { data: reviews, pending } = useLazyAsyncData('reviews-feed', async () => {
   // Try today first
@@ -80,10 +86,11 @@ const { data: reviews, pending } = useLazyAsyncData('reviews-feed', async () => 
     .order('created_at', { ascending: false })
     .limit(PAGE_SIZE)
 
-  const todayIds = new Set((todayData ?? []).map((r: any) => r.id))
+  const todayFiltered = filterDestinationReviews(todayData as any[])
+  const todayIds = new Set(todayFiltered.map((r: any) => r.id))
   return [
-    ...(todayData ?? []),
-    ...(latestData ?? []).filter((r: any) => !todayIds.has(r.id)),
+    ...todayFiltered,
+    ...filterDestinationReviews(latestData as any[]).filter((r: any) => !todayIds.has(r.id)),
   ] as any[]
 }, { server: false })
 
@@ -125,7 +132,7 @@ async function loadMore() {
       .range(offset.value, offset.value + PAGE_SIZE - 1)
 
     if (data?.length) {
-      if (reviews.value) reviews.value.push(...(data as any[]))
+      if (reviews.value) reviews.value.push(...filterDestinationReviews(data as any[]))
       offset.value += PAGE_SIZE
     }
   } finally {

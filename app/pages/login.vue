@@ -110,7 +110,7 @@ async function signInWithGoogle() {
         class="w-full mb-2"
         severity="secondary"
         :loading="loading"
-        @click="magicLinkSent = false"
+        @click="sendMagicLink"
       />
 
       <div class="auth-divider"><span>{{ $t('auth.login.orDivider') }}</span></div>

@@ -40,3 +40,17 @@ export function verifyReviewClaimToken(token: string, reviewId: string): boolean
     return false
   }
 }
+
+/** Extract review id from a claim token without verifying (caller must verify). */
+export function parseReviewIdFromClaimToken(token: string): string | null {
+  try {
+    const decoded = Buffer.from(token, 'base64url').toString('utf8')
+    const lastColon = decoded.lastIndexOf(':')
+    if (lastColon === -1) return null
+    const payload = decoded.slice(0, lastColon)
+    const reviewId = payload.split(':')[0]
+    return reviewId || null
+  } catch {
+    return null
+  }
+}

@@ -3,11 +3,13 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const user = useSupabaseUser()
+const toast = useToast()
 const { fetchAndSyncProfile, claimPendingReview } = useAuthProfile()
 
 useSeoMeta({ robots: 'noindex, nofollow' })
 
 const error = ref('')
+const finishing = ref(false)
 
 const returnTo = computed(() => {
   const raw = route.query.returnTo
@@ -18,6 +20,8 @@ const returnTo = computed(() => {
 })
 
 async function finishAuth() {
+  if (finishing.value) return
+  finishing.value = true
   try {
     await fetchAndSyncProfile()
 
@@ -28,8 +32,34 @@ async function finishAuth() {
           const { review_id, claim_token } = JSON.parse(raw) as { review_id: string; claim_token: string }
           await claimPendingReview(review_id, claim_token)
           sessionStorage.removeItem('nv_pending_claim')
+          toast.add({
+            severity: 'success',
+            summary: t('auth.account.claimSuccess'),
+            life: 4000,
+          })
         } catch {
-          sessionStorage.removeItem('nv_pending_claim')
+          // Keep token so a retry after refresh can still claim
+          toast.add({
+            severity: 'warn',
+            summary: t('auth.callback.claimError'),
+            life: 5000,
+          })
+        }
+      } else {
+        // Cookie-backed claim when sessionStorage is empty (cross-device / new tab)
+        try {
+          await $fetch('/api/reviews/claim', {
+            method: 'POST',
+            body: {},
+            credentials: 'include',
+          })
+          toast.add({
+            severity: 'success',
+            summary: t('auth.account.claimSuccess'),
+            life: 4000,
+          })
+        } catch {
+          // No pending cookie claim — ignore
         }
       }
     }
@@ -40,6 +70,7 @@ async function finishAuth() {
 
     await navigateTo(returnTo.value)
   } catch {
+    finishing.value = false
     error.value = t('auth.callback.error')
   }
 }
@@ -50,10 +81,10 @@ watch(user, (u) => {
 
 onMounted(() => {
   setTimeout(() => {
-    if (!user.value) {
+    if (!user.value && !finishing.value) {
       error.value = t('auth.callback.error')
     }
-  }, 8000)
+  }, 12000)
 })
 </script>
 

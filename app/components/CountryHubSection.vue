@@ -22,7 +22,11 @@ const compareSlugs = computed(() => getCompareSlugsForCountry(props.countryCode,
 const compareLinks = computed(() =>
   compareSlugs.value.map((slug) => {
     const codes = codesFromCompareSlug(slug)
-    if (!codes) return { slug, label: slug, href: localePath(`/compare/${slug}`) }
+    const basePath = localePath(`/compare/${slug}`)
+    const href = props.natQuery
+      ? `${basePath}?nat=${encodeURIComponent(props.natQuery.toLowerCase())}`
+      : basePath
+    if (!codes) return { slug, label: slug, href }
     const [a, b] = codes
     return {
       slug,
@@ -30,7 +34,7 @@ const compareLinks = computed(() =>
         a: getCountryNameLocalized(a),
         b: getCountryNameLocalized(b),
       }),
-      href: localePath(`/compare/${slug}`),
+      href,
       flags: `${getFlagEmoji(a)} ${getFlagEmoji(b)}`,
     }
   }),
