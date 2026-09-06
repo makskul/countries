@@ -41,6 +41,13 @@
       </div>
     </div>
 
+    <WriteFirstBanner
+      v-if="showWriteFirstBanner"
+      :country-code="slug"
+      :nationality-code="nationality"
+      :campaign="isCampaignCountry"
+    />
+
     <!-- TABS BAR -->
     <div class="tabs-bar">
       <button class="tab-btn" @click="navigateTo(localePath(`/country/${slug.toLowerCase()}`))">
@@ -48,7 +55,7 @@
       </button>
 
       <button
-        v-for="city in (citiesWithReviews ?? []).slice(0, 4)"
+        v-for="city in visibleCityTabs"
         :key="city.city_id"
         class="tab-btn"
         :class="{ active: city.slug === citySlug }"
@@ -89,7 +96,7 @@
         />
 
         <!-- No reviews at all for this city -->
-        <div v-if="!pending && totalReviews === 0 && !nationality" class="empty-state">
+        <div v-if="!pending && totalReviews === 0" class="empty-state">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <h3 class="empty-h3">{{ $t('country.empty.title') }}</h3>
           <p class="empty-p">{{ $t('country.empty.subtitle', { country: cityName }) }}</p>
@@ -98,6 +105,10 @@
 
         <template v-else>
           <NatFilterNotice v-if="nationality" :nationality="nationality" @change="showNatDialog = true" />
+          <div v-else class="no-nat-bar">
+            <span style="font-size: 13px; color: var(--color-text-secondary)">{{ $t('country.noNat.message') }}</span>
+            <button class="no-nat-btn" @click="showNatDialog = true">{{ $t('country.noNat.cta') }}</button>
+          </div>
 
           <!-- No reviews for this nationality in this city -->
           <div v-if="nationality && natReviewsCount === 0 && !pending && !showAllOverride" class="nat-empty-block">
@@ -159,7 +170,12 @@
         </template>
       </div>
 
-      <CountrySidebar :countryCode="slug" :nationality="nationality" :similar="null" />
+      <CountrySidebar
+        :countryCode="slug"
+        :nationality="nationality"
+        :similar="null"
+        :write-first-highlight="showWriteFirstBanner"
+      />
     </div>
 
     <!-- Nationality dialog -->
@@ -178,13 +194,19 @@
 
 <script setup lang="ts">
 import { APP_NAME, APP_URL } from '~/utils/appConfig'
-import { getFlagEmoji } from '~/utils/countries'
+import { getFlagEmoji, isDestinationAllowed } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCityPage } from '~/composables/useCityPage'
+import { isEmptyStateCampaignCountry } from '~/data/emptyStateCampaign'
 
 const route = useRoute()
 const store = useUserStore()
 const { t, locale } = useI18n()
+
+const pageCountryCode = (route.params.slug as string).toUpperCase()
+if (!isDestinationAllowed(pageCountryCode)) {
+  throw createError({ statusCode: 404, statusMessage: 'Country not found' })
+}
 
 function getCityDisplayName(city: any): string {
   if (locale.value === 'uk' && city.name_uk) return city.name_uk
@@ -196,8 +218,9 @@ const { getCountryNameLocalized } = useLocalizedCountries()
 // Load nationality before composable
 store.loadFromStorage()
 const natParam = route.query.nat as string | undefined
-if (natParam && natParam !== store.nationality) {
-  store.setNationality(natParam)
+if (natParam) {
+  const code = natParam.trim().toUpperCase()
+  if (code && code !== store.nationality) store.setNationality(code)
 }
 
 onMounted(() => {
@@ -224,6 +247,18 @@ const {
   showAllOverride,
   natReviewsCount,
 } = useCityPage(slug, citySlug, nationality)
+
+const showWriteFirstBanner = computed(() =>
+  !!nationality.value
+  && natReviewsCount.value === 0
+  && !showAllOverride.value
+  && !pending.value
+  && totalReviews.value > 0
+)
+
+const isCampaignCountry = computed(() =>
+  isEmptyStateCampaignCountry(slug.value, nationality.value)
+)
 
 // showAllOverride is now from Pinia store (shared with country page)
 
@@ -274,7 +309,7 @@ const { data: citiesWithReviews } = useLazyAsyncData(
     if (!slug.value) return []
     let statsQuery = supabase
       .from('city_stats')
-      .select('city_id, city_name, total_reviews, avg_overall')
+      .select('city_id, city_name, total_reviews, avg_overall, avg_legalization, avg_cost_of_living, avg_safety, avg_bureaucracy, avg_weather, avg_language_barrier, avg_cleanliness, avg_healthcare')
       .eq('target_country', slug.value)
       .order('total_reviews', { ascending: false })
     if (nationality.value && !showAllOverride.value) {
@@ -282,18 +317,66 @@ const { data: citiesWithReviews } = useLazyAsyncData(
     }
     const { data: stats } = await statsQuery
     if (!stats?.length) return []
-    const cityIds = stats.map((r: any) => r.city_id).filter(Boolean)
+
+    const AVG_KEYS = [
+      'avg_legalization', 'avg_cost_of_living', 'avg_safety', 'avg_bureaucracy',
+      'avg_weather', 'avg_language_barrier', 'avg_cleanliness', 'avg_healthcare', 'avg_overall',
+    ] as const
+    let merged: any[] = []
+    if (nationality.value && !showAllOverride.value) {
+      merged = [...stats]
+    } else {
+      const byCity: Record<number, any[]> = {}
+      for (const r of stats as any[]) {
+        if (!r.city_id) continue
+        if (!byCity[r.city_id]) byCity[r.city_id] = []
+        byCity[r.city_id].push(r)
+      }
+      for (const rows of Object.values(byCity)) {
+        const total = rows.reduce((s, r) => s + (Number(r.total_reviews) || 0), 0)
+        const base = { ...rows[0], total_reviews: total }
+        for (const key of AVG_KEYS) {
+          let sum = 0
+          let weight = 0
+          for (const r of rows) {
+            const v = r[key]
+            const w = Number(r.total_reviews) || 0
+            if (v !== null && v !== undefined && w > 0) {
+              sum += Number(v) * w
+              weight += w
+            }
+          }
+          base[key] = weight ? Math.round((sum / weight) * 100) / 100 : null
+        }
+        merged.push(base)
+      }
+      merged.sort((a, b) => (b.total_reviews ?? 0) - (a.total_reviews ?? 0))
+    }
+
+    const cityIds = merged.map((r: any) => r.city_id).filter(Boolean)
     const { data: cities } = await supabase
       .from('cities').select('id, slug, name_en, name_uk, name_ru').in('id', cityIds)
     const cityMap: Record<number, any> = {}
     for (const c of (cities ?? []) as any[]) {
       if (c.slug) cityMap[c.id] = c
     }
-    return stats.filter((r: any) => cityMap[r.city_id])
+    return merged.filter((r: any) => cityMap[r.city_id])
       .map((r: any) => ({ ...r, slug: cityMap[r.city_id].slug, name_en: cityMap[r.city_id].name_en, name_uk: cityMap[r.city_id].name_uk, name_ru: cityMap[r.city_id].name_ru })) as any[]
   },
   { server: false, watch: [slug, nationality, showAllOverride] }
 )
+
+/** Pin the active city into the first 4 tabs so it never disappears. */
+const visibleCityTabs = computed(() => {
+  const all = citiesWithReviews.value ?? []
+  const top = all.slice(0, 4)
+  const current = all.find((c: any) => c.slug === citySlug.value)
+  if (current && !top.some((c: any) => c.city_id === current.city_id)) {
+    return [current, ...top.slice(0, 3)]
+  }
+  return top
+})
+
 const dialogNationality = ref('')
 
 function applyNationality() {
@@ -349,6 +432,18 @@ function applyNationality() {
 .nat-empty-cta-text { font-size: 13px; color: var(--color-text-secondary); margin: 0; }
 .nat-override-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--color-primary-light); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 14px; font-size: 13px; color: var(--color-primary-dark); }
 .nat-override-close { background: none; border: none; cursor: pointer; font-size: 12px; color: var(--color-primary); font-weight: 500; padding: 0; font-family: inherit; }
+.no-nat-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--color-bg-secondary); border: 1px solid var(--color-border);
+  border-radius: var(--radius-md); padding: 10px 14px; margin-bottom: 14px;
+}
+.no-nat-btn {
+  background: var(--color-primary); color: #fff; border: none;
+  border-radius: var(--radius-pill); padding: 6px 14px;
+  font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit;
+  white-space: nowrap;
+}
+.no-nat-btn:hover { background: var(--color-primary-hover); }
 /* Tabs — identical to country page */
 .tabs-bar {
   background: #fff;

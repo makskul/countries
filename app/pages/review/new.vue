@@ -13,6 +13,18 @@
       <!-- ═══════ MAIN COLUMN ═══════ -->
       <div class="rn-main">
 
+        <!-- Honeypot: hidden from humans, bots fill it -->
+        <label class="hp-field" aria-hidden="true">
+          <span>Leave blank</span>
+          <input
+            v-model="form.website"
+            type="text"
+            name="nv_hp_company"
+            tabindex="-1"
+            autocomplete="new-password"
+          >
+        </label>
+
         <!-- STEP INDICATOR + SELECTORS -->
         <div class="step-card">
           <!-- Steps -->
@@ -114,6 +126,13 @@
           <div class="success-icon">🎉</div>
           <h2 class="success-title">{{ $t('review.success.title') }}</h2>
           <p class="success-sub">{{ $t('review.success.subtitle') }}</p>
+          <NuxtLinkLocale
+            v-if="canClaimReview"
+            :to="claimLoginPath"
+            class="empty-btn claim-cta"
+          >
+            {{ $t('review.success.claimCta') }}
+          </NuxtLinkLocale>
         </div>
 
         <!-- RATINGS CARD -->
@@ -185,7 +204,7 @@
           <div class="actions-row">
             <div class="anon-notice">
               <span class="anon-check">✓</span>
-              <span class="anon-text">{{ $t('review.actions.anonymous') }}</span>
+              <span class="anon-text">{{ user ? $t('review.actions.signedIn') : $t('review.actions.anonymous') }}</span>
             </div>
             <div class="actions-btns">
               <button class="btn-secondary" @click="router.back()">{{ $t('common.buttons.cancel') }}</button>
@@ -270,7 +289,6 @@
       </div>
     </div>
 
-    <Toast />
   </div>
 </template>
 
@@ -283,6 +301,8 @@ import { useReviewForm } from '~/composables/useReviewForm'
 
 const { t } = useI18n()
 const router = useRouter()
+const localePath = useLocalePath()
+const user = useSupabaseUser()
 const { getCountryNameLocalized } = useLocalizedCountries()
 
 useSeoMeta({
@@ -306,10 +326,16 @@ const {
   isCategoryFilled,
   submitting,
   submitSuccess,
+  canClaimReview,
   submit: submitForm,
   countryStats,
   FORM_CATEGORIES,
 } = useReviewForm()
+
+const claimLoginPath = computed(() => {
+  const returnTo = localePath(`/country/${(form.country || '').toLowerCase()}`)
+  return `${localePath('/login')}?returnTo=${encodeURIComponent(returnTo)}`
+})
 
 // city is optional
 const isValid = computed(() =>
@@ -396,4 +422,14 @@ function submit() {
 
 <style scoped>
 @import '~/assets/styles/review.css';
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
 </style>

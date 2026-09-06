@@ -1,0 +1,57 @@
+name: Daily content (Telegram)
+
+on:
+  schedule:
+    # 06:00 UTC ≈ 09:00 Europe/Kyiv
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print Telegram payload without sending'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build daily content queue and post
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CONTENT_CHAT_ID: ${{ secrets.TELEGRAM_CONTENT_CHAT_ID }}
+          TELEGRAM_ADMIN_CHAT_ID: ${{ secrets.TELEGRAM_ADMIN_CHAT_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          CONTENT_RSS_ENABLED: ${{ vars.CONTENT_RSS_ENABLED || '1' }}
+          DRY_RUN_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: |
+          set -e
+          if [ "$DRY_RUN_INPUT" = "true" ]; then
+            echo "Dry-run mode: building queue + printing payload (no Telegram send)"
+            node scripts/daily-content.mjs --write --dry-run
+          else
+            echo "Live mode: building queue + posting to Telegram"
+            node scripts/daily-content.mjs --write --post
+          fi
+
+      - name: Upload today's queue JSON
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-queue-${{ github.run_id }}
+          path: data/content-queue/*.json
+          retention-days: 14
+          if-no-files-found: warn

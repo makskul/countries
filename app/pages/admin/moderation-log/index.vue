@@ -4,14 +4,21 @@ useSeoMeta({ robots: 'noindex, nofollow' })
 
 const actionFilter = ref('')
 const page = ref(1)
+const pageSize = 30
 
 const { data, pending } = await useAsyncData(
   'admin-mod-log',
   () => useAdminFetch<{ items: Record<string, unknown>[]; total: number }>('/api/admin/moderation-log', {
-    query: { action: actionFilter.value || undefined, page: page.value },
+    query: { action: actionFilter.value || undefined, page: page.value, pageSize },
   }),
   { watch: [actionFilter, page] },
 )
+
+watch(actionFilter, () => { page.value = 1 })
+
+function onPageChange(e: { page: number }) {
+  page.value = e.page + 1
+}
 
 const actionOptions = [
   { label: 'Все', value: '' },
@@ -57,15 +64,30 @@ function entityLabel(row: Record<string, unknown>) {
 
 <template>
   <div>
+    <AdminBreadcrumb :items="[{ label: 'Обзор', to: '/admin' }, { label: 'Журнал' }]" />
     <h1 class="admin-page-title">Журнал изменений</h1>
     <p class="admin-page-lead">
       Модерация отзывов и правки стран / городов / медиа в CMS.
     </p>
     <div class="admin-toolbar">
       <Select v-model="actionFilter" :options="actionOptions" option-label="label" option-value="value" placeholder="Действие" />
+      <Tag v-if="data" :value="`Всего: ${data.total}`" severity="secondary" />
     </div>
     <div class="admin-card">
-      <DataTable :value="data?.items ?? []" :loading="pending">
+      <DataTable
+        :value="data?.items ?? []"
+        :loading="pending"
+        paginator
+        lazy
+        :rows="pageSize"
+        :total-records="data?.total ?? 0"
+        @page="onPageChange"
+      >
+        <template #empty>
+          <div class="admin-empty">
+            <p>Пока нет записей в журнале.</p>
+          </div>
+        </template>
         <Column field="created_at" header="Дата">
           <template #body="{ data: row }">{{ formatAdminDate(String(row.created_at)) }}</template>
         </Column>
@@ -85,7 +107,11 @@ function entityLabel(row: Record<string, unknown>) {
             {{ row.admin_id ? String(row.admin_id).slice(0, 8) + '…' : '—' }}
           </template>
         </Column>
-        <Column field="note" header="Детали" />
+        <Column field="note" header="Детали">
+          <template #body="{ data: row }">
+            <span class="admin-muted">{{ row.note || '—' }}</span>
+          </template>
+        </Column>
       </DataTable>
     </div>
   </div>

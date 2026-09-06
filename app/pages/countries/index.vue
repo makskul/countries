@@ -7,6 +7,21 @@
       :last-review-label="lastReviewLabel"
     />
 
+    <!-- Popular compare links -->
+    <div v-if="featuredCompareSlugs.length" class="popular-compares">
+      <span class="popular-compares-label">{{ $t('homepage.compare.title') }}</span>
+      <div class="popular-compares-links">
+        <NuxtLinkLocale
+          v-for="slug in featuredCompareSlugs"
+          :key="slug"
+          :to="`/compare/${slug}`"
+          class="popular-compare-link"
+        >
+          {{ formatCompareSlug(slug) }}
+        </NuxtLinkLocale>
+      </div>
+    </div>
+
     <!-- Controls -->
     <div class="controls-section">
       <div class="controls-top">
@@ -147,6 +162,8 @@ import { APP_URL } from '~/utils/appConfig'
 import { useCountriesList, type CountryStat } from '~/composables/useCountriesList'
 import { useHomepageData } from '~/composables/useHomepageData'
 import { timeAgo } from '~/utils/countries'
+import { getFeaturedCompareSlugs } from '~/data/comparePairs'
+import { parseCompareSlugLenient } from '~/utils/compareSlug'
 import { codeToMapName } from '~/utils/worldMapGeo'
 
 const { t, locale } = useI18n()
@@ -161,6 +178,16 @@ useSeoMeta({
   ogType: 'website',
   twitterCard: 'summary_large_image',
 })
+
+const { getCountryNameLocalized } = useLocalizedCountries()
+
+const featuredCompareSlugs = getFeaturedCompareSlugs(8)
+
+function formatCompareSlug(slug: string): string {
+  const parsed = parseCompareSlugLenient(slug)
+  if (!parsed) return slug
+  return `${getCountryNameLocalized(parsed.a)} vs ${getCountryNameLocalized(parsed.b)}`
+}
 
 const store = useUserStore()
 const router = useRouter()
@@ -204,7 +231,6 @@ const categoryPills = computed(() => [
 
 const { countries, pending } = useCountriesList()
 const { stats, latest } = useHomepageData()
-const { getCountryNameLocalized } = useLocalizedCountries()
 
 const mapReviewData = computed<Record<string, MapReviewEntry>>(() => {
   const out: Record<string, MapReviewEntry> = {}

@@ -72,15 +72,21 @@ async function moderate(review: ReviewRow, approve: boolean) {
 }
 
 async function bulkModerate(approve: boolean) {
-  for (const review of selected.value) {
-    await useAdminFetch(`/api/admin/reviews/${review.id}`, {
-      method: 'PATCH',
-      body: { is_approved: approve },
-    })
+  try {
+    for (const review of selected.value) {
+      await useAdminFetch(`/api/admin/reviews/${review.id}`, {
+        method: 'PATCH',
+        body: { is_approved: approve },
+      })
+    }
+    selected.value = []
+    toast.add({ severity: 'success', summary: 'Готово', life: 2500 })
+    await refresh()
+  } catch (e: unknown) {
+    const err = e as { data?: { message?: string } }
+    toast.add({ severity: 'error', summary: err.data?.message ?? 'Ошибка массовой модерации', life: 4000 })
+    await refresh()
   }
-  selected.value = []
-  toast.add({ severity: 'success', summary: 'Готово', life: 2500 })
-  await refresh()
 }
 
 async function seedAction(action: 'unpublish' | 'delete') {

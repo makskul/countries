@@ -11,6 +11,17 @@ export const NATIONALITIES: Country[] = [
   { code: 'GB', name: 'United Kingdom' },
 ]
 
+/** Destinations deactivated in CMS (`countries.is_active = false`). Keep in sync with migration 020. */
+export const DEACTIVATED_DESTINATION_CODES = ['RU', 'BY'] as const
+
+const DEACTIVATED_DESTINATION_SET = new Set<string>(DEACTIVATED_DESTINATION_CODES)
+
+/** Whether a country code may be offered / browsed as a relocation destination. */
+export function isDestinationAllowed(code: string | null | undefined): boolean {
+  if (!code) return false
+  return !DEACTIVATED_DESTINATION_SET.has(code.toUpperCase())
+}
+
 // EU, Scandinavia, Vietnam, Thailand, and Bali (Indonesia)
 export const TARGET_COUNTRIES: Country[] = [
   { code: 'AT', name: 'Austria' },
@@ -89,10 +100,18 @@ export function getFlagEmoji(countryCode: string): string {
   return String.fromCodePoint(...codePoints)
 }
 
-export function timeAgo(dateStr: string, locale = 'ru'): string {
+export function timeAgo(dateStr: string, locale?: string): string {
   const diff = Date.now() - new Date(dateStr).getTime()
   const mins = Math.floor(diff / 60000)
-  const loc = locale === 'uk' ? 'uk' : locale === 'en' ? 'en' : 'ru'
+  const resolvedLocale = locale ?? (() => {
+    try {
+      return useI18n().locale.value
+    } catch {
+      return 'ru'
+    }
+  })()
+
+  const loc = resolvedLocale === 'uk' ? 'uk' : resolvedLocale === 'en' ? 'en' : 'ru'
 
   if (mins < 1) {
     if (loc === 'en') return 'just now'

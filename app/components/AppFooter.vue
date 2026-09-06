@@ -40,7 +40,7 @@
           <span class="fbrand-name">Triplan<span class="fbrand-accent">dr</span></span>
         </div>
         <p class="fbrand-desc">{{ $t('footer.brand.description') }}</p>
-        <!-- <div class="fnl">
+        <div class="fnl">
           <span class="fnl-label">{{ $t('footer.newsletter.label') }}</span>
           <div class="fnl-row">
             <input
@@ -54,7 +54,7 @@
               {{ subscribing ? '...' : $t('footer.newsletter.button') }}
             </button>
           </div>
-        </div> -->
+        </div>
       </div>
 
       <!-- Col 2 — Popular countries -->
@@ -97,6 +97,7 @@
         <span class="fcol-title">{{ $t('footer.columns.about') }}</span>
         <div class="fcol-links">
           <NuxtLinkLocale to="/about" class="fcol-link">{{ $t('footer.links.howItWorks') }}</NuxtLinkLocale>
+          <NuxtLinkLocale to="/about/monetization" class="fcol-link">{{ $t('footer.links.monetization') }}</NuxtLinkLocale>
           <NuxtLinkLocale to="/review/new" class="fcol-link">{{ $t('footer.links.writeReview') }}</NuxtLinkLocale>
           <NuxtLinkLocale to="/rules" class="fcol-link">{{ $t('footer.links.rules') }}</NuxtLinkLocale>
           <NuxtLinkLocale to="/contact" class="fcol-link">{{ $t('footer.links.contact') }}</NuxtLinkLocale>
@@ -152,6 +153,7 @@ import { useToast } from 'primevue/usetoast'
 import { getFlagEmoji } from '~/utils/countries'
 import { APP_NAME, APP_SOCIAL } from '~/utils/appConfig'
 import { useFooterData } from '~/composables/useFooterData'
+import { buildSubscribeSource, captureSubscribeUtm } from '~/utils/subscribeSource'
 
 const { t } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
@@ -164,6 +166,9 @@ const isHome = computed(() => route.name === 'index' || route.name === 'index___
 const year = new Date().getFullYear()
 const email = ref('')
 const subscribing = ref(false)
+
+onMounted(() => captureSubscribeUtm(route.query as Record<string, unknown>))
+watch(() => route.query, q => captureSubscribeUtm(q as Record<string, unknown>))
 
 function fmt(n: number | undefined): string {
   if (n === undefined || n === null) return '—'
@@ -178,7 +183,7 @@ async function handleSubscribe() {
   }
   subscribing.value = true
   try {
-    await subscribeNewsletter(val, supabase)
+    await subscribeNewsletter(val, supabase, buildSubscribeSource('footer'))
     email.value = ''
     toast.add({ severity: 'success', summary: t('common.success.subscribed'), life: 4000 })
   } catch (err: any) {

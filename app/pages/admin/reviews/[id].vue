@@ -2,6 +2,10 @@
 import type { ReviewRow } from '~/types/database.types'
 import { CATEGORY_LABELS } from '~/utils/categories'
 
+type AdminReviewDetail = ReviewRow & {
+  author: { id: string; display_name: string | null } | null
+}
+
 definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 useSeoMeta({ robots: 'noindex, nofollow' })
 
@@ -12,8 +16,15 @@ const id = route.params.id as string
 
 const { data: review, pending, refresh } = await useAsyncData(
   `admin-review-${id}`,
-  () => useAdminFetch<ReviewRow>(`/api/admin/reviews/${id}`),
+  () => useAdminFetch<AdminReviewDetail>(`/api/admin/reviews/${id}`),
 )
+
+const authorLabel = computed(() => {
+  const a = review.value?.author
+  if (!a) return 'Аноним'
+  if (a.display_name) return a.display_name
+  return `${a.id.slice(0, 8)}…`
+})
 
 const editMode = ref(false)
 const form = reactive({
@@ -105,9 +116,14 @@ async function moderate(approve: boolean) {
 
 async function remove() {
   if (!confirm('Удалить отзыв безвозвратно?')) return
-  await useAdminFetch(`/api/admin/reviews/${id}`, { method: 'DELETE' })
-  toast.add({ severity: 'success', summary: 'Удалено', life: 2000 })
-  await router.push('/admin/reviews')
+  try {
+    await useAdminFetch(`/api/admin/reviews/${id}`, { method: 'DELETE' })
+    toast.add({ severity: 'success', summary: 'Удалено', life: 2000 })
+    await router.push('/admin/reviews')
+  } catch (e: unknown) {
+    const err = e as { data?: { message?: string } }
+    toast.add({ severity: 'error', summary: err.data?.message ?? 'Ошибка удаления', life: 4000 })
+  }
 }
 </script>
 
@@ -171,6 +187,13 @@ async function remove() {
           <div><span class="admin-muted">Национальность</span><div>{{ review.author_nationality }}</div></div>
           <div><span class="admin-muted">Цель</span><div>{{ review.stay_purpose || '—' }}</div></div>
           <div><span class="admin-muted">Сейчас там</span><div>{{ review.still_there ? 'Да' : 'Нет' }}</div></div>
+          <div>
+            <span class="admin-muted">Пользователь</span>
+            <div>
+              {{ authorLabel }}
+              <span v-if="review.user_id" class="admin-muted" :title="review.user_id"> · {{ review.user_id.slice(0, 8) }}…</span>
+            </div>
+          </div>
         </div>
       </section>
 

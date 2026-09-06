@@ -39,6 +39,7 @@ export default {
     submitting: 'Відправка...',
     cancel: 'Скасувати',
     anonymous: 'Відгук анонімний — ім\'я не публікується',
+    signedIn: 'Відгук буде збережено у вашому акаунті',
   },
   tips: {
     title: 'Поради',
@@ -61,6 +62,15 @@ export default {
   success: {
     title: 'Відгук надіслано!',
     subtitle: 'Перенаправляємо на сторінку країни...',
+    claimCta: 'Увійти, щоб зберегти відгук в акаунті',
+  },
+  toast: {
+    validationSummary: 'Заповни форму',
+    validationDetail: 'Обери країну, національність, мету перебування і хоча б одну оцінку',
+    successSummary: 'Дякуємо! 🎉',
+    successDetail: 'Відгук успішно надіслано',
+    errorSummary: 'Помилка',
+    errorFallback: 'Не вдалося надіслати відгук',
   },
   dialog: {
     title: 'Спочатку обери національність',

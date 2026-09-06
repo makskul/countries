@@ -23,6 +23,11 @@
 
       <!-- Right side -->
       <div class="nav-right">
+        <!-- Auth: desktop -->
+        <div class="nav-auth-desktop">
+          <NuxtLinkLocale v-if="!user" to="/login" class="nav-auth-link">{{ $t('auth.nav.signIn') }}</NuxtLinkLocale>
+          <NuxtLinkLocale v-else to="/account" class="nav-auth-link">{{ $t('auth.nav.account') }}</NuxtLinkLocale>
+        </div>
         <!-- LangSwitcher: visible >600px, moves to mobile menu ≤600px -->
         <div class="nav-lang-desktop">
           <LangSwitcher />
@@ -57,6 +62,12 @@
           <NuxtLinkLocale to="/about" class="nav-mobile-link" @click="closeMenu">
             <i class="pi pi-info-circle" />{{ $t('nav.links.about') }}
           </NuxtLinkLocale>
+          <NuxtLinkLocale v-if="!user" to="/login" class="nav-mobile-link" @click="closeMenu">
+            <i class="pi pi-user" />{{ $t('auth.nav.signIn') }}
+          </NuxtLinkLocale>
+          <NuxtLinkLocale v-else to="/account" class="nav-mobile-link" @click="closeMenu">
+            <i class="pi pi-user" />{{ $t('auth.nav.account') }}
+          </NuxtLinkLocale>
 
           <!-- LangSwitcher: only in mobile menu ≤600px -->
           <div class="nav-mobile-lang">
@@ -75,6 +86,7 @@
 <script setup lang="ts">
 const menuOpen = ref(false)
 const route = useRoute()
+const user = useSupabaseUser()
 
 function toggleMenu() {
   menuOpen.value = !menuOpen.value
@@ -143,6 +155,21 @@ onUnmounted(() => {
 
 /* Right side */
 .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.nav-auth-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+.nav-auth-link:hover {
+  color: var(--color-primary);
+  background: var(--color-bg-secondary);
+}
 
 /* CTA */
 .nav-cta {

@@ -16,6 +16,16 @@ export default {
     ctaText: 'Your review will help hundreds of people make an informed decision.',
     ctaBtn: 'Write a review',
   },
+  monetization: {
+    title: 'How we make money',
+    lead: 'Triplandr is free for readers and reviewers. Here is how the project is funded — and what we never do.',
+    sections: [
+      { title: 'Affiliate links', text: 'Some pages include partner links (visa services, insurance, housing). If you click and sign up, we may earn a small commission at no extra cost to you.' },
+      { title: 'No impact on moderation', text: 'Partner relationships never affect which reviews are published, how they are ranked, or editorial decisions on country pages.' },
+      { title: 'No paid reviews', text: 'We do not sell reviews, sponsored ratings, or “featured” country placements. All user reviews go through the same moderation process.' },
+      { title: 'Questions', text: 'Want to partner or have concerns? Write to hello{\'@\'}triplandr.com.' },
+    ],
+  },
   rules: {
     title: 'Site rules',
     lead: 'Rules for publishing reviews on Triplandr.',
@@ -33,14 +43,14 @@ export default {
       { title: 'What data we collect', text: 'We do not require registration. When submitting a review, we only store the nationality you provide and the review content.' },
       { title: 'Cookies', text: 'We use cookies to save language settings (nv_locale) and nationality selection.' },
       { title: 'Third parties', text: 'We use Supabase for data storage and Vercel for hosting. Your data is never sold to third parties.' },
-      { title: 'Contact', text: 'Privacy questions: privacy@triplandr.com' },
+      { title: 'Contact', text: 'Privacy questions: privacy{\'@\'}triplandr.com' },
     ],
   },
   contact: {
     title: 'Contact us',
     lead: 'Have questions or suggestions? We\'d love to hear from you.',
     email: 'Write to us:',
-    address: 'hello@triplandr.com',
+    address: 'hello{\'@\'}triplandr.com',
     social: 'Or find us on social media:',
   },
   reviews: {

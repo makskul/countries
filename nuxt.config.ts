@@ -99,9 +99,20 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
     redirectOptions: {
-      login: '/admin/login',
-      callback: '/confirm',
-      exclude: ['/admin', '/admin/*'],
+      login: '/login',
+      callback: '/auth/callback',
+      exclude: [
+        '/',
+        '/countries',
+        '/country/**',
+        '/compare/**',
+        '/review/**',
+        '/about/**',
+        '/login',
+        '/auth/callback',
+        '/admin/login',
+        '/admin/**',
+      ],
     },
   },
   runtimeConfig: {
@@ -109,9 +120,17 @@ export default defineNuxtConfig({
     telegramAdminChatId:   process.env.TELEGRAM_ADMIN_CHAT_ID  || '',
     supabaseWebhookSecret: process.env.SUPABASE_WEBHOOK_SECRET || '',
     supabaseServiceKey:    process.env.SUPABASE_SERVICE_KEY    || '',
+    resendApiKey:          process.env.RESEND_API_KEY          || '',
+    resendFromEmail:       process.env.RESEND_FROM_EMAIL       || 'Triplandr <hello@triplandr.com>',
+    adminEmail:            process.env.ADMIN_EMAIL             || '',
+    reviewClaimSecret:     process.env.REVIEW_CLAIM_SECRET     || '',
     public: {
       supabaseUrl: process.env.SUPABASE_URL || '',
-      supabaseKey: process.env.SUPABASE_KEY || ''
+      supabaseKey: process.env.SUPABASE_KEY || '',
+      /** Plausible site domain, e.g. triplandr.com — set NUXT_PUBLIC_PLAUSIBLE_DOMAIN */
+      plausibleDomain: process.env.NUXT_PUBLIC_PLAUSIBLE_DOMAIN || '',
+      /** Optional Sentry DSN — client error capture only when set */
+      sentryDsn: process.env.NUXT_PUBLIC_SENTRY_DSN || '',
     }
   }
 })

@@ -23,6 +23,7 @@ export default {
     sectionLabel: 'Fresh posts',
     title: 'Latest reviews',
     empty: 'No reviews yet.',
+    noSnippet: 'Rated without a comment',
     seeAll: 'See all',
   },
   categories: {
@@ -41,7 +42,6 @@ export default {
     legendNoData: 'No data yet',
     hint: 'Pick a region, then a country from the list — it highlights on the map and opens a short summary.',
     noReviews: 'No reviews yet',
-    writeFirst: 'Write the first one',
     regionsLabel: 'Map subregion',
     continentsLabel: 'Map continent',
     continents: {
@@ -102,6 +102,7 @@ export default {
     listEmpty: 'No countries with reviews in this region yet.',
     selectHint: 'Select a country from the list to see its rating and leave a review.',
     leaveReview: 'Leave a review',
+    writeFirst: 'Write first',
     openCountry: 'Open country page',
     detailWithData: 'Real ratings from people of your nationality — or all visitors.',
     detailEmpty: 'No reviews yet — be the first to share your experience.',
@@ -118,7 +119,7 @@ export default {
   },
   promo: {
     title: 'Find your dream country',
-    subtitle: 'Real expat reviews — no ads, no marketing',
+    subtitle: 'Real expat reviews — no paid reviews, no marketing',
     cta: 'Write a review',
   },
   cta: {

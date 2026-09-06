@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
     weekRes,
     monthRes,
     newsletterRes,
+    leadsRes,
     topCountriesRes,
   ] = await Promise.all([
     supabaseAdmin.from('reviews').select('id', { count: 'exact', head: true }).eq('is_approved', false),
@@ -14,6 +15,7 @@ export default defineEventHandler(async (event) => {
     supabaseAdmin.from('reviews').select('id', { count: 'exact', head: true }).gte('created_at', startOfDaysAgo(7)),
     supabaseAdmin.from('reviews').select('id', { count: 'exact', head: true }).gte('created_at', startOfDaysAgo(30)),
     supabaseAdmin.from('newsletter_subscribers').select('id', { count: 'exact', head: true }),
+    supabaseAdmin.from('leads').select('id', { count: 'exact', head: true }),
     supabaseAdmin.from('reviews').select('target_country').eq('is_approved', true),
   ])
 
@@ -33,6 +35,7 @@ export default defineEventHandler(async (event) => {
     reviewsWeek: weekRes.count ?? 0,
     reviewsMonth: monthRes.count ?? 0,
     newsletterCount: newsletterRes.count ?? 0,
+    leadsCount: leadsRes.count ?? 0,
     topCountries,
   }
 })

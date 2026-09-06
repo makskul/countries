@@ -1,5 +1,4 @@
-import { NATIONALITIES, TARGET_COUNTRIES } from '~/utils/countries'
-import { getFlagEmoji } from '~/utils/countries'
+import { NATIONALITIES, TARGET_COUNTRIES, getFlagEmoji, isDestinationAllowed } from '~/utils/countries'
 
 // Map our locale codes to BCP 47 tags that Intl.DisplayNames understands
 // Intl.DisplayNames works on both Node.js (SSR) and browser — no client guard needed
@@ -19,11 +18,15 @@ export function useLocalizedCountries() {
 
   const countryList = computed(() => {
     const dn = getDisplayNames(locale.value)
-    return TARGET_COUNTRIES.map(c => ({
-      code: c.code,
-      name: dn.of(c.code) ?? c.name,
-      flag: getFlagEmoji(c.code),
-    })).sort((a, b) => a.name.localeCompare(b.name, locale.value))
+    // Filter out deactivated destinations (CMS source of truth).
+    return TARGET_COUNTRIES
+      .filter(c => isDestinationAllowed(c.code))
+      .map(c => ({
+        code: c.code,
+        name: dn.of(c.code) ?? c.name,
+        flag: getFlagEmoji(c.code),
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name, locale.value))
   })
 
   const nationalityList = computed(() => {

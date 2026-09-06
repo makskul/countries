@@ -1,4 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
+import { COMPARE_PAIR_SLUGS } from '../../app/data/comparePairs'
+import { UA_NAT_LANDING_COUNTRIES } from '../../app/data/natLandingCountries'
+import { isDestinationAllowed } from '../../app/utils/countries'
 
 // Called by @nuxtjs/sitemap at build time and on-demand
 // Returns SitemapUrl[] for all country + city pages across 3 locales
@@ -7,6 +10,17 @@ export default defineEventHandler(async () => {
   const supabase = createClient(config.public.supabaseUrl, config.public.supabaseKey)
 
   const urls: { loc: string; changefreq: string; priority: number; lastmod?: string }[] = []
+
+  // CMS inactive destinations (source of truth) + static deactivated codes
+  const { data: inactiveRows } = await supabase
+    .from('countries')
+    .select('code')
+    .eq('is_active', false)
+  const inactiveCodes = new Set(
+    (inactiveRows ?? []).map((r: { code: string }) => r.code.toUpperCase()),
+  )
+  const isListedDestination = (code: string) =>
+    isDestinationAllowed(code) && !inactiveCodes.has(code.toUpperCase())
 
   // ── 1. Country pages — lastmod = date of latest review per country ──────
   const { data: countries } = await supabase
@@ -17,6 +31,7 @@ export default defineEventHandler(async () => {
 
   const countryLastmod: Record<string, string> = {}
   for (const r of (countries ?? []) as { target_country: string; created_at: string }[]) {
+    if (!isListedDestination(r.target_country)) continue
     if (!countryLastmod[r.target_country]) {
       countryLastmod[r.target_country] = r.created_at.slice(0, 10)
     }
@@ -55,12 +70,60 @@ export default defineEventHandler(async () => {
 
     for (const city of (cities ?? []) as { id: number; slug: string; country: string }[]) {
       if (!city.slug) continue
+      if (!isListedDestination(city.country)) continue
       const countrySlug = city.country.toLowerCase()
       const lastmod = cityLastmod[city.id]
       urls.push({ loc: `/country/${countrySlug}/${city.slug}`,    changefreq: 'weekly', priority: 0.6, lastmod })
       urls.push({ loc: `/en/country/${countrySlug}/${city.slug}`, changefreq: 'weekly', priority: 0.6, lastmod })
       urls.push({ loc: `/ru/country/${countrySlug}/${city.slug}`, changefreq: 'weekly', priority: 0.6, lastmod })
     }
+  }
+
+  // ── 3. Compare pair pages (curated list × uk/en/ru) ─────────────────────
+  const compareCodes = new Set<string>()
+  for (const slug of COMPARE_PAIR_SLUGS) {
+    const [a, b] = slug.split('-vs-')
+    compareCodes.add(a!.toUpperCase())
+    compareCodes.add(b!.toUpperCase())
+  }
+
+  const { data: compareReviews } = await supabase
+    .from('reviews')
+    .select('target_country, created_at')
+    .eq('is_approved', true)
+    .in('target_country', [...compareCodes])
+    .order('created_at', { ascending: false })
+
+  const compareCountryLastmod: Record<string, string> = {}
+  for (const r of (compareReviews ?? []) as { target_country: string; created_at: string }[]) {
+    if (!compareCountryLastmod[r.target_country]) {
+      compareCountryLastmod[r.target_country] = r.created_at.slice(0, 10)
+    }
+  }
+
+  for (const slug of COMPARE_PAIR_SLUGS) {
+    const [a, b] = slug.split('-vs-')
+    if (!isListedDestination(a!) || !isListedDestination(b!)) continue
+    const lastmodA = compareCountryLastmod[a!.toUpperCase()]
+    const lastmodB = compareCountryLastmod[b!.toUpperCase()]
+    const lastmod = lastmodA && lastmodB
+      ? (lastmodA > lastmodB ? lastmodA : lastmodB)
+      : lastmodA ?? lastmodB
+
+    urls.push({ loc: `/compare/${slug}`, changefreq: 'weekly', priority: 0.7, lastmod })
+    urls.push({ loc: `/en/compare/${slug}`, changefreq: 'weekly', priority: 0.7, lastmod })
+    urls.push({ loc: `/ru/compare/${slug}`, changefreq: 'weekly', priority: 0.7, lastmod })
+  }
+
+  // ── 4. UA nationality landings (?nat=UA) — top destinations × 3 locales ─
+  for (const code of UA_NAT_LANDING_COUNTRIES) {
+    if (!isListedDestination(code)) continue
+    const slug = code.toLowerCase()
+    const lastmod = countryLastmod[code]
+    const loc = `/country/${slug}?nat=UA`
+    urls.push({ loc, changefreq: 'weekly', priority: 0.75, lastmod })
+    urls.push({ loc: `/en/country/${slug}?nat=UA`, changefreq: 'weekly', priority: 0.75, lastmod })
+    urls.push({ loc: `/ru/country/${slug}?nat=UA`, changefreq: 'weekly', priority: 0.75, lastmod })
   }
 
   return urls

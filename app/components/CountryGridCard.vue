@@ -96,6 +96,7 @@
 
 <script setup lang="ts">
 import type { CountryStat } from '~/composables/useCountriesList'
+import { getFeaturedCompareSlug } from '~/data/comparePairs'
 import { getCountryImage } from '~/utils/countryImages'
 import { getFlagEmoji } from '~/utils/countries'
 import { getCountryMeta } from '~/utils/countryMeta'
@@ -120,7 +121,10 @@ const flag = computed(() => getFlagEmoji(props.country.code))
 const name = computed(() => getCountryNameLocalized(props.country.code))
 const image = computed(() => getCountryImage(props.country.code))
 const regionLabel = computed(() => t(`countries.filters.regions.${props.country.region}`))
-const compareLink = computed(() => localePath(`/compare?a=${props.country.code.toLowerCase()}`))
+const compareLink = computed(() => {
+  const slug = getFeaturedCompareSlug(props.country.code)
+  return slug ? localePath(`/compare/${slug}`) : localePath('/compare')
+})
 
 function catAvg(key: string): number | null {
   return props.country.categoryStats.find(c => c.category === key)?.avg ?? null

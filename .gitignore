@@ -18,7 +18,23 @@ logs
 .fleet
 .idea
 
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
 # Local env files
 .env
 .env.*
 !.env.example
+
+# DB backup output (scripts/backup-db.mjs)
+backups/
+
+# Daily content queue JSON (scripts/daily-content.mjs); keep folder via .gitkeep
+data/content-queue/*
+!data/content-queue/.gitkeep
+
+# Supabase CLI local cache (linked project refs, pooler URLs)
+supabase/.temp/

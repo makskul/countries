@@ -1,4 +1,5 @@
 import { CATEGORIES } from '~/utils/categories'
+import { isDestinationAllowed } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 
 export interface RawReview {
@@ -277,10 +278,10 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
     return Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 10) / 10
   })
 
-  // Header stats
+  // Header stats — hide when filtered set is empty (avoids "0 / null★" flash)
   const headerStats = computed(() => {
     const r = rows.value
-    if (!r) return null
+    if (!r?.length || overallAvg.value == null) return null
     return {
       total: r.length,
       overallAvg: overallAvg.value,
@@ -305,6 +306,7 @@ export function useCountryPage(slug: Ref<string>, nationality: Ref<string>) {
 
       const grouped: Record<string, number[]> = {}
       for (const row of data as { target_country: string; ratings: Record<string, number> }[]) {
+        if (!isDestinationAllowed(row.target_country)) continue
         if (getRegion(row.target_country) !== myRegion) continue
         if (!grouped[row.target_country]) grouped[row.target_country] = []
         for (const val of Object.values(row.ratings ?? {})) {

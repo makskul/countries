@@ -200,6 +200,40 @@
   text-decoration: none;
 }
 
+.countries-page .popular-compares {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-bottom: 16px;
+  padding: 12px 0;
+}
+.countries-page .popular-compares-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-soft, #5B5876);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.countries-page .popular-compares-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.countries-page .popular-compare-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--purple-600, #6C4CE0);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid var(--line, #EAE7F5);
+  border-radius: 999px;
+  background: #fff;
+}
+.countries-page .popular-compare-link:hover {
+  border-color: var(--purple-600, #6C4CE0);
+}
+
 .countries-page .controls-section {
   padding: 16px 0;
   border-top: 1px solid var(--line);

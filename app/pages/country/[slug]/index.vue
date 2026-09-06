@@ -16,7 +16,7 @@
         <div class="ch-left">
           <span class="ch-flag">{{ flag }}</span>
           <div>
-            <h1 class="ch-title">{{ countryName }}</h1>
+            <h1 class="ch-title">{{ pageH1 }}</h1>
             <div class="ch-meta">
               <span class="ch-region-pill">{{ $t(`countries.filters.regions.${region}`) }}</span>
               <span class="ch-nat-badge" v-if="nationality">
@@ -44,13 +44,21 @@
         </div>
         <div class="ch-pill" v-if="headerStats.lastReviewAt">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          {{ $t('country.header.lastReview', { time: timeAgo(headerStats.lastReviewAt) }) }}
+          {{ $t('country.header.lastReview', { time: timeAgo(headerStats.lastReviewAt, locale) }) }}
         </div>
       </div>
       <div v-else-if="pending" class="ch-pills">
         <Skeleton v-for="i in 3" :key="i" width="140px" height="28px" style="border-radius: 999px" />
       </div>
     </div>
+
+    <!-- Write-first banner when no reviews for selected nationality -->
+    <WriteFirstBanner
+      v-if="showWriteFirstBanner"
+      :country-code="slug"
+      :nationality-code="nationality"
+      :campaign="isCampaignCountry"
+    />
 
     <!-- TABS BAR -->
     <div class="tabs-bar">
@@ -78,8 +86,20 @@
       <!-- MAIN COLUMN -->
       <div class="main-col">
 
+        <CountryHubSection
+          v-if="isHubCountry"
+          :country-code="slug"
+          :country-name="countryName"
+          :article="countryArticle"
+          :header-stats="headerStats"
+          :cat-stats="catStats"
+          :featured-reviews="featuredHubReviews"
+          :pending="pending"
+          :nat-query="landingNat || nationality || ''"
+        />
+
         <ContentArticle
-          v-if="countryArticle"
+          v-else-if="countryArticle"
           :section-label="$t('country.article.aboutCountry')"
           :title="countryArticle.title"
           :excerpt="countryArticle.excerpt"
@@ -87,7 +107,7 @@
         />
 
         <!-- No reviews at all -->
-        <div v-if="!pending && !countryHasAnyReviews" class="empty-state">
+        <div v-if="!pending && !countryHasAnyReviews" class="empty-state empty-state--prominent">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-border)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           <h3 class="empty-h3">{{ $t('country.empty.title') }}</h3>
           <p class="empty-p">{{ $t('country.empty.subtitle', { country: countryName }) }}</p>
@@ -140,6 +160,13 @@
             v-if="natReviewsCount > 0 || showAllOverride || !nationality"
             :stats="catStats"
             :pending="pending"
+          />
+
+          <!-- Lead form when legalization score is low -->
+          <LeadForm
+            v-if="showLeadForm"
+            :country-code="slug"
+            :nationality-code="nationality"
           />
 
           <!-- Cities with reviews block -->
@@ -198,6 +225,7 @@
         :countryCode="slug"
         :nationality="nationality"
         :similar="similarCountries"
+        :write-first-highlight="showWriteFirstBanner"
       />
     </div>
 
@@ -234,15 +262,22 @@
 
 <script setup lang="ts">
 import { APP_NAME, APP_URL } from '~/utils/appConfig'
-import { getFlagEmoji, timeAgo } from '~/utils/countries'
+import { getFlagEmoji, timeAgo, isDestinationAllowed } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCountryPage } from '~/composables/useCountryPage'
+import { isEmptyStateCampaignCountry } from '~/data/emptyStateCampaign'
+import { isContentHubCountry } from '~/data/contentHubCountries'
 
 const route = useRoute()
 const router = useRouter()
 const store = useUserStore()
 const { t, locale } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()
+
+const pageCountryCode = (route.params.slug as string).toUpperCase()
+if (!isDestinationAllowed(pageCountryCode)) {
+  throw createError({ statusCode: 404, statusMessage: 'Country not found' })
+}
 
 function getCityDisplayName(city: any): string {
   if (locale.value === 'uk' && city.name_uk) return city.name_uk
@@ -263,12 +298,7 @@ function getCityAvgRating(city: any): number {
 
 onMounted(() => {
   store.loadFromStorage()
-  // honour ?nat query param
-  const natParam = route.query.nat as string | undefined
-  if (natParam && natParam !== store.nationality) {
-    store.setNationality(natParam)
-  }
-  if (!store.nationality) {
+  if (!store.nationality && !landingNat.value) {
     showNatDialog.value = true
   }
   // Read city from store (set by homepage city card)
@@ -279,8 +309,21 @@ onMounted(() => {
 })
 
 const slug = computed(() => (route.params.slug as string).toUpperCase())
+const landingNat = computed(() => {
+  const q = route.query.nat as string | undefined
+  return q?.trim().toUpperCase() || ''
+})
 const nationality = computed(() => store.nationality)
 const countryName = computed(() => getCountryNameLocalized(slug.value))
+const pageH1 = computed(() => {
+  if (landingNat.value) {
+    return t('seo.countryNat.h1', {
+      country: countryName.value,
+      nationality: t(`nationalities.${landingNat.value}.genitive`),
+    })
+  }
+  return countryName.value
+})
 const flag = computed(() => getFlagEmoji(slug.value))
 const region = computed(() => getRegion(slug.value))
 
@@ -299,7 +342,24 @@ const defaultSeoDescription = computed(() =>
   t('seo.country.description', { nationality: natGenitive.value, country: countryName.value }),
 )
 
+const natLandingSeoTitle = computed(() => {
+  if (!landingNat.value) return ''
+  return t('seo.countryNat.title', {
+    country: countryName.value,
+    nationality: t(`nationalities.${landingNat.value}.genitive`),
+  })
+})
+
+const natLandingSeoDescription = computed(() => {
+  if (!landingNat.value) return ''
+  return t('seo.countryNat.description', {
+    country: countryName.value,
+    nationality: t(`nationalities.${landingNat.value}.genitive`),
+  })
+})
+
 const seoTitle = computed(() => {
+  if (landingNat.value) return natLandingSeoTitle.value
   const row = countryRow.value
   if (!row) return defaultSeoTitle.value
   const custom = locale.value === 'uk'
@@ -311,6 +371,7 @@ const seoTitle = computed(() => {
 })
 
 const seoDescription = computed(() => {
+  if (landingNat.value) return natLandingSeoDescription.value
   const row = countryRow.value
   if (!row) return defaultSeoDescription.value
   const custom = locale.value === 'uk'
@@ -334,6 +395,10 @@ useSeoMeta({
 })
 
 useHead({
+  link: [{
+    rel: 'canonical',
+    href: computed(() => `${APP_URL}/country/${slug.value.toLowerCase()}`),
+  }],
   script: [{
     type: 'application/ld+json',
     innerHTML: computed(() => JSON.stringify({
@@ -363,6 +428,32 @@ const {
   showAllOverride,
   countryHasAnyReviews,
 } = useCountryPage(slug, nationality)
+
+const isHubCountry = computed(() =>
+  isContentHubCountry(slug.value)
+  && (landingNat.value === 'UA' || nationality.value === 'UA'),
+)
+
+const featuredHubReviews = computed(() => (pagedReviews.value ?? []).slice(0, 3))
+
+const showWriteFirstBanner = computed(() =>
+  !!nationality.value
+  && natReviewsCount.value === 0
+  && !showAllOverride.value
+  && !pending.value
+  && countryHasAnyReviews.value
+)
+
+const isCampaignCountry = computed(() =>
+  isEmptyStateCampaignCountry(slug.value, nationality.value)
+)
+
+const showLeadForm = computed(() => {
+  if (pending.value || !nationality.value || showAllOverride.value) return false
+  if (natReviewsCount.value === 0) return false
+  const leg = catStats.value?.find(c => c.category === 'legalization')
+  return leg?.avg != null && leg.avg < 3
+})
 
 const showAllCitiesDialog = ref(false)
 const localePath = useLocalePath()
@@ -476,6 +567,15 @@ function showAllNationalities() {
   text-align: center; padding: 48px 24px;
   background: #fff; border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
+}
+.empty-state--prominent {
+  background: linear-gradient(180deg, #F8F7FC 0%, #fff 100%);
+  border: 1.5px solid #C8BFE8;
+  padding: 56px 32px;
+}
+.empty-state--prominent .empty-btn {
+  padding: 13px 28px;
+  font-size: 14px;
 }
 .empty-h3 { font-size: 16px; font-weight: 600; color: var(--color-text); margin: 0 0 8px; }
 .empty-p { font-size: 14px; color: var(--color-text-secondary); margin: 0 0 20px; }

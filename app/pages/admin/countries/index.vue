@@ -49,6 +49,11 @@ const costLabel: Record<string, string> = {
 
     <div class="admin-card">
       <DataTable :value="filtered" :loading="pending" paginator :rows="20">
+        <template #empty>
+          <div class="admin-empty">
+            <p>{{ search ? 'Ничего не найдено по поиску.' : 'Стран пока нет в базе.' }}</p>
+          </div>
+        </template>
         <Column field="code" header="Код" sortable />
         <Column field="region" header="Регион" sortable />
         <Column header="Уровень цен">
