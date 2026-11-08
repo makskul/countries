@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Write a review — Triplandr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page-1">
+<div class="wr-top">
+<header class="hero-5">
+<a href="index.html" class="hero-6"><span class="hero-7"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>Triplandr</a>
+<nav aria-label="Main" class="hero-8">
+<a href="#" class="hero-10">Countries</a>
+<a href="#" class="hero-10">Categories</a>
+<a href="#" class="hero-10">Compare</a>
+<a href="#" class="hero-10">About</a>
+</nav>
+<div class="hero-11">
+<div role="group" aria-label="Language" class="hero-12"><a href="#" class="hero-13">UA</a><a href="#" class="hero-14">EN</a><a href="#" class="hero-13">RU</a></div>
+<a href="#" class="hero-15">Sign in</a>
+</div>
+</header>
+
+<main class="wr-wrap">
+<a href="index.html" class="wr-back">← Back to home</a>
+<h1 class="wr-h1">Write a <span class="hero-22">review</span></h1>
+<p class="wr-sub">Your experience can help others who are planning a move. Honest, first-hand stories only.</p>
+
+<form id="reviewForm" class="wr-form" novalidate>
+<div class="wr-row">
+<div class="wr-field">
+<label class="wr-label" for="nat">I am from</label>
+<select id="nat" class="wr-select" required>
+<option value="">Your nationality</option><option>Ukraine</option>
+</select>
+</div>
+<div class="wr-field">
+<label class="wr-label" for="country">I lived in</label>
+<select id="country" class="wr-select" required>
+<option value="">Choose a country…</option>
+<option>Austria</option><option>Bulgaria</option><option>Czechia</option><option>Denmark</option><option>Hungary</option><option>Moldova</option><option>Poland</option><option>Romania</option><option>Slovakia</option>
+</select>
+</div>
+</div>
+
+<div class="wr-field">
+<span class="wr-label" id="starsLabel">Overall rating</span>
+<div class="wr-stars" role="radiogroup" aria-labelledby="starsLabel" id="stars"></div>
+<span class="wr-err" id="starsErr" role="alert"></span>
+</div>
+
+<div class="wr-field">
+<span class="wr-label">Rate by topic <span style="text-transform:none;letter-spacing:0">(optional)</span></span>
+<div class="wr-cats">
+<div class="wr-cat"><strong>Legalization</strong><select class="wr-select" data-cat="legalization" aria-label="Legalization rating"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+<div class="wr-cat"><strong>Cost of living</strong><select class="wr-select" data-cat="cost" aria-label="Cost of living rating"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+<div class="wr-cat"><strong>Safety</strong><select class="wr-select" data-cat="safety" aria-label="Safety rating"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+<div class="wr-cat"><strong>Weather</strong><select class="wr-select" data-cat="weather" aria-label="Weather rating"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+</div>
+</div>
+
+<div class="wr-row">
+<div class="wr-field">
+<label class="wr-label" for="when">How long ago did you live there?</label>
+<select id="when" class="wr-select"><option>Currently living there</option><option>Less than a year ago</option><option>1–3 years ago</option><option>More than 3 years ago</option></select>
+</div>
+<div class="wr-field">
+<label class="wr-label" for="lang">Review language</label>
+<select id="lang" class="wr-select"><option value="ua">Українська</option><option value="en">English</option><option value="ru">Русский</option></select>
+</div>
+</div>
+
+<div class="wr-field">
+<label class="wr-label" for="text">Your story</label>
+<textarea id="text" class="wr-textarea" maxlength="2000" placeholder="Which cities, paperwork, prices, people… what would you tell a friend?" required></textarea>
+<div class="wr-hint"><span id="count">0</span> / 2000 · minimum 40 characters</div>
+<span class="wr-err" id="textErr" role="alert"></span>
+</div>
+
+<div class="wr-ok" id="ok" role="status">Thank you! Your review was received and will appear after a quick check.</div>
+
+<div class="wr-actions">
+<span class="wr-hint">No paid reviews. No marketing. Reviews are moderated.</span>
+<button type="submit" class="wr-submit" id="submit">Publish review →</button>
+</div>
+</form>
+</main>
+</div>
+<div class="wr-foot">© Triplandr</div>
+</div>
+
+<script>
+(function(){
+  var stars=document.getElementById('stars'), rating=0;
+  for(var i=1;i<=5;i++){
+    var id='st'+i;
+    stars.insertAdjacentHTML('beforeend','<input type="radio" name="rating" id="'+id+'" value="'+i+'"><label for="'+id+'" data-v="'+i+'" title="'+i+' star'+(i>1?'s':'')+'" aria-label="'+i+' star'+(i>1?'s':'')+'">★</label>');
+  }
+  function paint(n){[].forEach.call(stars.querySelectorAll('label'),function(l){l.classList.toggle('on',+l.dataset.v<=n)})}
+  stars.addEventListener('change',function(e){rating=+e.target.value;paint(rating);starsErr.textContent=''});
+  stars.addEventListener('mouseover',function(e){if(e.target.dataset.v)paint(+e.target.dataset.v)});
+  stars.addEventListener('mouseleave',function(){paint(rating)});
+
+  var text=document.getElementById('text'), count=document.getElementById('count');
+  text.addEventListener('input',function(){count.textContent=text.value.length;textErr.textContent=''});
+
+  var form=document.getElementById('reviewForm');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true;
+    if(!rating){starsErr.textContent='Please choose an overall rating.';ok=false}
+    if(text.value.trim().length<40){textErr.textContent='Please write at least 40 characters.';ok=false}
+    var nat=document.getElementById('nat'), c=document.getElementById('country');
+    if(!nat.value){nat.focus();ok=false}else if(!c.value){c.focus();ok=false}
+    if(!ok)return;
+    // Demo only: no backend yet. Replace with a fetch() to your API.
+    var data={nationality:nat.value,country:c.value,rating:rating,text:text.value.trim(),
+      lang:document.getElementById('lang').value,when:document.getElementById('when').value,categories:{}};
+    [].forEach.call(document.querySelectorAll('[data-cat]'),function(s){if(s.value)data.categories[s.dataset.cat]=+s.value});
+    console.log('review',data);
+    document.getElementById('ok').classList.add('show');
+    document.getElementById('submit').disabled=true;
+    document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'});
+  });
+})();
+</script>
+</body>
+</html>
