@@ -1,5 +1,6 @@
 export default {
   links: {
+    blog: 'Блог',
     countries: 'Країни',
     categories: 'Категорії',
     about: 'Про проект',

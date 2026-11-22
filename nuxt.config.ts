@@ -110,6 +110,12 @@ export default defineNuxtConfig({
     '/country/**': { swr: 300 },
     '/en/country/**': { swr: 300 },
     '/ru/country/**': { swr: 300 },
+    '/blog': { swr: 300 },
+    '/en/blog': { swr: 300 },
+    '/ru/blog': { swr: 300 },
+    '/blog/**': { swr: 300 },
+    '/en/blog/**': { swr: 300 },
+    '/ru/blog/**': { swr: 300 },
   },
   supabase: {
     redirect: false,

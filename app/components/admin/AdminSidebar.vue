@@ -21,6 +21,9 @@ const isEditor = computed(() => {
       <NuxtLink to="/admin/cities" class="admin-nav-link">
         <i class="pi pi-map-marker" /> Города
       </NuxtLink>
+      <NuxtLink to="/admin/posts" class="admin-nav-link">
+        <i class="pi pi-book" /> Блог
+      </NuxtLink>
     </template>
 
     <div class="admin-nav-group">Модерация</div>
