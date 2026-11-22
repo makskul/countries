@@ -96,6 +96,21 @@ export default defineNuxtConfig({
       '/api/sitemap-urls',
     ],
   },
+  // Serve CSS as separate cacheable files instead of inlining ~450 KB into every HTML response.
+  features: {
+    inlineStyles: false,
+  },
+  // Public pages: cache the SSR result at the edge (stale-while-revalidate, 5 min) so
+  // most visits skip the Supabase queries. Admin, account and API stay uncached.
+  routeRules: {
+    '/': { swr: 300 },
+    '/en': { swr: 300 },
+    '/ru': { swr: 300 },
+    '/countries': { swr: 300 },
+    '/country/**': { swr: 300 },
+    '/en/country/**': { swr: 300 },
+    '/ru/country/**': { swr: 300 },
+  },
   supabase: {
     redirect: false,
     redirectOptions: {
