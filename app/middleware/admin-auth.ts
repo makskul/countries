@@ -27,9 +27,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return
   }
 
-  const client = useSupabaseClient()
-  const { data: { session } } = await client.auth.getSession()
-  if (!session) {
+  // Use the same source as the login branch above (useSupabaseUser, which is
+  // populated from cookies on the server too). client.auth.getSession() is empty
+  // during SSR, which made /admin -> /admin/login -> /admin loop forever on a
+  // hard page load for a signed-in user (ERR_TOO_MANY_REDIRECTS).
+  const user = useSupabaseUser()
+  if (!user.value) {
     return navigateTo('/admin/login')
   }
 })
