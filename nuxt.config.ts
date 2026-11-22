@@ -100,22 +100,23 @@ export default defineNuxtConfig({
   features: {
     inlineStyles: false,
   },
-  // Public pages: cache the SSR result at the edge (stale-while-revalidate, 5 min) so
-  // most visits skip the Supabase queries. Admin, account and API stay uncached.
+  // Public pages: ISR on Vercel, regenerated at most every 5 min, so most visits skip the
+  // Supabase queries. (`swr: 300` was NOT expiring on Vercel: pages stayed cached for hours.)
+  // Admin, account and API stay uncached.
   routeRules: {
-    '/': { swr: 300 },
-    '/en': { swr: 300 },
-    '/ru': { swr: 300 },
-    '/countries': { swr: 300 },
-    '/country/**': { swr: 300 },
-    '/en/country/**': { swr: 300 },
-    '/ru/country/**': { swr: 300 },
-    '/blog': { swr: 300 },
-    '/en/blog': { swr: 300 },
-    '/ru/blog': { swr: 300 },
-    '/blog/**': { swr: 300 },
-    '/en/blog/**': { swr: 300 },
-    '/ru/blog/**': { swr: 300 },
+    '/': { isr: 300 },
+    '/en': { isr: 300 },
+    '/ru': { isr: 300 },
+    '/countries': { isr: 300 },
+    '/country/**': { isr: 300 },
+    '/en/country/**': { isr: 300 },
+    '/ru/country/**': { isr: 300 },
+    '/blog': { isr: 300 },
+    '/en/blog': { isr: 300 },
+    '/ru/blog': { isr: 300 },
+    '/blog/**': { isr: 300 },
+    '/en/blog/**': { isr: 300 },
+    '/ru/blog/**': { isr: 300 },
   },
   supabase: {
     redirect: false,
