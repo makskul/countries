@@ -44,6 +44,24 @@ export default defineEventHandler(async () => {
     urls.push({ loc: `/ru/country/${slug}`, changefreq: 'daily', priority: 0.8, lastmod })
   }
 
+  // ── 1b. Blog — index + published posts ──────────────────────────────────
+  urls.push({ loc: '/blog',    changefreq: 'weekly', priority: 0.7 })
+  urls.push({ loc: '/en/blog', changefreq: 'weekly', priority: 0.7 })
+  urls.push({ loc: '/ru/blog', changefreq: 'weekly', priority: 0.7 })
+
+  const { data: blogPosts } = await supabase
+    .from('blog_posts')
+    .select('slug, published_at, updated_at')
+    .eq('status', 'published')
+    .order('published_at', { ascending: false })
+
+  for (const post of (blogPosts ?? []) as { slug: string; published_at: string | null; updated_at: string }[]) {
+    const lastmod = (post.updated_at ?? post.published_at ?? '').slice(0, 10) || undefined
+    urls.push({ loc: `/blog/${post.slug}`,    changefreq: 'monthly', priority: 0.6, lastmod })
+    urls.push({ loc: `/en/blog/${post.slug}`, changefreq: 'monthly', priority: 0.6, lastmod })
+    urls.push({ loc: `/ru/blog/${post.slug}`, changefreq: 'monthly', priority: 0.6, lastmod })
+  }
+
   // ── 2. City pages — lastmod = date of latest review per city ────────────
   const { data: cityReviews } = await supabase
     .from('reviews')

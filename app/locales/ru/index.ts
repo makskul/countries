@@ -12,6 +12,7 @@ import seo from './seo'
 import pages from './pages'
 import partners from './partners'
 import auth from './auth'
+import blog from './blog'
 
 export default {
   common,
@@ -28,4 +29,5 @@ export default {
   compare,
   partners,
   auth,
+  blog,
 }
