@@ -6,10 +6,11 @@ export default defineEventHandler(async (event) => {
   const body = await readBody<Record<string, unknown>>(event)
   const fields = pickPostFields(body ?? {}, { partial: true })
 
-  // Publishing without a date → publish now
-  if (fields.status === 'published' && fields.published_at === undefined) {
+  // Published without a date (field omitted or cleared in the form) → keep the existing
+  // date, otherwise publish now. The admin form always sends published_at (null when empty).
+  if (fields.status === 'published' && !fields.published_at) {
     const { data: current } = await supabaseAdmin.from('blog_posts').select('published_at').eq('id', id).maybeSingle()
-    if (!current?.published_at) fields.published_at = new Date().toISOString()
+    fields.published_at = current?.published_at ?? new Date().toISOString()
   }
 
   const updates = { ...fields, updated_at: new Date().toISOString() }
