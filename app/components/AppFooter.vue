@@ -119,7 +119,7 @@
         <NuxtLinkLocale to="/privacy" class="fbar-link">{{ $t('footer.links.cookies') }}</NuxtLinkLocale>
       </div>
 
-      <div class="fbar-social">
+      <div v-if="showSocial" class="fbar-social">
         <!-- Telegram -->
         <a :href="APP_SOCIAL.telegram" target="_blank" rel="noopener" class="fsoc-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -154,6 +154,9 @@ import { getFlagEmoji } from '~/utils/countries'
 import { APP_NAME, APP_SOCIAL } from '~/utils/appConfig'
 import { useFooterData } from '~/composables/useFooterData'
 import { buildSubscribeSource, captureSubscribeUtm } from '~/utils/subscribeSource'
+
+// Social links are hidden for now; set to true once the channels are active.
+const showSocial = false
 
 const { t } = useI18n()
 const { getCountryNameLocalized } = useLocalizedCountries()

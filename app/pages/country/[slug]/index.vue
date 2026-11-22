@@ -12,6 +12,9 @@
 
     <!-- COUNTRY HEADER -->
     <div class="country-header">
+      <div v-if="heroImageUrl" class="ch-hero">
+        <img :src="heroImageUrl" :alt="countryName" class="ch-hero-img" fetchpriority="high" decoding="async">
+      </div>
       <div class="ch-body">
         <div class="ch-left">
           <span class="ch-flag">{{ flag }}</span>
@@ -383,12 +386,14 @@ const seoDescription = computed(() => {
     || defaultSeoDescription.value
 })
 
+const heroImageUrl = computed(() => (countryRow.value?.hero_image_url ?? '').trim() || null)
+
 useSeoMeta({
   title: () => seoTitle.value,
   description: () => seoDescription.value,
   ogTitle: () => seoTitle.value,
   ogDescription: () => seoDescription.value,
-  ogImage: APP_URL + '/og/home.png',
+  ogImage: () => heroImageUrl.value || APP_URL + '/og/home.png',
   ogUrl: () => `${APP_URL}/country/${slug.value.toLowerCase()}`,
   ogType: 'website',
   twitterCard: 'summary_large_image',
@@ -495,6 +500,9 @@ function showAllNationalities() {
   border-bottom: 1px solid var(--color-border);
   padding: 20px 24px;
 }
+.ch-hero { margin: -20px -24px 16px; height: 220px; overflow: hidden; background: var(--color-bg-tertiary); }
+.ch-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 600px) { .ch-hero { margin: -20px -24px 14px; height: 150px; } }
 .ch-body { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
 .ch-left { display: flex; align-items: flex-start; gap: 14px; }
 .ch-flag { font-size: 44px; line-height: 1; flex-shrink: 0; }

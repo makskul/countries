@@ -28,6 +28,10 @@ export default {
     message: 'Be the first to share your experience — it helps others choosing where to move.',
     cta:     'Write a review',
   },
+  latestReviews: {
+    prev: 'Previous reviews',
+    next: 'Next reviews',
+  },
   featured: {
     title:    'Popular comparisons',
     subtitle: 'Curated pairs expats compare most often',

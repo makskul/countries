@@ -7,6 +7,7 @@
         <h3>{{ $t('pages.contact.email') }}</h3>
         <p><a :href="`mailto:${$t('pages.contact.address')}`" style="color: var(--color-primary)">{{ $t('pages.contact.address') }}</a></p>
       </div>
+      <!-- Social links hidden for now (only email is monitored). Restore when channels are active:
       <div class="static-section">
         <h3>{{ $t('pages.contact.social') }}</h3>
         <p>
@@ -15,6 +16,7 @@
           <a href="https://instagram.com/triplandr" target="_blank" style="color: var(--color-primary)">Instagram</a>
         </p>
       </div>
+      -->
     </div>
   </div>
 </template>

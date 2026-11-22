@@ -142,6 +142,8 @@
             </NuxtLinkLocale>
           </div>
         </div>
+
+        <CompareReviewsCarousel />
       </div>
 
       <template v-else>

@@ -50,7 +50,7 @@ export default {
     title: 'Contact us',
     lead: 'Have questions or suggestions? We\'d love to hear from you.',
     email: 'Write to us:',
-    address: 'hello{\'@\'}triplandr.com',
+    address: 'azwart111{\'@\'}gmail.com',
     social: 'Or find us on social media:',
   },
   reviews: {

@@ -50,7 +50,7 @@ export default {
     title: 'Зв\'язатися з нами',
     lead: 'Є питання або пропозиції? Ми раді почути.',
     email: 'Напишіть нам:',
-    address: 'hello{\'@\'}triplandr.com',
+    address: 'azwart111{\'@\'}gmail.com',
     social: 'Або знайдіть нас у соцмережах:',
   },
   reviews: {
