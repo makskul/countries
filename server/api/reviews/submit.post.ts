@@ -66,7 +66,12 @@ export default defineEventHandler(async (event) => {
   }
 
   if (user) {
-    insertPayload.user_id = user.id
+    // Ensure a profile row exists (users created before migration 019 have none),
+    // otherwise reviews_user_id_fkey rejects the insert.
+    const { error: profileError } = await supabaseAdmin
+      .from('profiles')
+      .upsert({ id: user.id }, { onConflict: 'id', ignoreDuplicates: true })
+    if (!profileError) insertPayload.user_id = user.id
     // Seed profile nationality from first review if not set yet
     await supabaseAdmin
       .from('profiles')
