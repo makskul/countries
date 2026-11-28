@@ -42,6 +42,9 @@ const isEditor = computed(() => {
       <NuxtLink to="/admin/newsletter" class="admin-nav-link">
         <i class="pi pi-envelope" /> Рассылка
       </NuxtLink>
+      <NuxtLink to="/admin/partners" class="admin-nav-link">
+        <i class="pi pi-link" /> Партнёрки
+      </NuxtLink>
     </template>
   </nav>
 </template>
