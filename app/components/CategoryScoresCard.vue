@@ -1,6 +1,6 @@
 <template>
   <div class="csc-card">
-    <span class="csc-title">{{ $t('country.scores.title') }}</span>
+    <h2 class="csc-title">{{ $t('country.scores.title') }}</h2>
 
     <div v-if="pending" class="csc-list">
       <div v-for="i in 4" :key="i" class="csc-row">
@@ -51,7 +51,7 @@ function barCss(color: string): string {
 
 <style scoped>
 .csc-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 14px; }
-.csc-title { font-size: 13px; font-weight: 600; color: var(--color-text); display: block; margin-bottom: 14px; }
+.csc-title { font-size: 13px; font-weight: 600; color: var(--color-text); display: block; margin: 0 0 14px; line-height: inherit; }
 .csc-empty { font-size: 12px; color: var(--color-text-muted); }
 .csc-list { display: flex; flex-direction: column; gap: 10px; }
 .csc-row { display: flex; align-items: center; gap: 8px; }

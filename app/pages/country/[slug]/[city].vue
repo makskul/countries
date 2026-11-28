@@ -198,6 +198,7 @@ import { getFlagEmoji, isDestinationAllowed } from '~/utils/countries'
 import { getRegion } from '~/utils/regions'
 import { useCityPage } from '~/composables/useCityPage'
 import { isEmptyStateCampaignCountry } from '~/data/emptyStateCampaign'
+import { MIN_INDEXABLE_CITY_REVIEWS } from '~/utils/seoThresholds'
 
 const route = useRoute()
 const store = useUserStore()
@@ -300,6 +301,26 @@ useSeoMeta({
 const showNatDialog = ref(false)
 const showAllCitiesDialog = ref(false)
 const localePath = useLocalePath()
+
+// Self-referencing, locale-aware canonical (each language version points to itself).
+useHead({
+  link: [{
+    rel: 'canonical',
+    href: computed(() => `${APP_URL}${localePath(`/country/${slug.value.toLowerCase()}/${citySlug.value}`)}`),
+  }],
+})
+
+// Thin city pages (too few reviews) are kept out of the index; links are still followed.
+// Only judged for visitors without a nationality filter (crawlers), where the count is the full total.
+const isThinCity = computed(() =>
+  !pending.value
+  && !nationality.value
+  && !showAllOverride.value
+  && totalReviews.value < MIN_INDEXABLE_CITY_REVIEWS,
+)
+useSeoMeta({
+  robots: () => (isThinCity.value ? 'noindex, follow' : 'index, follow'),
+})
 const supabase = useSupabaseClient()
 
 // Cities with reviews for tabs — respects showAllOverride from store
