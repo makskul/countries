@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import { COMPARE_PAIR_SLUGS } from '../../app/data/comparePairs'
 import { UA_NAT_LANDING_COUNTRIES } from '../../app/data/natLandingCountries'
 import { isDestinationAllowed } from '../../app/utils/countries'
+import { MIN_INDEXABLE_CITY_REVIEWS } from '../../app/utils/seoThresholds'
 
 // Called by @nuxtjs/sitemap at build time and on-demand
 // Returns SitemapUrl[] for all country + city pages across 3 locales
@@ -71,13 +72,17 @@ export default defineEventHandler(async () => {
     .order('created_at', { ascending: false })
 
   const cityLastmod: Record<number, string> = {}
+  const cityReviewCount: Record<number, number> = {}
   for (const r of (cityReviews ?? []) as { city_id: number; created_at: string }[]) {
+    cityReviewCount[r.city_id] = (cityReviewCount[r.city_id] ?? 0) + 1
     if (!cityLastmod[r.city_id]) {
       cityLastmod[r.city_id] = r.created_at.slice(0, 10)
     }
   }
 
+  // Thin cities (few reviews) stay out of the sitemap; their pages are noindex too.
   const uniqueCityIds = Object.keys(cityLastmod).map(Number)
+    .filter(id => (cityReviewCount[id] ?? 0) >= MIN_INDEXABLE_CITY_REVIEWS)
 
   if (uniqueCityIds.length > 0) {
     const { data: cities } = await supabase

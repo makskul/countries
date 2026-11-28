@@ -194,6 +194,18 @@ const router = useRouter()
 const route = useRoute()
 const localePath = useLocalePath()
 
+// Filtered/sorted views (?category=, ?region=, …) are duplicates of the main list:
+// canonical points to the clean list URL and filtered URLs are kept out of the index.
+const hasFilterParams = computed(() =>
+  ['search', 'region', 'category', 'sort', 'favorites'].some(k => route.query[k] != null && route.query[k] !== ''),
+)
+useHead({
+  link: [{ rel: 'canonical', href: computed(() => `${APP_URL}${localePath('/countries')}`) }],
+})
+useSeoMeta({
+  robots: () => (hasFilterParams.value ? 'noindex, follow' : 'index, follow'),
+})
+
 onMounted(() => store.loadFromStorage())
 
 const nationality = ref(store.nationality)
