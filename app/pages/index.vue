@@ -3,14 +3,17 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-visual-bg">
-        <img
-          class="bg-img"
-          src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=70&w=1400&auto=format&fit=crop"
-          alt=""
-          loading="lazy"
-          fetchpriority="high"
-          decoding="async"
-        >
+        <!-- Desktop hero: on small screens the 1px source wins, so nothing is downloaded there -->
+        <picture>
+          <source media="(max-width: 1100px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          <img
+            class="bg-img"
+            src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=70&w=1400&auto=format&fit=crop"
+            alt=""
+            fetchpriority="high"
+            decoding="async"
+          >
+        </picture>
       </div>
 
       <div class="hero-floats">
@@ -54,14 +57,17 @@
           <div class="hero-mobile-banner">
             <div class="hero-mobile-bg" aria-hidden="true">
               <HomeHeroMapOverlay class="hero-map-layer" />
-              <img
-                class="hero-mobile-img"
-                src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=70&w=900&auto=format&fit=crop"
-                alt=""
-                loading="lazy"
-                fetchpriority="high"
-                decoding="async"
-              >
+              <!-- Mobile hero (LCP on phones): eager + high priority; skipped on desktop -->
+              <picture>
+                <source media="(min-width: 1101px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+                <img
+                  class="hero-mobile-img"
+                  src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=60&w=700&auto=format&fit=crop"
+                  alt=""
+                  fetchpriority="high"
+                  decoding="async"
+                >
+              </picture>
             </div>
 
             <div class="hero-mobile-inner">
@@ -204,7 +210,7 @@
           <NuxtLinkLocale to="/review/new" class="panel promo-panel">
             <img
               class="promo-panel-img"
-              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=70&w=700&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=60&w=600&auto=format&fit=crop"
               alt=""
               loading="lazy"
               decoding="async"

@@ -1437,3 +1437,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* <picture> wrappers around hero images must not affect layout */
+.home-page .hero-visual-bg picture,
+.home-page .hero-mobile-bg picture {
+  display: contents;
+}

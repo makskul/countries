@@ -5,6 +5,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   app: {
     head: {
+      link: [
+        // Hero images come from Unsplash: open the connection early to shave time off LCP.
+        { rel: 'preconnect', href: 'https://images.unsplash.com', crossorigin: '' },
+      ],
       script: [
         {
           // Travelpayouts (Emerald/LinkSwitcher): load on first interaction, or ~4s after page load,
@@ -97,10 +101,6 @@ export default defineNuxtConfig({
     sources: [
       '/api/sitemap-urls',
     ],
-  },
-  // Serve CSS as separate cacheable files instead of inlining ~450 KB into every HTML response.
-  features: {
-    inlineStyles: false,
   },
   // Public pages: ISR on Vercel, regenerated at most every 5 min, so most visits skip the
   // Supabase queries. (`swr: 300` was NOT expiring on Vercel: pages stayed cached for hours.)
