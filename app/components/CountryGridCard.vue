@@ -5,7 +5,7 @@
     @click="$emit('click')"
   >
     <div class="gc-img">
-      <img :src="image" :alt="name">
+      <img :src="image" :alt="name" loading="lazy" decoding="async">
       <div class="gc-img-shade" aria-hidden="true" />
 
       <button
