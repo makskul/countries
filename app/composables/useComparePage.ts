@@ -281,17 +281,6 @@ export function useComparePage(options: UseComparePageOptions = {}) {
     ogType: 'website',
   })
 
-  useHead({
-    link: [{
-      rel: 'canonical',
-      href: computed(() => {
-        if (!countryA.value || !countryB.value) return `${APP_URL}${localePath('/compare')}`
-        const slug = toCompareSlug(countryA.value, countryB.value)
-        return `${APP_URL}${localePath(`/compare/${slug}`)}`
-      }),
-    }],
-  })
-
   const firstReviewCountry = computed(() => countryA.value || countryB.value)
 
   return {
