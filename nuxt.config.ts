@@ -7,7 +7,9 @@ export default defineNuxtConfig({
     head: {
       script: [
         {
-          innerHTML: `(function(){var s=document.createElement("script");s.async=1;s.src='https://emrld.ltd/NTQ1NzIx.js?t=545721';document.head.appendChild(s);})();`,
+          // Travelpayouts (Emerald/LinkSwitcher): load on first interaction, or ~4s after page load,
+          // so its ~60 requests do not compete with the page itself.
+          innerHTML: `(function(){var d=0;function l(){if(d)return;d=1;var s=document.createElement("script");s.async=1;s.src='https://emrld.ltd/NTQ1NzIx.js?t=545721';document.head.appendChild(s);}['scroll','mousemove','pointerdown','touchstart','keydown'].forEach(function(n){addEventListener(n,l,{once:true,passive:true});});addEventListener('load',function(){setTimeout(l,4000);});})();`,
           'data-noptimize': '1',
           'data-cfasync': 'false',
         },

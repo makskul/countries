@@ -5,8 +5,11 @@
       <div class="hero-visual-bg">
         <img
           class="bg-img"
-          src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=1600&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=70&w=1400&auto=format&fit=crop"
           alt=""
+          loading="lazy"
+          fetchpriority="high"
+          decoding="async"
         >
       </div>
 
@@ -53,8 +56,11 @@
               <HomeHeroMapOverlay class="hero-map-layer" />
               <img
                 class="hero-mobile-img"
-                src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=1200&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=70&w=900&auto=format&fit=crop"
                 alt=""
+                loading="lazy"
+                fetchpriority="high"
+                decoding="async"
               >
             </div>
 
@@ -159,7 +165,7 @@
             class="country-card"
           >
             <div class="cc-img">
-              <img :src="getCountryImage(item.code)" :alt="getCountryNameLocalized(item.code)">
+              <img :src="getCountryImage(item.code)" :alt="getCountryNameLocalized(item.code)" width="400" height="160" loading="lazy" decoding="async">
               <div class="cc-img-overlay">
                 <div class="cc-title">
                   <span class="cc-title-flag">{{ getFlagEmoji(item.code) }}</span>
@@ -198,8 +204,10 @@
           <NuxtLinkLocale to="/review/new" class="panel promo-panel">
             <img
               class="promo-panel-img"
-              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=900&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=70&w=700&auto=format&fit=crop"
               alt=""
+              loading="lazy"
+              decoding="async"
             >
             <div class="promo-panel-overlay">
               <div class="promo-panel-badge">Triplandr</div>
